@@ -4,6 +4,25 @@ val logback_version: String by project
 
 val exposed_version: String by project
 val h2_version: String by project
+
+val npmInstall = tasks.register("npmInstall", Exec::class) {
+    workingDir("my-app")
+    commandLine("npm", "install")
+}
+
+val npmRunBuild = tasks.register("npmRunBuild", Exec::class) {
+    workingDir("my-app")
+    commandLine("npm", "run", "build")
+}
+
+npmRunBuild.configure {
+    dependsOn(npmInstall)
+}
+tasks.named("processResources") {
+    dependsOn(npmRunBuild)
+}
+
+
 plugins {
     kotlin("jvm") version "1.9.20"
     id("io.ktor.plugin") version "2.3.5"
@@ -29,6 +48,8 @@ ktor {
 repositories {
     mavenCentral()
 }
+
+
 
 dependencies {
     implementation("io.ktor:ktor-server-core-jvm")
