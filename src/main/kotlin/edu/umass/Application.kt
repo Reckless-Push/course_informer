@@ -1,5 +1,6 @@
 package edu.umass
 
+import edu.umass.dao.DatabaseFactory
 import edu.umass.plugins.configureHTTP
 import edu.umass.plugins.configureRouting
 import edu.umass.plugins.configureSerialization
@@ -17,5 +18,5 @@ fun Application.module() {
     configureSerialization()
     configureRouting()
     configureHTTP()
-
+    DatabaseFactory.init()
 }
