@@ -1,5 +1,6 @@
 package edu.umass.plugins
 
+import edu.umass.dao.dao
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.http.content.*
@@ -16,6 +17,9 @@ fun Application.configureRouting() {
     routing {
         singlePageApplication {
             react("my-app/out")
+        }
+        get("/test") {
+            call.respond(mapOf("review_table" to dao.allReviews()))
         }
     }
 }
