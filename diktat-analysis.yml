@@ -1,0 +1,34 @@
+# Common configuration
+- name: DIKTAT_COMMON
+  configuration:
+    testDirs: test
+    # expected values:  disabledChapters: "Naming, Comments, General, Variables, Functions, Classes"
+    # or: "1, 2, 3, 4, 5, 6"
+    disabledChapters: ""
+    kotlinVersion: 1.9.20
+    srcDirectories: "src/main/kotlin"
+# Checks that functions/methods which return boolean have special prefix like "is/should/e.t.c"
+- name: FUNCTION_BOOLEAN_PREFIX
+  enabled: true
+  configuration:
+    allowedPrefixes: "edit, delete" # A list of functions that return boolean and are allowed to use. Input is in a form "foo, bar".
+# Checks trailing comma
+- name: TRAILING_COMMA
+  enabled: true
+  configuration:
+    # VALUE_ARGUMENT
+    valueArgument: false
+    # VALUE_PARAMETER
+    valueParameter: false
+    # REFERENCE_EXPRESSION
+    indices: false
+    # WHEN_CONDITION_WITH_EXPRESSION
+    whenConditions: false
+    # STRING_TEMPLATE
+    collectionLiteral: false
+    # TYPE_PROJECTION
+    typeArgument: false
+    # TYPE_PARAMETER
+    typeParameter: false
+    # DESTRUCTURING_DECLARATION_ENTRY
+    destructuringDeclaration: false

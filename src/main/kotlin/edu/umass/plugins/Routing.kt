@@ -1,12 +1,24 @@
+/**
+ * Configures routing and error handling for the Ktor application.
+ *
+ * @file Routing.kt
+ * @version 0.1
+ */
+
 package edu.umass.plugins
 
 import edu.umass.dao.dao
-import io.ktor.http.*
-import io.ktor.server.application.*
-import io.ktor.server.http.content.*
-import io.ktor.server.plugins.statuspages.*
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
+import io.ktor.http.HttpStatusCode
+import io.ktor.server.application.Application
+import io.ktor.server.application.call
+import io.ktor.server.application.install
+import io.ktor.server.http.content.react
+import io.ktor.server.http.content.singlePageApplication
+import io.ktor.server.plugins.statuspages.StatusPages
+import io.ktor.server.response.respond
+import io.ktor.server.response.respondText
+import io.ktor.server.routing.get
+import io.ktor.server.routing.routing
 
 /**
  * Configures routing and error handling for the Ktor application.
@@ -26,7 +38,8 @@ fun Application.configureRouting() {
     routing {
         // Serve a React single-page application from the specified path.
         singlePageApplication {
-            react("my-app/out")
+            useResources = true
+            react("static")
         }
         // Define a GET endpoint to retrieve all reviews from the database.
         get("/test") {

@@ -2,7 +2,7 @@
 
 ### Installation Instructions:
 
-1. Install Java 17 (Amazon Corretto 17 is recommended)
-2. Install the latest Node.js LTS release
-3. Clone the repository
-4. Run `./gradlew runFatJar` to build start the server
+1. Install Docker: https://docs.docker.com/get-docker/
+2. Clone the repository
+3. Run `docker build -t course-informer .` to build the server
+4. Run `docker run -p 8080:8080 course-informer` to run the server
