@@ -12,7 +12,6 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
 import io.ktor.server.application.call
 import io.ktor.server.application.install
-import io.ktor.server.http.content.react
 import io.ktor.server.http.content.singlePageApplication
 import io.ktor.server.plugins.statuspages.StatusPages
 import io.ktor.server.response.respond
@@ -39,7 +38,8 @@ fun Application.configureRouting() {
         // Serve a React single-page application from the specified path.
         singlePageApplication {
             useResources = true
-            react("static")
+            defaultPage = "index.html" // Default file to serve
+            filesPath = "static" // Folder containing the static files
         }
         // Define a GET endpoint to retrieve all reviews from the database.
         get("/test") {

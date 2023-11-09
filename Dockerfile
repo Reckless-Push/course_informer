@@ -3,7 +3,7 @@ FROM node:latest as react-build
 WORKDIR /app
 COPY my-app/package.json my-app/package-lock.json ./
 RUN npm install
-COPY my-app/ ./
+COPY my-app/. ./
 RUN npm run build
 
 # Stage 2: Build the Ktor app
@@ -15,9 +15,9 @@ RUN yum update -y && \
 ENV JAVA_HOME=/usr/lib/jvm/java-17-amazon-corretto
 ENV PATH="$JAVA_HOME/bin:${PATH}"
 WORKDIR /build
-COPY . /build/
+COPY . ./
 # Copy the React app build from the previous stage
-COPY --from=react-build /app/out/. /build/course-informer/src/main/resources/static
+COPY --from=react-build /app/out/. src/main/resources/static/.
 RUN ./gradlew build && ./gradlew buildFatJar
 
 # Stage 3: Create the final image to run the server
