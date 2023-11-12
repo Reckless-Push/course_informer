@@ -7,8 +7,19 @@ import edu.umass.plugins.configureHttp
 import edu.umass.plugins.configureRouting
 import edu.umass.plugins.configureSerialization
 import io.ktor.server.application.Application
+import io.ktor.server.engine.applicationEngineEnvironment
+import io.ktor.server.engine.connector
 import io.ktor.server.engine.embeddedServer
+import io.ktor.server.engine.sslConnector
 import io.ktor.server.netty.Netty
+import org.slf4j.LoggerFactory
+
+import java.io.FileNotFoundException
+import java.io.InputStream
+import java.security.KeyStore
+
+const val DEFAULT_KTOR_PORT = 8080
+const val DEFAULT_KTOR_SSL_PORT = 8443
 
 /**
  * Defines the module for the Ktor application, configuring the necessary plugins and database
@@ -34,11 +45,33 @@ fun Application.module() {
 
 /** The main entry point of the Ktor server application. */
 fun main() {
-    // Start an embedded server using Netty as the application engine on port 8080 and accepting
-    // connections on all network interfaces.
-    embeddedServer(Netty, port = 8_080, host = "0.0.0.0", module = Application::module)
-        .start(
-            wait = true,
-        ) // Start the server and wait for it to finish initializing before continuing to
-    // the next line of code.
+    // Load the keystore from the resources folder
+    val keyStoreStream: InputStream =
+        Thread.currentThread().contextClassLoader.getResourceAsStream("keystore.jks")
+            ?: throw FileNotFoundException("Keystore file not found in resources")
+    val keyStore =
+        KeyStore.getInstance(KeyStore.getDefaultType()).apply {
+            load(keyStoreStream, System.getenv("KEYSTORE_PASSWORD")?.toCharArray())
+        }
+
+    // Getting the alias and passwords from environment variables
+    val keyAlias = System.getenv("KEY_ALIAS") ?: "defaultAlias"
+    val keyStorePassword = System.getenv("KEYSTORE_PASSWORD") ?: "defaultPassword"
+    val privateKeyPassword = System.getenv("PRIVATE_KEY_PASSWORD") ?: "defaultPassword"
+
+    val environment = applicationEngineEnvironment {
+        log = LoggerFactory.getLogger("ktor.application")
+        connector { port = DEFAULT_KTOR_PORT }
+        sslConnector(
+            keyStore = keyStore,
+            keyAlias = keyAlias,
+            keyStorePassword = { keyStorePassword.toCharArray() },
+            privateKeyPassword = { privateKeyPassword.toCharArray() },
+        ) {
+            port = DEFAULT_KTOR_SSL_PORT
+        }
+        module(Application::module)
+    }
+
+    embeddedServer(Netty, environment).start(wait = true)
 }

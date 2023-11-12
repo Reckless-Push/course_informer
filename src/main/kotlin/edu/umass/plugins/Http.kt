@@ -13,6 +13,10 @@ import io.ktor.http.HttpMethod
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
 import io.ktor.server.plugins.cors.routing.CORS
+import io.ktor.server.plugins.hsts.HSTS
+import io.ktor.server.plugins.httpsredirect.HttpsRedirect
+
+const val DEFAULT_KTOR_SSL_PORT = 8443
 
 /**
  * Configures HTTP security features including CORS, HSTS, and HTTPS redirection for the Ktor
@@ -39,19 +43,19 @@ fun Application.configureHttp() {
         anyHost() // @TODO: Don't do this in production if possible. Try to limit it.
     }
 
-    // // Install and enforce the HSTS (HTTP Strict Transport Security) policy, which instructs
-    // browsers to only use HTTPS.
-    // install(HSTS) {
-    // // Apply HSTS policy to all subdomains as well.
-    // includeSubDomains = true
-    // }
-    // 
-    // // Install and configure automatic redirection from HTTP to HTTPS.
-    // install(HttpsRedirect) {
-    // // Define the HTTPS port to redirect to, default is the standard HTTPS port (443).
-    // sslPort = 443
-    // 
-    // // Specify the type of redirect, 301 (permanent) or 302 (found/temporary).
-    // permanentRedirect = true
-    // }
+    // Install and enforce the HSTS (HTTP Strict Transport Security) policy, which instructs browsers
+    // to only use HTTPS.
+    install(HSTS) {
+        // Apply HSTS policy to all subdomains as well.
+        includeSubDomains = true
+    }
+
+    // Install and configure automatic redirection from HTTP to HTTPS.
+    install(HttpsRedirect) {
+        // Define the HTTPS port to redirect to, default is the standard HTTPS port (443).
+        sslPort = DEFAULT_KTOR_SSL_PORT
+
+        // Specify the type of redirect, 301 (permanent) or 302 (found/temporary).
+        permanentRedirect = true
+    }
 }

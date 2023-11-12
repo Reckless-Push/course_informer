@@ -19,7 +19,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Review(
-    val id: Int,
+    val id: Int? = null,
     val professor: Professor,
     val course: Course,
     val user: User,

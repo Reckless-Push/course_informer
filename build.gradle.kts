@@ -27,7 +27,6 @@ extensions.getByType<com.diffplug.gradle.spotless.SpotlessExtension>().apply {
     kotlinGradle {
         target("*.gradle.kts")
         ktlint()
-        // Use ktfmt() or prettier() if preferred
     }
 }
 
@@ -62,6 +61,7 @@ dependencies {
     implementation("io.ktor:ktor-server-http-redirect-jvm:2.3.6")
     implementation("io.ktor:ktor-server-content-negotiation-jvm:2.3.6")
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:2.3.6")
+    implementation("io.ktor:ktor-network-tls-certificates:$ktorVersion")
     implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-java-time:$exposedVersion")

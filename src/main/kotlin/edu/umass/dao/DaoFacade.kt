@@ -37,9 +37,13 @@ interface DaoFacade {
      * Edits an existing user's information.
      *
      * @param user The updated user to replace in the database.
+     * @param id The ID of the user to update.
      * @return True if the update was successful, False otherwise.
      */
-    suspend fun editUser(user: User): Boolean
+    suspend fun editUser(
+        user: User,
+        id: Int,
+    ): Boolean
 
     /**
      * Deletes a user from the data store.
@@ -76,9 +80,13 @@ interface DaoFacade {
      * Edits an existing course's information.
      *
      * @param course The updated course to replace in the database.
+     * @param cicsId The ID of the course to update.
      * @return True if the update was successful, False otherwise.
      */
-    suspend fun editCourse(course: Course): Boolean
+    suspend fun editCourse(
+        course: Course,
+        cicsId: Int,
+    ): Boolean
 
     /**
      * Deletes a course from the data store.
@@ -115,9 +123,13 @@ interface DaoFacade {
      * Edits an existing professor's information.
      *
      * @param professor The updated professor to replace in the database.
+     * @param id The ID of the professor to update.
      * @return True if the update was successful, False otherwise.
      */
-    suspend fun editProfessor(professor: Professor): Boolean
+    suspend fun editProfessor(
+        professor: Professor,
+        id: Int,
+    ): Boolean
 
     /**
      * Deletes a professor from the data store.
@@ -154,9 +166,13 @@ interface DaoFacade {
      * Edits an existing review's information.
      *
      * @param review The updated review to replace in the database.
+     * @param id The ID of the review to update.
      * @return True if the update was successful, False otherwise.
      */
-    suspend fun editReview(review: Review): Boolean
+    suspend fun editReview(
+        review: Review,
+        id: Int,
+    ): Boolean
 
     /**
      * Deletes a review from the data store.
