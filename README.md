@@ -50,7 +50,8 @@ Before you start, ensure you have the following installed:
   - Go to 'View Certificates' under 'Security'.
   - In the Certificate Manager, go to 'Your Certificates'.
   - Click 'Import' and select your .p12 file.
-  - Enter the `keystorePassword` you used while building the image.
+  - Enter the `keystorePassword` you used while building the image
+
 ## Usage
 
 For API usage instructions, refer to the [documentation](documentation) directory. Alternatively, you can access the documentation by accessing `http://localhost:8080/html/index.html` after starting the server.
