@@ -31,7 +31,7 @@ Before you start, ensure you have the following installed:
   ```
   docker build -t course-informer --build-arg="KEY_ALIAS=sampleAlias" --build-arg="PRIVATE_KEY_PASSWORD=samplePassword" --build-arg="KEYSTORE_PASSWORD=samplePassword" . 
   ```
-- Replace `sampleAlias` with your `keystorePassword`, and `privateKeyPassword` with your chosen values.
+- Replace `sampleAlias`, `keystorePassword`, and `privateKeyPassword` with your chosen values.
 
 **Step 6: Run the Server**
 - Start the server:
