@@ -3,9 +3,7 @@ package edu.umass.models
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.javatime.datetime
 
-/**
- * Defines the schema for the "Reviews" table in the database.
- */
+/** Defines the schema for the "Reviews" table in the database. */
 object Reviews : Table() {
     // Unique identifier for the review, used as the primary key in the database.
     val id = integer("id").autoIncrement()
@@ -29,13 +27,13 @@ object Reviews : Table() {
     val quality = integer("quality")
 
     // Comma-separated list of tags given by the user.
-    val tags = varchar("tags", 255)
+    val tags = varchar("tags", MAX_CHAR).nullable()
 
-    // Comment written by the user, stored as a variable character string with a maximum length of 255.
-    val comment = varchar("comment", 255)
+    // Comment written by the user, stored as a variable character string with a maximum length of
+    // 255.
+    val comment = varchar("comment", MAX_CHAR)
 
     // Whether the review was imported from RateMyProfessor.
-    val fromRMP = bool("fromRMP")
-
+    val fromRmp = bool("fromRmp")
     override val primaryKey = PrimaryKey(id)
 }

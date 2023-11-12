@@ -1,231 +1,361 @@
 [
   {
-    "name": "abstract suspend fun addNewCourse(cicsId: Int, name: String, description: String, credits: Int, undergraduateRequirements: List<Course>?, graduateRequirements: List<Course>?, semestersOffered: List<String>?, courseLevel: Int, professors: List<Professor>?): Course?",
-    "description": "edu.umass.dao.DAOFacade.addNewCourse",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade/add-new-course.html",
+    "name": "FALL",
+    "description": "edu.umass.models.SemesterSeason.FALL",
+    "location": "course-informer/edu.umass.models/-semester-season/-f-a-l-l/index.html",
+    "searchKeys": [
+      "FALL",
+      "FALL",
+      "edu.umass.models.SemesterSeason.FALL"
+    ]
+  },
+  {
+    "name": "SPRING",
+    "description": "edu.umass.models.SemesterSeason.SPRING",
+    "location": "course-informer/edu.umass.models/-semester-season/-s-p-r-i-n-g/index.html",
+    "searchKeys": [
+      "SPRING",
+      "SPRING",
+      "edu.umass.models.SemesterSeason.SPRING"
+    ]
+  },
+  {
+    "name": "SUMMER",
+    "description": "edu.umass.models.SemesterSeason.SUMMER",
+    "location": "course-informer/edu.umass.models/-semester-season/-s-u-m-m-e-r/index.html",
+    "searchKeys": [
+      "SUMMER",
+      "SUMMER",
+      "edu.umass.models.SemesterSeason.SUMMER"
+    ]
+  },
+  {
+    "name": "WINTER",
+    "description": "edu.umass.models.SemesterSeason.WINTER",
+    "location": "course-informer/edu.umass.models/-semester-season/-w-i-n-t-e-r/index.html",
+    "searchKeys": [
+      "WINTER",
+      "WINTER",
+      "edu.umass.models.SemesterSeason.WINTER"
+    ]
+  },
+  {
+    "name": "abstract suspend fun addNewCourse(course: Course): Course?",
+    "description": "edu.umass.dao.DaoFacade.addNewCourse",
+    "location": "course-informer/edu.umass.dao/-dao-facade/add-new-course.html",
     "searchKeys": [
       "addNewCourse",
-      "abstract suspend fun addNewCourse(cicsId: Int, name: String, description: String, credits: Int, undergraduateRequirements: List<Course>?, graduateRequirements: List<Course>?, semestersOffered: List<String>?, courseLevel: Int, professors: List<Professor>?): Course?",
-      "edu.umass.dao.DAOFacade.addNewCourse"
+      "abstract suspend fun addNewCourse(course: Course): Course?",
+      "edu.umass.dao.DaoFacade.addNewCourse"
     ]
   },
   {
-    "name": "abstract suspend fun addNewProfessor(firstName: String, lastName: String): Professor?",
-    "description": "edu.umass.dao.DAOFacade.addNewProfessor",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade/add-new-professor.html",
+    "name": "abstract suspend fun addNewProfessor(professor: Professor): Professor?",
+    "description": "edu.umass.dao.DaoFacade.addNewProfessor",
+    "location": "course-informer/edu.umass.dao/-dao-facade/add-new-professor.html",
     "searchKeys": [
       "addNewProfessor",
-      "abstract suspend fun addNewProfessor(firstName: String, lastName: String): Professor?",
-      "edu.umass.dao.DAOFacade.addNewProfessor"
+      "abstract suspend fun addNewProfessor(professor: Professor): Professor?",
+      "edu.umass.dao.DaoFacade.addNewProfessor"
     ]
   },
   {
-    "name": "abstract suspend fun addNewReview(professor: Professor, course: Course, user: User, difficulty: Int, quality: Int, tags: List<String>, comment: String, fromRMP: Boolean): Review?",
-    "description": "edu.umass.dao.DAOFacade.addNewReview",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade/add-new-review.html",
+    "name": "abstract suspend fun addNewReview(review: Review): Review?",
+    "description": "edu.umass.dao.DaoFacade.addNewReview",
+    "location": "course-informer/edu.umass.dao/-dao-facade/add-new-review.html",
     "searchKeys": [
       "addNewReview",
-      "abstract suspend fun addNewReview(professor: Professor, course: Course, user: User, difficulty: Int, quality: Int, tags: List<String>, comment: String, fromRMP: Boolean): Review?",
-      "edu.umass.dao.DAOFacade.addNewReview"
+      "abstract suspend fun addNewReview(review: Review): Review?",
+      "edu.umass.dao.DaoFacade.addNewReview"
     ]
   },
   {
-    "name": "abstract suspend fun addNewUser(firstName: String, lastName: String, email: String): User?",
-    "description": "edu.umass.dao.DAOFacade.addNewUser",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade/add-new-user.html",
+    "name": "abstract suspend fun addNewUser(user: User): User?",
+    "description": "edu.umass.dao.DaoFacade.addNewUser",
+    "location": "course-informer/edu.umass.dao/-dao-facade/add-new-user.html",
     "searchKeys": [
       "addNewUser",
-      "abstract suspend fun addNewUser(firstName: String, lastName: String, email: String): User?",
-      "edu.umass.dao.DAOFacade.addNewUser"
+      "abstract suspend fun addNewUser(user: User): User?",
+      "edu.umass.dao.DaoFacade.addNewUser"
     ]
   },
   {
     "name": "abstract suspend fun allCourses(): List<Course>",
-    "description": "edu.umass.dao.DAOFacade.allCourses",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade/all-courses.html",
+    "description": "edu.umass.dao.DaoFacade.allCourses",
+    "location": "course-informer/edu.umass.dao/-dao-facade/all-courses.html",
     "searchKeys": [
       "allCourses",
       "abstract suspend fun allCourses(): List<Course>",
-      "edu.umass.dao.DAOFacade.allCourses"
+      "edu.umass.dao.DaoFacade.allCourses"
     ]
   },
   {
     "name": "abstract suspend fun allProfessors(): List<Professor>",
-    "description": "edu.umass.dao.DAOFacade.allProfessors",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade/all-professors.html",
+    "description": "edu.umass.dao.DaoFacade.allProfessors",
+    "location": "course-informer/edu.umass.dao/-dao-facade/all-professors.html",
     "searchKeys": [
       "allProfessors",
       "abstract suspend fun allProfessors(): List<Professor>",
-      "edu.umass.dao.DAOFacade.allProfessors"
+      "edu.umass.dao.DaoFacade.allProfessors"
     ]
   },
   {
     "name": "abstract suspend fun allReviews(): List<Review>",
-    "description": "edu.umass.dao.DAOFacade.allReviews",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade/all-reviews.html",
+    "description": "edu.umass.dao.DaoFacade.allReviews",
+    "location": "course-informer/edu.umass.dao/-dao-facade/all-reviews.html",
     "searchKeys": [
       "allReviews",
       "abstract suspend fun allReviews(): List<Review>",
-      "edu.umass.dao.DAOFacade.allReviews"
+      "edu.umass.dao.DaoFacade.allReviews"
     ]
   },
   {
     "name": "abstract suspend fun allUsers(): List<User>",
-    "description": "edu.umass.dao.DAOFacade.allUsers",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade/all-users.html",
+    "description": "edu.umass.dao.DaoFacade.allUsers",
+    "location": "course-informer/edu.umass.dao/-dao-facade/all-users.html",
     "searchKeys": [
       "allUsers",
       "abstract suspend fun allUsers(): List<User>",
-      "edu.umass.dao.DAOFacade.allUsers"
+      "edu.umass.dao.DaoFacade.allUsers"
     ]
   },
   {
     "name": "abstract suspend fun course(id: Int): Course?",
-    "description": "edu.umass.dao.DAOFacade.course",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade/course.html",
+    "description": "edu.umass.dao.DaoFacade.course",
+    "location": "course-informer/edu.umass.dao/-dao-facade/course.html",
     "searchKeys": [
       "course",
       "abstract suspend fun course(id: Int): Course?",
-      "edu.umass.dao.DAOFacade.course"
+      "edu.umass.dao.DaoFacade.course"
     ]
   },
   {
     "name": "abstract suspend fun deleteCourse(id: Int): Boolean",
-    "description": "edu.umass.dao.DAOFacade.deleteCourse",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade/delete-course.html",
+    "description": "edu.umass.dao.DaoFacade.deleteCourse",
+    "location": "course-informer/edu.umass.dao/-dao-facade/delete-course.html",
     "searchKeys": [
       "deleteCourse",
       "abstract suspend fun deleteCourse(id: Int): Boolean",
-      "edu.umass.dao.DAOFacade.deleteCourse"
+      "edu.umass.dao.DaoFacade.deleteCourse"
     ]
   },
   {
     "name": "abstract suspend fun deleteProfessor(id: Int): Boolean",
-    "description": "edu.umass.dao.DAOFacade.deleteProfessor",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade/delete-professor.html",
+    "description": "edu.umass.dao.DaoFacade.deleteProfessor",
+    "location": "course-informer/edu.umass.dao/-dao-facade/delete-professor.html",
     "searchKeys": [
       "deleteProfessor",
       "abstract suspend fun deleteProfessor(id: Int): Boolean",
-      "edu.umass.dao.DAOFacade.deleteProfessor"
+      "edu.umass.dao.DaoFacade.deleteProfessor"
     ]
   },
   {
     "name": "abstract suspend fun deleteReview(id: Int): Boolean",
-    "description": "edu.umass.dao.DAOFacade.deleteReview",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade/delete-review.html",
+    "description": "edu.umass.dao.DaoFacade.deleteReview",
+    "location": "course-informer/edu.umass.dao/-dao-facade/delete-review.html",
     "searchKeys": [
       "deleteReview",
       "abstract suspend fun deleteReview(id: Int): Boolean",
-      "edu.umass.dao.DAOFacade.deleteReview"
+      "edu.umass.dao.DaoFacade.deleteReview"
     ]
   },
   {
     "name": "abstract suspend fun deleteUser(id: Int): Boolean",
-    "description": "edu.umass.dao.DAOFacade.deleteUser",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade/delete-user.html",
+    "description": "edu.umass.dao.DaoFacade.deleteUser",
+    "location": "course-informer/edu.umass.dao/-dao-facade/delete-user.html",
     "searchKeys": [
       "deleteUser",
       "abstract suspend fun deleteUser(id: Int): Boolean",
-      "edu.umass.dao.DAOFacade.deleteUser"
+      "edu.umass.dao.DaoFacade.deleteUser"
     ]
   },
   {
-    "name": "abstract suspend fun editCourse(id: Int, cicsId: Int, name: String, description: String, credits: Int, undergraduateRequirements: List<Course>, graduateRequirements: List<Course>, semestersOffered: List<String>, courseLevel: Int, professors: List<Professor>): Boolean",
-    "description": "edu.umass.dao.DAOFacade.editCourse",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade/edit-course.html",
+    "name": "abstract suspend fun editCourse(course: Course): Boolean",
+    "description": "edu.umass.dao.DaoFacade.editCourse",
+    "location": "course-informer/edu.umass.dao/-dao-facade/edit-course.html",
     "searchKeys": [
       "editCourse",
-      "abstract suspend fun editCourse(id: Int, cicsId: Int, name: String, description: String, credits: Int, undergraduateRequirements: List<Course>, graduateRequirements: List<Course>, semestersOffered: List<String>, courseLevel: Int, professors: List<Professor>): Boolean",
-      "edu.umass.dao.DAOFacade.editCourse"
+      "abstract suspend fun editCourse(course: Course): Boolean",
+      "edu.umass.dao.DaoFacade.editCourse"
     ]
   },
   {
-    "name": "abstract suspend fun editProfessor(id: Int, firstName: String, lastName: String): Boolean",
-    "description": "edu.umass.dao.DAOFacade.editProfessor",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade/edit-professor.html",
+    "name": "abstract suspend fun editProfessor(professor: Professor): Boolean",
+    "description": "edu.umass.dao.DaoFacade.editProfessor",
+    "location": "course-informer/edu.umass.dao/-dao-facade/edit-professor.html",
     "searchKeys": [
       "editProfessor",
-      "abstract suspend fun editProfessor(id: Int, firstName: String, lastName: String): Boolean",
-      "edu.umass.dao.DAOFacade.editProfessor"
+      "abstract suspend fun editProfessor(professor: Professor): Boolean",
+      "edu.umass.dao.DaoFacade.editProfessor"
     ]
   },
   {
-    "name": "abstract suspend fun editReview(id: Int, professor: Professor, course: Course, user: User, difficulty: Int, quality: Int, tags: List<String>, comment: String, fromRMP: Boolean): Boolean",
-    "description": "edu.umass.dao.DAOFacade.editReview",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade/edit-review.html",
+    "name": "abstract suspend fun editReview(review: Review): Boolean",
+    "description": "edu.umass.dao.DaoFacade.editReview",
+    "location": "course-informer/edu.umass.dao/-dao-facade/edit-review.html",
     "searchKeys": [
       "editReview",
-      "abstract suspend fun editReview(id: Int, professor: Professor, course: Course, user: User, difficulty: Int, quality: Int, tags: List<String>, comment: String, fromRMP: Boolean): Boolean",
-      "edu.umass.dao.DAOFacade.editReview"
+      "abstract suspend fun editReview(review: Review): Boolean",
+      "edu.umass.dao.DaoFacade.editReview"
     ]
   },
   {
-    "name": "abstract suspend fun editUser(id: Int, firstName: String, lastName: String, email: String, favoriteCourses: List<Course>?, reviews: List<Review>?): Boolean",
-    "description": "edu.umass.dao.DAOFacade.editUser",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade/edit-user.html",
+    "name": "abstract suspend fun editUser(user: User): Boolean",
+    "description": "edu.umass.dao.DaoFacade.editUser",
+    "location": "course-informer/edu.umass.dao/-dao-facade/edit-user.html",
     "searchKeys": [
       "editUser",
-      "abstract suspend fun editUser(id: Int, firstName: String, lastName: String, email: String, favoriteCourses: List<Course>?, reviews: List<Review>?): Boolean",
-      "edu.umass.dao.DAOFacade.editUser"
+      "abstract suspend fun editUser(user: User): Boolean",
+      "edu.umass.dao.DaoFacade.editUser"
     ]
   },
   {
     "name": "abstract suspend fun professor(id: Int): Professor?",
-    "description": "edu.umass.dao.DAOFacade.professor",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade/professor.html",
+    "description": "edu.umass.dao.DaoFacade.professor",
+    "location": "course-informer/edu.umass.dao/-dao-facade/professor.html",
     "searchKeys": [
       "professor",
       "abstract suspend fun professor(id: Int): Professor?",
-      "edu.umass.dao.DAOFacade.professor"
+      "edu.umass.dao.DaoFacade.professor"
     ]
   },
   {
     "name": "abstract suspend fun review(id: Int): Review?",
-    "description": "edu.umass.dao.DAOFacade.review",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade/review.html",
+    "description": "edu.umass.dao.DaoFacade.review",
+    "location": "course-informer/edu.umass.dao/-dao-facade/review.html",
     "searchKeys": [
       "review",
       "abstract suspend fun review(id: Int): Review?",
-      "edu.umass.dao.DAOFacade.review"
+      "edu.umass.dao.DaoFacade.review"
     ]
   },
   {
     "name": "abstract suspend fun user(id: Int): User?",
-    "description": "edu.umass.dao.DAOFacade.user",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade/user.html",
+    "description": "edu.umass.dao.DaoFacade.user",
+    "location": "course-informer/edu.umass.dao/-dao-facade/user.html",
     "searchKeys": [
       "user",
       "abstract suspend fun user(id: Int): User?",
-      "edu.umass.dao.DAOFacade.user"
+      "edu.umass.dao.DaoFacade.user"
     ]
   },
   {
-    "name": "class DAOFacadeImpl : DAOFacade",
-    "description": "edu.umass.dao.DAOFacadeImpl",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/index.html",
+    "name": "class DaoFacadeImpl : DaoFacade",
+    "description": "edu.umass.dao.DaoFacadeImpl",
+    "location": "course-informer/edu.umass.dao/-dao-facade-impl/index.html",
     "searchKeys": [
-      "DAOFacadeImpl",
-      "class DAOFacadeImpl : DAOFacade",
-      "edu.umass.dao.DAOFacadeImpl"
+      "DaoFacadeImpl",
+      "class DaoFacadeImpl : DaoFacade",
+      "edu.umass.dao.DaoFacadeImpl"
+    ]
+  },
+  {
+    "name": "const val DEFAULT_CICS_ID: Int = 101",
+    "description": "edu.umass.dao.DEFAULT_CICS_ID",
+    "location": "course-informer/edu.umass.dao/-d-e-f-a-u-l-t_-c-i-c-s_-i-d.html",
+    "searchKeys": [
+      "DEFAULT_CICS_ID",
+      "const val DEFAULT_CICS_ID: Int = 101",
+      "edu.umass.dao.DEFAULT_CICS_ID"
+    ]
+  },
+  {
+    "name": "const val DEFAULT_COURSE_LEVEL: Int = 100",
+    "description": "edu.umass.dao.DEFAULT_COURSE_LEVEL",
+    "location": "course-informer/edu.umass.dao/-d-e-f-a-u-l-t_-c-o-u-r-s-e_-l-e-v-e-l.html",
+    "searchKeys": [
+      "DEFAULT_COURSE_LEVEL",
+      "const val DEFAULT_COURSE_LEVEL: Int = 100",
+      "edu.umass.dao.DEFAULT_COURSE_LEVEL"
+    ]
+  },
+  {
+    "name": "const val DEFAULT_CREDITS: Int = 4",
+    "description": "edu.umass.dao.DEFAULT_CREDITS",
+    "location": "course-informer/edu.umass.dao/-d-e-f-a-u-l-t_-c-r-e-d-i-t-s.html",
+    "searchKeys": [
+      "DEFAULT_CREDITS",
+      "const val DEFAULT_CREDITS: Int = 4",
+      "edu.umass.dao.DEFAULT_CREDITS"
+    ]
+  },
+  {
+    "name": "const val DEFAULT_DIFFICULTY: Int = 5",
+    "description": "edu.umass.dao.DEFAULT_DIFFICULTY",
+    "location": "course-informer/edu.umass.dao/-d-e-f-a-u-l-t_-d-i-f-f-i-c-u-l-t-y.html",
+    "searchKeys": [
+      "DEFAULT_DIFFICULTY",
+      "const val DEFAULT_DIFFICULTY: Int = 5",
+      "edu.umass.dao.DEFAULT_DIFFICULTY"
+    ]
+  },
+  {
+    "name": "const val DEFAULT_QUALITY: Int = 5",
+    "description": "edu.umass.dao.DEFAULT_QUALITY",
+    "location": "course-informer/edu.umass.dao/-d-e-f-a-u-l-t_-q-u-a-l-i-t-y.html",
+    "searchKeys": [
+      "DEFAULT_QUALITY",
+      "const val DEFAULT_QUALITY: Int = 5",
+      "edu.umass.dao.DEFAULT_QUALITY"
+    ]
+  },
+  {
+    "name": "const val DEFAULT_YEAR: Int",
+    "description": "edu.umass.dao.DEFAULT_YEAR",
+    "location": "course-informer/edu.umass.dao/-d-e-f-a-u-l-t_-y-e-a-r.html",
+    "searchKeys": [
+      "DEFAULT_YEAR",
+      "const val DEFAULT_YEAR: Int",
+      "edu.umass.dao.DEFAULT_YEAR"
+    ]
+  },
+  {
+    "name": "const val MAX_CHAR: Int = 255",
+    "description": "edu.umass.models.MAX_CHAR",
+    "location": "course-informer/edu.umass.models/-m-a-x_-c-h-a-r.html",
+    "searchKeys": [
+      "MAX_CHAR",
+      "const val MAX_CHAR: Int = 255",
+      "edu.umass.models.MAX_CHAR"
+    ]
+  },
+  {
+    "name": "const val MAX_CHAR_NAME: Int = 50",
+    "description": "edu.umass.models.MAX_CHAR_NAME",
+    "location": "course-informer/edu.umass.models/-m-a-x_-c-h-a-r_-n-a-m-e.html",
+    "searchKeys": [
+      "MAX_CHAR_NAME",
+      "const val MAX_CHAR_NAME: Int = 50",
+      "edu.umass.models.MAX_CHAR_NAME"
+    ]
+  },
+  {
+    "name": "const val OLDEST_YEAR: Int",
+    "description": "edu.umass.models.OLDEST_YEAR",
+    "location": "course-informer/edu.umass.models/-o-l-d-e-s-t_-y-e-a-r.html",
+    "searchKeys": [
+      "OLDEST_YEAR",
+      "const val OLDEST_YEAR: Int",
+      "edu.umass.models.OLDEST_YEAR"
     ]
   },
   {
     "name": "constructor()",
-    "description": "edu.umass.dao.DAOFacadeImpl.DAOFacadeImpl",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/-d-a-o-facade-impl.html",
+    "description": "edu.umass.dao.DaoFacadeImpl.DaoFacadeImpl",
+    "location": "course-informer/edu.umass.dao/-dao-facade-impl/-dao-facade-impl.html",
     "searchKeys": [
-      "DAOFacadeImpl",
+      "DaoFacadeImpl",
       "constructor()",
-      "edu.umass.dao.DAOFacadeImpl.DAOFacadeImpl"
+      "edu.umass.dao.DaoFacadeImpl.DaoFacadeImpl"
     ]
   },
   {
-    "name": "constructor(cicsId: Int, name: String, description: String, credits: Int, undergraduateRequirements: List<Course>?, graduateRequirements: List<Course>?, semestersOffered: List<String>?, courseLevel: Int, professors: List<Professor>?)",
+    "name": "constructor(cicsId: Int, name: String, description: String, credits: Int, undergraduateRequirements: List<Course>?, graduateRequirements: List<Course>?, semestersOffered: List<Semester>?, courseLevel: Int, professors: List<Professor>?)",
     "description": "edu.umass.models.Course.Course",
     "location": "course-informer/edu.umass.models/-course/-course.html",
     "searchKeys": [
       "Course",
-      "constructor(cicsId: Int, name: String, description: String, credits: Int, undergraduateRequirements: List<Course>?, graduateRequirements: List<Course>?, semestersOffered: List<String>?, courseLevel: Int, professors: List<Professor>?)",
+      "constructor(cicsId: Int, name: String, description: String, credits: Int, undergraduateRequirements: List<Course>?, graduateRequirements: List<Course>?, semestersOffered: List<Semester>?, courseLevel: Int, professors: List<Professor>?)",
       "edu.umass.models.Course.Course"
     ]
   },
@@ -250,22 +380,32 @@
     ]
   },
   {
-    "name": "constructor(id: Int, professor: Professor, course: Course, user: User, date: LocalDateTime, difficulty: Int, quality: Int, tags: List<String>?, comment: String, fromRMP: Boolean)",
+    "name": "constructor(id: Int, professor: Professor, course: Course, user: User, date: LocalDateTime, difficulty: Int, quality: Int, tags: List<String>?, comment: String, fromRmp: Boolean)",
     "description": "edu.umass.models.Review.Review",
     "location": "course-informer/edu.umass.models/-review/-review.html",
     "searchKeys": [
       "Review",
-      "constructor(id: Int, professor: Professor, course: Course, user: User, date: LocalDateTime, difficulty: Int, quality: Int, tags: List<String>?, comment: String, fromRMP: Boolean)",
+      "constructor(id: Int, professor: Professor, course: Course, user: User, date: LocalDateTime, difficulty: Int, quality: Int, tags: List<String>?, comment: String, fromRmp: Boolean)",
       "edu.umass.models.Review.Review"
     ]
   },
   {
-    "name": "data class Course(val cicsId: Int, val name: String, val description: String, val credits: Int, val undergraduateRequirements: List<Course>?, val graduateRequirements: List<Course>?, val semestersOffered: List<String>?, val courseLevel: Int, val professors: List<Professor>?)",
+    "name": "constructor(season: SemesterSeason, year: Int)",
+    "description": "edu.umass.models.Semester.Semester",
+    "location": "course-informer/edu.umass.models/-semester/-semester.html",
+    "searchKeys": [
+      "Semester",
+      "constructor(season: SemesterSeason, year: Int)",
+      "edu.umass.models.Semester.Semester"
+    ]
+  },
+  {
+    "name": "data class Course(val cicsId: Int, val name: String, val description: String, val credits: Int, val undergraduateRequirements: List<Course>?, val graduateRequirements: List<Course>?, val semestersOffered: List<Semester>?, val courseLevel: Int, val professors: List<Professor>?)",
     "description": "edu.umass.models.Course",
     "location": "course-informer/edu.umass.models/-course/index.html",
     "searchKeys": [
       "Course",
-      "data class Course(val cicsId: Int, val name: String, val description: String, val credits: Int, val undergraduateRequirements: List<Course>?, val graduateRequirements: List<Course>?, val semestersOffered: List<String>?, val courseLevel: Int, val professors: List<Professor>?)",
+      "data class Course(val cicsId: Int, val name: String, val description: String, val credits: Int, val undergraduateRequirements: List<Course>?, val graduateRequirements: List<Course>?, val semestersOffered: List<Semester>?, val courseLevel: Int, val professors: List<Professor>?)",
       "edu.umass.models.Course"
     ]
   },
@@ -280,13 +420,23 @@
     ]
   },
   {
-    "name": "data class Review(val id: Int, val professor: Professor, val course: Course, val user: User, val date: LocalDateTime, val difficulty: Int, val quality: Int, val tags: List<String>?, val comment: String, val fromRMP: Boolean)",
+    "name": "data class Review(val id: Int, val professor: Professor, val course: Course, val user: User, val date: LocalDateTime, val difficulty: Int, val quality: Int, val tags: List<String>?, val comment: String, val fromRmp: Boolean)",
     "description": "edu.umass.models.Review",
     "location": "course-informer/edu.umass.models/-review/index.html",
     "searchKeys": [
       "Review",
-      "data class Review(val id: Int, val professor: Professor, val course: Course, val user: User, val date: LocalDateTime, val difficulty: Int, val quality: Int, val tags: List<String>?, val comment: String, val fromRMP: Boolean)",
+      "data class Review(val id: Int, val professor: Professor, val course: Course, val user: User, val date: LocalDateTime, val difficulty: Int, val quality: Int, val tags: List<String>?, val comment: String, val fromRmp: Boolean)",
       "edu.umass.models.Review"
+    ]
+  },
+  {
+    "name": "data class Semester(val season: SemesterSeason, val year: Int)",
+    "description": "edu.umass.models.Semester",
+    "location": "course-informer/edu.umass.models/-semester/index.html",
+    "searchKeys": [
+      "Semester",
+      "data class Semester(val season: SemesterSeason, val year: Int)",
+      "edu.umass.models.Semester"
     ]
   },
   {
@@ -300,13 +450,23 @@
     ]
   },
   {
-    "name": "fun Application.configureHTTP()",
-    "description": "edu.umass.plugins.configureHTTP",
-    "location": "course-informer/edu.umass.plugins/configure-h-t-t-p.html",
+    "name": "enum SemesterSeason : Enum<SemesterSeason> ",
+    "description": "edu.umass.models.SemesterSeason",
+    "location": "course-informer/edu.umass.models/-semester-season/index.html",
     "searchKeys": [
-      "configureHTTP",
-      "fun Application.configureHTTP()",
-      "edu.umass.plugins.configureHTTP"
+      "SemesterSeason",
+      "enum SemesterSeason : Enum<SemesterSeason> ",
+      "edu.umass.models.SemesterSeason"
+    ]
+  },
+  {
+    "name": "fun Application.configureHttp()",
+    "description": "edu.umass.plugins.configureHttp",
+    "location": "course-informer/edu.umass.plugins/configure-http.html",
+    "searchKeys": [
+      "configureHttp",
+      "fun Application.configureHttp()",
+      "edu.umass.plugins.configureHttp"
     ]
   },
   {
@@ -340,6 +500,16 @@
     ]
   },
   {
+    "name": "fun format(year: Int): String",
+    "description": "edu.umass.models.SemesterSeason.format",
+    "location": "course-informer/edu.umass.models/-semester-season/format.html",
+    "searchKeys": [
+      "format",
+      "fun format(year: Int): String",
+      "edu.umass.models.SemesterSeason.format"
+    ]
+  },
+  {
     "name": "fun init()",
     "description": "edu.umass.dao.DatabaseFactory.init",
     "location": "course-informer/edu.umass.dao/-database-factory/init.html",
@@ -360,13 +530,33 @@
     ]
   },
   {
-    "name": "interface DAOFacade",
-    "description": "edu.umass.dao.DAOFacade",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade/index.html",
+    "name": "fun valueOf(value: String): SemesterSeason",
+    "description": "edu.umass.models.SemesterSeason.valueOf",
+    "location": "course-informer/edu.umass.models/-semester-season/value-of.html",
     "searchKeys": [
-      "DAOFacade",
-      "interface DAOFacade",
-      "edu.umass.dao.DAOFacade"
+      "valueOf",
+      "fun valueOf(value: String): SemesterSeason",
+      "edu.umass.models.SemesterSeason.valueOf"
+    ]
+  },
+  {
+    "name": "fun values(): Array<SemesterSeason>",
+    "description": "edu.umass.models.SemesterSeason.values",
+    "location": "course-informer/edu.umass.models/-semester-season/values.html",
+    "searchKeys": [
+      "values",
+      "fun values(): Array<SemesterSeason>",
+      "edu.umass.models.SemesterSeason.values"
+    ]
+  },
+  {
+    "name": "interface DaoFacade",
+    "description": "edu.umass.dao.DaoFacade",
+    "location": "course-informer/edu.umass.dao/-dao-facade/index.html",
+    "searchKeys": [
+      "DaoFacade",
+      "interface DaoFacade",
+      "edu.umass.dao.DaoFacade"
     ]
   },
   {
@@ -420,6 +610,16 @@
     ]
   },
   {
+    "name": "open override fun toString(): String",
+    "description": "edu.umass.models.Semester.toString",
+    "location": "course-informer/edu.umass.models/-semester/to-string.html",
+    "searchKeys": [
+      "toString",
+      "open override fun toString(): String",
+      "edu.umass.models.Semester.toString"
+    ]
+  },
+  {
     "name": "open override val primaryKey: Table.PrimaryKey",
     "description": "edu.umass.models.Courses.primaryKey",
     "location": "course-informer/edu.umass.models/-courses/primary-key.html",
@@ -460,203 +660,203 @@
     ]
   },
   {
-    "name": "open suspend override fun addNewCourse(cicsId: Int, name: String, description: String, credits: Int, undergraduateRequirements: List<Course>?, graduateRequirements: List<Course>?, semestersOffered: List<String>?, courseLevel: Int, professors: List<Professor>?): Course?",
-    "description": "edu.umass.dao.DAOFacadeImpl.addNewCourse",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/add-new-course.html",
+    "name": "open suspend override fun addNewCourse(course: Course): Course?",
+    "description": "edu.umass.dao.DaoFacadeImpl.addNewCourse",
+    "location": "course-informer/edu.umass.dao/-dao-facade-impl/add-new-course.html",
     "searchKeys": [
       "addNewCourse",
-      "open suspend override fun addNewCourse(cicsId: Int, name: String, description: String, credits: Int, undergraduateRequirements: List<Course>?, graduateRequirements: List<Course>?, semestersOffered: List<String>?, courseLevel: Int, professors: List<Professor>?): Course?",
-      "edu.umass.dao.DAOFacadeImpl.addNewCourse"
+      "open suspend override fun addNewCourse(course: Course): Course?",
+      "edu.umass.dao.DaoFacadeImpl.addNewCourse"
     ]
   },
   {
-    "name": "open suspend override fun addNewProfessor(firstName: String, lastName: String): Professor?",
-    "description": "edu.umass.dao.DAOFacadeImpl.addNewProfessor",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/add-new-professor.html",
+    "name": "open suspend override fun addNewProfessor(professor: Professor): Professor?",
+    "description": "edu.umass.dao.DaoFacadeImpl.addNewProfessor",
+    "location": "course-informer/edu.umass.dao/-dao-facade-impl/add-new-professor.html",
     "searchKeys": [
       "addNewProfessor",
-      "open suspend override fun addNewProfessor(firstName: String, lastName: String): Professor?",
-      "edu.umass.dao.DAOFacadeImpl.addNewProfessor"
+      "open suspend override fun addNewProfessor(professor: Professor): Professor?",
+      "edu.umass.dao.DaoFacadeImpl.addNewProfessor"
     ]
   },
   {
-    "name": "open suspend override fun addNewReview(professor: Professor, course: Course, user: User, difficulty: Int, quality: Int, tags: List<String>, comment: String, fromRMP: Boolean): Review?",
-    "description": "edu.umass.dao.DAOFacadeImpl.addNewReview",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/add-new-review.html",
+    "name": "open suspend override fun addNewReview(review: Review): Review?",
+    "description": "edu.umass.dao.DaoFacadeImpl.addNewReview",
+    "location": "course-informer/edu.umass.dao/-dao-facade-impl/add-new-review.html",
     "searchKeys": [
       "addNewReview",
-      "open suspend override fun addNewReview(professor: Professor, course: Course, user: User, difficulty: Int, quality: Int, tags: List<String>, comment: String, fromRMP: Boolean): Review?",
-      "edu.umass.dao.DAOFacadeImpl.addNewReview"
+      "open suspend override fun addNewReview(review: Review): Review?",
+      "edu.umass.dao.DaoFacadeImpl.addNewReview"
     ]
   },
   {
-    "name": "open suspend override fun addNewUser(firstName: String, lastName: String, email: String): User?",
-    "description": "edu.umass.dao.DAOFacadeImpl.addNewUser",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/add-new-user.html",
+    "name": "open suspend override fun addNewUser(user: User): User?",
+    "description": "edu.umass.dao.DaoFacadeImpl.addNewUser",
+    "location": "course-informer/edu.umass.dao/-dao-facade-impl/add-new-user.html",
     "searchKeys": [
       "addNewUser",
-      "open suspend override fun addNewUser(firstName: String, lastName: String, email: String): User?",
-      "edu.umass.dao.DAOFacadeImpl.addNewUser"
+      "open suspend override fun addNewUser(user: User): User?",
+      "edu.umass.dao.DaoFacadeImpl.addNewUser"
     ]
   },
   {
     "name": "open suspend override fun allCourses(): List<Course>",
-    "description": "edu.umass.dao.DAOFacadeImpl.allCourses",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/all-courses.html",
+    "description": "edu.umass.dao.DaoFacadeImpl.allCourses",
+    "location": "course-informer/edu.umass.dao/-dao-facade-impl/all-courses.html",
     "searchKeys": [
       "allCourses",
       "open suspend override fun allCourses(): List<Course>",
-      "edu.umass.dao.DAOFacadeImpl.allCourses"
+      "edu.umass.dao.DaoFacadeImpl.allCourses"
     ]
   },
   {
     "name": "open suspend override fun allProfessors(): List<Professor>",
-    "description": "edu.umass.dao.DAOFacadeImpl.allProfessors",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/all-professors.html",
+    "description": "edu.umass.dao.DaoFacadeImpl.allProfessors",
+    "location": "course-informer/edu.umass.dao/-dao-facade-impl/all-professors.html",
     "searchKeys": [
       "allProfessors",
       "open suspend override fun allProfessors(): List<Professor>",
-      "edu.umass.dao.DAOFacadeImpl.allProfessors"
+      "edu.umass.dao.DaoFacadeImpl.allProfessors"
     ]
   },
   {
     "name": "open suspend override fun allReviews(): List<Review>",
-    "description": "edu.umass.dao.DAOFacadeImpl.allReviews",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/all-reviews.html",
+    "description": "edu.umass.dao.DaoFacadeImpl.allReviews",
+    "location": "course-informer/edu.umass.dao/-dao-facade-impl/all-reviews.html",
     "searchKeys": [
       "allReviews",
       "open suspend override fun allReviews(): List<Review>",
-      "edu.umass.dao.DAOFacadeImpl.allReviews"
+      "edu.umass.dao.DaoFacadeImpl.allReviews"
     ]
   },
   {
     "name": "open suspend override fun allUsers(): List<User>",
-    "description": "edu.umass.dao.DAOFacadeImpl.allUsers",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/all-users.html",
+    "description": "edu.umass.dao.DaoFacadeImpl.allUsers",
+    "location": "course-informer/edu.umass.dao/-dao-facade-impl/all-users.html",
     "searchKeys": [
       "allUsers",
       "open suspend override fun allUsers(): List<User>",
-      "edu.umass.dao.DAOFacadeImpl.allUsers"
+      "edu.umass.dao.DaoFacadeImpl.allUsers"
     ]
   },
   {
     "name": "open suspend override fun course(id: Int): Course?",
-    "description": "edu.umass.dao.DAOFacadeImpl.course",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/course.html",
+    "description": "edu.umass.dao.DaoFacadeImpl.course",
+    "location": "course-informer/edu.umass.dao/-dao-facade-impl/course.html",
     "searchKeys": [
       "course",
       "open suspend override fun course(id: Int): Course?",
-      "edu.umass.dao.DAOFacadeImpl.course"
+      "edu.umass.dao.DaoFacadeImpl.course"
     ]
   },
   {
     "name": "open suspend override fun deleteCourse(id: Int): Boolean",
-    "description": "edu.umass.dao.DAOFacadeImpl.deleteCourse",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/delete-course.html",
+    "description": "edu.umass.dao.DaoFacadeImpl.deleteCourse",
+    "location": "course-informer/edu.umass.dao/-dao-facade-impl/delete-course.html",
     "searchKeys": [
       "deleteCourse",
       "open suspend override fun deleteCourse(id: Int): Boolean",
-      "edu.umass.dao.DAOFacadeImpl.deleteCourse"
+      "edu.umass.dao.DaoFacadeImpl.deleteCourse"
     ]
   },
   {
     "name": "open suspend override fun deleteProfessor(id: Int): Boolean",
-    "description": "edu.umass.dao.DAOFacadeImpl.deleteProfessor",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/delete-professor.html",
+    "description": "edu.umass.dao.DaoFacadeImpl.deleteProfessor",
+    "location": "course-informer/edu.umass.dao/-dao-facade-impl/delete-professor.html",
     "searchKeys": [
       "deleteProfessor",
       "open suspend override fun deleteProfessor(id: Int): Boolean",
-      "edu.umass.dao.DAOFacadeImpl.deleteProfessor"
+      "edu.umass.dao.DaoFacadeImpl.deleteProfessor"
     ]
   },
   {
     "name": "open suspend override fun deleteReview(id: Int): Boolean",
-    "description": "edu.umass.dao.DAOFacadeImpl.deleteReview",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/delete-review.html",
+    "description": "edu.umass.dao.DaoFacadeImpl.deleteReview",
+    "location": "course-informer/edu.umass.dao/-dao-facade-impl/delete-review.html",
     "searchKeys": [
       "deleteReview",
       "open suspend override fun deleteReview(id: Int): Boolean",
-      "edu.umass.dao.DAOFacadeImpl.deleteReview"
+      "edu.umass.dao.DaoFacadeImpl.deleteReview"
     ]
   },
   {
     "name": "open suspend override fun deleteUser(id: Int): Boolean",
-    "description": "edu.umass.dao.DAOFacadeImpl.deleteUser",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/delete-user.html",
+    "description": "edu.umass.dao.DaoFacadeImpl.deleteUser",
+    "location": "course-informer/edu.umass.dao/-dao-facade-impl/delete-user.html",
     "searchKeys": [
       "deleteUser",
       "open suspend override fun deleteUser(id: Int): Boolean",
-      "edu.umass.dao.DAOFacadeImpl.deleteUser"
+      "edu.umass.dao.DaoFacadeImpl.deleteUser"
     ]
   },
   {
-    "name": "open suspend override fun editCourse(id: Int, cicsId: Int, name: String, description: String, credits: Int, undergraduateRequirements: List<Course>, graduateRequirements: List<Course>, semestersOffered: List<String>, courseLevel: Int, professors: List<Professor>): Boolean",
-    "description": "edu.umass.dao.DAOFacadeImpl.editCourse",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/edit-course.html",
+    "name": "open suspend override fun editCourse(course: Course): Boolean",
+    "description": "edu.umass.dao.DaoFacadeImpl.editCourse",
+    "location": "course-informer/edu.umass.dao/-dao-facade-impl/edit-course.html",
     "searchKeys": [
       "editCourse",
-      "open suspend override fun editCourse(id: Int, cicsId: Int, name: String, description: String, credits: Int, undergraduateRequirements: List<Course>, graduateRequirements: List<Course>, semestersOffered: List<String>, courseLevel: Int, professors: List<Professor>): Boolean",
-      "edu.umass.dao.DAOFacadeImpl.editCourse"
+      "open suspend override fun editCourse(course: Course): Boolean",
+      "edu.umass.dao.DaoFacadeImpl.editCourse"
     ]
   },
   {
-    "name": "open suspend override fun editProfessor(id: Int, firstName: String, lastName: String): Boolean",
-    "description": "edu.umass.dao.DAOFacadeImpl.editProfessor",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/edit-professor.html",
+    "name": "open suspend override fun editProfessor(professor: Professor): Boolean",
+    "description": "edu.umass.dao.DaoFacadeImpl.editProfessor",
+    "location": "course-informer/edu.umass.dao/-dao-facade-impl/edit-professor.html",
     "searchKeys": [
       "editProfessor",
-      "open suspend override fun editProfessor(id: Int, firstName: String, lastName: String): Boolean",
-      "edu.umass.dao.DAOFacadeImpl.editProfessor"
+      "open suspend override fun editProfessor(professor: Professor): Boolean",
+      "edu.umass.dao.DaoFacadeImpl.editProfessor"
     ]
   },
   {
-    "name": "open suspend override fun editReview(id: Int, professor: Professor, course: Course, user: User, difficulty: Int, quality: Int, tags: List<String>, comment: String, fromRMP: Boolean): Boolean",
-    "description": "edu.umass.dao.DAOFacadeImpl.editReview",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/edit-review.html",
+    "name": "open suspend override fun editReview(review: Review): Boolean",
+    "description": "edu.umass.dao.DaoFacadeImpl.editReview",
+    "location": "course-informer/edu.umass.dao/-dao-facade-impl/edit-review.html",
     "searchKeys": [
       "editReview",
-      "open suspend override fun editReview(id: Int, professor: Professor, course: Course, user: User, difficulty: Int, quality: Int, tags: List<String>, comment: String, fromRMP: Boolean): Boolean",
-      "edu.umass.dao.DAOFacadeImpl.editReview"
+      "open suspend override fun editReview(review: Review): Boolean",
+      "edu.umass.dao.DaoFacadeImpl.editReview"
     ]
   },
   {
-    "name": "open suspend override fun editUser(id: Int, firstName: String, lastName: String, email: String, favoriteCourses: List<Course>?, reviews: List<Review>?): Boolean",
-    "description": "edu.umass.dao.DAOFacadeImpl.editUser",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/edit-user.html",
+    "name": "open suspend override fun editUser(user: User): Boolean",
+    "description": "edu.umass.dao.DaoFacadeImpl.editUser",
+    "location": "course-informer/edu.umass.dao/-dao-facade-impl/edit-user.html",
     "searchKeys": [
       "editUser",
-      "open suspend override fun editUser(id: Int, firstName: String, lastName: String, email: String, favoriteCourses: List<Course>?, reviews: List<Review>?): Boolean",
-      "edu.umass.dao.DAOFacadeImpl.editUser"
+      "open suspend override fun editUser(user: User): Boolean",
+      "edu.umass.dao.DaoFacadeImpl.editUser"
     ]
   },
   {
     "name": "open suspend override fun professor(id: Int): Professor?",
-    "description": "edu.umass.dao.DAOFacadeImpl.professor",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/professor.html",
+    "description": "edu.umass.dao.DaoFacadeImpl.professor",
+    "location": "course-informer/edu.umass.dao/-dao-facade-impl/professor.html",
     "searchKeys": [
       "professor",
       "open suspend override fun professor(id: Int): Professor?",
-      "edu.umass.dao.DAOFacadeImpl.professor"
+      "edu.umass.dao.DaoFacadeImpl.professor"
     ]
   },
   {
     "name": "open suspend override fun review(id: Int): Review?",
-    "description": "edu.umass.dao.DAOFacadeImpl.review",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/review.html",
+    "description": "edu.umass.dao.DaoFacadeImpl.review",
+    "location": "course-informer/edu.umass.dao/-dao-facade-impl/review.html",
     "searchKeys": [
       "review",
       "open suspend override fun review(id: Int): Review?",
-      "edu.umass.dao.DAOFacadeImpl.review"
+      "edu.umass.dao.DaoFacadeImpl.review"
     ]
   },
   {
     "name": "open suspend override fun user(id: Int): User?",
-    "description": "edu.umass.dao.DAOFacadeImpl.user",
-    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/user.html",
+    "description": "edu.umass.dao.DaoFacadeImpl.user",
+    "location": "course-informer/edu.umass.dao/-dao-facade-impl/user.html",
     "searchKeys": [
       "user",
       "open suspend override fun user(id: Int): User?",
-      "edu.umass.dao.DAOFacadeImpl.user"
+      "edu.umass.dao.DaoFacadeImpl.user"
     ]
   },
   {
@@ -770,12 +970,12 @@
     ]
   },
   {
-    "name": "val dao: DAOFacade",
+    "name": "val dao: DaoFacade",
     "description": "edu.umass.dao.dao",
     "location": "course-informer/edu.umass.dao/dao.html",
     "searchKeys": [
       "dao",
-      "val dao: DAOFacade",
+      "val dao: DaoFacade",
       "edu.umass.dao.dao"
     ]
   },
@@ -860,6 +1060,16 @@
     ]
   },
   {
+    "name": "val entries: EnumEntries<SemesterSeason>",
+    "description": "edu.umass.models.SemesterSeason.entries",
+    "location": "course-informer/edu.umass.models/-semester-season/entries.html",
+    "searchKeys": [
+      "entries",
+      "val entries: EnumEntries<SemesterSeason>",
+      "edu.umass.models.SemesterSeason.entries"
+    ]
+  },
+  {
     "name": "val favoriteCourses: Column<String?>",
     "description": "edu.umass.models.Users.favoriteCourses",
     "location": "course-informer/edu.umass.models/-users/favorite-courses.html",
@@ -920,23 +1130,23 @@
     ]
   },
   {
-    "name": "val fromRMP: Boolean",
-    "description": "edu.umass.models.Review.fromRMP",
-    "location": "course-informer/edu.umass.models/-review/from-r-m-p.html",
+    "name": "val fromRmp: Boolean",
+    "description": "edu.umass.models.Review.fromRmp",
+    "location": "course-informer/edu.umass.models/-review/from-rmp.html",
     "searchKeys": [
-      "fromRMP",
-      "val fromRMP: Boolean",
-      "edu.umass.models.Review.fromRMP"
+      "fromRmp",
+      "val fromRmp: Boolean",
+      "edu.umass.models.Review.fromRmp"
     ]
   },
   {
-    "name": "val fromRMP: Column<Boolean>",
-    "description": "edu.umass.models.Reviews.fromRMP",
-    "location": "course-informer/edu.umass.models/-reviews/from-r-m-p.html",
+    "name": "val fromRmp: Column<Boolean>",
+    "description": "edu.umass.models.Reviews.fromRmp",
+    "location": "course-informer/edu.umass.models/-reviews/from-rmp.html",
     "searchKeys": [
-      "fromRMP",
-      "val fromRMP: Column<Boolean>",
-      "edu.umass.models.Reviews.fromRMP"
+      "fromRmp",
+      "val fromRmp: Column<Boolean>",
+      "edu.umass.models.Reviews.fromRmp"
     ]
   },
   {
@@ -1160,6 +1370,26 @@
     ]
   },
   {
+    "name": "val season: SemesterSeason",
+    "description": "edu.umass.models.Semester.season",
+    "location": "course-informer/edu.umass.models/-semester/season.html",
+    "searchKeys": [
+      "season",
+      "val season: SemesterSeason",
+      "edu.umass.models.Semester.season"
+    ]
+  },
+  {
+    "name": "val season: String",
+    "description": "edu.umass.models.SemesterSeason.season",
+    "location": "course-informer/edu.umass.models/-semester-season/season.html",
+    "searchKeys": [
+      "season",
+      "val season: String",
+      "edu.umass.models.SemesterSeason.season"
+    ]
+  },
+  {
     "name": "val semestersOffered: Column<String?>",
     "description": "edu.umass.models.Courses.semestersOffered",
     "location": "course-informer/edu.umass.models/-courses/semesters-offered.html",
@@ -1170,22 +1400,22 @@
     ]
   },
   {
-    "name": "val semestersOffered: List<String>?",
+    "name": "val semestersOffered: List<Semester>?",
     "description": "edu.umass.models.Course.semestersOffered",
     "location": "course-informer/edu.umass.models/-course/semesters-offered.html",
     "searchKeys": [
       "semestersOffered",
-      "val semestersOffered: List<String>?",
+      "val semestersOffered: List<Semester>?",
       "edu.umass.models.Course.semestersOffered"
     ]
   },
   {
-    "name": "val tags: Column<String>",
+    "name": "val tags: Column<String?>",
     "description": "edu.umass.models.Reviews.tags",
     "location": "course-informer/edu.umass.models/-reviews/tags.html",
     "searchKeys": [
       "tags",
-      "val tags: Column<String>",
+      "val tags: Column<String?>",
       "edu.umass.models.Reviews.tags"
     ]
   },
@@ -1237,6 +1467,16 @@
       "userId",
       "val userId: Column<Int>",
       "edu.umass.models.Reviews.userId"
+    ]
+  },
+  {
+    "name": "val year: Int",
+    "description": "edu.umass.models.Semester.year",
+    "location": "course-informer/edu.umass.models/-semester/year.html",
+    "searchKeys": [
+      "year",
+      "val year: Int",
+      "edu.umass.models.Semester.year"
     ]
   }
 ]

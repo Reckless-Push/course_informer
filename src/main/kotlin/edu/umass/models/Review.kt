@@ -15,7 +15,7 @@ import kotlinx.serialization.Serializable
  * @property quality The quality rating given by the user.
  * @property tags A list of tags given by the user.
  * @property comment The comment written by the user.
- * @property fromRMP Whether the review was imported from RateMyProfessor.
+ * @property fromRmp Whether the review was imported from RateMyProfessor.
  */
 @Serializable
 data class Review(
@@ -28,5 +28,5 @@ data class Review(
     val quality: Int,
     val tags: List<String>?,
     val comment: String,
-    val fromRMP: Boolean
+    val fromRmp: Boolean,
 )
