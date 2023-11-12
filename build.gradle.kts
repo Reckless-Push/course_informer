@@ -22,11 +22,15 @@ tasks.named("processResources") {
     dependsOn(npmRunBuild)
 }
 
-
 plugins {
     kotlin("jvm") version "1.9.20"
     id("io.ktor.plugin") version "2.3.5"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.20"
+    id("org.jetbrains.dokka") version "1.9.10"
+}
+
+tasks.dokkaHtml {
+    outputDirectory.set(buildDir.resolve("../documentation/html"))
 }
 
 group = "edu.umass"

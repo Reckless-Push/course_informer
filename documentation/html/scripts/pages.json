@@ -1,0 +1,1242 @@
+[
+  {
+    "name": "abstract suspend fun addNewCourse(cicsId: Int, name: String, description: String, credits: Int, undergraduateRequirements: List<Course>?, graduateRequirements: List<Course>?, semestersOffered: List<String>?, courseLevel: Int, professors: List<Professor>?): Course?",
+    "description": "edu.umass.dao.DAOFacade.addNewCourse",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade/add-new-course.html",
+    "searchKeys": [
+      "addNewCourse",
+      "abstract suspend fun addNewCourse(cicsId: Int, name: String, description: String, credits: Int, undergraduateRequirements: List<Course>?, graduateRequirements: List<Course>?, semestersOffered: List<String>?, courseLevel: Int, professors: List<Professor>?): Course?",
+      "edu.umass.dao.DAOFacade.addNewCourse"
+    ]
+  },
+  {
+    "name": "abstract suspend fun addNewProfessor(firstName: String, lastName: String): Professor?",
+    "description": "edu.umass.dao.DAOFacade.addNewProfessor",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade/add-new-professor.html",
+    "searchKeys": [
+      "addNewProfessor",
+      "abstract suspend fun addNewProfessor(firstName: String, lastName: String): Professor?",
+      "edu.umass.dao.DAOFacade.addNewProfessor"
+    ]
+  },
+  {
+    "name": "abstract suspend fun addNewReview(professor: Professor, course: Course, user: User, difficulty: Int, quality: Int, tags: List<String>, comment: String, fromRMP: Boolean): Review?",
+    "description": "edu.umass.dao.DAOFacade.addNewReview",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade/add-new-review.html",
+    "searchKeys": [
+      "addNewReview",
+      "abstract suspend fun addNewReview(professor: Professor, course: Course, user: User, difficulty: Int, quality: Int, tags: List<String>, comment: String, fromRMP: Boolean): Review?",
+      "edu.umass.dao.DAOFacade.addNewReview"
+    ]
+  },
+  {
+    "name": "abstract suspend fun addNewUser(firstName: String, lastName: String, email: String): User?",
+    "description": "edu.umass.dao.DAOFacade.addNewUser",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade/add-new-user.html",
+    "searchKeys": [
+      "addNewUser",
+      "abstract suspend fun addNewUser(firstName: String, lastName: String, email: String): User?",
+      "edu.umass.dao.DAOFacade.addNewUser"
+    ]
+  },
+  {
+    "name": "abstract suspend fun allCourses(): List<Course>",
+    "description": "edu.umass.dao.DAOFacade.allCourses",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade/all-courses.html",
+    "searchKeys": [
+      "allCourses",
+      "abstract suspend fun allCourses(): List<Course>",
+      "edu.umass.dao.DAOFacade.allCourses"
+    ]
+  },
+  {
+    "name": "abstract suspend fun allProfessors(): List<Professor>",
+    "description": "edu.umass.dao.DAOFacade.allProfessors",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade/all-professors.html",
+    "searchKeys": [
+      "allProfessors",
+      "abstract suspend fun allProfessors(): List<Professor>",
+      "edu.umass.dao.DAOFacade.allProfessors"
+    ]
+  },
+  {
+    "name": "abstract suspend fun allReviews(): List<Review>",
+    "description": "edu.umass.dao.DAOFacade.allReviews",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade/all-reviews.html",
+    "searchKeys": [
+      "allReviews",
+      "abstract suspend fun allReviews(): List<Review>",
+      "edu.umass.dao.DAOFacade.allReviews"
+    ]
+  },
+  {
+    "name": "abstract suspend fun allUsers(): List<User>",
+    "description": "edu.umass.dao.DAOFacade.allUsers",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade/all-users.html",
+    "searchKeys": [
+      "allUsers",
+      "abstract suspend fun allUsers(): List<User>",
+      "edu.umass.dao.DAOFacade.allUsers"
+    ]
+  },
+  {
+    "name": "abstract suspend fun course(id: Int): Course?",
+    "description": "edu.umass.dao.DAOFacade.course",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade/course.html",
+    "searchKeys": [
+      "course",
+      "abstract suspend fun course(id: Int): Course?",
+      "edu.umass.dao.DAOFacade.course"
+    ]
+  },
+  {
+    "name": "abstract suspend fun deleteCourse(id: Int): Boolean",
+    "description": "edu.umass.dao.DAOFacade.deleteCourse",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade/delete-course.html",
+    "searchKeys": [
+      "deleteCourse",
+      "abstract suspend fun deleteCourse(id: Int): Boolean",
+      "edu.umass.dao.DAOFacade.deleteCourse"
+    ]
+  },
+  {
+    "name": "abstract suspend fun deleteProfessor(id: Int): Boolean",
+    "description": "edu.umass.dao.DAOFacade.deleteProfessor",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade/delete-professor.html",
+    "searchKeys": [
+      "deleteProfessor",
+      "abstract suspend fun deleteProfessor(id: Int): Boolean",
+      "edu.umass.dao.DAOFacade.deleteProfessor"
+    ]
+  },
+  {
+    "name": "abstract suspend fun deleteReview(id: Int): Boolean",
+    "description": "edu.umass.dao.DAOFacade.deleteReview",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade/delete-review.html",
+    "searchKeys": [
+      "deleteReview",
+      "abstract suspend fun deleteReview(id: Int): Boolean",
+      "edu.umass.dao.DAOFacade.deleteReview"
+    ]
+  },
+  {
+    "name": "abstract suspend fun deleteUser(id: Int): Boolean",
+    "description": "edu.umass.dao.DAOFacade.deleteUser",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade/delete-user.html",
+    "searchKeys": [
+      "deleteUser",
+      "abstract suspend fun deleteUser(id: Int): Boolean",
+      "edu.umass.dao.DAOFacade.deleteUser"
+    ]
+  },
+  {
+    "name": "abstract suspend fun editCourse(id: Int, cicsId: Int, name: String, description: String, credits: Int, undergraduateRequirements: List<Course>, graduateRequirements: List<Course>, semestersOffered: List<String>, courseLevel: Int, professors: List<Professor>): Boolean",
+    "description": "edu.umass.dao.DAOFacade.editCourse",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade/edit-course.html",
+    "searchKeys": [
+      "editCourse",
+      "abstract suspend fun editCourse(id: Int, cicsId: Int, name: String, description: String, credits: Int, undergraduateRequirements: List<Course>, graduateRequirements: List<Course>, semestersOffered: List<String>, courseLevel: Int, professors: List<Professor>): Boolean",
+      "edu.umass.dao.DAOFacade.editCourse"
+    ]
+  },
+  {
+    "name": "abstract suspend fun editProfessor(id: Int, firstName: String, lastName: String): Boolean",
+    "description": "edu.umass.dao.DAOFacade.editProfessor",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade/edit-professor.html",
+    "searchKeys": [
+      "editProfessor",
+      "abstract suspend fun editProfessor(id: Int, firstName: String, lastName: String): Boolean",
+      "edu.umass.dao.DAOFacade.editProfessor"
+    ]
+  },
+  {
+    "name": "abstract suspend fun editReview(id: Int, professor: Professor, course: Course, user: User, difficulty: Int, quality: Int, tags: List<String>, comment: String, fromRMP: Boolean): Boolean",
+    "description": "edu.umass.dao.DAOFacade.editReview",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade/edit-review.html",
+    "searchKeys": [
+      "editReview",
+      "abstract suspend fun editReview(id: Int, professor: Professor, course: Course, user: User, difficulty: Int, quality: Int, tags: List<String>, comment: String, fromRMP: Boolean): Boolean",
+      "edu.umass.dao.DAOFacade.editReview"
+    ]
+  },
+  {
+    "name": "abstract suspend fun editUser(id: Int, firstName: String, lastName: String, email: String, favoriteCourses: List<Course>?, reviews: List<Review>?): Boolean",
+    "description": "edu.umass.dao.DAOFacade.editUser",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade/edit-user.html",
+    "searchKeys": [
+      "editUser",
+      "abstract suspend fun editUser(id: Int, firstName: String, lastName: String, email: String, favoriteCourses: List<Course>?, reviews: List<Review>?): Boolean",
+      "edu.umass.dao.DAOFacade.editUser"
+    ]
+  },
+  {
+    "name": "abstract suspend fun professor(id: Int): Professor?",
+    "description": "edu.umass.dao.DAOFacade.professor",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade/professor.html",
+    "searchKeys": [
+      "professor",
+      "abstract suspend fun professor(id: Int): Professor?",
+      "edu.umass.dao.DAOFacade.professor"
+    ]
+  },
+  {
+    "name": "abstract suspend fun review(id: Int): Review?",
+    "description": "edu.umass.dao.DAOFacade.review",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade/review.html",
+    "searchKeys": [
+      "review",
+      "abstract suspend fun review(id: Int): Review?",
+      "edu.umass.dao.DAOFacade.review"
+    ]
+  },
+  {
+    "name": "abstract suspend fun user(id: Int): User?",
+    "description": "edu.umass.dao.DAOFacade.user",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade/user.html",
+    "searchKeys": [
+      "user",
+      "abstract suspend fun user(id: Int): User?",
+      "edu.umass.dao.DAOFacade.user"
+    ]
+  },
+  {
+    "name": "class DAOFacadeImpl : DAOFacade",
+    "description": "edu.umass.dao.DAOFacadeImpl",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/index.html",
+    "searchKeys": [
+      "DAOFacadeImpl",
+      "class DAOFacadeImpl : DAOFacade",
+      "edu.umass.dao.DAOFacadeImpl"
+    ]
+  },
+  {
+    "name": "constructor()",
+    "description": "edu.umass.dao.DAOFacadeImpl.DAOFacadeImpl",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/-d-a-o-facade-impl.html",
+    "searchKeys": [
+      "DAOFacadeImpl",
+      "constructor()",
+      "edu.umass.dao.DAOFacadeImpl.DAOFacadeImpl"
+    ]
+  },
+  {
+    "name": "constructor(cicsId: Int, name: String, description: String, credits: Int, undergraduateRequirements: List<Course>?, graduateRequirements: List<Course>?, semestersOffered: List<String>?, courseLevel: Int, professors: List<Professor>?)",
+    "description": "edu.umass.models.Course.Course",
+    "location": "course-informer/edu.umass.models/-course/-course.html",
+    "searchKeys": [
+      "Course",
+      "constructor(cicsId: Int, name: String, description: String, credits: Int, undergraduateRequirements: List<Course>?, graduateRequirements: List<Course>?, semestersOffered: List<String>?, courseLevel: Int, professors: List<Professor>?)",
+      "edu.umass.models.Course.Course"
+    ]
+  },
+  {
+    "name": "constructor(id: Int, firstName: String, lastName: String)",
+    "description": "edu.umass.models.Professor.Professor",
+    "location": "course-informer/edu.umass.models/-professor/-professor.html",
+    "searchKeys": [
+      "Professor",
+      "constructor(id: Int, firstName: String, lastName: String)",
+      "edu.umass.models.Professor.Professor"
+    ]
+  },
+  {
+    "name": "constructor(id: Int, firstName: String, lastName: String, email: String, favoriteCourses: List<Course>?, reviews: List<Review>?)",
+    "description": "edu.umass.models.User.User",
+    "location": "course-informer/edu.umass.models/-user/-user.html",
+    "searchKeys": [
+      "User",
+      "constructor(id: Int, firstName: String, lastName: String, email: String, favoriteCourses: List<Course>?, reviews: List<Review>?)",
+      "edu.umass.models.User.User"
+    ]
+  },
+  {
+    "name": "constructor(id: Int, professor: Professor, course: Course, user: User, date: LocalDateTime, difficulty: Int, quality: Int, tags: List<String>?, comment: String, fromRMP: Boolean)",
+    "description": "edu.umass.models.Review.Review",
+    "location": "course-informer/edu.umass.models/-review/-review.html",
+    "searchKeys": [
+      "Review",
+      "constructor(id: Int, professor: Professor, course: Course, user: User, date: LocalDateTime, difficulty: Int, quality: Int, tags: List<String>?, comment: String, fromRMP: Boolean)",
+      "edu.umass.models.Review.Review"
+    ]
+  },
+  {
+    "name": "data class Course(val cicsId: Int, val name: String, val description: String, val credits: Int, val undergraduateRequirements: List<Course>?, val graduateRequirements: List<Course>?, val semestersOffered: List<String>?, val courseLevel: Int, val professors: List<Professor>?)",
+    "description": "edu.umass.models.Course",
+    "location": "course-informer/edu.umass.models/-course/index.html",
+    "searchKeys": [
+      "Course",
+      "data class Course(val cicsId: Int, val name: String, val description: String, val credits: Int, val undergraduateRequirements: List<Course>?, val graduateRequirements: List<Course>?, val semestersOffered: List<String>?, val courseLevel: Int, val professors: List<Professor>?)",
+      "edu.umass.models.Course"
+    ]
+  },
+  {
+    "name": "data class Professor(val id: Int, val firstName: String, val lastName: String)",
+    "description": "edu.umass.models.Professor",
+    "location": "course-informer/edu.umass.models/-professor/index.html",
+    "searchKeys": [
+      "Professor",
+      "data class Professor(val id: Int, val firstName: String, val lastName: String)",
+      "edu.umass.models.Professor"
+    ]
+  },
+  {
+    "name": "data class Review(val id: Int, val professor: Professor, val course: Course, val user: User, val date: LocalDateTime, val difficulty: Int, val quality: Int, val tags: List<String>?, val comment: String, val fromRMP: Boolean)",
+    "description": "edu.umass.models.Review",
+    "location": "course-informer/edu.umass.models/-review/index.html",
+    "searchKeys": [
+      "Review",
+      "data class Review(val id: Int, val professor: Professor, val course: Course, val user: User, val date: LocalDateTime, val difficulty: Int, val quality: Int, val tags: List<String>?, val comment: String, val fromRMP: Boolean)",
+      "edu.umass.models.Review"
+    ]
+  },
+  {
+    "name": "data class User(val id: Int, val firstName: String, val lastName: String, val email: String, val favoriteCourses: List<Course>?, val reviews: List<Review>?)",
+    "description": "edu.umass.models.User",
+    "location": "course-informer/edu.umass.models/-user/index.html",
+    "searchKeys": [
+      "User",
+      "data class User(val id: Int, val firstName: String, val lastName: String, val email: String, val favoriteCourses: List<Course>?, val reviews: List<Review>?)",
+      "edu.umass.models.User"
+    ]
+  },
+  {
+    "name": "fun Application.configureHTTP()",
+    "description": "edu.umass.plugins.configureHTTP",
+    "location": "course-informer/edu.umass.plugins/configure-h-t-t-p.html",
+    "searchKeys": [
+      "configureHTTP",
+      "fun Application.configureHTTP()",
+      "edu.umass.plugins.configureHTTP"
+    ]
+  },
+  {
+    "name": "fun Application.configureRouting()",
+    "description": "edu.umass.plugins.configureRouting",
+    "location": "course-informer/edu.umass.plugins/configure-routing.html",
+    "searchKeys": [
+      "configureRouting",
+      "fun Application.configureRouting()",
+      "edu.umass.plugins.configureRouting"
+    ]
+  },
+  {
+    "name": "fun Application.configureSerialization()",
+    "description": "edu.umass.plugins.configureSerialization",
+    "location": "course-informer/edu.umass.plugins/configure-serialization.html",
+    "searchKeys": [
+      "configureSerialization",
+      "fun Application.configureSerialization()",
+      "edu.umass.plugins.configureSerialization"
+    ]
+  },
+  {
+    "name": "fun Application.module()",
+    "description": "edu.umass.module",
+    "location": "course-informer/edu.umass/module.html",
+    "searchKeys": [
+      "module",
+      "fun Application.module()",
+      "edu.umass.module"
+    ]
+  },
+  {
+    "name": "fun init()",
+    "description": "edu.umass.dao.DatabaseFactory.init",
+    "location": "course-informer/edu.umass.dao/-database-factory/init.html",
+    "searchKeys": [
+      "init",
+      "fun init()",
+      "edu.umass.dao.DatabaseFactory.init"
+    ]
+  },
+  {
+    "name": "fun main()",
+    "description": "edu.umass.main",
+    "location": "course-informer/edu.umass/main.html",
+    "searchKeys": [
+      "main",
+      "fun main()",
+      "edu.umass.main"
+    ]
+  },
+  {
+    "name": "interface DAOFacade",
+    "description": "edu.umass.dao.DAOFacade",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade/index.html",
+    "searchKeys": [
+      "DAOFacade",
+      "interface DAOFacade",
+      "edu.umass.dao.DAOFacade"
+    ]
+  },
+  {
+    "name": "object Courses : Table",
+    "description": "edu.umass.models.Courses",
+    "location": "course-informer/edu.umass.models/-courses/index.html",
+    "searchKeys": [
+      "Courses",
+      "object Courses : Table",
+      "edu.umass.models.Courses"
+    ]
+  },
+  {
+    "name": "object DatabaseFactory",
+    "description": "edu.umass.dao.DatabaseFactory",
+    "location": "course-informer/edu.umass.dao/-database-factory/index.html",
+    "searchKeys": [
+      "DatabaseFactory",
+      "object DatabaseFactory",
+      "edu.umass.dao.DatabaseFactory"
+    ]
+  },
+  {
+    "name": "object Professors : Table",
+    "description": "edu.umass.models.Professors",
+    "location": "course-informer/edu.umass.models/-professors/index.html",
+    "searchKeys": [
+      "Professors",
+      "object Professors : Table",
+      "edu.umass.models.Professors"
+    ]
+  },
+  {
+    "name": "object Reviews : Table",
+    "description": "edu.umass.models.Reviews",
+    "location": "course-informer/edu.umass.models/-reviews/index.html",
+    "searchKeys": [
+      "Reviews",
+      "object Reviews : Table",
+      "edu.umass.models.Reviews"
+    ]
+  },
+  {
+    "name": "object Users : Table",
+    "description": "edu.umass.models.Users",
+    "location": "course-informer/edu.umass.models/-users/index.html",
+    "searchKeys": [
+      "Users",
+      "object Users : Table",
+      "edu.umass.models.Users"
+    ]
+  },
+  {
+    "name": "open override val primaryKey: Table.PrimaryKey",
+    "description": "edu.umass.models.Courses.primaryKey",
+    "location": "course-informer/edu.umass.models/-courses/primary-key.html",
+    "searchKeys": [
+      "primaryKey",
+      "open override val primaryKey: Table.PrimaryKey",
+      "edu.umass.models.Courses.primaryKey"
+    ]
+  },
+  {
+    "name": "open override val primaryKey: Table.PrimaryKey",
+    "description": "edu.umass.models.Professors.primaryKey",
+    "location": "course-informer/edu.umass.models/-professors/primary-key.html",
+    "searchKeys": [
+      "primaryKey",
+      "open override val primaryKey: Table.PrimaryKey",
+      "edu.umass.models.Professors.primaryKey"
+    ]
+  },
+  {
+    "name": "open override val primaryKey: Table.PrimaryKey",
+    "description": "edu.umass.models.Reviews.primaryKey",
+    "location": "course-informer/edu.umass.models/-reviews/primary-key.html",
+    "searchKeys": [
+      "primaryKey",
+      "open override val primaryKey: Table.PrimaryKey",
+      "edu.umass.models.Reviews.primaryKey"
+    ]
+  },
+  {
+    "name": "open override val primaryKey: Table.PrimaryKey",
+    "description": "edu.umass.models.Users.primaryKey",
+    "location": "course-informer/edu.umass.models/-users/primary-key.html",
+    "searchKeys": [
+      "primaryKey",
+      "open override val primaryKey: Table.PrimaryKey",
+      "edu.umass.models.Users.primaryKey"
+    ]
+  },
+  {
+    "name": "open suspend override fun addNewCourse(cicsId: Int, name: String, description: String, credits: Int, undergraduateRequirements: List<Course>?, graduateRequirements: List<Course>?, semestersOffered: List<String>?, courseLevel: Int, professors: List<Professor>?): Course?",
+    "description": "edu.umass.dao.DAOFacadeImpl.addNewCourse",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/add-new-course.html",
+    "searchKeys": [
+      "addNewCourse",
+      "open suspend override fun addNewCourse(cicsId: Int, name: String, description: String, credits: Int, undergraduateRequirements: List<Course>?, graduateRequirements: List<Course>?, semestersOffered: List<String>?, courseLevel: Int, professors: List<Professor>?): Course?",
+      "edu.umass.dao.DAOFacadeImpl.addNewCourse"
+    ]
+  },
+  {
+    "name": "open suspend override fun addNewProfessor(firstName: String, lastName: String): Professor?",
+    "description": "edu.umass.dao.DAOFacadeImpl.addNewProfessor",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/add-new-professor.html",
+    "searchKeys": [
+      "addNewProfessor",
+      "open suspend override fun addNewProfessor(firstName: String, lastName: String): Professor?",
+      "edu.umass.dao.DAOFacadeImpl.addNewProfessor"
+    ]
+  },
+  {
+    "name": "open suspend override fun addNewReview(professor: Professor, course: Course, user: User, difficulty: Int, quality: Int, tags: List<String>, comment: String, fromRMP: Boolean): Review?",
+    "description": "edu.umass.dao.DAOFacadeImpl.addNewReview",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/add-new-review.html",
+    "searchKeys": [
+      "addNewReview",
+      "open suspend override fun addNewReview(professor: Professor, course: Course, user: User, difficulty: Int, quality: Int, tags: List<String>, comment: String, fromRMP: Boolean): Review?",
+      "edu.umass.dao.DAOFacadeImpl.addNewReview"
+    ]
+  },
+  {
+    "name": "open suspend override fun addNewUser(firstName: String, lastName: String, email: String): User?",
+    "description": "edu.umass.dao.DAOFacadeImpl.addNewUser",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/add-new-user.html",
+    "searchKeys": [
+      "addNewUser",
+      "open suspend override fun addNewUser(firstName: String, lastName: String, email: String): User?",
+      "edu.umass.dao.DAOFacadeImpl.addNewUser"
+    ]
+  },
+  {
+    "name": "open suspend override fun allCourses(): List<Course>",
+    "description": "edu.umass.dao.DAOFacadeImpl.allCourses",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/all-courses.html",
+    "searchKeys": [
+      "allCourses",
+      "open suspend override fun allCourses(): List<Course>",
+      "edu.umass.dao.DAOFacadeImpl.allCourses"
+    ]
+  },
+  {
+    "name": "open suspend override fun allProfessors(): List<Professor>",
+    "description": "edu.umass.dao.DAOFacadeImpl.allProfessors",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/all-professors.html",
+    "searchKeys": [
+      "allProfessors",
+      "open suspend override fun allProfessors(): List<Professor>",
+      "edu.umass.dao.DAOFacadeImpl.allProfessors"
+    ]
+  },
+  {
+    "name": "open suspend override fun allReviews(): List<Review>",
+    "description": "edu.umass.dao.DAOFacadeImpl.allReviews",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/all-reviews.html",
+    "searchKeys": [
+      "allReviews",
+      "open suspend override fun allReviews(): List<Review>",
+      "edu.umass.dao.DAOFacadeImpl.allReviews"
+    ]
+  },
+  {
+    "name": "open suspend override fun allUsers(): List<User>",
+    "description": "edu.umass.dao.DAOFacadeImpl.allUsers",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/all-users.html",
+    "searchKeys": [
+      "allUsers",
+      "open suspend override fun allUsers(): List<User>",
+      "edu.umass.dao.DAOFacadeImpl.allUsers"
+    ]
+  },
+  {
+    "name": "open suspend override fun course(id: Int): Course?",
+    "description": "edu.umass.dao.DAOFacadeImpl.course",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/course.html",
+    "searchKeys": [
+      "course",
+      "open suspend override fun course(id: Int): Course?",
+      "edu.umass.dao.DAOFacadeImpl.course"
+    ]
+  },
+  {
+    "name": "open suspend override fun deleteCourse(id: Int): Boolean",
+    "description": "edu.umass.dao.DAOFacadeImpl.deleteCourse",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/delete-course.html",
+    "searchKeys": [
+      "deleteCourse",
+      "open suspend override fun deleteCourse(id: Int): Boolean",
+      "edu.umass.dao.DAOFacadeImpl.deleteCourse"
+    ]
+  },
+  {
+    "name": "open suspend override fun deleteProfessor(id: Int): Boolean",
+    "description": "edu.umass.dao.DAOFacadeImpl.deleteProfessor",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/delete-professor.html",
+    "searchKeys": [
+      "deleteProfessor",
+      "open suspend override fun deleteProfessor(id: Int): Boolean",
+      "edu.umass.dao.DAOFacadeImpl.deleteProfessor"
+    ]
+  },
+  {
+    "name": "open suspend override fun deleteReview(id: Int): Boolean",
+    "description": "edu.umass.dao.DAOFacadeImpl.deleteReview",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/delete-review.html",
+    "searchKeys": [
+      "deleteReview",
+      "open suspend override fun deleteReview(id: Int): Boolean",
+      "edu.umass.dao.DAOFacadeImpl.deleteReview"
+    ]
+  },
+  {
+    "name": "open suspend override fun deleteUser(id: Int): Boolean",
+    "description": "edu.umass.dao.DAOFacadeImpl.deleteUser",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/delete-user.html",
+    "searchKeys": [
+      "deleteUser",
+      "open suspend override fun deleteUser(id: Int): Boolean",
+      "edu.umass.dao.DAOFacadeImpl.deleteUser"
+    ]
+  },
+  {
+    "name": "open suspend override fun editCourse(id: Int, cicsId: Int, name: String, description: String, credits: Int, undergraduateRequirements: List<Course>, graduateRequirements: List<Course>, semestersOffered: List<String>, courseLevel: Int, professors: List<Professor>): Boolean",
+    "description": "edu.umass.dao.DAOFacadeImpl.editCourse",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/edit-course.html",
+    "searchKeys": [
+      "editCourse",
+      "open suspend override fun editCourse(id: Int, cicsId: Int, name: String, description: String, credits: Int, undergraduateRequirements: List<Course>, graduateRequirements: List<Course>, semestersOffered: List<String>, courseLevel: Int, professors: List<Professor>): Boolean",
+      "edu.umass.dao.DAOFacadeImpl.editCourse"
+    ]
+  },
+  {
+    "name": "open suspend override fun editProfessor(id: Int, firstName: String, lastName: String): Boolean",
+    "description": "edu.umass.dao.DAOFacadeImpl.editProfessor",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/edit-professor.html",
+    "searchKeys": [
+      "editProfessor",
+      "open suspend override fun editProfessor(id: Int, firstName: String, lastName: String): Boolean",
+      "edu.umass.dao.DAOFacadeImpl.editProfessor"
+    ]
+  },
+  {
+    "name": "open suspend override fun editReview(id: Int, professor: Professor, course: Course, user: User, difficulty: Int, quality: Int, tags: List<String>, comment: String, fromRMP: Boolean): Boolean",
+    "description": "edu.umass.dao.DAOFacadeImpl.editReview",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/edit-review.html",
+    "searchKeys": [
+      "editReview",
+      "open suspend override fun editReview(id: Int, professor: Professor, course: Course, user: User, difficulty: Int, quality: Int, tags: List<String>, comment: String, fromRMP: Boolean): Boolean",
+      "edu.umass.dao.DAOFacadeImpl.editReview"
+    ]
+  },
+  {
+    "name": "open suspend override fun editUser(id: Int, firstName: String, lastName: String, email: String, favoriteCourses: List<Course>?, reviews: List<Review>?): Boolean",
+    "description": "edu.umass.dao.DAOFacadeImpl.editUser",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/edit-user.html",
+    "searchKeys": [
+      "editUser",
+      "open suspend override fun editUser(id: Int, firstName: String, lastName: String, email: String, favoriteCourses: List<Course>?, reviews: List<Review>?): Boolean",
+      "edu.umass.dao.DAOFacadeImpl.editUser"
+    ]
+  },
+  {
+    "name": "open suspend override fun professor(id: Int): Professor?",
+    "description": "edu.umass.dao.DAOFacadeImpl.professor",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/professor.html",
+    "searchKeys": [
+      "professor",
+      "open suspend override fun professor(id: Int): Professor?",
+      "edu.umass.dao.DAOFacadeImpl.professor"
+    ]
+  },
+  {
+    "name": "open suspend override fun review(id: Int): Review?",
+    "description": "edu.umass.dao.DAOFacadeImpl.review",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/review.html",
+    "searchKeys": [
+      "review",
+      "open suspend override fun review(id: Int): Review?",
+      "edu.umass.dao.DAOFacadeImpl.review"
+    ]
+  },
+  {
+    "name": "open suspend override fun user(id: Int): User?",
+    "description": "edu.umass.dao.DAOFacadeImpl.user",
+    "location": "course-informer/edu.umass.dao/-d-a-o-facade-impl/user.html",
+    "searchKeys": [
+      "user",
+      "open suspend override fun user(id: Int): User?",
+      "edu.umass.dao.DAOFacadeImpl.user"
+    ]
+  },
+  {
+    "name": "suspend fun <T> dbQuery(block: suspend () -> T): T",
+    "description": "edu.umass.dao.DatabaseFactory.dbQuery",
+    "location": "course-informer/edu.umass.dao/-database-factory/db-query.html",
+    "searchKeys": [
+      "dbQuery",
+      "suspend fun <T> dbQuery(block: suspend () -> T): T",
+      "edu.umass.dao.DatabaseFactory.dbQuery"
+    ]
+  },
+  {
+    "name": "val cicsId: Column<Int>",
+    "description": "edu.umass.models.Courses.cicsId",
+    "location": "course-informer/edu.umass.models/-courses/cics-id.html",
+    "searchKeys": [
+      "cicsId",
+      "val cicsId: Column<Int>",
+      "edu.umass.models.Courses.cicsId"
+    ]
+  },
+  {
+    "name": "val cicsId: Int",
+    "description": "edu.umass.models.Course.cicsId",
+    "location": "course-informer/edu.umass.models/-course/cics-id.html",
+    "searchKeys": [
+      "cicsId",
+      "val cicsId: Int",
+      "edu.umass.models.Course.cicsId"
+    ]
+  },
+  {
+    "name": "val comment: Column<String>",
+    "description": "edu.umass.models.Reviews.comment",
+    "location": "course-informer/edu.umass.models/-reviews/comment.html",
+    "searchKeys": [
+      "comment",
+      "val comment: Column<String>",
+      "edu.umass.models.Reviews.comment"
+    ]
+  },
+  {
+    "name": "val comment: String",
+    "description": "edu.umass.models.Review.comment",
+    "location": "course-informer/edu.umass.models/-review/comment.html",
+    "searchKeys": [
+      "comment",
+      "val comment: String",
+      "edu.umass.models.Review.comment"
+    ]
+  },
+  {
+    "name": "val course: Course",
+    "description": "edu.umass.models.Review.course",
+    "location": "course-informer/edu.umass.models/-review/course.html",
+    "searchKeys": [
+      "course",
+      "val course: Course",
+      "edu.umass.models.Review.course"
+    ]
+  },
+  {
+    "name": "val courseId: Column<Int>",
+    "description": "edu.umass.models.Reviews.courseId",
+    "location": "course-informer/edu.umass.models/-reviews/course-id.html",
+    "searchKeys": [
+      "courseId",
+      "val courseId: Column<Int>",
+      "edu.umass.models.Reviews.courseId"
+    ]
+  },
+  {
+    "name": "val courseLevel: Column<Int>",
+    "description": "edu.umass.models.Courses.courseLevel",
+    "location": "course-informer/edu.umass.models/-courses/course-level.html",
+    "searchKeys": [
+      "courseLevel",
+      "val courseLevel: Column<Int>",
+      "edu.umass.models.Courses.courseLevel"
+    ]
+  },
+  {
+    "name": "val courseLevel: Int",
+    "description": "edu.umass.models.Course.courseLevel",
+    "location": "course-informer/edu.umass.models/-course/course-level.html",
+    "searchKeys": [
+      "courseLevel",
+      "val courseLevel: Int",
+      "edu.umass.models.Course.courseLevel"
+    ]
+  },
+  {
+    "name": "val credits: Column<Int>",
+    "description": "edu.umass.models.Courses.credits",
+    "location": "course-informer/edu.umass.models/-courses/credits.html",
+    "searchKeys": [
+      "credits",
+      "val credits: Column<Int>",
+      "edu.umass.models.Courses.credits"
+    ]
+  },
+  {
+    "name": "val credits: Int",
+    "description": "edu.umass.models.Course.credits",
+    "location": "course-informer/edu.umass.models/-course/credits.html",
+    "searchKeys": [
+      "credits",
+      "val credits: Int",
+      "edu.umass.models.Course.credits"
+    ]
+  },
+  {
+    "name": "val dao: DAOFacade",
+    "description": "edu.umass.dao.dao",
+    "location": "course-informer/edu.umass.dao/dao.html",
+    "searchKeys": [
+      "dao",
+      "val dao: DAOFacade",
+      "edu.umass.dao.dao"
+    ]
+  },
+  {
+    "name": "val date: LocalDateTime",
+    "description": "edu.umass.models.Review.date",
+    "location": "course-informer/edu.umass.models/-review/date.html",
+    "searchKeys": [
+      "date",
+      "val date: LocalDateTime",
+      "edu.umass.models.Review.date"
+    ]
+  },
+  {
+    "name": "val datetime: Column<LocalDateTime>",
+    "description": "edu.umass.models.Reviews.datetime",
+    "location": "course-informer/edu.umass.models/-reviews/datetime.html",
+    "searchKeys": [
+      "datetime",
+      "val datetime: Column<LocalDateTime>",
+      "edu.umass.models.Reviews.datetime"
+    ]
+  },
+  {
+    "name": "val description: Column<String>",
+    "description": "edu.umass.models.Courses.description",
+    "location": "course-informer/edu.umass.models/-courses/description.html",
+    "searchKeys": [
+      "description",
+      "val description: Column<String>",
+      "edu.umass.models.Courses.description"
+    ]
+  },
+  {
+    "name": "val description: String",
+    "description": "edu.umass.models.Course.description",
+    "location": "course-informer/edu.umass.models/-course/description.html",
+    "searchKeys": [
+      "description",
+      "val description: String",
+      "edu.umass.models.Course.description"
+    ]
+  },
+  {
+    "name": "val difficulty: Column<Int>",
+    "description": "edu.umass.models.Reviews.difficulty",
+    "location": "course-informer/edu.umass.models/-reviews/difficulty.html",
+    "searchKeys": [
+      "difficulty",
+      "val difficulty: Column<Int>",
+      "edu.umass.models.Reviews.difficulty"
+    ]
+  },
+  {
+    "name": "val difficulty: Int",
+    "description": "edu.umass.models.Review.difficulty",
+    "location": "course-informer/edu.umass.models/-review/difficulty.html",
+    "searchKeys": [
+      "difficulty",
+      "val difficulty: Int",
+      "edu.umass.models.Review.difficulty"
+    ]
+  },
+  {
+    "name": "val email: Column<String>",
+    "description": "edu.umass.models.Users.email",
+    "location": "course-informer/edu.umass.models/-users/email.html",
+    "searchKeys": [
+      "email",
+      "val email: Column<String>",
+      "edu.umass.models.Users.email"
+    ]
+  },
+  {
+    "name": "val email: String",
+    "description": "edu.umass.models.User.email",
+    "location": "course-informer/edu.umass.models/-user/email.html",
+    "searchKeys": [
+      "email",
+      "val email: String",
+      "edu.umass.models.User.email"
+    ]
+  },
+  {
+    "name": "val favoriteCourses: Column<String?>",
+    "description": "edu.umass.models.Users.favoriteCourses",
+    "location": "course-informer/edu.umass.models/-users/favorite-courses.html",
+    "searchKeys": [
+      "favoriteCourses",
+      "val favoriteCourses: Column<String?>",
+      "edu.umass.models.Users.favoriteCourses"
+    ]
+  },
+  {
+    "name": "val favoriteCourses: List<Course>?",
+    "description": "edu.umass.models.User.favoriteCourses",
+    "location": "course-informer/edu.umass.models/-user/favorite-courses.html",
+    "searchKeys": [
+      "favoriteCourses",
+      "val favoriteCourses: List<Course>?",
+      "edu.umass.models.User.favoriteCourses"
+    ]
+  },
+  {
+    "name": "val firstName: Column<String>",
+    "description": "edu.umass.models.Professors.firstName",
+    "location": "course-informer/edu.umass.models/-professors/first-name.html",
+    "searchKeys": [
+      "firstName",
+      "val firstName: Column<String>",
+      "edu.umass.models.Professors.firstName"
+    ]
+  },
+  {
+    "name": "val firstName: Column<String>",
+    "description": "edu.umass.models.Users.firstName",
+    "location": "course-informer/edu.umass.models/-users/first-name.html",
+    "searchKeys": [
+      "firstName",
+      "val firstName: Column<String>",
+      "edu.umass.models.Users.firstName"
+    ]
+  },
+  {
+    "name": "val firstName: String",
+    "description": "edu.umass.models.Professor.firstName",
+    "location": "course-informer/edu.umass.models/-professor/first-name.html",
+    "searchKeys": [
+      "firstName",
+      "val firstName: String",
+      "edu.umass.models.Professor.firstName"
+    ]
+  },
+  {
+    "name": "val firstName: String",
+    "description": "edu.umass.models.User.firstName",
+    "location": "course-informer/edu.umass.models/-user/first-name.html",
+    "searchKeys": [
+      "firstName",
+      "val firstName: String",
+      "edu.umass.models.User.firstName"
+    ]
+  },
+  {
+    "name": "val fromRMP: Boolean",
+    "description": "edu.umass.models.Review.fromRMP",
+    "location": "course-informer/edu.umass.models/-review/from-r-m-p.html",
+    "searchKeys": [
+      "fromRMP",
+      "val fromRMP: Boolean",
+      "edu.umass.models.Review.fromRMP"
+    ]
+  },
+  {
+    "name": "val fromRMP: Column<Boolean>",
+    "description": "edu.umass.models.Reviews.fromRMP",
+    "location": "course-informer/edu.umass.models/-reviews/from-r-m-p.html",
+    "searchKeys": [
+      "fromRMP",
+      "val fromRMP: Column<Boolean>",
+      "edu.umass.models.Reviews.fromRMP"
+    ]
+  },
+  {
+    "name": "val graduateRequirements: Column<String?>",
+    "description": "edu.umass.models.Courses.graduateRequirements",
+    "location": "course-informer/edu.umass.models/-courses/graduate-requirements.html",
+    "searchKeys": [
+      "graduateRequirements",
+      "val graduateRequirements: Column<String?>",
+      "edu.umass.models.Courses.graduateRequirements"
+    ]
+  },
+  {
+    "name": "val graduateRequirements: List<Course>?",
+    "description": "edu.umass.models.Course.graduateRequirements",
+    "location": "course-informer/edu.umass.models/-course/graduate-requirements.html",
+    "searchKeys": [
+      "graduateRequirements",
+      "val graduateRequirements: List<Course>?",
+      "edu.umass.models.Course.graduateRequirements"
+    ]
+  },
+  {
+    "name": "val id: Column<Int>",
+    "description": "edu.umass.models.Professors.id",
+    "location": "course-informer/edu.umass.models/-professors/id.html",
+    "searchKeys": [
+      "id",
+      "val id: Column<Int>",
+      "edu.umass.models.Professors.id"
+    ]
+  },
+  {
+    "name": "val id: Column<Int>",
+    "description": "edu.umass.models.Reviews.id",
+    "location": "course-informer/edu.umass.models/-reviews/id.html",
+    "searchKeys": [
+      "id",
+      "val id: Column<Int>",
+      "edu.umass.models.Reviews.id"
+    ]
+  },
+  {
+    "name": "val id: Column<Int>",
+    "description": "edu.umass.models.Users.id",
+    "location": "course-informer/edu.umass.models/-users/id.html",
+    "searchKeys": [
+      "id",
+      "val id: Column<Int>",
+      "edu.umass.models.Users.id"
+    ]
+  },
+  {
+    "name": "val id: Int",
+    "description": "edu.umass.models.Professor.id",
+    "location": "course-informer/edu.umass.models/-professor/id.html",
+    "searchKeys": [
+      "id",
+      "val id: Int",
+      "edu.umass.models.Professor.id"
+    ]
+  },
+  {
+    "name": "val id: Int",
+    "description": "edu.umass.models.Review.id",
+    "location": "course-informer/edu.umass.models/-review/id.html",
+    "searchKeys": [
+      "id",
+      "val id: Int",
+      "edu.umass.models.Review.id"
+    ]
+  },
+  {
+    "name": "val id: Int",
+    "description": "edu.umass.models.User.id",
+    "location": "course-informer/edu.umass.models/-user/id.html",
+    "searchKeys": [
+      "id",
+      "val id: Int",
+      "edu.umass.models.User.id"
+    ]
+  },
+  {
+    "name": "val lastName: Column<String>",
+    "description": "edu.umass.models.Professors.lastName",
+    "location": "course-informer/edu.umass.models/-professors/last-name.html",
+    "searchKeys": [
+      "lastName",
+      "val lastName: Column<String>",
+      "edu.umass.models.Professors.lastName"
+    ]
+  },
+  {
+    "name": "val lastName: Column<String>",
+    "description": "edu.umass.models.Users.lastName",
+    "location": "course-informer/edu.umass.models/-users/last-name.html",
+    "searchKeys": [
+      "lastName",
+      "val lastName: Column<String>",
+      "edu.umass.models.Users.lastName"
+    ]
+  },
+  {
+    "name": "val lastName: String",
+    "description": "edu.umass.models.Professor.lastName",
+    "location": "course-informer/edu.umass.models/-professor/last-name.html",
+    "searchKeys": [
+      "lastName",
+      "val lastName: String",
+      "edu.umass.models.Professor.lastName"
+    ]
+  },
+  {
+    "name": "val lastName: String",
+    "description": "edu.umass.models.User.lastName",
+    "location": "course-informer/edu.umass.models/-user/last-name.html",
+    "searchKeys": [
+      "lastName",
+      "val lastName: String",
+      "edu.umass.models.User.lastName"
+    ]
+  },
+  {
+    "name": "val name: Column<String>",
+    "description": "edu.umass.models.Courses.name",
+    "location": "course-informer/edu.umass.models/-courses/name.html",
+    "searchKeys": [
+      "name",
+      "val name: Column<String>",
+      "edu.umass.models.Courses.name"
+    ]
+  },
+  {
+    "name": "val name: String",
+    "description": "edu.umass.models.Course.name",
+    "location": "course-informer/edu.umass.models/-course/name.html",
+    "searchKeys": [
+      "name",
+      "val name: String",
+      "edu.umass.models.Course.name"
+    ]
+  },
+  {
+    "name": "val professor: Professor",
+    "description": "edu.umass.models.Review.professor",
+    "location": "course-informer/edu.umass.models/-review/professor.html",
+    "searchKeys": [
+      "professor",
+      "val professor: Professor",
+      "edu.umass.models.Review.professor"
+    ]
+  },
+  {
+    "name": "val professorId: Column<Int>",
+    "description": "edu.umass.models.Reviews.professorId",
+    "location": "course-informer/edu.umass.models/-reviews/professor-id.html",
+    "searchKeys": [
+      "professorId",
+      "val professorId: Column<Int>",
+      "edu.umass.models.Reviews.professorId"
+    ]
+  },
+  {
+    "name": "val professors: Column<String?>",
+    "description": "edu.umass.models.Courses.professors",
+    "location": "course-informer/edu.umass.models/-courses/professors.html",
+    "searchKeys": [
+      "professors",
+      "val professors: Column<String?>",
+      "edu.umass.models.Courses.professors"
+    ]
+  },
+  {
+    "name": "val professors: List<Professor>?",
+    "description": "edu.umass.models.Course.professors",
+    "location": "course-informer/edu.umass.models/-course/professors.html",
+    "searchKeys": [
+      "professors",
+      "val professors: List<Professor>?",
+      "edu.umass.models.Course.professors"
+    ]
+  },
+  {
+    "name": "val quality: Column<Int>",
+    "description": "edu.umass.models.Reviews.quality",
+    "location": "course-informer/edu.umass.models/-reviews/quality.html",
+    "searchKeys": [
+      "quality",
+      "val quality: Column<Int>",
+      "edu.umass.models.Reviews.quality"
+    ]
+  },
+  {
+    "name": "val quality: Int",
+    "description": "edu.umass.models.Review.quality",
+    "location": "course-informer/edu.umass.models/-review/quality.html",
+    "searchKeys": [
+      "quality",
+      "val quality: Int",
+      "edu.umass.models.Review.quality"
+    ]
+  },
+  {
+    "name": "val reviews: Column<String?>",
+    "description": "edu.umass.models.Users.reviews",
+    "location": "course-informer/edu.umass.models/-users/reviews.html",
+    "searchKeys": [
+      "reviews",
+      "val reviews: Column<String?>",
+      "edu.umass.models.Users.reviews"
+    ]
+  },
+  {
+    "name": "val reviews: List<Review>?",
+    "description": "edu.umass.models.User.reviews",
+    "location": "course-informer/edu.umass.models/-user/reviews.html",
+    "searchKeys": [
+      "reviews",
+      "val reviews: List<Review>?",
+      "edu.umass.models.User.reviews"
+    ]
+  },
+  {
+    "name": "val semestersOffered: Column<String?>",
+    "description": "edu.umass.models.Courses.semestersOffered",
+    "location": "course-informer/edu.umass.models/-courses/semesters-offered.html",
+    "searchKeys": [
+      "semestersOffered",
+      "val semestersOffered: Column<String?>",
+      "edu.umass.models.Courses.semestersOffered"
+    ]
+  },
+  {
+    "name": "val semestersOffered: List<String>?",
+    "description": "edu.umass.models.Course.semestersOffered",
+    "location": "course-informer/edu.umass.models/-course/semesters-offered.html",
+    "searchKeys": [
+      "semestersOffered",
+      "val semestersOffered: List<String>?",
+      "edu.umass.models.Course.semestersOffered"
+    ]
+  },
+  {
+    "name": "val tags: Column<String>",
+    "description": "edu.umass.models.Reviews.tags",
+    "location": "course-informer/edu.umass.models/-reviews/tags.html",
+    "searchKeys": [
+      "tags",
+      "val tags: Column<String>",
+      "edu.umass.models.Reviews.tags"
+    ]
+  },
+  {
+    "name": "val tags: List<String>?",
+    "description": "edu.umass.models.Review.tags",
+    "location": "course-informer/edu.umass.models/-review/tags.html",
+    "searchKeys": [
+      "tags",
+      "val tags: List<String>?",
+      "edu.umass.models.Review.tags"
+    ]
+  },
+  {
+    "name": "val undergraduateRequirements: Column<String?>",
+    "description": "edu.umass.models.Courses.undergraduateRequirements",
+    "location": "course-informer/edu.umass.models/-courses/undergraduate-requirements.html",
+    "searchKeys": [
+      "undergraduateRequirements",
+      "val undergraduateRequirements: Column<String?>",
+      "edu.umass.models.Courses.undergraduateRequirements"
+    ]
+  },
+  {
+    "name": "val undergraduateRequirements: List<Course>?",
+    "description": "edu.umass.models.Course.undergraduateRequirements",
+    "location": "course-informer/edu.umass.models/-course/undergraduate-requirements.html",
+    "searchKeys": [
+      "undergraduateRequirements",
+      "val undergraduateRequirements: List<Course>?",
+      "edu.umass.models.Course.undergraduateRequirements"
+    ]
+  },
+  {
+    "name": "val user: User",
+    "description": "edu.umass.models.Review.user",
+    "location": "course-informer/edu.umass.models/-review/user.html",
+    "searchKeys": [
+      "user",
+      "val user: User",
+      "edu.umass.models.Review.user"
+    ]
+  },
+  {
+    "name": "val userId: Column<Int>",
+    "description": "edu.umass.models.Reviews.userId",
+    "location": "course-informer/edu.umass.models/-reviews/user-id.html",
+    "searchKeys": [
+      "userId",
+      "val userId: Column<Int>",
+      "edu.umass.models.Reviews.userId"
+    ]
+  }
+]
