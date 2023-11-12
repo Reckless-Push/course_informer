@@ -30,7 +30,7 @@ import kotlinx.datetime.toLocalDateTime
 const val DEFAULT_CICS_ID = 101
 const val DEFAULT_CREDITS = 4
 const val DEFAULT_COURSE_LEVEL = 100
-const val DEFAULT_YEAR = 2_021
+const val DEFAULT_YEAR = 2021
 const val DEFAULT_DIFFICULTY = 5
 const val DEFAULT_QUALITY = 5
 
@@ -165,9 +165,11 @@ class DaoFacadeImpl : DaoFacade {
         it: UpdateBuilder<*>,
         review: Review,
     ) {
-        it[Reviews.professorId] = review.professor.id
-        it[Reviews.courseId] = review.course.cicsId
-        it[Reviews.userId] = review.user.id
+        it[Reviews.professorId] =
+                review.professor.id ?: throw IllegalArgumentException("Professor ID is null")
+        it[Reviews.courseId] =
+                review.course.cicsId ?: throw IllegalArgumentException("Course ID is null")
+        it[Reviews.userId] = review.user.id ?: throw IllegalArgumentException("User ID is null")
         it[Reviews.difficulty] = review.difficulty
         it[Reviews.quality] = review.quality
         it[Reviews.tags] = review.tags?.joinToString(",")
@@ -186,7 +188,7 @@ class DaoFacadeImpl : DaoFacade {
         it: UpdateBuilder<*>,
         course: Course,
     ) {
-        it[Courses.cicsId] = course.cicsId
+        it[Courses.cicsId] = course.cicsId ?: throw IllegalArgumentException("CICS ID is null")
         it[Courses.name] = course.name
         it[Courses.description] = course.description
         it[Courses.credits] = course.credits
@@ -245,11 +247,15 @@ class DaoFacadeImpl : DaoFacade {
      * Updates an existing user's information in the database.
      *
      * @param user The updated user to replace in the database.
+     * @param id The ID of the user to update.
      * @return True if the update was successful, False otherwise.
      */
-    override suspend fun editUser(user: User): Boolean {
+    override suspend fun editUser(
+        user: User,
+        id: Int,
+    ): Boolean {
         val updatedRows = dbQuery {
-            Users.update({ Users.id eq user.id }) {
+            Users.update({ Users.id eq id }) {
                 setUserValues(
                     it,
                     user,
@@ -302,11 +308,15 @@ class DaoFacadeImpl : DaoFacade {
      * Updates an existing course's information in the database.
      *
      * @param course The updated course to replace in the database.
+     * @param cicsId The CICS ID of the course to update.
      * @return True if the update was successful, False otherwise.
      */
-    override suspend fun editCourse(course: Course): Boolean =
+    override suspend fun editCourse(
+        course: Course,
+        cicsId: Int,
+    ): Boolean =
         dbQuery {
-            Courses.update({ Courses.cicsId eq course.cicsId }) {
+            Courses.update({ Courses.cicsId eq cicsId }) {
                 setCourseValues(
                     it,
                     course,
@@ -358,12 +368,15 @@ class DaoFacadeImpl : DaoFacade {
      * Updates an existing professor's information in the database.
      *
      * @param professor The updated professor to replace in the database.
+     * @param id The ID of the professor to update.
      * @return True if the update was successful, False otherwise.
      */
-    override suspend fun editProfessor(professor: Professor): Boolean =
-        dbQuery {
-            Professors.update({ Professors.id eq professor.id }) { setProfessorValues(it, professor) }
-        } > 0
+    override suspend fun editProfessor(
+        professor: Professor,
+        id: Int,
+    ): Boolean =
+        dbQuery { Professors.update({ Professors.id eq id }) { setProfessorValues(it, professor) } } >
+                0
 
     /**
      * Deletes a professor from the database.
@@ -409,11 +422,15 @@ class DaoFacadeImpl : DaoFacade {
      * Updates an existing review's information in the database.
      *
      * @param review The updated review to replace in the database.
+     * @param id The ID of the review to update.
      * @return True if the update was successful, False otherwise.
      */
-    override suspend fun editReview(review: Review): Boolean =
+    override suspend fun editReview(
+        review: Review,
+        id: Int,
+    ): Boolean =
         dbQuery {
-            Reviews.update({ Reviews.id eq review.id }) {
+            Reviews.update({ Reviews.id eq id }) {
                 setReviewValues(
                     it,
                     review,

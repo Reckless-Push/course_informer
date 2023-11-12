@@ -7,16 +7,33 @@
 
 package edu.umass.plugins
 
-import edu.umass.dao.dao
+import edu.umass.routes.addCourse
+import edu.umass.routes.addProfessor
+import edu.umass.routes.addReview
+import edu.umass.routes.addUser
+import edu.umass.routes.deleteCourse
+import edu.umass.routes.deleteProfessor
+import edu.umass.routes.deleteReview
+import edu.umass.routes.deleteUser
+import edu.umass.routes.frontend
+import edu.umass.routes.getCourse
+import edu.umass.routes.getProfessor
+import edu.umass.routes.getReview
+import edu.umass.routes.getUser
+import edu.umass.routes.healthCheck
+import edu.umass.routes.listCourses
+import edu.umass.routes.listProfessors
+import edu.umass.routes.listReviews
+import edu.umass.routes.listUsers
+import edu.umass.routes.updateCourse
+import edu.umass.routes.updateProfessor
+import edu.umass.routes.updateReview
+import edu.umass.routes.updateUser
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
-import io.ktor.server.application.call
 import io.ktor.server.application.install
-import io.ktor.server.http.content.singlePageApplication
 import io.ktor.server.plugins.statuspages.StatusPages
-import io.ktor.server.response.respond
 import io.ktor.server.response.respondText
-import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
 
 /**
@@ -35,16 +52,31 @@ fun Application.configureRouting() {
 
     // Define the routing for the application.
     routing {
-        // Serve a React single-page application from the specified path.
-        singlePageApplication {
-            useResources = true
-            defaultPage = "index.html" // Default file to serve
-            filesPath = "static" // Folder containing the static files
-        }
-        // Define a GET endpoint to retrieve all reviews from the database.
-        get("/test") {
-            // Respond with a JSON object containing the review table data.
-            call.respond(mapOf("review_table" to dao.allReviews()))
-        }
+        frontend()
+        healthCheck()
+
+        listReviews()
+        addReview()
+        getReview()
+        updateReview()
+        deleteReview()
+
+        listProfessors()
+        addProfessor()
+        getProfessor()
+        updateProfessor()
+        deleteProfessor()
+
+        listUsers()
+        addUser()
+        getUser()
+        updateUser()
+        deleteUser()
+
+        listCourses()
+        addCourse()
+        getCourse()
+        updateCourse()
+        deleteCourse()
     }
 }

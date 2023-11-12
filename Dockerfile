@@ -1,33 +1,54 @@
 # Stage 1: Build the React app
-FROM node:latest as react-build
+FROM node:lts-slim as react-build
 WORKDIR /app
 COPY my-app/package.json my-app/package-lock.json ./
 RUN npm install
 COPY my-app/. ./
-RUN npm run build
+RUN npm run build && rm -rf node_modules
 
 # Stage 2: Build the Ktor app
-FROM amazonlinux:2 as ktor-build
-# Install OpenJDK 11 to build the Ktor project
-RUN yum update -y && \
-    yum install -y java-17-amazon-corretto-devel && \
-    yum clean all
-ENV JAVA_HOME=/usr/lib/jvm/java-17-amazon-corretto
-ENV PATH="$JAVA_HOME/bin:${PATH}"
+FROM amazoncorretto:17-alpine-jdk as ktor-build
+ARG KEY_ALIAS
+ARG PRIVATE_KEY_PASSWORD
+ARG KEYSTORE_PASSWORD
+
 WORKDIR /build
-COPY . ./
+# Copy the Ktor source code
+COPY src/. ./src/.
+COPY gradle/ ./gradle/.
+COPY build.gradle.kts ./build.gradle.kts
+COPY settings.gradle.kts ./settings.gradle.kts
+COPY gradle.properties ./gradle.properties
+COPY diktat-analysis.yml ./diktat-analysis.yml
+COPY gradlew ./gradlew
+# Create the keystore if it doesn't exist and copy it to the resources folder
+RUN keytool -keystore keystore.jks -alias ${KEY_ALIAS} -genkeypair -keyalg RSA -keysize 4096 -validity 3  \
+    -dname 'CN=localhost, OU=ktor, O=ktor, L=Unspecified, ST=Unspecified, C=US' -storepass ${KEYSTORE_PASSWORD}  \
+    -keypass ${PRIVATE_KEY_PASSWORD} &&  \
+    keytool -importkeystore -srckeystore keystore.jks -destkeystore keystore.p12 -srcstoretype JKS  \
+    -deststoretype PKCS12 -srcstorepass ${KEYSTORE_PASSWORD} -deststorepass ${KEYSTORE_PASSWORD} && \
+    mv keystore.jks src/main/resources/keystore.jks && \
+    mkdir src/main/resources/cert && \
+    mv keystore.p12 src/main/resources/cert/keystore.p12
 # Copy the React app build from the previous stage
 COPY --from=react-build /app/out/. src/main/resources/static/.
+# Build the dcocumentation and the JAR
+RUN ./gradlew dokkaHtml
+RUN cp -r documentation/. src/main/resources/
 RUN ./gradlew build && ./gradlew buildFatJar
 
 # Stage 3: Create the final image to run the server
-FROM amazonlinux:2
+FROM public.ecr.aws/amazonlinux/amazonlinux:2023-minimal
 # Install JRE (Runtime Environment)
-RUN yum update -y && \
-    yum install -y java-17-amazon-corretto-headless && \
-    yum clean all
+RUN microdnf update -y && \
+    microdnf install -y java-17-amazon-corretto-headless && \
+    microdnf clean all
+# Switch to a non-root user to run the app
+USER nobody
 WORKDIR /app
 # Copy the built JAR from the Ktor build stage
 COPY --from=ktor-build /build/build/libs/course-informer-all.jar /app/
 EXPOSE 8080
 CMD ["java", "-jar", "course-informer-all.jar"]
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:8080/health || exit 1

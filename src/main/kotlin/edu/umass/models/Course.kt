@@ -19,7 +19,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Course(
-    val cicsId: Int,
+    val cicsId: Int? = null,
     val name: String,
     val description: String,
     val credits: Int,
