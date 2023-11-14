@@ -7,28 +7,12 @@
 
 package edu.umass.plugins
 
-import edu.umass.routes.addCourse
-import edu.umass.routes.addProfessor
-import edu.umass.routes.addReview
-import edu.umass.routes.addUser
-import edu.umass.routes.deleteCourse
-import edu.umass.routes.deleteProfessor
-import edu.umass.routes.deleteReview
-import edu.umass.routes.deleteUser
+import edu.umass.routes.courseRoutes
 import edu.umass.routes.frontend
-import edu.umass.routes.getCourse
-import edu.umass.routes.getProfessor
-import edu.umass.routes.getReview
-import edu.umass.routes.getUser
 import edu.umass.routes.healthCheck
-import edu.umass.routes.listCourses
-import edu.umass.routes.listProfessors
-import edu.umass.routes.listReviews
-import edu.umass.routes.listUsers
-import edu.umass.routes.updateCourse
-import edu.umass.routes.updateProfessor
-import edu.umass.routes.updateReview
-import edu.umass.routes.updateUser
+import edu.umass.routes.professorRoutes
+import edu.umass.routes.reviewRoutes
+import edu.umass.routes.userRoutes
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
@@ -54,29 +38,9 @@ fun Application.configureRouting() {
     routing {
         frontend()
         healthCheck()
-
-        listReviews()
-        addReview()
-        getReview()
-        updateReview()
-        deleteReview()
-
-        listProfessors()
-        addProfessor()
-        getProfessor()
-        updateProfessor()
-        deleteProfessor()
-
-        listUsers()
-        addUser()
-        getUser()
-        updateUser()
-        deleteUser()
-
-        listCourses()
-        addCourse()
-        getCourse()
-        updateCourse()
-        deleteCourse()
+        reviewRoutes()
+        professorRoutes()
+        userRoutes()
+        courseRoutes()
     }
 }
