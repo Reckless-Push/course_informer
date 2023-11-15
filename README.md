@@ -24,7 +24,8 @@ Before you start, ensure you have the following installed:
 - Clone using: `git clone https://github.com/Reckless-Push/course_informer.git`.
 - More about cloning: [GitHub's documentation](https://docs.github.com/articles/cloning-a-repository).
 
-**Step 4: Prepare the Environment** No action required.
+**Step 4: Prepare the Environment**
+- Navigate to the repository: `cd course_informer`.
 
 **Step 5: Build the Server**
 - Build using Docker:
