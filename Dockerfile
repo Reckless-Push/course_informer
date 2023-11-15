@@ -31,7 +31,7 @@ RUN keytool -keystore keystore.jks -alias ${KEY_ALIAS} -genkeypair -keyalg RSA -
     mkdir src/main/resources/cert && \
     mv keystore.p12 src/main/resources/cert/keystore.p12
 # Copy the React app build from the previous stage
-COPY --from=react-build /app/out/. src/main/resources/static/.
+COPY --from=react-build /app/out src/main/resources/static
 # Build the dcocumentation and the JAR
 RUN ./gradlew dokkaHtml
 RUN cp -r documentation/. src/main/resources/
