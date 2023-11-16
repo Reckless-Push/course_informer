@@ -1,0 +1,87 @@
+.Review {
+    margin: 3rem;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: pink;
+}
+
+.RatingNumbers {
+    margin-left: 2rem;
+    width: 15rem;
+    padding-left: rem;
+
+    font-size: large;
+    text-align: center;
+}
+
+.RatingNumbersBox {
+
+    padding: 2rem;
+}
+
+.RatingHeader {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.RatingNumber {
+    background: #D9D9D9;
+    width: 5rem;
+    height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: xx-large;
+    margin-bottom: 1rem;
+}
+
+.Options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ForCredit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.optionheader {
+    text-align: center;
+    font-size: large;
+    font-weight: 800;
+}
+
+.optionval {
+    padding: 0.25rem;
+    font-size: medium;
+}
+
+.content {
+    width: 60rem;
+    padding: 3rem;
+}
+
+@media (max-width: 992px) {
+    .RatingNumbers {
+        margin-top: 4em;
+        display: inline;
+        padding-left: 5rem;
+        width: 20rem;
+    }
+}
+
+@media (max-width: 640px) {
+
+
+    .RatingNumbers {
+        padding-left: 1.5rem;
+        width: 17rem;
+    }
+
+
+}
