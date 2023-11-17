@@ -26,10 +26,10 @@ RUN keytool -keystore keystore.jks -alias ${KEY_ALIAS} -genkeypair -keyalg RSA -
     -dname 'CN=localhost, OU=ktor, O=ktor, L=Unspecified, ST=Unspecified, C=US' -storepass ${KEYSTORE_PASSWORD}  \
     -keypass ${PRIVATE_KEY_PASSWORD} &&  \
     keytool -importkeystore -srckeystore keystore.jks -destkeystore keystore.p12 -srcstoretype JKS  \
-    -deststoretype PKCS12 -srcstorepass ${KEYSTORE_PASSWORD} -deststorepass ${KEYSTORE_PASSWORD} && \
-    mv keystore.jks src/main/resources/keystore.jks && \
+    -deststoretype PKCS12 -srcstorepass ${KEYSTORE_PASSWORD} -deststorepass ${KEYSTORE_PASSWORD}
+RUN cp keystore.jks src/main/resources/keystore.jks && \
     mkdir src/main/resources/cert && \
-    mv keystore.p12 src/main/resources/cert/keystore.p12
+    cp keystore.p12 src/main/resources/cert/keystore.p12
 # Copy the React app build from the previous stage
 COPY --from=react-build /app/out src/main/resources/static
 # Build the dcocumentation and the JAR
