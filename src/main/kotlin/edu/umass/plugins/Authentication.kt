@@ -35,11 +35,11 @@ package edu.umass.plugins
 //  import io.ktor.server.plugins.statuspages.StatusPages
 //  import io.ktor.server.response.respondText
 //  import io.ktor.server.routing.routing
-import io.ktor.server.application.*
-import io.ktor.server.auth.*
-import io.ktor.server.sessions.*
+import io.ktor.server.application.HttpClient
+import io.ktor.server.application.HttpMethod
+import io.ktor.server.auth.OAuth2ServerSettings
+import io.ktor.server.sessions.UserSession
 
-data class UserSession(val state: String, val token: String)
 
 fun Application.configureSessions() {
     install(Sessions) {

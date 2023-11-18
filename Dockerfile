@@ -33,8 +33,8 @@ RUN cp keystore.jks src/main/resources/keystore.jks && \
 # Copy the React app build from the previous stage
 COPY --from=react-build /app/out src/main/resources/static
 # Build the dcocumentation and the JAR
-RUN ./gradlew dokkaHtml
-RUN cp -r documentation/. src/main/resources/
+# RUN ./gradlew dokkaHtml
+# RUN cp -r documentation/. src/main/resources/
 RUN ./gradlew build && ./gradlew buildFatJar
 
 # Stage 3: Create the final image to run the server
@@ -51,4 +51,4 @@ COPY --from=ktor-build /build/build/libs/course-informer-all.jar /app/
 EXPOSE 8080 8443
 CMD ["java", "-jar", "course-informer-all.jar"]
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-  CMD curl -f https://localhost:8553/health || exit 1
+    CMD curl -f https://localhost:8553/health || exit 1

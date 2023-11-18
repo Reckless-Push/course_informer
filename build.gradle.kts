@@ -15,21 +15,20 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.20"
     id("org.jetbrains.dokka") version "1.9.10"
     id("com.diffplug.spotless") version "6.22.0"
-    // id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
 }
 
-extensions.getByType<com.diffplug.gradle.spotless.SpotlessExtension>().apply {
-    kotlin {
-        target("src/**/*.kt", "src/**/*.kts")
-        ktlint()
-        ktfmt()
-        diktat()
-    }
-    kotlinGradle {
-        target("*.gradle.kts")
-        ktlint()
-    }
-}
+// extensions.getByType<com.diffplug.gradle.spotless.SpotlessExtension>().apply {
+//     kotlin {
+//         target("src/**/*.kt", "src/**/*.kts")
+//         ktlint()
+//         ktfmt()
+//         diktat()
+//     }
+//     kotlinGradle {
+//         target("*.gradle.kts")
+//         ktlint()
+//     }
+// }
 
 tasks.dokkaHtml {
     outputDirectory.set(layout.buildDirectory.dir("../documentation/html"))
@@ -53,7 +52,6 @@ dependencies {
     implementation("io.ktor:ktor-server-core-jvm:2.3.6")
     implementation("io.ktor:ktor-server-auth-jvm:2.3.6")
     implementation("io.ktor:ktor-client-core-jvm:2.3.6")
-    implementation("io.ktor:ktor-server-auth:$ktorVersion")
     implementation("io.ktor:ktor-client-apache-jvm:2.3.6")
     implementation("io.ktor:ktor-server-sessions-jvm:2.3.6")
     implementation("io.ktor:ktor-server-host-common-jvm:2.3.6")
@@ -73,4 +71,10 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.1")
     testImplementation("io.ktor:ktor-server-tests-jvm:2.3.6")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
+
+    implementation("io.ktor:ktor-server-auth:$ktorVersion")
+    implementation("io.ktor:ktor-server-sessions:$ktorVersion")
+    implementation("io.ktor:ktor-client-cio:$ktorVersion")
+    implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+    testImplementation("io.ktor:ktor-server-content-negotiation:$ktorVersion")
 }

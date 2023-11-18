@@ -6,6 +6,7 @@ import edu.umass.dao.DatabaseFactory
 import edu.umass.plugins.configureHttp
 import edu.umass.plugins.configureRouting
 import edu.umass.plugins.configureSerialization
+import edu.umass.plugins.configureAuthentication
 import io.ktor.server.application.Application
 import io.ktor.server.engine.applicationEngineEnvironment
 import io.ktor.server.engine.connector
