@@ -7,6 +7,7 @@
 
 package edu.umass.plugins
 
+import io.ktor.client.engine.cio.CIO
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
@@ -19,8 +20,10 @@ import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
  */
 fun Application.configureSerialization() {
     // Install the ContentNegotiation feature to handle serialization.
-    install(ContentNegotiation) {
-        // Setup JSON as the default content negotiation format.
-        json()
+    return HttpClient(CIO) {
+        install(ContentNegotiation) {
+            // Setup JSON as the default content negotiation format.
+            json()
+        }
     }
 }

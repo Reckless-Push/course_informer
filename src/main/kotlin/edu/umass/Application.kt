@@ -13,7 +13,6 @@ import io.ktor.server.engine.embeddedServer
 import io.ktor.server.engine.sslConnector
 import io.ktor.server.netty.Netty
 import org.slf4j.LoggerFactory
-
 import java.io.FileNotFoundException
 import java.io.InputStream
 import java.security.KeyStore
@@ -31,13 +30,16 @@ fun Application.module() {
     // configureSecurity()
 
     // Set up JSON serialization for the application.
-    configureSerialization()
+    val applicationHttpClient = configureSerialization()
 
     // Set up the routing for the application, defining endpoints and their behavior.
     configureRouting()
 
     // Configure HTTP security features such as CORS and HTTPS redirection.
     configureHttp()
+
+    // Configure the delegated OAuth authentication flow
+    configureAuthentication(applicationHttpClient)
 
     // Initialize the database connection and schema.
     DatabaseFactory.init()
@@ -59,19 +61,20 @@ fun main() {
     val keyStorePassword = System.getenv("KEYSTORE_PASSWORD") ?: "defaultPassword"
     val privateKeyPassword = System.getenv("PRIVATE_KEY_PASSWORD") ?: "defaultPassword"
 
-    val environment = applicationEngineEnvironment {
-        log = LoggerFactory.getLogger("ktor.application")
-        connector { port = DEFAULT_KTOR_PORT }
-        sslConnector(
-            keyStore = keyStore,
-            keyAlias = keyAlias,
-            keyStorePassword = { keyStorePassword.toCharArray() },
-            privateKeyPassword = { privateKeyPassword.toCharArray() },
-        ) {
-            port = DEFAULT_KTOR_SSL_PORT
+    val environment =
+        applicationEngineEnvironment {
+            log = LoggerFactory.getLogger("ktor.application")
+            connector { port = DEFAULT_KTOR_PORT }
+            sslConnector(
+                keyStore = keyStore,
+                keyAlias = keyAlias,
+                keyStorePassword = { keyStorePassword.toCharArray() },
+                privateKeyPassword = { privateKeyPassword.toCharArray() },
+            ) {
+                port = DEFAULT_KTOR_SSL_PORT
+            }
+            module(Application::module)
         }
-        module(Application::module)
-    }
 
     embeddedServer(Netty, environment).start(wait = true)
 }

@@ -15,6 +15,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.20"
     id("org.jetbrains.dokka") version "1.9.10"
     id("com.diffplug.spotless") version "6.22.0"
+    // id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
 }
 
 extensions.getByType<com.diffplug.gradle.spotless.SpotlessExtension>().apply {
@@ -52,6 +53,7 @@ dependencies {
     implementation("io.ktor:ktor-server-core-jvm:2.3.6")
     implementation("io.ktor:ktor-server-auth-jvm:2.3.6")
     implementation("io.ktor:ktor-client-core-jvm:2.3.6")
+    implementation("io.ktor:ktor-server-auth:$ktorVersion")
     implementation("io.ktor:ktor-client-apache-jvm:2.3.6")
     implementation("io.ktor:ktor-server-sessions-jvm:2.3.6")
     implementation("io.ktor:ktor-server-host-common-jvm:2.3.6")
