@@ -19,6 +19,19 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 
 /**
+ * Defines the routes for the Professor table.
+ *
+ * @receiver The Route on which to define the routes.
+ */
+fun Route.professorRoutes() {
+    listProfessors()
+    getProfessor()
+    addProfessor()
+    updateProfessor()
+    deleteProfessor()
+}
+
+/**
  * Route to list all professors.
  *
  * @receiver The Route on which to define the route.

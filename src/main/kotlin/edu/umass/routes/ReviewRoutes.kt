@@ -19,6 +19,19 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 
 /**
+ * Defines the routes for the Review table.
+ *
+ * @receiver The Route on which to define the routes.
+ */
+fun Route.reviewRoutes() {
+    listReviews()
+    getReview()
+    addReview()
+    updateReview()
+    deleteReview()
+}
+
+/**
  * Route to list all reviews.
  *
  * @receiver The Route on which to define the route.
