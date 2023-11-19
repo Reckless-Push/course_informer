@@ -63,8 +63,10 @@ class DaoFacadeImpl : DaoFacade {
             lastName = row[Users.lastName],
             email = row[Users.email],
             favoriteCourses =
-                row[Users.favoriteCourses]?.split(",")?.mapNotNull { course(it.toInt()) },
-            reviews = row[Users.reviews]?.split(",")?.mapNotNull { review(it.toInt()) },
+                row[Users.favoriteCourses]?.split(",")?.mapNotNull { course(it.toInt()) }
+                    ?: emptyList(),
+            reviews = row[Users.reviews]?.split(",")?.mapNotNull { review(it.toInt()) }
+                ?: emptyList(),
         )
 
     /**
@@ -81,11 +83,11 @@ class DaoFacadeImpl : DaoFacade {
                 ?: throw IllegalArgumentException("Professor not found"),
             course = course(row[Reviews.courseId])
                 ?: throw IllegalArgumentException("Course not found"),
-            user = user(row[Reviews.userId]) ?: throw IllegalArgumentException("User not found"),
+            userId = row[Reviews.userId],
             date = row[Reviews.datetime].toKotlinLocalDateTime(),
             difficulty = row[Reviews.difficulty],
             quality = row[Reviews.quality],
-            tags = row[Reviews.tags]?.split(","),
+            tags = row[Reviews.tags]?.split(",") ?: emptyList(),
             comment = row[Reviews.comment],
             fromRmp = row[Reviews.fromRmp],
         )
@@ -103,13 +105,17 @@ class DaoFacadeImpl : DaoFacade {
             description = row[Courses.description],
             credits = row[Courses.credits],
             undergraduateRequirements =
-                row[Courses.undergraduateRequirements]?.split(",")?.mapNotNull { course(it.toInt()) },
+                row[Courses.undergraduateRequirements]?.split(",")?.mapNotNull { course(it.toInt()) }
+                    ?: emptyList(),
             graduateRequirements =
-                row[Courses.graduateRequirements]?.split(",")?.mapNotNull { course(it.toInt()) },
+                row[Courses.graduateRequirements]?.split(",")?.mapNotNull { course(it.toInt()) }
+                    ?: emptyList(),
             semestersOffered =
-                row[Courses.semestersOffered]?.split(",")?.mapNotNull { parseSemester(it) },
+                row[Courses.semestersOffered]?.split(",")?.mapNotNull { parseSemester(it) }
+                    ?: emptyList(),
             courseLevel = row[Courses.courseLevel],
-            professors = row[Courses.professors]?.split(",")?.mapNotNull { professor(it.toInt()) },
+            professors = row[Courses.professors]?.split(",")?.mapNotNull { professor(it.toInt()) }
+                ?: emptyList(),
         )
 
     /**
@@ -151,8 +157,13 @@ class DaoFacadeImpl : DaoFacade {
         it[Users.firstName] = user.firstName
         it[Users.lastName] = user.lastName
         it[Users.email] = user.email
-        it[Users.favoriteCourses] = user.favoriteCourses?.map(Course::cicsId)?.joinToString(",")
-        it[Users.reviews] = user.reviews?.map(Review::id)?.joinToString(",")
+        it[Users.favoriteCourses] =
+                user.favoriteCourses.map(Course::cicsId)
+                    .joinToString(",")
+                    .takeIf { it.isNotEmpty() }
+        it[Users.reviews] = user.reviews.map(Review::id)
+            .joinToString(",")
+            .takeIf { it.isNotEmpty() }
     }
 
     /**
@@ -169,10 +180,10 @@ class DaoFacadeImpl : DaoFacade {
                 review.professor.id ?: throw IllegalArgumentException("Professor ID is null")
         it[Reviews.courseId] =
                 review.course.cicsId ?: throw IllegalArgumentException("Course ID is null")
-        it[Reviews.userId] = review.user.id ?: throw IllegalArgumentException("User ID is null")
+        it[Reviews.userId] = review.userId
         it[Reviews.difficulty] = review.difficulty
         it[Reviews.quality] = review.quality
-        it[Reviews.tags] = review.tags?.joinToString(",")
+        it[Reviews.tags] = review.tags.joinToString(",").takeIf { it.isNotEmpty() }
         it[Reviews.comment] = review.comment
         it[Reviews.fromRmp] = review.fromRmp
         it[Reviews.datetime] = review.date.toJavaLocalDateTime()
@@ -193,12 +204,22 @@ class DaoFacadeImpl : DaoFacade {
         it[Courses.description] = course.description
         it[Courses.credits] = course.credits
         it[Courses.undergraduateRequirements] =
-                course.undergraduateRequirements?.map(Course::cicsId)?.joinToString(",")
+                course.undergraduateRequirements.map(Course::cicsId)
+                    .joinToString(",")
+                    .takeIf {
+                        it.isNotEmpty()
+                    }
         it[Courses.graduateRequirements] =
-                course.graduateRequirements?.map(Course::cicsId)?.joinToString(",")
-        it[Courses.semestersOffered] = course.semestersOffered?.joinToString(",")
+                course.graduateRequirements.map(Course::cicsId)
+                    .joinToString(",")
+                    .takeIf { it.isNotEmpty() }
+        it[Courses.semestersOffered] =
+                course.semestersOffered.joinToString(",").takeIf { it.isNotEmpty() }
         it[Courses.courseLevel] = course.courseLevel
-        it[Courses.professors] = course.professors?.map(Professor::id)?.joinToString(",")
+        it[Courses.professors] =
+                course.professors.map(Professor::id)
+                    .joinToString(",")
+                    .takeIf { it.isNotEmpty() }
     }
 
     /**
@@ -456,7 +477,7 @@ class DaoFacadeImpl : DaoFacade {
  */
 private suspend fun initializeUsers(daoFacade: DaoFacade) {
     if (daoFacade.allUsers().isEmpty()) {
-        val user = User(1, "John", "Doe", "johndoe@example.com", null, null)
+        val user = User(1, "John", "Doe", "johndoe@example.com")
         daoFacade.addNewUser(user)
     }
 }
@@ -475,11 +496,8 @@ private suspend fun initializeCourses(daoFacade: DaoFacade) {
                 "Intro to Programming",
                 "An introductory course on programming",
                 DEFAULT_CREDITS,
-                null,
-                null,
-                listOf(semester.copy()),
                 DEFAULT_COURSE_LEVEL,
-                null,
+                semestersOffered = listOf(semester.copy()),
             )
         daoFacade.addNewCourse(course)
     }
@@ -522,19 +540,16 @@ private fun createDefaultReview(): Review {
             "Intro to Programming",
             "An introductory course on programming",
             DEFAULT_CREDITS,
-            null,
-            null,
-            listOf(Semester(SemesterSeason.SPRING, DEFAULT_YEAR).copy()),
             DEFAULT_COURSE_LEVEL,
-            null,
+            semestersOffered = listOf(Semester(SemesterSeason.SPRING, DEFAULT_YEAR).copy()),
         )
-    val user = User(1, "John", "Doe", "johndoe@example.com", null, null)
+    val user = User(1, "John", "Doe", "johndoe@example.com")
 
     return Review(
         1,
         professor.copy(),
         course.copy(),
-        user.copy(),
+        user.id ?: throw IllegalArgumentException("User ID is null"),
         Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
         DEFAULT_DIFFICULTY,
         DEFAULT_QUALITY,

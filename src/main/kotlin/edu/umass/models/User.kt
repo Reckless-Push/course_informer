@@ -18,6 +18,6 @@ data class User(
     val firstName: String,
     val lastName: String,
     val email: String,
-    val favoriteCourses: List<Course>?,
-    val reviews: List<Review>?,
+    val favoriteCourses: List<Course> = emptyList(),
+    val reviews: List<Review> = emptyList(),
 )
