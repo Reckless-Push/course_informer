@@ -43,11 +43,11 @@ RUN cp -r documentation/. src/main/resources/
 RUN ./gradlew build && ./gradlew buildFatJar
 
 # Stage 3: Create the final image to run the server
-FROM public.ecr.aws/amazonlinux/amazonlinux:2023-minimal
+FROM amazonlinux:2
 # Install JRE (Runtime Environment)
-RUN microdnf update -y && \
-    microdnf install -y java-17-amazon-corretto-headless && \
-    microdnf clean all
+RUN yum update -y && \
+    yum install -y java-17-amazon-corretto-headless && \
+    yum clean all
 # Switch to a non-root user to run the app
 USER nobody
 WORKDIR /app

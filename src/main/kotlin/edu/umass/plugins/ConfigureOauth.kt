@@ -9,7 +9,9 @@ package edu.umass.plugins
 
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.http.HttpMethod
+import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
 import io.ktor.server.auth.Authentication
@@ -17,7 +19,7 @@ import io.ktor.server.auth.OAuthServerSettings.OAuth2ServerSettings
 import io.ktor.server.auth.oauth
 
 val redirects: MutableMap<String, String> = mutableMapOf()
-val httpClient = HttpClient(CIO)
+val httpClient = HttpClient(CIO) { install(ContentNegotiation) { json() } }
 
 /**
  * Configures OAuth2 authentication for the Ktor application.

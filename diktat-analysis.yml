@@ -35,3 +35,8 @@
 # Checks that value on integer or float constant is not too big
 - name: LONG_NUMERICAL_VALUES_SEPARATED
   enabled: false
+- name: TOO_LONG_FUNCTION
+  enabled: true
+  configuration:
+    maxFunctionLength: '32' # max length of function
+    isIncludeHeader: 'false' # count function's header
