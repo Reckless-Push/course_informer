@@ -44,10 +44,8 @@
     padding-top: 1rem;
 }
 
-.ForCredit {
+.option {
     display: flex;
-    /* justify-content: center;
-    align-items: center; */
     padding-left: 2rem;
     float: left;
 }

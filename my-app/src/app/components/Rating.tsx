@@ -1,17 +1,9 @@
 import React, { Component } from "react";
-import Router, { useRouter } from 'next/router';
-
-import styles from "./css/Rating.module.css";
-import { redirect } from 'next/navigation';
+import styles from "./css/CourseRating.module.css";
 import Link from 'next/link';
 
 
 
-function handleClick() {
-
-    console.log('Navigate to page');
-    // router.push('/myroute')
-}
 
 
 class Rating extends Component {
@@ -93,7 +85,7 @@ class Rating extends Component {
                             <div className={styles.DifficultyNumber}>3.0</div>
                         </div>
                     </div>
-                    <div className={styles.RateThisCourse}><button onClick={handleClick} className={styles.RateThisCourseBtn}><Link href="/login">
+                    <div className={styles.RateThisCourse}><button className={styles.RateThisCourseBtn}><Link href="/login">
                         myroute
                     </Link>
                         Rate this Course</button></div>

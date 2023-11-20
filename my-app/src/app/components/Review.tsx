@@ -19,19 +19,19 @@ class Review extends Component {
 
                     <div className={styles.main}>
                         <div className={styles.Options}>
-                            <div className={styles.ForCredit}>
+                            <div className={styles.option}>
                                 <div className={styles.optionheader}>For credit:</div>
                                 <div className={styles.optionval}>Yes</div>
                             </div>
-                            <div className={styles.ForCredit}>
+                            <div className={styles.option}>
                                 <div className={styles.optionheader}>Attendance:</div>
                                 <div className={styles.optiontext}>Mandatory</div>
                             </div>
-                            <div className={styles.ForCredit}>
+                            <div className={styles.option}>
                                 <div className={styles.optionheader}>Grade:</div>
                                 <div className={styles.optiontext}>Not sure yet</div>
                             </div>
-                            <div className={styles.ForCredit}>
+                            <div className={styles.option}>
                                 <div className={styles.optionheader}>Textbook:</div>
                                 <div className={styles.optiontext}>N/A</div>
                             </div>
