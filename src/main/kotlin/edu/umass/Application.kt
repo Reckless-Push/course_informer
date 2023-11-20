@@ -5,8 +5,8 @@ package edu.umass
 import edu.umass.dao.DatabaseFactory
 import edu.umass.plugins.configureHttp
 import edu.umass.plugins.configureRouting
+import edu.umass.plugins.configureSecurity
 import edu.umass.plugins.configureSerialization
-import edu.umass.plugins.configureAuthentication
 import io.ktor.server.application.Application
 import io.ktor.server.engine.applicationEngineEnvironment
 import io.ktor.server.engine.connector
@@ -18,15 +18,9 @@ import org.slf4j.LoggerFactory
 import java.io.FileNotFoundException
 import java.io.InputStream
 import java.security.KeyStore
-import io.ktor.client.HttpClient
-import io.ktor.client.engine.cio.CIO
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.serialization.kotlinx.json.json
-
 
 const val DEFAULT_KTOR_PORT = 8080
 const val DEFAULT_KTOR_SSL_PORT = 8443
-
 
 /**
  * Defines the module for the Ktor application, configuring the necessary plugins and database
@@ -35,8 +29,7 @@ const val DEFAULT_KTOR_SSL_PORT = 8443
  * @receiver The Application on which to configure the module.
  */
 fun Application.module() {
-    // configureSecurity()
-
+    configureSecurity()
     // Set up JSON serialization for the application.
     configureSerialization()
 
@@ -48,8 +41,6 @@ fun Application.module() {
 
     // Initialize the database connection and schema.
     DatabaseFactory.init()
-
-    val httpClient: HttpClient = configureAuthentication()
 }
 
 /** The main entry point of the Ktor server application. */

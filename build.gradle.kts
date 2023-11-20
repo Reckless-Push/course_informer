@@ -6,7 +6,7 @@ val exposedVersion: String by project
 val h2Version: String by project
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
 }
 
 plugins {
