@@ -15,7 +15,12 @@ class CoursePage extends Component {
                 <div className={styles.main}>
                     <CourseDesc></CourseDesc>
                     <Rating></Rating>
+
                     <Review></Review>
+                    <Review></Review>
+                    <Review></Review>
+                    <Review></Review>
+
                 </div>
 
             </div >

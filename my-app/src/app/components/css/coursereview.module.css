@@ -1,22 +1,21 @@
 .Review {
     margin: 3rem;
+    background-color: rgb(217, 217, 217, 0.5);
     display: flex;
-    flex-wrap: wrap;
-    background-color: pink;
 }
 
 .RatingNumbers {
     margin-left: 2rem;
-    width: 15rem;
-    padding-left: rem;
-
+    flex: 15%;
     font-size: large;
     text-align: center;
 }
 
 .RatingNumbersBox {
+    padding: 1rem;
+    width: 7rem;
+    float: left;
 
-    padding: 2rem;
 }
 
 .RatingHeader {
@@ -24,6 +23,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: auto;
 }
 
 .RatingNumber {
@@ -41,13 +41,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-top: 1rem;
 }
 
 .ForCredit {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
+    /* justify-content: center;
+    align-items: center; */
+    padding-left: 2rem;
+    float: left;
 }
 
 .optionheader {
@@ -56,15 +58,28 @@
     font-weight: 800;
 }
 
-.optionval {
-    padding: 0.25rem;
-    font-size: medium;
+.optiontext {
+    padding: 0.15rem;
+}
+
+.date {
+    padding-left: 8rem;
+    float: right;
+    text-align: right;
+}
+
+.main {
+    float: right;
+    width: 70rem;
+    padding-top: 1rem;
+
 }
 
 .content {
-    width: 60rem;
-    padding: 3rem;
+    /* width: 50vw; */
+    padding: 2rem;
 }
+
 
 @media (max-width: 992px) {
     .RatingNumbers {
@@ -73,14 +88,26 @@
         padding-left: 5rem;
         width: 20rem;
     }
+
+    .date {
+        padding-left: 1rem;
+    }
+
+    .ForCredit {
+        padding: 0rem;
+    }
 }
 
 @media (max-width: 640px) {
-
-
     .RatingNumbers {
         padding-left: 1.5rem;
         width: 17rem;
+    }
+
+    .Options {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
     }
 
 
