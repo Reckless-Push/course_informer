@@ -22,7 +22,7 @@ extensions.getByType<com.diffplug.gradle.spotless.SpotlessExtension>().apply {
         target("src/**/*.kt", "src/**/*.kts")
         ktlint()
         ktfmt()
-        diktat()
+        diktat().configFile("/build/diktat-analysis.yml")
     }
     kotlinGradle {
         target("*.gradle.kts")

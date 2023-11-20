@@ -34,6 +34,6 @@ object Reviews : Table() {
     val comment = varchar("comment", MAX_CHAR)
 
     // Whether the review was imported from RateMyProfessor.
-    val fromRmp = bool("fromRmp")
+    val fromRmp = bool("from_rmp")
     override val primaryKey = PrimaryKey(id)
 }

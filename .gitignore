@@ -40,3 +40,4 @@ out/
 /qodana.yaml
 /src/main/resources/static/
 
+/src/main/resources/keystore.jks

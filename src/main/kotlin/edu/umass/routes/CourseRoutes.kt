@@ -19,6 +19,19 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 
 /**
+ * Defines the routes for the Course table.
+ *
+ * @receiver The Route on which to define the routes.
+ */
+fun Route.courseRoutes() {
+    listCourses()
+    getCourse()
+    addCourse()
+    updateCourse()
+    deleteCourse()
+}
+
+/**
  * Route to list all courses.
  *
  * @receiver The Route on which to define the route.
