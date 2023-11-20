@@ -30,14 +30,14 @@ Before you start, ensure you have the following installed:
 **Step 5: Build the Server**
 - Build using Docker:
   ```
-  docker build -t course-informer --build-arg="KEY_ALIAS=sampleAlias" --build-arg="PRIVATE_KEY_PASSWORD=samplePassword" --build-arg="KEYSTORE_PASSWORD=samplePassword" . 
+  docker build -t course-informer --build-arg="KEY_ALIAS=sampleAlias" --build-arg="PRIVATE_KEY_PASSWORD=samplePassword" --build-arg="KEYSTORE_PASSWORD=samplePassword" --build-arg="CLIENT_ID=clientID" --build-arg="CLIENT_SECRET=clinetSecret" . 
   ```
 - Replace `sampleAlias`, `keystorePassword`, and `privateKeyPassword` with your chosen values.
 
 **Step 6: Run the Server**
 - Start the server:
   ```
-  docker run -p 8080:8080 -p 8443:8443 -e KEY_ALIAS=sampleAlias -e KEYSTORE_PASSWORD=samplePassword -e PRIVATE_KEY_PASSWORD=samplePassword course-informer
+  docker run -p 8080:8080 -p 8443:8443 -e KEY_ALIAS=sampleAlias -e KEYSTORE_PASSWORD=samplePassword -e PRIVATE_KEY_PASSWORD=samplePassword -e GOOGLE_CLIENT_ID=clientId -e GOOGLE_CLIENT_SECRET=clientSecret course-informer
   ```
 - Replace `sampleAlias`, `keystorePassword`, and `privateKeyPassword` with your chosen values.
 - Verify the server's operation by accessing `http://localhost:8080`.

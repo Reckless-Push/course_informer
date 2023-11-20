@@ -1,5 +1,6 @@
 package edu.umass
 
+import edu.umass.plugins.configureOauth
 import edu.umass.plugins.configureRouting
 import io.ktor.client.request.get
 import io.ktor.http.HttpStatusCode
@@ -10,7 +11,10 @@ import kotlin.test.assertEquals
 class ApplicationTest {
     @Test
     fun testRoot() = testApplication {
-        application { configureRouting() }
+        application {
+            configureOauth()
+            configureRouting()
+        }
         client.get("/").apply { assertEquals(HttpStatusCode.OK, status) }
     }
 }

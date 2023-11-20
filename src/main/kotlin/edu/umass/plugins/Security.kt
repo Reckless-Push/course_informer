@@ -16,6 +16,6 @@ import io.ktor.server.application.Application
  * @receiver The Application on which to install security features.
  */
 fun Application.configureSecurity() {
-    // configureOauth()
+    configureOauth()
     configureSessions()
 }
