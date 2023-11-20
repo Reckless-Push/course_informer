@@ -8,12 +8,16 @@
 package edu.umass.plugins
 
 import io.ktor.client.HttpClient
-import io.ktor.client.engine.apache.Apache
+import io.ktor.client.engine.cio.CIO
 import io.ktor.http.HttpMethod
 import io.ktor.server.application.Application
+import io.ktor.server.application.install
+import io.ktor.server.auth.Authentication
 import io.ktor.server.auth.OAuthServerSettings.OAuth2ServerSettings
-import io.ktor.server.auth.authentication
 import io.ktor.server.auth.oauth
+
+val redirects: MutableMap<String, String> = mutableMapOf()
+val httpClient = HttpClient(CIO)
 
 /**
  * Configures OAuth2 authentication for the Ktor application.
@@ -29,15 +33,16 @@ fun Application.configureOauth() {
             requestMethod = HttpMethod.Post,
             clientId = System.getenv("GOOGLE_CLIENT_ID"),
             clientSecret = System.getenv("GOOGLE_CLIENT_SECRET"),
-            defaultScopes = listOf("https://www.googleapis.com/auth/userinfo.email"),
+            defaultScopes = listOf("https://www.googleapis.com/auth/userinfo.profile"),
+            onStateCreated = { call, state ->
+                redirects[state] = call.request.queryParameters["redirectUrl"] ?: "/"
+            },
         )
 
     // HttpClient instantiation
-    val httpClient = HttpClient(Apache)
-
-    authentication {
+    install(Authentication) {
         oauth("auth-oauth-google") {
-            urlProvider = { "http://localhost:8080/callback" }
+            urlProvider = { "https://localhost:8443/callback" }
             providerLookup = { oauthSettings }
             client = httpClient
         }
