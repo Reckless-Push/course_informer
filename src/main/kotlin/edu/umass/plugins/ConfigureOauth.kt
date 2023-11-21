@@ -10,6 +10,8 @@ package edu.umass.plugins
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logging
 import io.ktor.http.HttpMethod
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.Application
@@ -18,8 +20,11 @@ import io.ktor.server.auth.Authentication
 import io.ktor.server.auth.OAuthServerSettings.OAuth2ServerSettings
 import io.ktor.server.auth.oauth
 
-val redirects: MutableMap<String, String> = mutableMapOf()
-val httpClient = HttpClient(CIO) { install(ContentNegotiation) { json() } }
+val httpClient =
+    HttpClient(CIO) {
+        install(ContentNegotiation) { json() }
+        install(Logging) { level = LogLevel.INFO }
+    }
 
 /**
  * Configures OAuth2 authentication for the Ktor application.
@@ -36,9 +41,6 @@ fun Application.configureOauth() {
             clientId = System.getenv("GOOGLE_CLIENT_ID"),
             clientSecret = System.getenv("GOOGLE_CLIENT_SECRET"),
             defaultScopes = listOf("https://www.googleapis.com/auth/userinfo.profile"),
-            onStateCreated = { call, state ->
-                redirects[state] = call.request.queryParameters["redirectUrl"] ?: "/"
-            },
         )
 
     // HttpClient instantiation
