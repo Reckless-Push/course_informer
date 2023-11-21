@@ -12,6 +12,9 @@ import kotlinx.serialization.Serializable
  * @property familyName The user's family name.
  * @property picture The user's profile picture.
  * @property locale The user's locale.
+ * @property email The user's email.
+ * @property verifiedEmail Whether the user's email is verified.
+ * @property hd The user's hosted domain.
  */
 @Serializable
 data class UserInfo(
@@ -21,4 +24,7 @@ data class UserInfo(
     @SerialName("family_name") val familyName: String,
     val picture: String,
     val locale: String,
+    val email: String,
+    @SerialName("verified_email") val verifiedEmail: Boolean,
+    val hd: String,
 )
