@@ -2,14 +2,14 @@
 import React from 'react'
 import './courseCatalog.css';
 import CourseList from '../components/CourseList';
-import CourseFilter from '../components/CourseFilter';
+import CourseFiltersList from '../components/CoureFiltersList';
 
 
 const courseCatalogPage = () => {
   return (
     <div className='container'> 
       <div className='filters_column'>
-        <CourseFilter />
+        <CourseFiltersList />
       </div>
       <div className='list_column'>
         <CourseList/>
