@@ -2,7 +2,8 @@
 import React from 'react'
 import './courseCatalog.css';
 import CourseList from '../components/CourseList';
-import CourseFiltersList from '../components/CoureFiltersList';
+import CourseFiltersList from '../components/CourseFiltersList';
+
 
 
 const courseCatalogPage = () => {
