@@ -490,7 +490,6 @@ private suspend fun initializeUsers(daoFacade: DaoFacade) {
  */
 private suspend fun initializeCourses(daoFacade: DaoFacade) {
     if (daoFacade.allCourses().isEmpty()) {
-        val semester = Semester(SemesterSeason.SPRING, DEFAULT_YEAR)
         val course =
             Course(
                 DEFAULT_CICS_ID,
@@ -498,7 +497,7 @@ private suspend fun initializeCourses(daoFacade: DaoFacade) {
                 "An introductory course on programming",
                 DEFAULT_CREDITS,
                 DEFAULT_COURSE_LEVEL,
-                semestersOffered = listOf(semester.copy()),
+                semestersOffered = listOf(Semester(SemesterSeason.SPRING, DEFAULT_YEAR)),
             )
         daoFacade.addNewCourse(course)
     }
@@ -542,7 +541,7 @@ private fun createDefaultReview(): Review {
             "An introductory course on programming",
             DEFAULT_CREDITS,
             DEFAULT_COURSE_LEVEL,
-            semestersOffered = listOf(Semester(SemesterSeason.SPRING, DEFAULT_YEAR).copy()),
+            semestersOffered = listOf(Semester(SemesterSeason.SPRING, DEFAULT_YEAR)),
         )
     val user = User(1, "John", "Doe", "johndoe@example.com")
 

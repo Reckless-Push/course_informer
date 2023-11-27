@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import axios, { AxiosError } from 'axios';
+import {useEffect, useState} from 'react';
+import axios, {AxiosError} from 'axios';
 
 // Define a generic type for useFetchData
 const useFetchData = <T>(url: string) => {
@@ -23,7 +23,7 @@ const useFetchData = <T>(url: string) => {
         fetchData();
     }, [url]);
 
-    return { data, loading, error };
+    return {data, loading, error};
 };
 
 export default useFetchData;

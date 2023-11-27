@@ -9,7 +9,7 @@ export interface Course {
     courseLevel: number;
     undergraduateRequirement: Course[];
     graduateRequirement: Course[];
-    semesterOffered: Semester[];
+    semestersOffered: Semester[];
     professors: Professor[];
 }
 

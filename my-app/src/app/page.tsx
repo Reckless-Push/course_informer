@@ -1,31 +1,46 @@
 "use client"
 import React from 'react';
 import useFetchData from '@/hooks/useFetchData';
-import { ProfessorResponse } from '@/types/professor';
-import { UserResponse } from "@/types/user";
+import {ProfessorResponse} from '@/types/professor';
+import {UserResponse} from "@/types/user";
 import {CourseResponse} from "@/types/course";
 import {ReviewResponse} from "@/types/review";
 
 export default function Home() {
-    const { data, loading, error } = useFetchData<ProfessorResponse>('https://localhost:8443/professor');
-    const { data: userData, loading: userLoading, error: userError } = useFetchData<UserResponse>('https://localhost:8443/user');
-    const { data: courseData, loading: courseLoading, error: courseError } = useFetchData<CourseResponse>('https://localhost:8443/course');
-    const { data: reviewData, loading: reviewLoading, error: reviewError } = useFetchData<ReviewResponse>('https://localhost:8443/review');
+    const {
+        data: professorData,
+        loading: professorLoading,
+        error: professorError
+    } = useFetchData<ProfessorResponse>('https://localhost:8443/professor');
+    const {
+        data: userData,
+        loading: userLoading,
+        error: userError
+    } = useFetchData<UserResponse>('https://localhost:8443/user');
+    const {
+        data: courseData,
+        loading: courseLoading,
+        error: courseError
+    } = useFetchData<CourseResponse>('https://localhost:8443/course');
+    const {
+        data: reviewData,
+        loading: reviewLoading,
+        error: reviewError
+    } = useFetchData<ReviewResponse>('https://localhost:8443/review');
 
-
-    if (loading || userLoading || courseLoading || reviewLoading) return <div>Loading...</div>;
-    if (error || userError || courseError || reviewError) return <div>Error: {error?.message || userError?.message || courseError?.message || reviewError?.message}</div>;
+    if (professorLoading || userLoading || courseLoading || reviewLoading) return <div>Loading...</div>;
+    if (professorError || userError || courseError || reviewError) return <div>Error: {professorError?.message || userError?.message || courseError?.message || reviewError?.message}</div>;
 
     return (
         <main>
             <h2>Professors:</h2>
-            {data?.professor_table.map(professor => (
+            {professorData?.professor_table.map(professor => (
                 <div key={professor.id}>
                     {professor.firstName} {professor.lastName}
                 </div>
             ))}
 
-            <br />
+            <br/>
 
             <h2>Users:</h2>
             {userData?.user_table.map(user => (
@@ -34,16 +49,16 @@ export default function Home() {
                 </div>
             ))}
 
-            <br />
+            <br/>
 
             <h2>Courses:</h2>
             {courseData?.course_table.map(course => (
                 <div key={course.cicsId}>
-                    {course.name} {course.description} {course.credits} {JSON.stringify(course.semesterOffered)}
+                    {course.name} {course.description} {course.credits} {JSON.stringify(course.semestersOffered)}
                 </div>
             ))}
 
-            <br />
+            <br/>
 
             <h2>Reviews:</h2>
             {reviewData?.review_table.map(review => (
