@@ -154,6 +154,7 @@ class DaoFacadeImpl : DaoFacade {
         it: UpdateBuilder<*>,
         user: User,
     ) {
+        it[Users.id] = user.id ?: throw IllegalArgumentException("User ID is null")
         it[Users.firstName] = user.firstName
         it[Users.lastName] = user.lastName
         it[Users.email] = user.email

@@ -5,7 +5,7 @@ import org.jetbrains.exposed.sql.Table
 /** Defines the schema for the "Users" table in the database. */
 object Users : Table() {
     // Unique identifier for the user, used as the primary key in the database.
-    val id = integer("id").autoIncrement()
+    val id = integer("id")
 
     // First name of the user, stored as a variable character string with a maximum length of 50.
     val firstName = varchar("first_name", MAX_CHAR_NAME)

@@ -9,14 +9,26 @@ package edu.umass.routes
 
 import edu.umass.dao.dao
 import edu.umass.models.User
+import edu.umass.models.UserInfo
+import edu.umass.models.UserSession
+import edu.umass.plugins.httpClient
+import io.ktor.client.call.body
+import io.ktor.client.request.get
+import io.ktor.client.request.headers
+import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
+import io.ktor.http.URLBuilder
 import io.ktor.server.application.call
 import io.ktor.server.request.receive
+import io.ktor.server.request.uri
 import io.ktor.server.response.respond
+import io.ktor.server.response.respondRedirect
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
+import io.ktor.server.sessions.get
+import io.ktor.server.sessions.sessions
 
 /**
  * Defines the routes for the User table.
@@ -67,11 +79,22 @@ fun Route.getUser() {
 fun Route.addUser() {
     post("/user") {
         try {
-            // Receiving a User object instead of Equipment
-            val user: User = call.receive<User>()
-            val newUser = dao.addNewUser(user)
-            newUser?.let { call.respond(newUser) }
-                ?: call.respond(HttpStatusCode.BadRequest, "Missing or malformed id")
+            val userSession: UserSession? = call.sessions.get()
+            userSession?.let {
+                val userInfo = getUserInfoFromSession(userSession)
+                val user = createUserFromUserInfo(userInfo)
+                val newUser = dao.addNewUser(user)
+                newUser?.let { call.respond(newUser) }
+                    ?: call.respond(HttpStatusCode.BadRequest, "Missing or malformed id")
+            }
+                ?: run {
+                    val redirectUrl =
+                        URLBuilder("https://localhost:8443/login").run {
+                            parameters.append("redirectUrl", call.request.uri)
+                            build()
+                        }
+                    call.respondRedirect(redirectUrl)
+                }
         } catch (e: Exception) {
             call.respondText(e.toString())
         }
@@ -123,3 +146,30 @@ fun Route.deleteUser() {
         }
     }
 }
+
+/**
+ * Gets the user info from the session.
+ *
+ * @param userSession The user session.
+ * @return The user info.
+ */
+private suspend fun getUserInfoFromSession(userSession: UserSession): UserInfo =
+    httpClient
+        .get("https://www.googleapis.com/oauth2/v2/userinfo") {
+            headers { append(HttpHeaders.Authorization, "Bearer ${userSession.token}") }
+        }
+        .body()
+
+/**
+ * Creates a user from the user info.
+ *
+ * @param userInfo The user info.
+ * @return The user.
+ */
+private fun createUserFromUserInfo(userInfo: UserInfo): User =
+    User(
+        id = userInfo.id.toInt(),
+        firstName = userInfo.givenName,
+        lastName = userInfo.familyName,
+        email = userInfo.email,
+    )
