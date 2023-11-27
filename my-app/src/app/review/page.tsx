@@ -90,7 +90,9 @@ class ResponseForm extends Component {
                                 <textarea className={styles.addCommentstext} placeholder="Add more feedback">
                                 </textarea>
                             </div>
-
+                            <div className={styles.RateThisCourse}>
+                                <button className={styles.RateThisCourseBtn}>Rate this Course</button>
+                            </div>
                         </form>
                     </div>
                 </div >
