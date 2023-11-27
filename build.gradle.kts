@@ -6,13 +6,13 @@ val exposedVersion: String by project
 val h2Version: String by project
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
 }
 
 plugins {
-    kotlin("jvm") version "1.9.20"
+    kotlin("jvm") version "1.9.21"
     id("io.ktor.plugin") version "2.3.6"
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.20"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.21"
     id("org.jetbrains.dokka") version "1.9.10"
     id("com.diffplug.spotless") version "6.22.0"
 }

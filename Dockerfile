@@ -7,7 +7,7 @@ COPY my-app/. ./
 RUN npm run build && rm -rf node_modules
 
 # Stage 2: Build the Ktor app
-FROM amazoncorretto:17-alpine-jdk as ktor-build
+FROM amazoncorretto:21 as ktor-build
 ARG KEY_ALIAS
 ARG PRIVATE_KEY_PASSWORD
 ARG KEYSTORE_PASSWORD
@@ -43,10 +43,10 @@ RUN cp -r documentation/. src/main/resources/
 RUN ./gradlew build && ./gradlew buildFatJar
 
 # Stage 3: Create the final image to run the server
-FROM amazonlinux:2
+FROM amazonlinux:2023
 # Install JRE (Runtime Environment)
 RUN yum update -y && \
-    yum install -y java-17-amazon-corretto-headless && \
+    yum install java-21-amazon-corretto-headless -y && \
     yum clean all
 # Switch to a non-root user to run the app
 USER nobody
