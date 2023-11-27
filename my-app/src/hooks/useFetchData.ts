@@ -8,7 +8,6 @@ const useFetchData = <T>(url: string) => {
     const [error, setError] = useState<AxiosError | null>(null);
 
     useEffect(() => {
-        // Removed the async keyword as we are not using await
         const fetchData = () => {
             axios.get<T>(url)
                 .then(response => {

@@ -3,3 +3,7 @@ export interface Professor {
     firstName: string;
     lastName: string;
 }
+
+export interface ProfessorResponse {
+    professor_table: Professor[];
+}
