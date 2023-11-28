@@ -15,7 +15,6 @@ const courseCatalogPage = () => {
       <div className='list_column'>
         <CourseList/>
       </div>
-
     </div>
   )
 }

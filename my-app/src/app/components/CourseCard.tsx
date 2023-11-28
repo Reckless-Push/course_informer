@@ -1,12 +1,18 @@
 import React, {ChangeEvent, FC, InputHTMLAttributes, useState} from 'react'
 import styles from "./css/courseCard.module.css";
 
-const CourseCard = () => {
+interface CourseCardProps {
+  csID: string
+  title: string;
+  semester: string[];
+}
+
+const CourseCard: React.FC<CourseCardProps> = ({ csID, title, semester }) => {
   return (
     <div className={styles.card}>
       <div className={styles.left_content}>
-        <h2 className={styles.course_title}>CS 520: Software</h2>
-        <p>Semesters offered: Spring 2024, Fall 2024</p>
+        <h2 className={styles.course_title}>{csID}: {title}</h2>
+        <p>Semesters offered: {semester && Array.isArray(semester) ? semester.join(', ') : 'Not available'}</p>
       </div>
       <div className={styles.right_content}>
         <span className={styles.star}>&#9733;</span>
