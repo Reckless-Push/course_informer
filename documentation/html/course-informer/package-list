@@ -203,9 +203,7 @@ $dokka.location:edu.umass.routes//updateReview/io.ktor.server.routing.Route#/Poi
 $dokka.location:edu.umass.routes//updateUser/io.ktor.server.routing.Route#/PointingToDeclaration/course-informer/edu.umass.routes/update-user.html
 $dokka.location:edu.umass.routes//userRoutes/io.ktor.server.routing.Route#/PointingToDeclaration/course-informer/edu.umass.routes/user-routes.html
 $dokka.location:edu.umass////PointingToDeclaration/course-informer/edu.umass/index.html
-$dokka.location:edu.umass//DEFAULT_KTOR_PORT/#/PointingToDeclaration/course-informer/edu.umass/-d-e-f-a-u-l-t_-k-t-o-r_-p-o-r-t.html
-$dokka.location:edu.umass//DEFAULT_KTOR_SSL_PORT/#/PointingToDeclaration/course-informer/edu.umass/-d-e-f-a-u-l-t_-k-t-o-r_-s-s-l_-p-o-r-t.html
-$dokka.location:edu.umass//main/#/PointingToDeclaration/course-informer/edu.umass/main.html
+$dokka.location:edu.umass//main/#kotlin.Array[kotlin.String]/PointingToDeclaration/course-informer/edu.umass/main.html
 $dokka.location:edu.umass//module/io.ktor.server.application.Application#/PointingToDeclaration/course-informer/edu.umass/module.html
 edu.umass
 edu.umass.dao

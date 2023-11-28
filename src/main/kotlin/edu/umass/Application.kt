@@ -8,19 +8,6 @@ import edu.umass.plugins.configureRouting
 import edu.umass.plugins.configureSecurity
 import edu.umass.plugins.configureSerialization
 import io.ktor.server.application.Application
-import io.ktor.server.engine.applicationEngineEnvironment
-import io.ktor.server.engine.connector
-import io.ktor.server.engine.embeddedServer
-import io.ktor.server.engine.sslConnector
-import io.ktor.server.netty.Netty
-import org.slf4j.LoggerFactory
-
-import java.io.FileNotFoundException
-import java.io.InputStream
-import java.security.KeyStore
-
-const val DEFAULT_KTOR_PORT = 8080
-const val DEFAULT_KTOR_SSL_PORT = 8443
 
 /**
  * Defines the module for the Ktor application, configuring the necessary plugins and database
@@ -44,34 +31,4 @@ fun Application.module() {
 }
 
 /** The main entry point of the Ktor server application. */
-fun main() {
-    // Getting the alias and passwords from environment variables
-    val keyAlias = System.getenv("KEY_ALIAS") ?: "defaultAlias"
-    val keyStorePassword = System.getenv("KEYSTORE_PASSWORD") ?: "defaultPassword"
-    val privateKeyPassword = System.getenv("PRIVATE_KEY_PASSWORD") ?: "defaultPassword"
-
-    // Load the keystore from the resources folder
-    val keyStoreStream: InputStream =
-        Thread.currentThread().contextClassLoader.getResourceAsStream("keystore.jks")
-            ?: throw FileNotFoundException("Keystore file not found in resources")
-    val keyStore =
-        KeyStore.getInstance(KeyStore.getDefaultType()).apply {
-            load(keyStoreStream, keyStorePassword.toCharArray())
-        }
-
-    val environment = applicationEngineEnvironment {
-        log = LoggerFactory.getLogger("ktor.application")
-        connector { port = DEFAULT_KTOR_PORT }
-        sslConnector(
-            keyStore = keyStore,
-            keyAlias = keyAlias,
-            keyStorePassword = { keyStorePassword.toCharArray() },
-            privateKeyPassword = { privateKeyPassword.toCharArray() },
-        ) {
-            port = DEFAULT_KTOR_SSL_PORT
-        }
-        module(Application::module)
-    }
-
-    embeddedServer(Netty, environment).start(wait = true)
-}
+fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)

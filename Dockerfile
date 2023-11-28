@@ -32,15 +32,14 @@ RUN keytool -keystore keystore.jks -alias ${KEY_ALIAS} -genkeypair -keyalg RSA -
     -keypass ${PRIVATE_KEY_PASSWORD} &&  \
     keytool -importkeystore -srckeystore keystore.jks -destkeystore keystore.p12 -srcstoretype JKS  \
     -deststoretype PKCS12 -srcstorepass ${KEYSTORE_PASSWORD} -deststorepass ${KEYSTORE_PASSWORD}
-RUN cp keystore.jks src/main/resources/keystore.jks && \
-    mkdir -p src/main/resources/cert && \
+RUN mkdir -p src/main/resources/cert && \
     cp keystore.p12 src/main/resources/cert/keystore.p12
 # Copy the React app build from the previous stage
 COPY --from=react-build /app/out src/main/resources/static
 # Build the dcocumentation and the JAR
 RUN ./gradlew dokkaHtml
 RUN cp -r documentation/. src/main/resources/
-RUN ./gradlew build && ./gradlew buildFatJar
+RUN ./gradlew build
 
 # Stage 3: Create the final image to run the server
 FROM amazonlinux:2023
@@ -53,6 +52,8 @@ USER nobody
 WORKDIR /app
 # Copy the built JAR from the Ktor build stage
 COPY --from=ktor-build /build/build/libs/course-informer-all.jar /app/
+COPY --from=ktor-build /build/keystore.jks /app/
+
 EXPOSE 8080 8443
 CMD ["java", "-jar", "course-informer-all.jar"]
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
