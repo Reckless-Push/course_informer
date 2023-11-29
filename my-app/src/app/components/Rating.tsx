@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import styles from "./css/CourseRating.module.css";
+import styles from "@/app/components/css/courserating.module.css";
 import Link from 'next/link';
 
 

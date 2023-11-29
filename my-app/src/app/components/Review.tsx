@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import styles from "./css/coursereview.module.css";
+import styles from "@/app/components/css/coursereview.module.css";
 
 class Review extends Component {
     render() {
@@ -42,7 +42,7 @@ class Review extends Component {
                         <div className={styles.content}>
                             Professor Conboy is a kind and understanding instructor who cares about her students
                             and the material she teaches. However, she has high expectations for grading. While
-                            the workload isn't terrible, it can be very easy to lose a lot of credit on the homework
+                            the workload isnt terrible, it can be very easy to lose a lot of credit on the homework
                             assignments due to unclear instructions.
                         </div>
 
