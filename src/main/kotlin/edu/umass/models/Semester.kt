@@ -3,8 +3,6 @@ package edu.umass.models
 import java.util.Calendar
 import kotlinx.serialization.Serializable
 
-const val OLDEST_YEAR = 1_900
-
 /**
  * Data class representing a specific semester in which a course might be offered. This includes
  * both the season and the year, providing a complete designation of the semester.

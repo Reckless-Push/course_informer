@@ -45,19 +45,19 @@ fun Application.module() {
 
 /** The main entry point of the Ktor server application. */
 fun main() {
+    // Getting the alias and passwords from environment variables
+    val keyAlias = System.getenv("KEY_ALIAS") ?: "defaultAlias"
+    val keyStorePassword = System.getenv("KEYSTORE_PASSWORD") ?: "defaultPassword"
+    val privateKeyPassword = System.getenv("PRIVATE_KEY_PASSWORD") ?: "defaultPassword"
+
     // Load the keystore from the resources folder
     val keyStoreStream: InputStream =
         Thread.currentThread().contextClassLoader.getResourceAsStream("keystore.jks")
             ?: throw FileNotFoundException("Keystore file not found in resources")
     val keyStore =
         KeyStore.getInstance(KeyStore.getDefaultType()).apply {
-            load(keyStoreStream, System.getenv("KEYSTORE_PASSWORD")?.toCharArray())
+            load(keyStoreStream, keyStorePassword.toCharArray())
         }
-
-    // Getting the alias and passwords from environment variables
-    val keyAlias = System.getenv("KEY_ALIAS") ?: "defaultAlias"
-    val keyStorePassword = System.getenv("KEYSTORE_PASSWORD") ?: "defaultPassword"
-    val privateKeyPassword = System.getenv("PRIVATE_KEY_PASSWORD") ?: "defaultPassword"
 
     val environment = applicationEngineEnvironment {
         log = LoggerFactory.getLogger("ktor.application")
