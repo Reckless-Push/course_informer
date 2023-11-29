@@ -1,3 +1,4 @@
+"use client";
 import React, { Component } from "react";
 import styles from "@/app/components/css/coursedesc.module.css";
 
