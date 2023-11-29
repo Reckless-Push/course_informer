@@ -1,4 +1,5 @@
 "use client";
+
 import React, { Component } from "react";
 import styles from "@/app/components/css/navbar.module.css";
 
