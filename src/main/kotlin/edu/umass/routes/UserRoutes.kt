@@ -19,6 +19,19 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 
 /**
+ * Defines the routes for the User table.
+ *
+ * @receiver The Route on which to define the routes.
+ */
+fun Route.userRoutes() {
+    listUsers()
+    getUser()
+    addUser()
+    updateUser()
+    deleteUser()
+}
+
+/**
  * Route to list all users.
  *
  * @receiver The Route on which to define the route.

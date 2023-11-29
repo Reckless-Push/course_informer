@@ -59,7 +59,7 @@ $dokka.location:edu.umass.models//MAX_CHAR/#/PointingToDeclaration/course-infor
 $dokka.location:edu.umass.models//MAX_CHAR_NAME/#/PointingToDeclaration/course-informer/edu.umass.models/-m-a-x_-c-h-a-r_-n-a-m-e.html
 $dokka.location:edu.umass.models//OLDEST_YEAR/#/PointingToDeclaration/course-informer/edu.umass.models/-o-l-d-e-s-t_-y-e-a-r.html
 $dokka.location:edu.umass.models/Course///PointingToDeclaration/course-informer/edu.umass.models/-course/index.html
-$dokka.location:edu.umass.models/Course/Course/#kotlin.Int?#kotlin.String#kotlin.String#kotlin.Int#kotlin.collections.List[edu.umass.models.Course]?#kotlin.collections.List[edu.umass.models.Course]?#kotlin.collections.List[edu.umass.models.Semester]?#kotlin.Int#kotlin.collections.List[edu.umass.models.Professor]?/PointingToDeclaration/course-informer/edu.umass.models/-course/-course.html
+$dokka.location:edu.umass.models/Course/Course/#kotlin.Int?#kotlin.String#kotlin.String#kotlin.Int#kotlin.Int#kotlin.collections.List[edu.umass.models.Course]#kotlin.collections.List[edu.umass.models.Course]#kotlin.collections.List[edu.umass.models.Semester]#kotlin.collections.List[edu.umass.models.Professor]/PointingToDeclaration/course-informer/edu.umass.models/-course/-course.html
 $dokka.location:edu.umass.models/Course/cicsId/#/PointingToDeclaration/course-informer/edu.umass.models/-course/cics-id.html
 $dokka.location:edu.umass.models/Course/courseLevel/#/PointingToDeclaration/course-informer/edu.umass.models/-course/course-level.html
 $dokka.location:edu.umass.models/Course/credits/#/PointingToDeclaration/course-informer/edu.umass.models/-course/credits.html
@@ -91,7 +91,7 @@ $dokka.location:edu.umass.models/Professors/id/#/PointingToDeclaration/course-i
 $dokka.location:edu.umass.models/Professors/lastName/#/PointingToDeclaration/course-informer/edu.umass.models/-professors/last-name.html
 $dokka.location:edu.umass.models/Professors/primaryKey/#/PointingToDeclaration/course-informer/edu.umass.models/-professors/primary-key.html
 $dokka.location:edu.umass.models/Review///PointingToDeclaration/course-informer/edu.umass.models/-review/index.html
-$dokka.location:edu.umass.models/Review/Review/#kotlin.Int?#edu.umass.models.Professor#edu.umass.models.Course#edu.umass.models.User#kotlinx.datetime.LocalDateTime#kotlin.Int#kotlin.Int#kotlin.collections.List[kotlin.String]?#kotlin.String#kotlin.Boolean/PointingToDeclaration/course-informer/edu.umass.models/-review/-review.html
+$dokka.location:edu.umass.models/Review/Review/#kotlin.Int?#edu.umass.models.Professor#edu.umass.models.Course#kotlin.Int#kotlinx.datetime.LocalDateTime#kotlin.Int#kotlin.Int#kotlin.collections.List[kotlin.String]#kotlin.String#kotlin.Boolean/PointingToDeclaration/course-informer/edu.umass.models/-review/-review.html
 $dokka.location:edu.umass.models/Review/comment/#/PointingToDeclaration/course-informer/edu.umass.models/-review/comment.html
 $dokka.location:edu.umass.models/Review/course/#/PointingToDeclaration/course-informer/edu.umass.models/-review/course.html
 $dokka.location:edu.umass.models/Review/date/#/PointingToDeclaration/course-informer/edu.umass.models/-review/date.html
@@ -101,7 +101,7 @@ $dokka.location:edu.umass.models/Review/id/#/PointingToDeclaration/course-infor
 $dokka.location:edu.umass.models/Review/professor/#/PointingToDeclaration/course-informer/edu.umass.models/-review/professor.html
 $dokka.location:edu.umass.models/Review/quality/#/PointingToDeclaration/course-informer/edu.umass.models/-review/quality.html
 $dokka.location:edu.umass.models/Review/tags/#/PointingToDeclaration/course-informer/edu.umass.models/-review/tags.html
-$dokka.location:edu.umass.models/Review/user/#/PointingToDeclaration/course-informer/edu.umass.models/-review/user.html
+$dokka.location:edu.umass.models/Review/userId/#/PointingToDeclaration/course-informer/edu.umass.models/-review/user-id.html
 $dokka.location:edu.umass.models/Reviews///PointingToDeclaration/course-informer/edu.umass.models/-reviews/index.html
 $dokka.location:edu.umass.models/Reviews/comment/#/PointingToDeclaration/course-informer/edu.umass.models/-reviews/comment.html
 $dokka.location:edu.umass.models/Reviews/courseId/#/PointingToDeclaration/course-informer/edu.umass.models/-reviews/course-id.html
@@ -130,7 +130,7 @@ $dokka.location:edu.umass.models/SemesterSeason/season/#/PointingToDeclaration/
 $dokka.location:edu.umass.models/SemesterSeason/valueOf/#kotlin.String/PointingToDeclaration/course-informer/edu.umass.models/-semester-season/value-of.html
 $dokka.location:edu.umass.models/SemesterSeason/values/#/PointingToDeclaration/course-informer/edu.umass.models/-semester-season/values.html
 $dokka.location:edu.umass.models/User///PointingToDeclaration/course-informer/edu.umass.models/-user/index.html
-$dokka.location:edu.umass.models/User/User/#kotlin.Int?#kotlin.String#kotlin.String#kotlin.String#kotlin.collections.List[edu.umass.models.Course]?#kotlin.collections.List[edu.umass.models.Review]?/PointingToDeclaration/course-informer/edu.umass.models/-user/-user.html
+$dokka.location:edu.umass.models/User/User/#kotlin.Int?#kotlin.String#kotlin.String#kotlin.String#kotlin.collections.List[edu.umass.models.Course]#kotlin.collections.List[edu.umass.models.Review]/PointingToDeclaration/course-informer/edu.umass.models/-user/-user.html
 $dokka.location:edu.umass.models/User/email/#/PointingToDeclaration/course-informer/edu.umass.models/-user/email.html
 $dokka.location:edu.umass.models/User/favoriteCourses/#/PointingToDeclaration/course-informer/edu.umass.models/-user/favorite-courses.html
 $dokka.location:edu.umass.models/User/firstName/#/PointingToDeclaration/course-informer/edu.umass.models/-user/first-name.html
@@ -155,6 +155,7 @@ $dokka.location:edu.umass.routes//addCourse/io.ktor.server.routing.Route#/Pointi
 $dokka.location:edu.umass.routes//addProfessor/io.ktor.server.routing.Route#/PointingToDeclaration/course-informer/edu.umass.routes/add-professor.html
 $dokka.location:edu.umass.routes//addReview/io.ktor.server.routing.Route#/PointingToDeclaration/course-informer/edu.umass.routes/add-review.html
 $dokka.location:edu.umass.routes//addUser/io.ktor.server.routing.Route#/PointingToDeclaration/course-informer/edu.umass.routes/add-user.html
+$dokka.location:edu.umass.routes//courseRoutes/io.ktor.server.routing.Route#/PointingToDeclaration/course-informer/edu.umass.routes/course-routes.html
 $dokka.location:edu.umass.routes//deleteCourse/io.ktor.server.routing.Route#/PointingToDeclaration/course-informer/edu.umass.routes/delete-course.html
 $dokka.location:edu.umass.routes//deleteProfessor/io.ktor.server.routing.Route#/PointingToDeclaration/course-informer/edu.umass.routes/delete-professor.html
 $dokka.location:edu.umass.routes//deleteReview/io.ktor.server.routing.Route#/PointingToDeclaration/course-informer/edu.umass.routes/delete-review.html
@@ -169,10 +170,13 @@ $dokka.location:edu.umass.routes//listCourses/io.ktor.server.routing.Route#/Poin
 $dokka.location:edu.umass.routes//listProfessors/io.ktor.server.routing.Route#/PointingToDeclaration/course-informer/edu.umass.routes/list-professors.html
 $dokka.location:edu.umass.routes//listReviews/io.ktor.server.routing.Route#/PointingToDeclaration/course-informer/edu.umass.routes/list-reviews.html
 $dokka.location:edu.umass.routes//listUsers/io.ktor.server.routing.Route#/PointingToDeclaration/course-informer/edu.umass.routes/list-users.html
+$dokka.location:edu.umass.routes//professorRoutes/io.ktor.server.routing.Route#/PointingToDeclaration/course-informer/edu.umass.routes/professor-routes.html
+$dokka.location:edu.umass.routes//reviewRoutes/io.ktor.server.routing.Route#/PointingToDeclaration/course-informer/edu.umass.routes/review-routes.html
 $dokka.location:edu.umass.routes//updateCourse/io.ktor.server.routing.Route#/PointingToDeclaration/course-informer/edu.umass.routes/update-course.html
 $dokka.location:edu.umass.routes//updateProfessor/io.ktor.server.routing.Route#/PointingToDeclaration/course-informer/edu.umass.routes/update-professor.html
 $dokka.location:edu.umass.routes//updateReview/io.ktor.server.routing.Route#/PointingToDeclaration/course-informer/edu.umass.routes/update-review.html
 $dokka.location:edu.umass.routes//updateUser/io.ktor.server.routing.Route#/PointingToDeclaration/course-informer/edu.umass.routes/update-user.html
+$dokka.location:edu.umass.routes//userRoutes/io.ktor.server.routing.Route#/PointingToDeclaration/course-informer/edu.umass.routes/user-routes.html
 $dokka.location:edu.umass////PointingToDeclaration/course-informer/edu.umass/index.html
 $dokka.location:edu.umass//DEFAULT_KTOR_PORT/#/PointingToDeclaration/course-informer/edu.umass/-d-e-f-a-u-l-t_-k-t-o-r_-p-o-r-t.html
 $dokka.location:edu.umass//DEFAULT_KTOR_SSL_PORT/#/PointingToDeclaration/course-informer/edu.umass/-d-e-f-a-u-l-t_-k-t-o-r_-s-s-l_-p-o-r-t.html
