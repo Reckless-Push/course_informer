@@ -19,6 +19,7 @@ import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.statements.UpdateBuilder
 import org.jetbrains.exposed.sql.update
+import org.slf4j.LoggerFactory
 
 import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.Clock
@@ -31,8 +32,8 @@ const val DEFAULT_CICS_ID = 101
 const val DEFAULT_CREDITS = 4
 const val DEFAULT_COURSE_LEVEL = 100
 const val DEFAULT_YEAR = 2021
-const val DEFAULT_DIFFICULTY = 5
-const val DEFAULT_QUALITY = 5
+
+private val logger = LoggerFactory.getLogger("YourLoggerName")
 
 /** The singleton instance of the DaoFacade. */
 val dao: DaoFacade =
@@ -477,9 +478,18 @@ class DaoFacadeImpl : DaoFacade {
  * @param daoFacade The DaoFacade instance to use for database operations.
  */
 private suspend fun initializeUsers(daoFacade: DaoFacade) {
-    if (daoFacade.allUsers().isEmpty()) {
-        val user = User(1, "John", "Doe", "johndoe@example.com")
-        daoFacade.addNewUser(user)
+    try {
+        if (daoFacade.allUsers().isEmpty()) {
+            val dummyUsers =
+                listOf(
+                    User(1, "Alice", "Smith", "alice@example.com"),
+                    User(2, "Bob", "Johnson", "bob@example.com"),
+                )
+
+            dummyUsers.forEach { user -> daoFacade.addNewUser(user) }
+        }
+    } catch (e: Exception) {
+        logger.error("Error initializing users: ${e.message}", e)
     }
 }
 
@@ -489,19 +499,48 @@ private suspend fun initializeUsers(daoFacade: DaoFacade) {
  * @param daoFacade The DaoFacade instance to use for database operations.
  */
 private suspend fun initializeCourses(daoFacade: DaoFacade) {
-    if (daoFacade.allCourses().isEmpty()) {
-        val course =
-            Course(
-                DEFAULT_CICS_ID,
-                "Intro to Programming",
-                "An introductory course on programming",
-                DEFAULT_CREDITS,
-                DEFAULT_COURSE_LEVEL,
-                semestersOffered = listOf(Semester(SemesterSeason.SPRING, DEFAULT_YEAR)),
-            )
-        daoFacade.addNewCourse(course)
+    try {
+        if (daoFacade.allCourses().isEmpty()) {
+            val dummyCourses = createDummyCourses()
+            dummyCourses.forEach { course -> daoFacade.addNewCourse(course) }
+        }
+    } catch (e: Exception) {
+        logger.error("Error initializing courses: ${e.message}", e)
     }
 }
+
+/**
+ * Creates a list of dummy courses.
+ *
+ * @return List of Course objects.
+ */
+private fun createDummyCourses(): List<Course> =
+    listOf(
+        Course(
+            DEFAULT_CICS_ID,
+            "Intro to Programming",
+            "An introductory course on programming",
+            DEFAULT_CREDITS,
+            DEFAULT_COURSE_LEVEL,
+            semestersOffered = listOf(Semester(SemesterSeason.SPRING, DEFAULT_YEAR)),
+        ),
+        Course(
+            DEFAULT_CICS_ID + 1,
+            "Data Structures",
+            "In-depth study of data structures",
+            DEFAULT_CREDITS,
+            DEFAULT_COURSE_LEVEL,
+            semestersOffered = listOf(Semester(SemesterSeason.FALL, DEFAULT_YEAR)),
+        ),
+        Course(
+            DEFAULT_CICS_ID + 2,
+            "Web Development",
+            "Fundamentals of building web applications",
+            DEFAULT_CREDITS,
+            DEFAULT_COURSE_LEVEL,
+            semestersOffered = listOf(Semester(SemesterSeason.SUMMER, DEFAULT_YEAR)),
+        ),
+    )
 
 /**
  * Initializes the database with default professor data if it is empty.
@@ -509,9 +548,21 @@ private suspend fun initializeCourses(daoFacade: DaoFacade) {
  * @param daoFacade The DaoFacade instance to use for database operations.
  */
 private suspend fun initializeProfessors(daoFacade: DaoFacade) {
-    if (daoFacade.allProfessors().isEmpty()) {
-        val professor = Professor(1, "Jane", "Smith")
-        daoFacade.addNewProfessor(professor)
+    try {
+        if (daoFacade.allProfessors().isEmpty()) {
+            val dummyProfessors =
+                listOf(
+                    Professor(null, "Jane", "Smith"),
+                    Professor(null, "John", "Doe"),
+                    Professor(null, "Emily", "Johnson"),
+                    Professor(null, "Michael", "Brown"),
+                    Professor(null, "Linda", "Davis"),
+                )
+
+            dummyProfessors.forEach { professor -> daoFacade.addNewProfessor(professor) }
+        }
+    } catch (e: Exception) {
+        logger.error("Error initializing professors: ${e.message}", e)
     }
 }
 
@@ -521,40 +572,78 @@ private suspend fun initializeProfessors(daoFacade: DaoFacade) {
  * @param daoFacade The DaoFacade instance to use for database operations.
  */
 private suspend fun initializeReviews(daoFacade: DaoFacade) {
-    if (daoFacade.allReviews().isEmpty()) {
-        val review = createDefaultReview()
-        daoFacade.addNewReview(review)
+    try {
+        if (daoFacade.allReviews().isEmpty()) {
+            val dummyReviews = createDummyReviews()
+            dummyReviews.forEach { review -> daoFacade.addNewReview(review) }
+        }
+    } catch (e: Exception) {
+        logger.error("Error initializing reviews: ${e.message}", e)
     }
 }
 
 /**
- * Creates a default review for testing purposes.
+ * Creates a default professor for testing purposes.
  *
- * @return A Review object.
+ * @return A Professor object.
  */
-private fun createDefaultReview(): Review {
-    val professor = Professor(1, "Jane", "Smith")
-    val course =
-        Course(
-            DEFAULT_CICS_ID,
-            "Intro to Programming",
-            "An introductory course on programming",
-            DEFAULT_CREDITS,
-            DEFAULT_COURSE_LEVEL,
-            semestersOffered = listOf(Semester(SemesterSeason.SPRING, DEFAULT_YEAR)),
-        )
-    val user = User(1, "John", "Doe", "johndoe@example.com")
+private fun createDefaultProfessor(): Professor = Professor(1, "Jane", "Smith")
 
-    return Review(
-        1,
-        professor.copy(),
-        course.copy(),
-        user.id ?: throw IllegalArgumentException("User ID is null"),
-        Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
-        DEFAULT_DIFFICULTY,
-        DEFAULT_QUALITY,
-        listOf("challenging", "rewarding"),
-        "Great course for beginners!",
-        false,
+/**
+ * Creates a default user for testing purposes.
+ *
+ * @return A User object.
+ */
+private fun createDefaultUser(): User = User(1, "John", "Doe", "johndoe@example.com")
+
+/**
+ * Creates a default course for testing purposes.
+ *
+ * @return A Course object.
+ */
+private fun createDefaultCourse(): Course =
+    Course(
+        DEFAULT_CICS_ID,
+        "Intro to Programming",
+        "An introductory course on programming",
+        DEFAULT_CREDITS,
+        DEFAULT_COURSE_LEVEL,
+        semestersOffered = listOf(Semester(SemesterSeason.SPRING, DEFAULT_YEAR)),
+    )
+
+/**
+ * Creates a list of dummy reviews.
+ *
+ * @return List of Review objects.
+ */
+private fun createDummyReviews(): List<Review> {
+    val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+    val userId = createDefaultUser().id ?: throw IllegalArgumentException("User ID is null")
+
+    return listOf(
+        Review(
+            1,
+            createDefaultProfessor(),
+            createDefaultCourse(),
+            userId,
+            now,
+            3,
+            4,
+            listOf("challenging", "rewarding"),
+            "Great course for beginners!",
+            false,
+        ),
+        Review(
+            2,
+            createDefaultProfessor(),
+            createDefaultCourse(),
+            userId,
+            now,
+            4,
+            5,
+            listOf("insightful", "engaging"),
+            "Excellent course with practical examples.",
+            true,
+        ),
     )
 }
