@@ -1,8 +1,8 @@
 "use client";
 
 import React, { Component } from "react";
-import styles from "./review.module.css";
-import Navbar from "../components/Navbar";
+import styles from "@/app/review/review.module.css";
+import Navbar from "@/app/components/Navbar";
 
 class ResponseForm extends Component {
     render() {
