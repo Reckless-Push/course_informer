@@ -7,9 +7,11 @@
 
 package edu.umass.routes
 
+import edu.umass.routes.addUser
 import edu.umass.models.UserInfo
 import edu.umass.models.UserSession
 import edu.umass.plugins.httpClient
+import io.ktor.client.request.post
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.headers
@@ -43,9 +45,15 @@ fun Routing.authRoutes() {
 
         get("/callback") {
             val principal: OAuthAccessTokenResponse.OAuth2? = call.authentication.principal()
-            call.sessions.set(UserSession(principal!!.state!!, principal.accessToken))
+            val userSession = UserSession(principal!!.state!!, principal.accessToken)
+            call.sessions.set(userSession)
+            // POST /user to store the user in the database 
+            httpClient.post("https://localhost:8443/user"){
+                headers { append(HttpHeaders.Authorization, "Bearer ${userSession.token}") }
+            }
             call.respondRedirect("/")
         }
+        
     }
     get("/logout") {
         call.sessions.clear<UserSession>()
