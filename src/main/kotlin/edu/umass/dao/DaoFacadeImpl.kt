@@ -630,7 +630,7 @@ private fun createDummyReviews(): List<Review> {
             3,
             4,
             listOf("challenging", "rewarding"),
-            "Great course for beginners!",
+            "Great course for beginners!!",
             false,
         ),
         Review(

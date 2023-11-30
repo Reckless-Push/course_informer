@@ -7,6 +7,7 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import { UserResponse } from '@/types/user'
+import Typography from '@mui/material/Typography'
 
 interface UsersTableProps {
   data: UserResponse
@@ -15,6 +16,9 @@ interface UsersTableProps {
 const UsersTable: React.FC<UsersTableProps> = ({ data }) => {
   return (
     <TableContainer component={Paper}>
+      <Typography variant="h6" component="div" style={{ padding: '16px' }}>
+        {'Users'}
+      </Typography>
       <Table aria-label="users table">
         <TableHead>
           <TableRow>

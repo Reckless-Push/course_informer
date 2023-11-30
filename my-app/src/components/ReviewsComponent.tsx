@@ -13,7 +13,7 @@ const ReviewsComponent = () => {
 
   return (
     <>
-      <h2>Reviews:</h2>
+      <br />
       {data && <ReviewsTable data={data} />}
     </>
   )

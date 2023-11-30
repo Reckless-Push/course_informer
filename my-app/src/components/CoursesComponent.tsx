@@ -13,7 +13,7 @@ const CoursesComponent = () => {
 
   return (
     <>
-      <h2>Courses:</h2>
+      <br />
       {data && <CourseTable data={data} />}
     </>
   )

@@ -6,6 +6,7 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
+import Typography from '@mui/material/Typography'
 import { CourseResponse } from '@/types/course'
 
 interface CourseTableProps {
@@ -15,6 +16,9 @@ interface CourseTableProps {
 const CourseTable: React.FC<CourseTableProps> = ({ data }) => {
   return (
     <TableContainer component={Paper}>
+      <Typography variant="h6" component="div" style={{ padding: '16px' }}>
+        {'Courses'}
+      </Typography>
       <Table aria-label="course table">
         <TableHead>
           <TableRow>

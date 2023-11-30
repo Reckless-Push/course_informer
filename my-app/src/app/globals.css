@@ -3,20 +3,55 @@
 @tailwind utilities;
 
 :root {
-    --foreground-rgb: 0, 0, 0;
-    --background-start-rgb: 214, 219, 220;
-    --background-end-rgb: 255, 255, 255;
+    --primary-maroon-rgb: 136, 28, 28; /* Maroon */
+    --primary-black-rgb: 33, 39, 33; /* Black */
+    --secondary-yellow-rgb: 255, 199, 44; /* Yellow */
+    --secondary-orange-rgb: 255, 158, 27; /* Orange */
+    --neutral-dark-gray-rgb: 55, 58, 54; /* Dark Gray */
+    --neutral-light-gray-rgb: 162, 170, 173; /* Light Gray */
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
         --foreground-rgb: 255, 255, 255;
-        --background-start-rgb: 0, 0, 0;
-        --background-end-rgb: 0, 0, 0;
+        --background-start-rgb: 33, 39, 33; /* Black */
+        --background-end-rgb: 33, 39, 33; /* Black */
     }
 }
 
 body {
     color: white;
-    background: rgb(100, 0, 0);
+    background: linear-gradient(rgb(var(--background-start-rgb)), rgb(var(--background-end-rgb)));
+}
+
+.MuiAppBar-root {
+    background-color: rgb(var(--primary-maroon-rgb)) !important;
+}
+
+.MuiAppBar-root .MuiButton-colorInherit, .MuiAppBar-root .MuiTypography-root {
+    color: white; /* White text for better contrast on Maroon background */
+}
+
+.MuiTableHead-root {
+    background-color: #881c1c;
+    color: white;
+}
+
+.MuiTableRow-root {
+    &:nth-of-type(odd) {
+        background-color: #a2aaad; /* Light gray for alternate rows */
+    }
+}
+
+.MuiTableCell-root {
+    border-bottom: 1px solid #373a36; /* Dark gray for borders */
+}
+
+.MuiTablePagination-root {
+    background-color: #881c1c;
+    color: white;
+}
+
+.MuiTableRow-root:hover {
+    background-color: #00aec7; /* Teal for hover effect */
 }

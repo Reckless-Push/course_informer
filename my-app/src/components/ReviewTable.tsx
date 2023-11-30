@@ -7,6 +7,7 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import { ReviewResponse } from '@/types/review'
+import Typography from '@mui/material/Typography'
 
 interface ReviewsTableProps {
   data: ReviewResponse
@@ -15,6 +16,9 @@ interface ReviewsTableProps {
 const ReviewsTable: React.FC<ReviewsTableProps> = ({ data }) => {
   return (
     <TableContainer component={Paper}>
+      <Typography variant="h6" component="div" style={{ padding: '16px' }}>
+        {'Reviews'}
+      </Typography>
       <Table aria-label="reviews table">
         <TableHead>
           <TableRow>

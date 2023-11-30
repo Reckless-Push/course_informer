@@ -7,6 +7,7 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import { ProfessorResponse } from '@/types/professor'
+import Typography from '@mui/material/Typography'
 
 interface ProfessorTableProps {
   data: ProfessorResponse
@@ -15,6 +16,9 @@ interface ProfessorTableProps {
 const ProfessorTable: React.FC<ProfessorTableProps> = ({ data }) => {
   return (
     <TableContainer component={Paper}>
+      <Typography variant="h6" component="div" style={{ padding: '16px' }}>
+        {'Professors'}
+      </Typography>
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>

@@ -13,7 +13,7 @@ const UsersComponent = () => {
 
   return (
     <>
-      <h2>Users:</h2>
+      <br />
       {data && <UsersTable data={data} />}
     </>
   )

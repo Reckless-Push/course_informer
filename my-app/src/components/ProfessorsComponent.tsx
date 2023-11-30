@@ -13,7 +13,7 @@ const ProfessorsComponent = () => {
 
   return (
     <>
-      <h2>Professors:</h2>
+      <br />
       {data && <ProfessorTable data={data} />}
     </>
   )
