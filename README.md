@@ -8,7 +8,7 @@ Before you start, ensure you have the following installed:
 - **Docker**: Version 24.0.7 or later recommended.
 - **Git**: For source control management.
 - **Operating System**: A Linux-based operating system is preferred. Windows users should use [WSL](https://learn.microsoft.com/en-us/windows/wsl/install).
-- **Web Browser**: For accessing the App and API documentation. Firefox is recommended for self-signed certificates.
+- **Web Browser**: For accessing the Index and API documentation. Firefox is recommended for self-signed certificates.
 
 ## Installation Instructions
 
