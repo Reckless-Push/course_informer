@@ -97,10 +97,9 @@
 }
 
 .RateThisCourseBtn {
-    font-size: large;
-
-    padding-left: 5rem;
-    padding-right: 5rem;
+    font-size: medium;
+    padding-left: 2rem;
+    padding-right: 2rem;
     height: 2rem;
     border-radius: 15px;
 }

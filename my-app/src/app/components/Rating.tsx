@@ -95,7 +95,7 @@ function Rating({onToggleComponent,onHome,componentStates}: RatingProps) {
                 <div className={styles.RateThisCourse}>
                     <button className={styles.RateThisCourseBtn}
                      onClick={() => handleClick({onToggleComponent,onHome,componentStates,})}>
-                    Leave a review
+                    Add review
                     </button>
                 </div >
             </div >

@@ -12,6 +12,10 @@ interface ResponseFormProps {
     }
 }
 
+function handleClick({onToggleComponent,onHome,componentStates}: ResponseFormProps) {
+    onToggleComponent('reviews');
+}
+
 function ResponseForm({onToggleComponent,onHome,componentStates,}: ResponseFormProps) {
     return (
         <div>
@@ -98,7 +102,9 @@ function ResponseForm({onToggleComponent,onHome,componentStates,}: ResponseFormP
                             </textarea>
                         </div>
                         <div className={styles.RateThisCourse}>
-                            <button className={styles.RateThisCourseBtn}>Rate this Course</button>
+                            <button className={styles.RateThisCourseBtn}
+                             onClick={() => handleClick({onToggleComponent,onHome,componentStates,})}>
+                            Rate this Course</button>
                         </div>
                     </form>
                 </div>
