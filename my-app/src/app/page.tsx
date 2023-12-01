@@ -4,6 +4,7 @@ import CoursePage from '@/app/course/page'
 import Review from '@/app/review/page'
 import { ComponentStates } from '@/types/ComponentStates'
 import Navbar from '@/app/components/Navbar'
+import ResponseForm from '@/app/review/page'
 type ComponentKey = 'courses' | 'reviews'
 
 const Home = () => {
@@ -32,8 +33,15 @@ const Home = () => {
             />
 
             {/* <Navbar></Navbar> */}
-            {componentStates.courses && <CoursePage />}
-            {componentStates.reviews && <Review />}
+            {
+            componentStates.courses && 
+            <CoursePage onToggleComponent={onToggleComponent} onHome={onHome} componentStates={componentStates} />
+            }
+
+            {
+            componentStates.reviews && 
+            <ResponseForm onToggleComponent={onToggleComponent} onHome={onHome}componentStates={componentStates} />
+            }
         </div>
     )
 }

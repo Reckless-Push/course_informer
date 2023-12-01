@@ -1,14 +1,20 @@
 "use client";
-import React, { Component } from "react";
-import Navbar from "@/app/components/Navbar";
 import CourseDesc from "@/app/components/CourseDesc";
 import Rating from "@/app/components/Rating";
 import Review from "@/app/components/Review";
 import styles from "@/app/course/course.module.css";
-import useFetchData from '@/app/hooks/useFetchData';
-import { CourseResponse } from "@/types/course";
+import { ComponentStates } from '@/types/ComponentStates'
 
-function CoursePage() {
+interface CoursePageProps {
+    onToggleComponent: (component: keyof ComponentStates) => void
+    onHome: () => void
+    componentStates: {
+        courses: boolean
+        reviews: boolean
+    }
+}
+
+function CoursePage({onToggleComponent,onHome,componentStates,}: CoursePageProps) {
 
     // const {
     //     data: courseData,
@@ -19,12 +25,16 @@ function CoursePage() {
     // if (courseLoading) return <div>Loading...</div>;
     // if (courseError) return <div>Error:{courseError?.message}</div>;
     // console.log(courseData);
+
     return (
+
         <div className={styles.CoursePage}>
             {/* <Navbar></Navbar> */}
             <div className={styles.main}>
                 <CourseDesc></CourseDesc>
-                <Rating></Rating>
+                <Rating onToggleComponent={onToggleComponent}
+                    onHome={onHome}
+                    componentStates={componentStates} />
 
                 <Review></Review>
                 <Review></Review>
