@@ -18,7 +18,7 @@ object Reviews : Table() {
     val userId = reference("user_id", Users.id)
 
     // Date and time that the review was submitted, stored as a datetime object.
-    val datetime = datetime("date")
+    val datetime = datetime("review_date")
 
     // Difficulty rating given by the user.
     val difficulty = integer("difficulty")
@@ -29,11 +29,12 @@ object Reviews : Table() {
     // Comma-separated list of tags given by the user.
     val tags = varchar("tags", MAX_CHAR).nullable()
 
-    // Comment written by the user, stored as a variable character string with a maximum length of
-    // 255.
+    // Comment written by the user.
     val comment = varchar("comment", MAX_CHAR)
 
     // Whether the review was imported from RateMyProfessor.
     val fromRmp = bool("from_rmp")
+
+    // Set the primary key of the table to be the 'id' field.
     override val primaryKey = PrimaryKey(id)
 }

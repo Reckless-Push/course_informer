@@ -1,6 +1,6 @@
 package edu.umass.dao
 
-import edu.umass.dao.DatabaseFactory.dbQuery
+import edu.umass.dao.DatabaseSingleton.dbQuery
 import edu.umass.models.Course
 import edu.umass.models.Courses
 import edu.umass.models.Professor

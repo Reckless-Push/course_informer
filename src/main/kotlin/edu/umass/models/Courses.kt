@@ -8,7 +8,7 @@ object Courses : Table() {
     val cicsId = integer("cics_id").uniqueIndex()
 
     // Name of the course, stored as a variable character string with a maximum length of 255.
-    val name = varchar("name", MAX_CHAR)
+    val name = varchar("course_name", MAX_CHAR)
 
     // Description of the course content, stored as a variable character string with a maximum length
     // of 255.

@@ -18,14 +18,13 @@ import io.ktor.client.statement.bodyAsText
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.URLBuilder
-import io.ktor.server.application.call
 import io.ktor.server.auth.OAuthAccessTokenResponse
 import io.ktor.server.auth.authenticate
 import io.ktor.server.auth.authentication
 import io.ktor.server.request.uri
 import io.ktor.server.response.respondRedirect
 import io.ktor.server.response.respondText
-import io.ktor.server.routing.Routing
+import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import io.ktor.server.sessions.clear
 import io.ktor.server.sessions.get
@@ -37,7 +36,7 @@ import io.ktor.server.sessions.set
  *
  * @receiver The Routing on which to define the routes.
  */
-fun Routing.authRoutes() {
+fun Route.authRoutes() {
     authenticate("auth-oauth-google") {
         get("/login") {}
 
@@ -58,7 +57,7 @@ fun Routing.authRoutes() {
  *
  * @receiver The Routing on which to configure the routes.
  */
-fun Routing.configureAuthRoutes() {
+fun Route.configureAuthRoutes() {
     authRoutes()
     get("/hello") {
         val userSession: UserSession? = call.sessions.get()
