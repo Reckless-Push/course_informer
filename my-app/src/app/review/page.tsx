@@ -8,7 +8,7 @@ class ResponseForm extends Component {
     render() {
         return (
             <div>
-                <Navbar></Navbar>
+                {/* <Navbar></Navbar> */}
                 <div className={styles.main}>
                     <div className={styles.content}>
                         <div className={styles.CourseName}>COMPSCI 520 Thry + Practice; Software Engin</div>
