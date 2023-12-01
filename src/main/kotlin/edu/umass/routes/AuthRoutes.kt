@@ -7,11 +7,10 @@
 
 package edu.umass.routes
 
-import edu.umass.routes.addUser
+import edu.umass.dao.dao
 import edu.umass.models.UserInfo
 import edu.umass.models.UserSession
 import edu.umass.plugins.httpClient
-import io.ktor.client.request.post
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.headers
@@ -47,13 +46,20 @@ fun Routing.authRoutes() {
             val principal: OAuthAccessTokenResponse.OAuth2? = call.authentication.principal()
             val userSession = UserSession(principal!!.state!!, principal.accessToken)
             call.sessions.set(userSession)
-            // POST /user to store the user in the database 
-            httpClient.post("https://localhost:8443/user"){
-                headers { append(HttpHeaders.Authorization, "Bearer ${userSession.token}") }
+            val response: HttpResponse =
+                httpClient.get("https://www.googleapis.com/oauth2/v2/userinfo") {
+                    headers { append(HttpHeaders.Authorization, "Bearer ${userSession.token}") }
+                }
+            if (response.status == HttpStatusCode.OK) {
+                val userInfo: UserInfo = response.body<UserInfo>()
+                val user = createUserFromUserInfo(userInfo)
+                dao.addNewUser(user)
+                call.respondRedirect("/")
+            } else {
+                val errorResponse: String = response.bodyAsText()
+                call.respondText("Error response from Google.user request: $errorResponse")
             }
-            call.respondRedirect("/")
         }
-        
     }
     get("/logout") {
         call.sessions.clear<UserSession>()

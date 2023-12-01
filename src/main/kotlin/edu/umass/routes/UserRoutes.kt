@@ -148,6 +148,20 @@ fun Route.deleteUser() {
 }
 
 /**
+ * Creates a user from the user info.
+ *
+ * @param userInfo The user info.
+ * @return The user.
+ */
+fun createUserFromUserInfo(userInfo: UserInfo): User =
+    User(
+        id = userInfo.id.toInt(),
+        firstName = userInfo.givenName,
+        lastName = userInfo.familyName,
+        email = userInfo.email,
+    )
+
+/**
  * Gets the user info from the session.
  *
  * @param userSession The user session.
@@ -159,17 +173,3 @@ private suspend fun getUserInfoFromSession(userSession: UserSession): UserInfo =
             headers { append(HttpHeaders.Authorization, "Bearer ${userSession.token}") }
         }
         .body()
-
-/**
- * Creates a user from the user info.
- *
- * @param userInfo The user info.
- * @return The user.
- */
-private fun createUserFromUserInfo(userInfo: UserInfo): User =
-    User(
-        id = userInfo.id.toInt(),
-        firstName = userInfo.givenName,
-        lastName = userInfo.familyName,
-        email = userInfo.email,
-    )
