@@ -5,7 +5,7 @@ Course Informer is a server application that provides an API for retrieving info
 ## Prerequisites
 
 Before you start, ensure you have the following installed:
-- **Docker**: Version 24.0.7 or later recommended. Installing via [Docker Desktop](https://docs.docker.com/desktop/) is recommended.
+- **Docker**: Version 24.0.7 or later recommended.
 - **Docker Compose**: Version 2.23.0 or later recommended. Docker Compose is included with Docker Desktop.
 - **Git**: For cloning the repository. You can also download the repository as a ZIP file.
 - **Operating System**: A Linux-based operating system is preferred. Windows users should use [WSL](https://learn.microsoft.com/en-us/windows/wsl/install).
