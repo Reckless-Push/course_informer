@@ -35,6 +35,7 @@ Before you start, ensure you have the following installed:
   - `GOOGLE_CLIENT_ID`: The client ID for Google OAuth.
   - `GOOGLE_CLIENT_SECRET`: The client secret for Google OAuth.
 - More about environment variables: [Docker's documentation](https://docs.docker.com/compose/environment-variables/env-file/).
+- If you do not have a Google OAuth client ID and secret, you can create one by following the instructions in [Google's documentation](https://developers.google.com/identity/protocols/oauth2).
 
 **Step 5: Build and run the Server**
 - Build using Docker Compose
