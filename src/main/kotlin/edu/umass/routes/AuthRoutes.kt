@@ -52,7 +52,7 @@ fun Route.authRoutes() {
             if (response.status == HttpStatusCode.OK) {
                 val userInfo: UserInfo = response.body<UserInfo>()
                 val user = createUserFromUserInfo(userInfo)
-                dao.user(user.uuid!!) ?: run { dao.addNewUser(user) }
+                user?.let { dao.user(user.uuid!!) ?: run { dao.addNewUser(user) } }
                 call.respondRedirect("/")
             } else {
                 val errorResponse: String = response.bodyAsText()

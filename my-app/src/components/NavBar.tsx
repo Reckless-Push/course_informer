@@ -35,6 +35,10 @@ const NavBar = ({
     handleClose()
   }
 
+  const handleLoginClick = () => {
+    window.location.href = 'https://localhost:8443/login'
+  }
+
   return (
     <AppBar position="static">
       <Toolbar>
@@ -66,6 +70,9 @@ const NavBar = ({
         </Menu>
         <Button color="inherit" onClick={onHome}>
           <HomeIcon />
+        </Button>
+        <Button color="inherit" onClick={handleLoginClick}>
+          login
         </Button>
       </Toolbar>
     </AppBar>

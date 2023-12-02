@@ -67,7 +67,6 @@ fun Route.getCourse() {
 fun Route.addCourse() {
     post("/course") {
         try {
-            // Receiving a Course object instead of Equipment
             val course: Course = call.receive<Course>()
             val newCourse = dao.addNewCourse(course)
             call.respondText("Course $newCourse.cicsId stored correctly", status = HttpStatusCode.Created)

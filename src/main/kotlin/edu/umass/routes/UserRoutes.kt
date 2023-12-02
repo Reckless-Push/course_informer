@@ -84,6 +84,11 @@ fun Route.addUser() {
             userSession?.let {
                 val userInfo = getUserInfoFromSession(userSession)
                 val user = createUserFromUserInfo(userInfo)
+                user
+                    ?: run {
+                        call.respond(HttpStatusCode.BadRequest, "Invalid email address")
+                        return@post
+                    }
                 val newUser = dao.addNewUser(user)
                 newUser?.let { call.respond(newUser) }
                     ?: call.respond(HttpStatusCode.BadRequest, "Missing or malformed uuid")
@@ -110,7 +115,6 @@ fun Route.addUser() {
 fun Route.updateUser() {
     post("/user/{uuid}") {
         try {
-            // Receiving a User object instead of Equipment
             val user: User = call.receive<User>()
             val uuid = UUID.fromString(call.parameters["uuid"])
             uuid
@@ -154,13 +158,17 @@ fun Route.deleteUser() {
  * @param userInfo The user info.
  * @return The user.
  */
-internal fun createUserFromUserInfo(userInfo: UserInfo): User =
-    User(
+internal fun createUserFromUserInfo(userInfo: UserInfo): User? {
+    if (userInfo.hd != "umass.edu") {
+        return null
+    }
+    return User(
         uuid = UUID.nameUUIDFromBytes(userInfo.id.toByteArray()),
         firstName = userInfo.givenName,
         lastName = userInfo.familyName,
         email = userInfo.email,
     )
+}
 
 /**
  * Gets the user info from the session.
