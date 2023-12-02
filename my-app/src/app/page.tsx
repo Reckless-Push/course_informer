@@ -1,10 +1,9 @@
 'use client'
 import React, { useState } from 'react'
-import CoursePage from '@/app/course/page'
-import Review from '@/app/review/page'
+import CoursePage from '@/app/course/course'
 import { ComponentStates } from '@/types/ComponentStates'
 import Navbar from '@/app/components/Navbar'
-import ResponseForm from '@/app/review/page'
+import ResponseForm from '@/app/review/review'
 type ComponentKey = 'courses' | 'reviews'
 
 const Home = () => {
