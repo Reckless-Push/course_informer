@@ -6,12 +6,8 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
-import { ProfessorResponse } from '@/types/professor'
 import Typography from '@mui/material/Typography'
-
-interface ProfessorTableProps {
-  data: ProfessorResponse
-}
+import { ProfessorTableProps } from '@/types/ProfessorTableProps'
 
 const ProfessorTable: React.FC<ProfessorTableProps> = ({ data }) => {
   return (

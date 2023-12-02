@@ -6,7 +6,8 @@ import UsersComponent from '../components/UsersComponent'
 import CoursesComponent from '../components/CoursesComponent'
 import ReviewsComponent from '../components/ReviewsComponent'
 import { ComponentStates } from '@/types/ComponentStates'
-type ComponentKey = 'professors' | 'users' | 'courses' | 'reviews'
+import { ComponentKey } from '@/types/ComponentKey'
+import ProfessorForm from '@/components/ProfessorForm'
 
 const Home = () => {
   const [componentStates, setComponentStates] = useState<ComponentStates>({
@@ -14,6 +15,7 @@ const Home = () => {
     users: false,
     courses: false,
     reviews: false,
+    profForm: false,
   })
 
   const onToggleComponent = (component: ComponentKey) => {
@@ -26,6 +28,7 @@ const Home = () => {
       users: false,
       courses: false,
       reviews: false,
+      profForm: false,
     })
   }
 
@@ -40,6 +43,7 @@ const Home = () => {
       {componentStates.users && <UsersComponent />}
       {componentStates.courses && <CoursesComponent />}
       {componentStates.reviews && <ReviewsComponent />}
+      {componentStates.profForm && <ProfessorForm />}
     </div>
   )
 }

@@ -6,12 +6,8 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
-import { UserResponse } from '@/types/user'
 import Typography from '@mui/material/Typography'
-
-interface UsersTableProps {
-  data: UserResponse
-}
+import { UsersTableProps } from '@/types/UsersTableProps'
 
 const UsersTable: React.FC<UsersTableProps> = ({ data }) => {
   return (

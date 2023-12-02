@@ -6,12 +6,8 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
-import { ReviewResponse } from '@/types/review'
 import Typography from '@mui/material/Typography'
-
-interface ReviewsTableProps {
-  data: ReviewResponse
-}
+import { ReviewsTableProps } from '@/types/ReviewsTableProps'
 
 const ReviewsTable: React.FC<ReviewsTableProps> = ({ data }) => {
   return (

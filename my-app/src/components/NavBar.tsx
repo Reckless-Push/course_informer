@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Button from '@mui/material/Button'
@@ -7,12 +7,7 @@ import { ComponentStates } from '@/types/ComponentStates'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import HomeIcon from '@mui/icons-material/Home'
-
-interface NavBarProps {
-  onToggleComponent: (component: keyof ComponentStates) => void
-  onHome: () => void
-  componentStates: ComponentStates
-}
+import { NavBarProps } from '@/types/NavBarProps'
 
 const NavBar = ({
   onToggleComponent,
@@ -21,6 +16,7 @@ const NavBar = ({
 }: NavBarProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
@@ -35,8 +31,34 @@ const NavBar = ({
     handleClose()
   }
 
+  useEffect(() => {
+    // Function to check login status using .then() and .catch()
+    const checkLoginStatus = () => {
+      fetch('https://localhost:8443/hello')
+        .then((response) => {
+          if (response.ok) {
+            setIsLoggedIn(true)
+          } else {
+            setIsLoggedIn(false)
+          }
+        })
+        .catch((error) => {
+          console.error('Error checking login status', error)
+          setIsLoggedIn(false)
+        })
+    }
+
+    checkLoginStatus()
+  }, [])
+
   const handleLoginClick = () => {
-    window.location.href = 'https://localhost:8443/login'
+    window.location.href = `https://localhost:8443/${
+      isLoggedIn ? 'logout' : 'login'
+    }`
+  }
+
+  const handleProfFormClick = (component: keyof ComponentStates) => {
+    onToggleComponent(component)
   }
 
   return (
@@ -71,9 +93,18 @@ const NavBar = ({
         <Button color="inherit" onClick={onHome}>
           <HomeIcon />
         </Button>
-        <Button color="inherit" onClick={handleLoginClick}>
-          login
+        <Button color="inherit" onClick={() => handleProfFormClick('profForm')}>
+          {componentStates.profForm ? 'Hide' : 'Show'} Professor Form
         </Button>
+        {isLoggedIn ? (
+          <Button color="inherit" onClick={handleLoginClick}>
+            Logout
+          </Button>
+        ) : (
+          <Button color="inherit" onClick={handleLoginClick}>
+            Login
+          </Button>
+        )}
       </Toolbar>
     </AppBar>
   )
