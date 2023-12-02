@@ -1,5 +1,6 @@
 package edu.umass.models
 
+import java.util.UUID
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
 
@@ -22,7 +23,7 @@ data class Review(
     val id: Int? = null,
     val professor: Professor,
     val course: Course,
-    val userId: Int,
+    @Serializable(with = UuidSerializer::class) val userId: UUID,
     val date: LocalDateTime,
     val difficulty: Int,
     val quality: Int,

@@ -15,7 +15,7 @@ object Reviews : Table() {
     val courseId = reference("course_id", Courses.cicsId)
 
     // Foreign key to the 'id' field of the 'Users' table.
-    val userId = reference("user_id", Users.id)
+    val userId = reference("user_id", Users.uuid)
 
     // Date and time that the review was submitted, stored as a datetime object.
     val datetime = datetime("review_date")

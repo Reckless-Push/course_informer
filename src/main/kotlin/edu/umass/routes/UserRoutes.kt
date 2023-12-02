@@ -18,7 +18,6 @@ import io.ktor.client.request.headers
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.URLBuilder
-import io.ktor.server.application.call
 import io.ktor.server.request.receive
 import io.ktor.server.request.uri
 import io.ktor.server.response.respond
@@ -29,6 +28,7 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.sessions.get
 import io.ktor.server.sessions.sessions
+import java.util.UUID
 
 /**
  * Defines the routes for the User table.
@@ -58,16 +58,17 @@ fun Route.listUsers() {
  * @receiver The Route on which to define the route.
  */
 fun Route.getUser() {
-    get("/user/{id}") {
-        val id = call.parameters["id"]?.toIntOrNull()
-        id
+    get("/user/{uuid}") {
+        val uuid = UUID.fromString(call.parameters["uuid"])
+        uuid
             ?: run {
-                call.respond(HttpStatusCode.BadRequest, "Missing or malformed id")
+                call.respond(HttpStatusCode.BadRequest, "Missing or malformed uuid")
                 return@get
             }
 
-        val user = dao.user(id)
-        user?.let { call.respond(user) } ?: call.respond(HttpStatusCode.NotFound, "No user with id $id")
+        val user = dao.user(uuid)
+        user?.let { call.respond(user) }
+            ?: call.respond(HttpStatusCode.NotFound, "No user with id $uuid")
     }
 }
 
@@ -85,7 +86,7 @@ fun Route.addUser() {
                 val user = createUserFromUserInfo(userInfo)
                 val newUser = dao.addNewUser(user)
                 newUser?.let { call.respond(newUser) }
-                    ?: call.respond(HttpStatusCode.BadRequest, "Missing or malformed id")
+                    ?: call.respond(HttpStatusCode.BadRequest, "Missing or malformed uuid")
             }
                 ?: run {
                     val redirectUrl =
@@ -107,17 +108,17 @@ fun Route.addUser() {
  * @receiver The Route on which to define the route.
  */
 fun Route.updateUser() {
-    post("/user/{id}") {
+    post("/user/{uuid}") {
         try {
             // Receiving a User object instead of Equipment
             val user: User = call.receive<User>()
-            val id = call.parameters["id"]?.toIntOrNull()
-            id
+            val uuid = UUID.fromString(call.parameters["uuid"])
+            uuid
                 ?: run {
-                    call.respond(HttpStatusCode.BadRequest, "Missing or malformed id")
+                    call.respond(HttpStatusCode.BadRequest, "Missing or malformed uuid")
                     return@post
                 }
-            val updatedUser = dao.editUser(user, id)
+            val updatedUser = dao.editUser(user, uuid)
             updatedUser.let { call.respond(updatedUser) }
         } catch (e: Exception) {
             call.respondText(e.toString())
@@ -131,21 +132,35 @@ fun Route.updateUser() {
  * @receiver The Route on which to define the route.
  */
 fun Route.deleteUser() {
-    get("/user/delete/{id}") {
-        val id = call.parameters["id"]?.toIntOrNull()
-        id
+    get("/user/delete/{uuid}") {
+        val uuid = UUID.fromString(call.parameters["uuid"])
+        uuid
             ?: run {
                 call.respond(HttpStatusCode.BadRequest, "Missing or malformed id")
                 return@get
             }
-        val user = dao.deleteUser(id)
+        val user = dao.deleteUser(uuid)
         if (user) {
-            call.respondText("Deleted user $id", status = HttpStatusCode.Accepted)
+            call.respondText("Deleted user $uuid", status = HttpStatusCode.Accepted)
         } else {
-            call.respond(HttpStatusCode.NotFound, "No user with id $id")
+            call.respond(HttpStatusCode.NotFound, "No user with id $uuid")
         }
     }
 }
+
+/**
+ * Creates a user from the user info.
+ *
+ * @param userInfo The user info.
+ * @return The user.
+ */
+internal fun createUserFromUserInfo(userInfo: UserInfo): User =
+    User(
+        uuid = UUID.nameUUIDFromBytes(userInfo.id.toByteArray()),
+        firstName = userInfo.givenName,
+        lastName = userInfo.familyName,
+        email = userInfo.email,
+    )
 
 /**
  * Gets the user info from the session.
@@ -159,17 +174,3 @@ private suspend fun getUserInfoFromSession(userSession: UserSession): UserInfo =
             headers { append(HttpHeaders.Authorization, "Bearer ${userSession.token}") }
         }
         .body()
-
-/**
- * Creates a user from the user info.
- *
- * @param userInfo The user info.
- * @return The user.
- */
-private fun createUserFromUserInfo(userInfo: UserInfo): User =
-    User(
-        id = userInfo.id.toInt(),
-        firstName = userInfo.givenName,
-        lastName = userInfo.familyName,
-        email = userInfo.email,
-    )

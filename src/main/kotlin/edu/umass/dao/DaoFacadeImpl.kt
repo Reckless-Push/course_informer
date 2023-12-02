@@ -21,6 +21,8 @@ import org.jetbrains.exposed.sql.statements.UpdateBuilder
 import org.jetbrains.exposed.sql.update
 import org.slf4j.LoggerFactory
 
+import java.util.UUID
+
 import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
@@ -59,7 +61,7 @@ class DaoFacadeImpl : DaoFacade {
      */
     private suspend fun resultRowToUser(row: ResultRow) =
         User(
-            id = row[Users.id],
+            uuid = row[Users.uuid],
             firstName = row[Users.firstName],
             lastName = row[Users.lastName],
             email = row[Users.email],
@@ -155,7 +157,7 @@ class DaoFacadeImpl : DaoFacade {
         it: UpdateBuilder<*>,
         user: User,
     ) {
-        it[Users.id] = user.id ?: throw IllegalArgumentException("User ID is null")
+        it[Users.uuid] = user.uuid ?: throw IllegalArgumentException("User ID is null")
         it[Users.firstName] = user.firstName
         it[Users.lastName] = user.lastName
         it[Users.email] = user.email
@@ -250,11 +252,11 @@ class DaoFacadeImpl : DaoFacade {
     /**
      * Retrieves a user by their unique identifier.
      *
-     * @param id The unique identifier for a User.
+     * @param uuid The unique identifier for a User.
      * @return A User object or null if not found.
      */
-    override suspend fun user(id: Int): User? = dbQuery {
-        Users.select { Users.id eq id }.map { resultRowToUser(it) }.singleOrNull()
+    override suspend fun user(uuid: UUID): User? = dbQuery {
+        Users.select { Users.uuid eq uuid }.map { resultRowToUser(it) }.singleOrNull()
     }
 
     /**
@@ -264,21 +266,21 @@ class DaoFacadeImpl : DaoFacade {
      * @return The newly created User object or null if the operation fails.
      */
     override suspend fun addNewUser(user: User): User? =
-        user(dbQuery { Users.insert { setUserValues(it, user) } get Users.id })
+        user(dbQuery { Users.insert { setUserValues(it, user) } get Users.uuid })
 
     /**
      * Updates an existing user's information in the database.
      *
      * @param user The updated user to replace in the database.
-     * @param id The ID of the user to update.
+     * @param uuid The ID of the user to update.
      * @return True if the update was successful, False otherwise.
      */
     override suspend fun editUser(
         user: User,
-        id: Int,
+        uuid: UUID,
     ): Boolean {
         val updatedRows = dbQuery {
-            Users.update({ Users.id eq id }) {
+            Users.update({ Users.uuid eq uuid }) {
                 setUserValues(
                     it,
                     user,
@@ -292,11 +294,11 @@ class DaoFacadeImpl : DaoFacade {
     /**
      * Deletes a user from the database.
      *
-     * @param id The ID of the user to delete.
+     * @param uuid The ID of the user to delete.
      * @return True if the user was successfully deleted, False otherwise.
      */
-    override suspend fun deleteUser(id: Int): Boolean = dbQuery {
-        Users.deleteWhere { Users.id eq id } > 0
+    override suspend fun deleteUser(uuid: UUID): Boolean = dbQuery {
+        Users.deleteWhere { Users.uuid eq uuid } > 0
     }
 
     /**
@@ -482,8 +484,18 @@ private suspend fun initializeUsers(daoFacade: DaoFacade) {
         if (daoFacade.allUsers().isEmpty()) {
             val dummyUsers =
                 listOf(
-                    User(1, "Alice", "Smith", "alice@example.com"),
-                    User(2, "Bob", "Johnson", "bob@example.com"),
+                    User(
+                        UUID.fromString("4472068d-c076-4ca0-b9de-085c0a4c7a14"),
+                        "Alice",
+                        "Smith",
+                        "alice@example.com",
+                    ),
+                    User(
+                        UUID.fromString("e1bc576c-a475-4850-8d71-745232904fdd"),
+                        "Bob",
+                        "Johnson",
+                        "bob@example.com",
+                    ),
                 )
 
             dummyUsers.forEach { user -> daoFacade.addNewUser(user) }
@@ -594,7 +606,13 @@ private fun createDefaultProfessor(): Professor = Professor(1, "Jane", "Smith")
  *
  * @return A User object.
  */
-private fun createDefaultUser(): User = User(1, "John", "Doe", "johndoe@example.com")
+private fun createDefaultUser(): User =
+    User(
+        UUID.fromString("4472068d-c076-4ca0-b9de-085c0a4c7a14"),
+        "Alice",
+        "Smith",
+        "alice@example.com",
+    )
 
 /**
  * Creates a default course for testing purposes.
@@ -618,7 +636,7 @@ private fun createDefaultCourse(): Course =
  */
 private fun createDummyReviews(): List<Review> {
     val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-    val userId = createDefaultUser().id ?: throw IllegalArgumentException("User ID is null")
+    val userId = createDefaultUser().uuid ?: throw IllegalArgumentException("User ID is null")
 
     return listOf(
         Review(

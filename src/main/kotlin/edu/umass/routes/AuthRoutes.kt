@@ -7,6 +7,7 @@
 
 package edu.umass.routes
 
+import edu.umass.dao.dao
 import edu.umass.models.UserInfo
 import edu.umass.models.UserSession
 import edu.umass.plugins.httpClient
@@ -42,8 +43,21 @@ fun Route.authRoutes() {
 
         get("/callback") {
             val principal: OAuthAccessTokenResponse.OAuth2? = call.authentication.principal()
-            call.sessions.set(UserSession(principal!!.state!!, principal.accessToken))
-            call.respondRedirect("/")
+            val userSession = UserSession(principal!!.state!!, principal.accessToken)
+            call.sessions.set(userSession)
+            val response: HttpResponse =
+                httpClient.get("https://www.googleapis.com/oauth2/v2/userinfo") {
+                    headers { append(HttpHeaders.Authorization, "Bearer ${userSession.token}") }
+                }
+            if (response.status == HttpStatusCode.OK) {
+                val userInfo: UserInfo = response.body<UserInfo>()
+                val user = createUserFromUserInfo(userInfo)
+                dao.user(user.uuid!!) ?: run { dao.addNewUser(user) }
+                call.respondRedirect("/")
+            } else {
+                val errorResponse: String = response.bodyAsText()
+                call.respondText("Error response from Google.user request: $errorResponse")
+            }
         }
     }
     get("/logout") {
