@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import './login.css';
 import InputField from '../components/InputField';
+import GoogleSignInButton from '../components/GoogleSignInButton';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
@@ -23,6 +24,7 @@ const LoginPage = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        <GoogleSignInButton />
       </form>
     </div>
   );
