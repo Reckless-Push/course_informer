@@ -2,7 +2,7 @@ import { Professor } from '@/types/professor'
 import { Semester } from '@/types/semester'
 
 export interface Course {
-  cicsId: number
+  cicsId: number | null
   name: string
   description: string
   credits: number

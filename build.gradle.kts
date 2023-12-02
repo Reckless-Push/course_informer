@@ -2,7 +2,6 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 val nettyVersion: String by project
 val ktorVersion: String by project
-val kotlinVersion: String by project
 val logbackVersion: String by project
 val exposedVersion: String by project
 val h2Version: String by project
@@ -10,8 +9,8 @@ val kotlinxDatetimeVersion: String by project
 
 plugins {
     application
-    kotlin("jvm") version "1.9.21"
-    kotlin("plugin.serialization").version("1.9.21")
+    kotlin("jvm") version "2.0.0-Beta1"
+    kotlin("plugin.serialization").version("2.0.0-Beta1")
     id("io.ktor.plugin") version "3.0.0-beta-1"
     id("org.jetbrains.dokka") version "1.9.10"
     id("com.diffplug.spotless") version "6.23.2"

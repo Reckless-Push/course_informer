@@ -3,10 +3,10 @@ import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
-import { ComponentStates } from '@/types/ComponentStates'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import HomeIcon from '@mui/icons-material/Home'
+import { ComponentStates } from '@/types/ComponentStates'
 import { NavBarProps } from '@/types/NavBarProps'
 
 const NavBar = ({
@@ -15,15 +15,22 @@ const NavBar = ({
   componentStates,
 }: NavBarProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-  const open = Boolean(anchorEl)
+  const [formAnchorEl, setFormAnchorEl] = useState<null | HTMLElement>(null)
+  const tablesOpen = Boolean(anchorEl)
+  const formsOpen = Boolean(formAnchorEl)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
   }
 
+  const handleFormMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setFormAnchorEl(event.currentTarget)
+  }
+
   const handleClose = () => {
     setAnchorEl(null)
+    setFormAnchorEl(null)
   }
 
   const handleMenuItemClick = (component: keyof ComponentStates) => {
@@ -32,15 +39,11 @@ const NavBar = ({
   }
 
   useEffect(() => {
-    // Function to check login status using .then() and .catch()
+    // Function to check login status
     const checkLoginStatus = () => {
       fetch('https://localhost:8443/hello')
         .then((response) => {
-          if (response.ok) {
-            setIsLoggedIn(true)
-          } else {
-            setIsLoggedIn(false)
-          }
+          setIsLoggedIn(response.ok)
         })
         .catch((error) => {
           console.error('Error checking login status', error)
@@ -57,10 +60,6 @@ const NavBar = ({
     }`
   }
 
-  const handleProfFormClick = (component: keyof ComponentStates) => {
-    onToggleComponent(component)
-  }
-
   return (
     <AppBar position="static">
       <Toolbar>
@@ -74,7 +73,7 @@ const NavBar = ({
         <Menu
           id="tables-menu"
           anchorEl={anchorEl}
-          open={open}
+          open={tablesOpen}
           onClose={handleClose}
         >
           <MenuItem onClick={() => handleMenuItemClick('professors')}>
@@ -90,21 +89,31 @@ const NavBar = ({
             {componentStates.reviews ? 'Hide' : 'Show'} Reviews
           </MenuItem>
         </Menu>
+
+        <Button color="inherit" onClick={handleFormMenu}>
+          Forms
+        </Button>
+        <Menu
+          id="forms-menu"
+          anchorEl={formAnchorEl}
+          open={formsOpen}
+          onClose={handleClose}
+        >
+          <MenuItem onClick={() => handleMenuItemClick('profForm')}>
+            {componentStates.profForm ? 'Hide' : 'Show'} Professor Form
+          </MenuItem>
+          <MenuItem onClick={() => handleMenuItemClick('courseForm')}>
+            {componentStates.courseForm ? 'Hide' : 'Show'} Course Form
+          </MenuItem>
+        </Menu>
+
         <Button color="inherit" onClick={onHome}>
           <HomeIcon />
         </Button>
-        <Button color="inherit" onClick={() => handleProfFormClick('profForm')}>
-          {componentStates.profForm ? 'Hide' : 'Show'} Professor Form
+
+        <Button color="inherit" onClick={handleLoginClick}>
+          {isLoggedIn ? 'Logout' : 'Login'}
         </Button>
-        {isLoggedIn ? (
-          <Button color="inherit" onClick={handleLoginClick}>
-            Logout
-          </Button>
-        ) : (
-          <Button color="inherit" onClick={handleLoginClick}>
-            Login
-          </Button>
-        )}
       </Toolbar>
     </AppBar>
   )

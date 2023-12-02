@@ -8,6 +8,7 @@ import ReviewsComponent from '../components/ReviewsComponent'
 import { ComponentStates } from '@/types/ComponentStates'
 import { ComponentKey } from '@/types/ComponentKey'
 import ProfessorForm from '@/components/ProfessorForm'
+import CourseForm from '@/components/CourseForm'
 
 const Home = () => {
   const [componentStates, setComponentStates] = useState<ComponentStates>({
@@ -16,6 +17,7 @@ const Home = () => {
     courses: false,
     reviews: false,
     profForm: false,
+    courseForm: false,
   })
 
   const onToggleComponent = (component: ComponentKey) => {
@@ -29,6 +31,7 @@ const Home = () => {
       courses: false,
       reviews: false,
       profForm: false,
+      courseForm: false,
     })
   }
 
@@ -44,6 +47,7 @@ const Home = () => {
       {componentStates.courses && <CoursesComponent />}
       {componentStates.reviews && <ReviewsComponent />}
       {componentStates.profForm && <ProfessorForm />}
+      {componentStates.courseForm && <CourseForm />}
     </div>
   )
 }
