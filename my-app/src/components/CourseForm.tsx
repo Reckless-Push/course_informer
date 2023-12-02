@@ -1,7 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Button, TextField, Typography } from '@mui/material'
+import {
+  Box,
+  Button,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  TextField,
+  Typography,
+} from '@mui/material'
 import usePostData from '@/hooks/usePostData'
-import { Course } from '@/types/course'
+import useFetchData from '@/hooks/useFetchData'
+import { Course, CourseResponse } from '@/types/course'
+import { Professor, ProfessorResponse } from '@/types/professor'
 
 const CourseForm = () => {
   const initialCourseState: Course = {
@@ -15,6 +25,16 @@ const CourseForm = () => {
     semestersOffered: [],
     professors: [],
   }
+
+  const { data: coursesData } = useFetchData<CourseResponse>(
+    'https://localhost:8443/course'
+  )
+  const [selectedUndergradRequirements, setSelectedUndergradRequirements] =
+    useState<string[]>([])
+  const { data: professorsData } = useFetchData<ProfessorResponse>(
+    'https://localhost:8443/professor'
+  )
+  const [selectedProfessors, setSelectedProfessors] = useState<string[]>([])
   const [course, setCourse] = useState<Course>(initialCourseState)
   const [isSubmitClicked, setIsSubmitClicked] = useState(false)
   const { data, loading, error } = usePostData<Course, Course>(
@@ -22,6 +42,16 @@ const CourseForm = () => {
     course,
     isSubmitClicked
   )
+
+  const handleUndergradRequirementsChange = (
+    event: SelectChangeEvent<string[]>
+  ) => {
+    setSelectedUndergradRequirements(event.target.value as string[])
+  }
+
+  const handleProfessorChange = (event: SelectChangeEvent<string[]>) => {
+    setSelectedProfessors(event.target.value as string[])
+  }
 
   useEffect(() => {
     if (data) {
@@ -35,6 +65,31 @@ const CourseForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    const selectedProfessorObjects = selectedProfessors
+      .map((selectedName) =>
+        professorsData?.professor_table.find(
+          (prof) => prof.firstName === selectedName
+        )
+      )
+      .filter((professor): professor is Professor => professor !== undefined)
+
+    console.log(
+      'Selected Undergrad Requirements:',
+      selectedUndergradRequirements
+    )
+
+    const selectedUndergradCourses = selectedUndergradRequirements
+      .map((selectedName) =>
+        coursesData?.course_table.find((course) => course.name === selectedName)
+      )
+      .filter((course): course is Course => course !== undefined)
+
+    setCourse({
+      ...course,
+      professors: selectedProfessorObjects,
+      undergraduateRequirements: selectedUndergradCourses,
+    })
+
     setIsSubmitClicked(true)
   }
 
@@ -83,6 +138,58 @@ const CourseForm = () => {
         autoComplete="Our Course"
         required
       />
+      <TextField
+        className="mb-4 w-full bg-[#FFFFFF] text-[#000000] border border-[rgb(var(--neutral-dark-gray-rgb))] rounded"
+        name="credits"
+        label="Credits"
+        type="number"
+        value={course.credits}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        id="credits"
+        autoComplete="3"
+        required
+      />
+      <TextField
+        className="mb-4 w-full bg-[#FFFFFF] text-[#000000] border border-[rgb(var(--neutral-dark-gray-rgb))] rounded"
+        name="courseLevel"
+        label="Course Level"
+        type="number"
+        value={course.courseLevel}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        id="courseLevel"
+        autoComplete="1"
+        required
+      />
+      <Select
+        className="mb-4 w-full bg-[#FFFFFF] text-[#000000] border border-[rgb(var(--neutral-dark-gray-rgb))] rounded"
+        multiple
+        value={selectedProfessors}
+        onChange={handleProfessorChange}
+        renderValue={(selected) => selected.join(', ')}
+      >
+        {professorsData?.professor_table.map((professor: Professor) => (
+          <MenuItem key={professor.id} value={professor.firstName}>
+            {professor.firstName} {professor.lastName}
+          </MenuItem>
+        ))}
+      </Select>
+      <Select
+        className="mb-4 w-full bg-[#FFFFFF] text-[#000000] border border-[rgb(var(--neutral-dark-gray-rgb))] rounded"
+        multiple
+        value={selectedUndergradRequirements}
+        onChange={handleUndergradRequirementsChange}
+        renderValue={(selected) => selected.join(', ')}
+      >
+        {coursesData?.course_table.map((course: Course) => (
+          <MenuItem key={course.cicsId} value={course.name}>
+            {course.name}
+          </MenuItem>
+        ))}
+      </Select>
       <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
         Submit
       </Button>
