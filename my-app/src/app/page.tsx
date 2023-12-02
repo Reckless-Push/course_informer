@@ -34,7 +34,7 @@ const Home = () => {
             {/* <Navbar></Navbar> */}
             {
             componentStates.courses && 
-            <CoursePage onToggleComponent={onToggleComponent} onHome={onHome} componentStates={componentStates} />
+            <CoursePage onToggleComponent={onToggleComponent} onHome={onHome} componentStates={componentStates} cics_id={101} />
             }
 
             {

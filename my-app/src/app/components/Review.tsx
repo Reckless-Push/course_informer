@@ -1,18 +1,25 @@
 "use client";
 import styles from "@/app/components/css/coursereview.module.css";
+interface ReviewProps{
+   quality:number
+   difficulty:number
+    comment:string
+    date:string
+    
+}
 
-function Review() {
+function Review({quality,difficulty,comment,date}:ReviewProps) {
     return (
         <div>
             <div className={styles.Review}>
                 <div className={styles.RatingNumbersBox}>
                     <div className={styles.Quality}>
                         <div className={styles.RatingHeader}>Quality</div>
-                        <div className={styles.RatingNumber}>4.0</div>
+                        <div className={styles.RatingNumber}>{quality}</div>
                     </div>
                     <div className={styles.Difficulty}>
                         <div className={styles.RatingHeader}>Difficulty</div>
-                        <div className={styles.RatingNumber}>3.0</div>
+                        <div className={styles.RatingNumber}>{difficulty}</div>
                     </div>
                 </div>
 
@@ -34,16 +41,11 @@ function Review() {
                             <div className={styles.optionheader}>Textbook:</div>
                             <div className={styles.optiontext}>N/A</div>
                         </div>
-                        <div className={styles.date}>Apr 21st, 2023</div>
+                        <div className={styles.date}>{date}</div>
 
                     </div>
 
-                    <div className={styles.content}>
-                        Professor Conboy is a kind and understanding instructor who cares about her students
-                        and the material she teaches. However, she has high expectations for grading. While
-                        the workload isnt terrible, it can be very easy to lose a lot of credit on the homework
-                        assignments due to unclear instructions.
-                    </div>
+                    <div className={styles.content}>{comment}</div>
 
                 </div>
             </div>
