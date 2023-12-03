@@ -11,6 +11,8 @@ interface RatingProps {
     componentStates: {
         courses: boolean
         reviews: boolean
+        courseCatalog: boolean
+        login: boolean
     }
 }
 function handleClick({onToggleComponent,onHome,componentStates}: RatingProps) {

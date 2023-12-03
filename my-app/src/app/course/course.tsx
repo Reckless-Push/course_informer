@@ -11,7 +11,7 @@ interface CoursePageProps {
     componentStates: {
         courses: boolean
         reviews: boolean
-        courseDashboard: boolean,
+        courseCatalog: boolean,
         login: boolean
     }
 }

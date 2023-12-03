@@ -24,7 +24,9 @@ function courseCatalogPage({onToggleComponent,onHome,componentStates,}: courseCa
         <CourseFiltersList />
       </div>
       <div className='list_column'>
-        <CourseList/>
+        <CourseList onToggleComponent={onToggleComponent}
+                    onHome={onHome}
+                    componentStates={componentStates}/>
       </div>
     </div>
   )
