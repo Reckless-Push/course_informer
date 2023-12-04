@@ -5,3 +5,4 @@ export type ComponentKey =
   | 'reviews'
   | 'profForm'
   | 'courseForm'
+  | 'reviewForm'

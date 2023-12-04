@@ -5,4 +5,5 @@ export type ComponentStates = {
   reviews: boolean
   profForm: boolean
   courseForm: boolean
+  reviewForm: boolean
 }

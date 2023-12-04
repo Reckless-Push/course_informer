@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Button from '@mui/material/Button'
@@ -104,6 +104,9 @@ const NavBar = ({
           </MenuItem>
           <MenuItem onClick={() => handleMenuItemClick('courseForm')}>
             {componentStates.courseForm ? 'Hide' : 'Show'} Course Form
+          </MenuItem>
+          <MenuItem onClick={() => handleMenuItemClick('reviewForm')}>
+            {componentStates.reviewForm ? 'Hide' : 'Show'} Review Form
           </MenuItem>
         </Menu>
 

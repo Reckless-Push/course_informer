@@ -3,8 +3,8 @@ import { Course } from '@/types/course'
 
 export interface Review {
   id: number
-  professor: Professor
-  course: Course
+  professor: Professor | null
+  course: Course | null
   userId: string
   date: string
   difficulty: number
