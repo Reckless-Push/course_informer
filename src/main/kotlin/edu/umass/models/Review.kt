@@ -14,7 +14,6 @@ import kotlinx.serialization.Serializable
  * @property date The date the review was written.
  * @property difficulty The difficulty rating given by the user.
  * @property quality The quality rating given by the user.
- * @property tags A list of tags given by the user.
  * @property comment The comment written by the user.
  * @property fromRmp Whether the review was imported from RateMyProfessor.
  * @property forCredit Whether the review was for credit.
@@ -31,7 +30,6 @@ data class Review(
     val date: LocalDateTime,
     val difficulty: Int,
     val quality: Int,
-    val tags: List<String> = emptyList(),
     val comment: String,
     val fromRmp: Boolean,
     val forCredit: Boolean,

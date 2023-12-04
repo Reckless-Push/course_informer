@@ -26,9 +26,6 @@ object Reviews : Table() {
     // Quality rating given by the user.
     val quality = integer("quality")
 
-    // Comma-separated list of tags given by the user.
-    val tags = varchar("tags", MAX_CHAR).nullable()
-
     // Comment written by the user.
     val comment = varchar("comment", MAX_CHAR)
 

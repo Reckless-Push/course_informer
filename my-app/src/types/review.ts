@@ -9,7 +9,6 @@ export interface Review {
   date: string
   difficulty: number
   quality: number
-  tags: string[]
   comment: string
   fromRmp: boolean
   forCredit: boolean

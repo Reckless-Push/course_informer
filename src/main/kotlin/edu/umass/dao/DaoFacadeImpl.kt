@@ -92,7 +92,6 @@ class DaoFacadeImpl : DaoFacade {
             date = row[Reviews.datetime].toKotlinLocalDateTime(),
             difficulty = row[Reviews.difficulty],
             quality = row[Reviews.quality],
-            tags = row[Reviews.tags]?.split(",") ?: emptyList(),
             comment = row[Reviews.comment],
             fromRmp = row[Reviews.fromRmp],
             forCredit = row[Reviews.forCredit],
@@ -190,7 +189,6 @@ class DaoFacadeImpl : DaoFacade {
         it[Reviews.userId] = review.userId
         it[Reviews.difficulty] = review.difficulty
         it[Reviews.quality] = review.quality
-        it[Reviews.tags] = review.tags.joinToString(",").takeIf { it.isNotEmpty() }
         it[Reviews.comment] = review.comment
         it[Reviews.fromRmp] = review.fromRmp
         it[Reviews.datetime] = review.date.toJavaLocalDateTime()
@@ -651,7 +649,6 @@ private fun createFirstDummyReview(
         dateTime,
         3,
         4,
-        listOf("challenging", "rewarding"),
         "Great course for beginners!!",
         fromRmp = false,
         forCredit = false,
@@ -679,7 +676,6 @@ private fun createSecondDummyReview(
         dateTime,
         4,
         5,
-        listOf("insightful", "engaging"),
         "Excellent course with practical examples.",
         fromRmp = false,
         forCredit = false,

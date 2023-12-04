@@ -24,7 +24,6 @@ const ReviewsTable: React.FC<ReviewsTableProps> = ({ data }) => {
             <TableCell>Date</TableCell>
             <TableCell>Difficulty</TableCell>
             <TableCell>Quality</TableCell>
-            <TableCell>Tags</TableCell>
             <TableCell>Comment</TableCell>
             <TableCell>From RMP</TableCell>
             <TableCell>For Credit</TableCell>
@@ -42,7 +41,6 @@ const ReviewsTable: React.FC<ReviewsTableProps> = ({ data }) => {
               <TableCell>{review.date}</TableCell>
               <TableCell>{review.difficulty}</TableCell>
               <TableCell>{review.quality}</TableCell>
-              <TableCell>{JSON.stringify(review.tags)}</TableCell>
               <TableCell>{review.comment}</TableCell>
               <TableCell>{review.fromRmp}</TableCell>
               <TableCell>{review.forCredit}</TableCell>
