@@ -1,59 +1,56 @@
 'use client'
 import React, { useState } from 'react'
-import NavBar from '../components/NavBar'
-import ProfessorsComponent from '../components/ProfessorsComponent'
-import UsersComponent from '../components/UsersComponent'
-import CoursesComponent from '../components/CoursesComponent'
-import ReviewsComponent from '../components/ReviewsComponent'
+import CoursePage from '@/app/course/course'
 import { ComponentStates } from '@/types/ComponentStates'
-import { ComponentKey } from '@/types/ComponentKey'
-import ProfessorForm from '@/components/ProfessorForm'
-import CourseForm from '@/components/CourseForm'
-import ReviewForm from '@/components/ReviewForm'
+import Navbar from '@/app/components/Navbar'
+import ResponseForm from '@/app/review/review'
+
+import useFetchData from './hooks/useFetchData'
+import { CourseResponse } from '@/types/course'
+type ComponentKey = 'courses' | 'reviews'
 
 const Home = () => {
-  const [componentStates, setComponentStates] = useState<ComponentStates>({
-    professors: false,
-    users: false,
-    courses: false,
-    reviews: false,
-    profForm: false,
-    courseForm: false,
-    reviewForm: false,
-  })
-
-  const onToggleComponent = (component: ComponentKey) => {
-    setComponentStates((prev) => ({ ...prev, [component]: !prev[component] }))
-  }
-
-  const onHome = () => {
-    setComponentStates({
-      professors: false,
-      users: false,
-      courses: false,
-      reviews: false,
-      profForm: false,
-      courseForm: false,
-      reviewForm: false,
+    const [componentStates, setComponentStates] = useState<ComponentStates>({
+        courses: false,
+        reviews: false,
     })
-  }
 
-  return (
-    <div>
-      <NavBar
-        onToggleComponent={onToggleComponent}
-        onHome={onHome}
-        componentStates={componentStates}
-      />
-      {componentStates.professors && <ProfessorsComponent />}
-      {componentStates.users && <UsersComponent />}
-      {componentStates.courses && <CoursesComponent />}
-      {componentStates.reviews && <ReviewsComponent />}
-      {componentStates.profForm && <ProfessorForm />}
-      {componentStates.courseForm && <CourseForm />}
-      {componentStates.reviewForm && <ReviewForm />}
-    </div>
-  )
+    const onToggleComponent = (component: ComponentKey) => {
+        setComponentStates((prev) => ({ ...prev, [component]: !prev[component] }))
+    }
+
+    const onHome = () => {
+        setComponentStates({
+            courses: false,
+            reviews: false,
+        })
+    }
+     const {
+        data: courseData,
+        loading: courseLoading,
+        error: courseError
+    } = useFetchData<CourseResponse>('https://localhost:8443/course');
+
+    return (
+        <div>
+            <Navbar
+                onToggleComponent={onToggleComponent}
+                onHome={onHome}
+                componentStates={componentStates}
+            />
+
+            {/* <Navbar></Navbar> */}
+            {
+            componentStates.courses &&courseData &&
+            <CoursePage onToggleComponent={onToggleComponent} onHome={onHome} componentStates={componentStates} courseData={courseData.course_table[0]}/>
+            }
+
+            {/* {
+            componentStates.reviews && 
+            <ResponseForm onToggleComponent={onToggleComponent} onHome={onHome}componentStates={componentStates} />
+            } */}
+        </div>
+    )
 }
 
 export default Home
