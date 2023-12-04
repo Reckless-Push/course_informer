@@ -21,8 +21,8 @@ const ReviewForm = () => {
     id: 0,
     professor: null,
     course: null,
-    userId: '',
-    date: '',
+    userId: null,
+    date: null,
     difficulty: 0,
     quality: 0,
     comment: '',
@@ -53,11 +53,11 @@ const ReviewForm = () => {
     setReview({ ...review, [e.target.name]: e.target.value })
   }
 
-  const handleCourseChange = (event: SelectChangeEvent<string>) => {
+  const handleCourseChange = (event: SelectChangeEvent) => {
     setSelectedCourse(event.target.value as string)
   }
 
-  const handleProfessorChange = (event: SelectChangeEvent<string>) => {
+  const handleProfessorChange = (event: SelectChangeEvent) => {
     setSelectedProfessor(event.target.value as string)
   }
 
@@ -114,32 +114,6 @@ const ReviewForm = () => {
           </MenuItem>
         ))}
       </Select>
-      <TextField
-        className="mb-4 w-full bg-[#FFFFFF] text-[#000000] border border-[rgb(var(--neutral-dark-gray-rgb))] rounded"
-        name="userId"
-        label="User ID"
-        type="string"
-        value={review.userId}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-        id="userid"
-        autoComplete="4472068d-c076-4ca0-b9de-085c0a4c7a14"
-        required
-      />
-      <TextField
-        className="mb-4 w-full bg-[#FFFFFF] text-[#000000] border border-[rgb(var(--neutral-dark-gray-rgb))] rounded"
-        name="date"
-        label="Date"
-        type="text"
-        value={review.date}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-        id="date"
-        autoComplete="10/10/2021"
-        required
-      />
       <TextField
         className="mb-4 w-full bg-[#FFFFFF] text-[#000000] border border-[rgb(var(--neutral-dark-gray-rgb))] rounded"
         name="difficulty"

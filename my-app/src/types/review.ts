@@ -5,8 +5,8 @@ export interface Review {
   id: number
   professor: Professor | null
   course: Course | null
-  userId: string
-  date: string
+  userId: string | null
+  date: string | null
   difficulty: number
   quality: number
   comment: string

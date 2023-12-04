@@ -176,7 +176,7 @@ internal fun createUserFromUserInfo(userInfo: UserInfo): User? {
  * @param userSession The user session.
  * @return The user info.
  */
-private suspend fun getUserInfoFromSession(userSession: UserSession): UserInfo =
+internal suspend fun getUserInfoFromSession(userSession: UserSession): UserInfo =
     httpClient
         .get("https://www.googleapis.com/oauth2/v2/userinfo") {
             headers { append(HttpHeaders.Authorization, "Bearer ${userSession.token}") }

@@ -89,7 +89,7 @@ class DaoFacadeImpl : DaoFacade {
             course = course(row[Reviews.courseId])
                 ?: throw IllegalArgumentException("Course not found"),
             userId = row[Reviews.userId],
-            date = row[Reviews.datetime].toKotlinLocalDateTime(),
+            date = row[Reviews.datetime]?.toKotlinLocalDateTime(),
             difficulty = row[Reviews.difficulty],
             quality = row[Reviews.quality],
             comment = row[Reviews.comment],
@@ -191,7 +191,7 @@ class DaoFacadeImpl : DaoFacade {
         it[Reviews.quality] = review.quality
         it[Reviews.comment] = review.comment
         it[Reviews.fromRmp] = review.fromRmp
-        it[Reviews.datetime] = review.date.toJavaLocalDateTime()
+        it[Reviews.datetime] = review.date?.toJavaLocalDateTime()
         it[Reviews.forCredit] = review.forCredit
         it[Reviews.attendance] = review.attendance
         it[Reviews.textbook] = review.textbook
