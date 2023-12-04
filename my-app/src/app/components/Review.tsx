@@ -1,25 +1,19 @@
 "use client";
 import styles from "@/app/components/css/coursereview.module.css";
-interface ReviewProps{
-   quality:number
-   difficulty:number
-    comment:string
-    date:string
-    
-}
+import { Review } from "@/types/review";
 
-function Review({quality,difficulty,comment,date}:ReviewProps) {
+function Review(data:Review) {
     return (
         <div>
             <div className={styles.Review}>
                 <div className={styles.RatingNumbersBox}>
                     <div className={styles.Quality}>
                         <div className={styles.RatingHeader}>Quality</div>
-                        <div className={styles.RatingNumber}>{quality}</div>
+                        <div className={styles.RatingNumber}>{data.quality}</div>
                     </div>
                     <div className={styles.Difficulty}>
                         <div className={styles.RatingHeader}>Difficulty</div>
-                        <div className={styles.RatingNumber}>{difficulty}</div>
+                        <div className={styles.RatingNumber}>{data.difficulty}</div>
                     </div>
                 </div>
 
@@ -27,25 +21,28 @@ function Review({quality,difficulty,comment,date}:ReviewProps) {
                     <div className={styles.Options}>
                         <div className={styles.option}>
                             <div className={styles.optionheader}>For credit:</div>
-                            <div className={styles.optionval}>Yes</div>
+                            {data.forCredit && <div className={styles.optionval}>Yes</div>}
+                            {!data.forCredit &&<div className={styles.optionval}>No</div>}
                         </div>
                         <div className={styles.option}>
                             <div className={styles.optionheader}>Attendance:</div>
-                            <div className={styles.optiontext}>Mandatory</div>
+                            {data.attendance && <div className={styles.optionval}>Yes</div>}
+                            {!data.attendance &&<div className={styles.optionval}>No</div>}
                         </div>
                         <div className={styles.option}>
                             <div className={styles.optionheader}>Grade:</div>
-                            <div className={styles.optiontext}>Not sure yet</div>
+                            <div className={styles.optiontext}>{data.grade}</div>
                         </div>
                         <div className={styles.option}>
                             <div className={styles.optionheader}>Textbook:</div>
-                            <div className={styles.optiontext}>N/A</div>
+                            {data.textbook && <div className={styles.optionval}>Yes</div>}
+                            {!data.textbook &&<div className={styles.optionval}>No</div>}
                         </div>
-                        <div className={styles.date}>{date}</div>
+                        <div className={styles.date}>{data.date}</div>
 
                     </div>
 
-                    <div className={styles.content}>{comment}</div>
+                    <div className={styles.content}>{data.comment}</div>
 
                 </div>
             </div>

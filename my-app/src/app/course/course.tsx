@@ -30,7 +30,7 @@ function CoursePage({ onToggleComponent, onHome, componentStates, courseData }: 
     const qualityscore = new Array();
     const difficultyscore = new Array();
     reviewData?.review_table.forEach((review) => {
-        if (review.course.cicsId == courseData.cicsId) {
+        if (review.course && review.course.cicsId == courseData.cicsId) {
             qualityscore.push(review.quality);
             difficultyscore.push(review.difficulty);
         }
@@ -51,7 +51,7 @@ function CoursePage({ onToggleComponent, onHome, componentStates, courseData }: 
                     cics_name={courseData.name} />
 
                 {reviewData?.review_table.map(review => (
-                    <Review key={review.comment} quality={review.quality} difficulty={review.difficulty} comment={review.comment} date={review.date} />
+                    <Review key={review.comment} {...review}/>
                 ))}
 
             </div>
