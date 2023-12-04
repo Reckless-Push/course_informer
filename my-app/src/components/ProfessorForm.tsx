@@ -48,7 +48,6 @@ const ProfessorForm = () => {
         label="First Name"
         type="text"
         id="firstName"
-        autoComplete="firstName"
         value={professor.firstName}
         onChange={handleChange}
       />
@@ -61,7 +60,6 @@ const ProfessorForm = () => {
         label="Last Name"
         type="text"
         id="lastName"
-        autoComplete="lastName"
         value={professor.lastName}
         onChange={handleChange}
       />

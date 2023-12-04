@@ -20,6 +20,6 @@ object SemesterSeasonSerializer : KSerializer<SemesterSeason> {
 
     override fun deserialize(decoder: Decoder): SemesterSeason {
         val season = decoder.decodeString()
-        return SemesterSeason.fromString(season) ?: throw IllegalArgumentException("Invalid grade")
+        return SemesterSeason.fromString(season) ?: throw IllegalArgumentException("Invalid season")
     }
 }

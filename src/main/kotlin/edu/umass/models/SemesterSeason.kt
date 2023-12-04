@@ -29,6 +29,6 @@ enum class SemesterSeason(val season: String) {
          * @throws IllegalArgumentException If the string does not match any season.
          */
         fun fromString(seasonString: String): SemesterSeason? =
-            entries.firstOrNull { it.season == seasonString }
+            entries.firstOrNull { it.season.equals(seasonString, ignoreCase = true) }
     }
 }
