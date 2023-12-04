@@ -12,6 +12,10 @@ export interface Review {
   tags: string[]
   comment: string
   fromRmp: boolean
+  forCredit: boolean
+  attendance: boolean
+  textbook: boolean
+  grade: string
 }
 
 export interface ReviewResponse {

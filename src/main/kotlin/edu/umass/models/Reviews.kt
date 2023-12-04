@@ -35,6 +35,18 @@ object Reviews : Table() {
     // Whether the review was imported from RateMyProfessor.
     val fromRmp = bool("from_rmp")
 
+    // Whether the review was for credit.
+    val forCredit = bool("for_credit")
+
+    // Whether the review required attendance.
+    val attendance = bool("attendance")
+
+    // Whether the review required a textbook.
+    val textbook = bool("textbook")
+
+    // The grade the user received in the course.
+    val grade = varchar("grade", MAX_CHAR).nullable()
+
     // Set the primary key of the table to be the 'id' field.
     override val primaryKey = PrimaryKey(id)
 }

@@ -3,6 +3,7 @@ package edu.umass.dao
 import edu.umass.dao.DatabaseSingleton.dbQuery
 import edu.umass.models.Course
 import edu.umass.models.Courses
+import edu.umass.models.LetterGrade
 import edu.umass.models.Professor
 import edu.umass.models.Professors
 import edu.umass.models.Review
@@ -25,6 +26,7 @@ import java.util.UUID
 
 import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.Clock
+import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toJavaLocalDateTime
 import kotlinx.datetime.toKotlinLocalDateTime
@@ -93,6 +95,10 @@ class DaoFacadeImpl : DaoFacade {
             tags = row[Reviews.tags]?.split(",") ?: emptyList(),
             comment = row[Reviews.comment],
             fromRmp = row[Reviews.fromRmp],
+            forCredit = row[Reviews.forCredit],
+            attendance = row[Reviews.attendance],
+            textbook = row[Reviews.textbook],
+            grade = row[Reviews.grade]?.let { LetterGrade.fromString(it) },
         )
 
     /**
@@ -109,9 +115,6 @@ class DaoFacadeImpl : DaoFacade {
             credits = row[Courses.credits],
             undergraduateRequirements =
                 row[Courses.undergraduateRequirements]?.split(",")?.mapNotNull { course(it.toInt()) }
-                    ?: emptyList(),
-            graduateRequirements =
-                row[Courses.graduateRequirements]?.split(",")?.mapNotNull { course(it.toInt()) }
                     ?: emptyList(),
             semestersOffered =
                 row[Courses.semestersOffered]?.split(",")?.mapNotNull { parseSemester(it) }
@@ -191,6 +194,10 @@ class DaoFacadeImpl : DaoFacade {
         it[Reviews.comment] = review.comment
         it[Reviews.fromRmp] = review.fromRmp
         it[Reviews.datetime] = review.date.toJavaLocalDateTime()
+        it[Reviews.forCredit] = review.forCredit
+        it[Reviews.attendance] = review.attendance
+        it[Reviews.textbook] = review.textbook
+        it[Reviews.grade] = review.grade?.grade
     }
 
     /**
@@ -213,10 +220,6 @@ class DaoFacadeImpl : DaoFacade {
                     .takeIf {
                         it.isNotEmpty()
                     }
-        it[Courses.graduateRequirements] =
-                course.graduateRequirements.map(Course::cicsId)
-                    .joinToString(",")
-                    .takeIf { it.isNotEmpty() }
         it[Courses.semestersOffered] =
                 course.semestersOffered.joinToString(",").takeIf { it.isNotEmpty() }
         it[Courses.courseLevel] = course.courseLevel
@@ -630,6 +633,62 @@ private fun createDefaultCourse(): Course =
     )
 
 /**
+ * Creates a first dummy review.
+ *
+ * @param userId The ID of the user who wrote the review.
+ * @param dateTime The date and time the review was written.
+ * @return A Review object.
+ */
+private fun createFirstDummyReview(
+    userId: UUID,
+    dateTime: LocalDateTime,
+): Review =
+    Review(
+        1,
+        createDefaultProfessor(),
+        createDefaultCourse(),
+        userId,
+        dateTime,
+        3,
+        4,
+        listOf("challenging", "rewarding"),
+        "Great course for beginners!!",
+        fromRmp = false,
+        forCredit = false,
+        attendance = false,
+        textbook = false,
+        LetterGrade.GRADE_C,
+    )
+
+/**
+ * Creates a second dummy review.
+ *
+ * @param userId The ID of the user who wrote the review.
+ * @param dateTime The date and time the review was written.
+ * @return A Review object.
+ */
+private fun createSecondDummyReview(
+    userId: UUID,
+    dateTime: LocalDateTime,
+): Review =
+    Review(
+        2,
+        createDefaultProfessor(),
+        createDefaultCourse(),
+        userId,
+        dateTime,
+        4,
+        5,
+        listOf("insightful", "engaging"),
+        "Excellent course with practical examples.",
+        fromRmp = false,
+        forCredit = false,
+        attendance = false,
+        textbook = false,
+        LetterGrade.GRADE_A,
+    )
+
+/**
  * Creates a list of dummy reviews.
  *
  * @return List of Review objects.
@@ -639,29 +698,7 @@ private fun createDummyReviews(): List<Review> {
     val userId = createDefaultUser().uuid ?: throw IllegalArgumentException("User ID is null")
 
     return listOf(
-        Review(
-            1,
-            createDefaultProfessor(),
-            createDefaultCourse(),
-            userId,
-            now,
-            3,
-            4,
-            listOf("challenging", "rewarding"),
-            "Great course for beginners!!",
-            false,
-        ),
-        Review(
-            2,
-            createDefaultProfessor(),
-            createDefaultCourse(),
-            userId,
-            now,
-            4,
-            5,
-            listOf("insightful", "engaging"),
-            "Excellent course with practical examples.",
-            true,
-        ),
+        createFirstDummyReview(userId, now),
+        createSecondDummyReview(userId, now),
     )
 }

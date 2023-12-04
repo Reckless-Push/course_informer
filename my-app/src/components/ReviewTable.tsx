@@ -26,7 +26,11 @@ const ReviewsTable: React.FC<ReviewsTableProps> = ({ data }) => {
             <TableCell>Quality</TableCell>
             <TableCell>Tags</TableCell>
             <TableCell>Comment</TableCell>
-            <TableCell>FromRmp</TableCell>
+            <TableCell>From RMP</TableCell>
+            <TableCell>For Credit</TableCell>
+            <TableCell>Attendance</TableCell>
+            <TableCell>Textbook</TableCell>
+            <TableCell>Grade</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -41,6 +45,10 @@ const ReviewsTable: React.FC<ReviewsTableProps> = ({ data }) => {
               <TableCell>{JSON.stringify(review.tags)}</TableCell>
               <TableCell>{review.comment}</TableCell>
               <TableCell>{review.fromRmp}</TableCell>
+              <TableCell>{review.forCredit}</TableCell>
+              <TableCell>{review.attendance}</TableCell>
+              <TableCell>{review.textbook}</TableCell>
+              <TableCell>{review.grade}</TableCell>
             </TableRow>
           ))}
         </TableBody>

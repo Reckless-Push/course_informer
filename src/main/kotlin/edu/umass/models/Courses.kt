@@ -24,10 +24,6 @@ object Courses : Table() {
     // nullable if there are none.
     val undergraduateRequirements = varchar("undergraduate_requirements", MAX_CHAR).nullable()
 
-    // Comma-separated list of graduate course IDs that are prerequisites for this course, nullable if
-    // there are none.
-    val graduateRequirements = varchar("graduate_requirements", MAX_CHAR).nullable()
-
     // Comma-separated list of semesters during which the course is offered, nullable if not
     // applicable.
     val semestersOffered = varchar("semesters_offered", MAX_CHAR).nullable()

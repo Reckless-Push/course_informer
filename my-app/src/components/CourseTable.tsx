@@ -23,7 +23,6 @@ const CourseTable: React.FC<CourseTableProps> = ({ data }) => {
             <TableCell>Credits</TableCell>
             <TableCell>Course Level</TableCell>
             <TableCell>Undergraduate Requirements</TableCell>
-            <TableCell>Graduate Requirements</TableCell>
             <TableCell>Semesters Offered</TableCell>
             <TableCell>Professors</TableCell>
           </TableRow>
@@ -37,9 +36,6 @@ const CourseTable: React.FC<CourseTableProps> = ({ data }) => {
               <TableCell>{course.courseLevel}</TableCell>
               <TableCell>
                 {JSON.stringify(course.undergraduateRequirements)}
-              </TableCell>
-              <TableCell>
-                {JSON.stringify(course.graduateRequirements)}
               </TableCell>
               <TableCell>{JSON.stringify(course.semestersOffered)}</TableCell>
               <TableCell>{JSON.stringify(course.professors)}</TableCell>

@@ -8,7 +8,6 @@ export interface Course {
   credits: number
   courseLevel: number
   undergraduateRequirements: Course[]
-  graduateRequirements: Course[]
   semestersOffered: Semester[]
   professors: Professor[]
 }

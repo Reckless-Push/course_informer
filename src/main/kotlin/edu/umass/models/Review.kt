@@ -17,6 +17,10 @@ import kotlinx.serialization.Serializable
  * @property tags A list of tags given by the user.
  * @property comment The comment written by the user.
  * @property fromRmp Whether the review was imported from RateMyProfessor.
+ * @property forCredit Whether the review was for credit.
+ * @property attendance Whether the review required attendance.
+ * @property textbook Whether the review required a textbook.
+ * @property grade The grade the user received in the course.
  */
 @Serializable
 data class Review(
@@ -30,4 +34,8 @@ data class Review(
     val tags: List<String> = emptyList(),
     val comment: String,
     val fromRmp: Boolean,
+    val forCredit: Boolean,
+    val attendance: Boolean,
+    val textbook: Boolean,
+    @Serializable(with = LetterGradeSerializer::class) val grade: LetterGrade? = null,
 )

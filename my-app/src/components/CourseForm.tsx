@@ -21,19 +21,14 @@ const CourseForm = () => {
     credits: 0,
     courseLevel: 0,
     undergraduateRequirements: [],
-    graduateRequirements: [],
     semestersOffered: [],
     professors: [],
   }
 
-  const { data: coursesData } = useFetchData<CourseResponse>(
-    'https://localhost:8443/course'
-  )
+  const [selectedSeason, setSelectedSeason] = useState('')
+  const [selectedYear, setSelectedYear] = useState('')
   const [selectedUndergradRequirements, setSelectedUndergradRequirements] =
     useState<string[]>([])
-  const { data: professorsData } = useFetchData<ProfessorResponse>(
-    'https://localhost:8443/professor'
-  )
   const [selectedProfessors, setSelectedProfessors] = useState<string[]>([])
   const [course, setCourse] = useState<Course>(initialCourseState)
   const [isSubmitClicked, setIsSubmitClicked] = useState(false)
@@ -42,7 +37,22 @@ const CourseForm = () => {
     course,
     isSubmitClicked
   )
+  const { data: coursesData } = useFetchData<CourseResponse>(
+    'https://localhost:8443/course'
+  )
+  const { data: professorsData } = useFetchData<ProfessorResponse>(
+    'https://localhost:8443/professor'
+  )
+  const currentYear = new Date().getFullYear()
+  const years = [currentYear - 1, currentYear, currentYear + 1]
 
+  const handleSeasonChange = (event: SelectChangeEvent) => {
+    setSelectedSeason(event.target.value)
+  }
+
+  const handleYearChange = (event: SelectChangeEvent) => {
+    setSelectedYear(event.target.value)
+  }
   const handleUndergradRequirementsChange = (
     event: SelectChangeEvent<string[]>
   ) => {
@@ -73,21 +83,22 @@ const CourseForm = () => {
       )
       .filter((professor): professor is Professor => professor !== undefined)
 
-    console.log(
-      'Selected Undergrad Requirements:',
-      selectedUndergradRequirements
-    )
-
     const selectedUndergradCourses = selectedUndergradRequirements
       .map((selectedName) =>
         coursesData?.course_table.find((course) => course.name === selectedName)
       )
       .filter((course): course is Course => course !== undefined)
 
+    const semester = {
+      season: selectedSeason.toUpperCase(),
+      year: parseInt(selectedYear),
+    }
+
     setCourse({
       ...course,
       professors: selectedProfessorObjects,
       undergraduateRequirements: selectedUndergradCourses,
+      semestersOffered: [...course.semestersOffered, semester],
     })
 
     setIsSubmitClicked(true)
@@ -187,6 +198,29 @@ const CourseForm = () => {
         {coursesData?.course_table.map((course: Course) => (
           <MenuItem key={course.cicsId} value={course.name}>
             {course.name}
+          </MenuItem>
+        ))}
+      </Select>
+      <Select
+        className="mb-4 w-full bg-[#FFFFFF] text-[#000000] border border-[rgb(var(--neutral-dark-gray-rgb))] rounded"
+        value={selectedSeason}
+        onChange={handleSeasonChange}
+      >
+        {['Spring', 'Summer', 'Fall', 'Winter'].map((season) => (
+          <MenuItem key={season} value={season}>
+            {season}
+          </MenuItem>
+        ))}
+      </Select>
+
+      <Select
+        className="mb-4 w-full bg-[#FFFFFF] text-[#000000] border border-[rgb(var(--neutral-dark-gray-rgb))] rounded"
+        value={selectedYear}
+        onChange={handleYearChange}
+      >
+        {years.map((year) => (
+          <MenuItem key={year} value={year}>
+            {year}
           </MenuItem>
         ))}
       </Select>
