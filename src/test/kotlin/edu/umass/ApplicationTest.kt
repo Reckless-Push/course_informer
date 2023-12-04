@@ -117,7 +117,7 @@ class ApplicationTest {
     fun testAddReview() = testApplication {
         withContext(Dispatchers.IO) {
             val response: Review? = dao.addNewReview(review1)
-            assertTrue(review1, response)
+            assertTrue(review1.equals(response))
         }
     }
 
@@ -125,7 +125,7 @@ class ApplicationTest {
     fun testAddCourse() = testApplication {
         withContext(Dispatchers.IO) {
             val response: Course? = dao.addNewCourse(gradCourse)
-            assertTrue(gradCourse, response)
+            assertTrue(gradCourse.equals(response))
         }
     }
 }
