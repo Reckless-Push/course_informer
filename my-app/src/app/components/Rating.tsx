@@ -1,6 +1,7 @@
 "use client";
 import styles from "@/app/components/css/courserating.module.css";
 import { ComponentStates } from '@/types/ComponentStates'
+import { Course } from "@/types/course";
 import { Review, ReviewResponse } from "@/types/review";
 import { stringify } from "querystring";
 
@@ -16,6 +17,7 @@ interface RatingProps {
     }
     quality: number[]
     difficulty:number[]
+    cics_id:number,cics_name:string
 
 }
 function handleClick({onToggleComponent,onHome,componentStates}: RatingProps) {
@@ -23,7 +25,7 @@ function handleClick({onToggleComponent,onHome,componentStates}: RatingProps) {
     onToggleComponent('courses');
 }
 
-function Rating({onToggleComponent,onHome,componentStates, quality,difficulty}: RatingProps) {
+function Rating({onToggleComponent,onHome,componentStates, quality,difficulty ,cics_id,cics_name}: RatingProps) {
     let qualitysum=quality.reduce((a, b) => a + b)/quality.length;
     let difficultysum=difficulty.reduce((a, b) => a + b)/difficulty.length;
     let qualitycount=Array(5).fill(0);
@@ -69,7 +71,7 @@ function Rating({onToggleComponent,onHome,componentStates, quality,difficulty}: 
                 </div>
                 <div className={styles.RateThisCourse}>
                     <button className={styles.RateThisCourseBtn}
-                     onClick={() => handleClick({onToggleComponent,onHome,componentStates,quality,difficulty})}>
+                     onClick={() => handleClick({onToggleComponent,onHome,componentStates,quality,difficulty,cics_id,cics_name})}>
                     Add review
                     </button>
                 </div >
