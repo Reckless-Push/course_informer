@@ -10,7 +10,6 @@ package edu.umass.routes
 import edu.umass.dao.dao
 import edu.umass.models.Professor
 import io.ktor.http.HttpStatusCode
-import io.ktor.server.application.call
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
 import io.ktor.server.response.respondText

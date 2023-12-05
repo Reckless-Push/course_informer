@@ -6,14 +6,15 @@ Course Informer is a server application that provides an API for retrieving info
 
 Before you start, ensure you have the following installed:
 - **Docker**: Version 24.0.7 or later recommended.
-- **Git**: For source control management.
+- **Docker Compose**: Version 2.23.0 or later recommended. Docker Compose is included with Docker Desktop.
+- **Git**: For cloning the repository. You can also download the repository as a ZIP file.
 - **Operating System**: A Linux-based operating system is preferred. Windows users should use [WSL](https://learn.microsoft.com/en-us/windows/wsl/install).
-- **Web Browser**: For accessing the Index and API documentation. Firefox is recommended for self-signed certificates.
+- **Web Browser**: For accessing the Index and API documentation. [Firefox](https://www.mozilla.org/en-US/firefox/new/) is recommended for self-signed certificates.
 
 ## Installation Instructions
 
 **Step 1: Install Docker**
-- Follow the instructions in [Docker's official documentation](https://docs.docker.com/get-docker/).
+- Follow the instructions in [Docker's official documentation](https://docs.docker.com/desktop/).
 - Verify the installation: `docker --version`.
 
 **Step 2: Install Git**
@@ -26,23 +27,24 @@ Before you start, ensure you have the following installed:
 
 **Step 4: Prepare the Environment**
 - Navigate to the repository: `cd course_informer`.
+- Copy the '.env.template' file to '.env': `cp .env.template .env`.
+- Edit the '.env' file and replace the values with your own:
+  - `KEY_ALIAS`: The alias of the key in the keystore.
+  - `KEYSTORE_PASSWORD`: The password for the keystore.
+  - `PRIVATE_KEY_PASSWORD`: The password for the private key.
+  - `GOOGLE_CLIENT_ID`: The client ID for Google OAuth.
+  - `GOOGLE_CLIENT_SECRET`: The client secret for Google OAuth.
+- More about environment variables: [Docker's documentation](https://docs.docker.com/compose/environment-variables/env-file/).
+- If you do not have a Google OAuth client ID and secret, you can create one by following the instructions in [Google's documentation](https://developers.google.com/identity/protocols/oauth2).
 
-**Step 5: Build the Server**
-- Build using Docker:
+**Step 5: Build and run the Server**
+- Build using Docker Compose
   ```
-  docker build -t course-informer --build-arg="KEY_ALIAS=sampleAlias" --build-arg="PRIVATE_KEY_PASSWORD=samplePassword" --build-arg="KEYSTORE_PASSWORD=samplePassword" --build-arg="CLIENT_ID=clientID" --build-arg="CLIENT_SECRET=clinetSecret" . 
+  docker compose up --build
   ```
-- Replace `sampleAlias`, `keystorePassword`, and `privateKeyPassword` with your chosen values.
-
-**Step 6: Run the Server**
-- Start the server:
-  ```
-  docker run -p 8080:8080 -p 8443:8443 -e KEY_ALIAS=sampleAlias -e KEYSTORE_PASSWORD=samplePassword -e PRIVATE_KEY_PASSWORD=samplePassword -e GOOGLE_CLIENT_ID=clientId -e GOOGLE_CLIENT_SECRET=clientSecret course-informer
-  ```
-- Replace `sampleAlias`, `keystorePassword`, and `privateKeyPassword` with your chosen values.
 - Verify the server's operation by accessing `http://localhost:8080`.
 
-**Step 7 (Optional): Download the self-signed certificate**
+**Step 6 (Optional): Download the self-signed certificate**
 - After starting the server, you can download the self-signed certificate by accessing `http://localhost:8080/cert/keystore.p12`.
 - The certificate can be imported into a web browser or other application to enable HTTPS.
 - For Firefox:

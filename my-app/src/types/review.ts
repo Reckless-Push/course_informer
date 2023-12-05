@@ -1,19 +1,22 @@
-import {Professor} from "@/types/professor";
-import {Course} from "@/types/course";
+import { Professor } from '@/types/professor'
+import { Course } from '@/types/course'
 
 export interface Review {
-    id: number;
-    professor: Professor;
-    course: Course;
-    userId: number;
-    date: string;
-    difficulty: number;
-    quality: number;
-    tags: string[];
-    comment: string;
-    fromRmp: boolean;
+  id: number
+  professor: Professor | null
+  course: Course | null
+  userId: string | null
+  date: string | null
+  difficulty: number
+  quality: number
+  comment: string
+  fromRmp: boolean
+  forCredit: boolean
+  attendance: boolean
+  textbook: boolean
+  grade: string
 }
 
 export interface ReviewResponse {
-    review_table: Review[];
+  review_table: Review[]
 }

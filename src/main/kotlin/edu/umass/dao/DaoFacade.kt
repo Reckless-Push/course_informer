@@ -4,6 +4,7 @@ import edu.umass.models.Course
 import edu.umass.models.Professor
 import edu.umass.models.Review
 import edu.umass.models.User
+import java.util.UUID
 
 /**
  * DaoFacade provides an interface for data access operations related to university entities such as
@@ -20,10 +21,10 @@ interface DaoFacade {
     /**
      * Retrieves a user by their unique identifier.
      *
-     * @param id The unique identifier for a User.
+     * @param uuid The unique identifier for a User.
      * @return A User object or null if not found.
      */
-    suspend fun user(id: Int): User?
+    suspend fun user(uuid: UUID): User?
 
     /**
      * Adds a new user to the data store.
@@ -37,21 +38,21 @@ interface DaoFacade {
      * Edits an existing user's information.
      *
      * @param user The updated user to replace in the database.
-     * @param id The ID of the user to update.
+     * @param uuid The ID of the user to update.
      * @return True if the update was successful, False otherwise.
      */
     suspend fun editUser(
         user: User,
-        id: Int,
+        uuid: UUID,
     ): Boolean
 
     /**
      * Deletes a user from the data store.
      *
-     * @param id The ID of the user to delete.
+     * @param uuid The ID of the user to delete.
      * @return True if the deletion was successful, False otherwise.
      */
-    suspend fun deleteUser(id: Int): Boolean
+    suspend fun deleteUser(uuid: UUID): Boolean
 
     /**
      * Retrieves a list of all courses.

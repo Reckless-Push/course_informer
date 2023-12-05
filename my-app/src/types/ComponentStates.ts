@@ -3,4 +3,5 @@ export type ComponentStates = {
   reviews: boolean
   courseDashboard: boolean
   login: boolean
+  user:boolean
 }

@@ -2,23 +2,18 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 val nettyVersion: String by project
 val ktorVersion: String by project
-val kotlinVersion: String by project
 val logbackVersion: String by project
 val exposedVersion: String by project
 val h2Version: String by project
 val kotlinxDatetimeVersion: String by project
 
-java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
-}
-
 plugins {
     application
-    kotlin("jvm") version "1.9.21"
-    kotlin("plugin.serialization").version("1.9.21")
-    id("io.ktor.plugin") version "2.3.6"
+    kotlin("jvm") version "2.0.0-Beta1"
+    kotlin("plugin.serialization").version("2.0.0-Beta1")
+    id("io.ktor.plugin") version "3.0.0-beta-1"
     id("org.jetbrains.dokka") version "1.9.10"
-    id("com.diffplug.spotless") version "6.22.0"
+    id("com.diffplug.spotless") version "6.23.2"
     id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
@@ -27,7 +22,7 @@ extensions.getByType<com.diffplug.gradle.spotless.SpotlessExtension>().apply {
         target("src/**/*.kt", "src/**/*.kts")
         ktlint()
         ktfmt()
-        diktat()
+        diktat().configFile("/build/diktat-analysis.yml")
     }
     kotlinGradle {
         target("*.gradle.kts")
@@ -66,7 +61,6 @@ repositories {
 }
 
 dependencies {
-    implementation("io.netty:netty-all:$nettyVersion")
     implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
     implementation("io.ktor:ktor-server-cors:$ktorVersion")
     implementation("io.ktor:ktor-server-auth:$ktorVersion")
@@ -80,6 +74,7 @@ dependencies {
     implementation("io.ktor:ktor-client-logging:$ktorVersion")
     implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
     implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-java-time:$exposedVersion")
     implementation("com.h2database:h2:$h2Version")

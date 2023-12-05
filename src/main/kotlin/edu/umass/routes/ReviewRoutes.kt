@@ -9,14 +9,20 @@ package edu.umass.routes
 
 import edu.umass.dao.dao
 import edu.umass.models.Review
+import edu.umass.models.UserSession
 import io.ktor.http.HttpStatusCode
-import io.ktor.server.application.call
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
+import io.ktor.server.sessions.get
+import io.ktor.server.sessions.sessions
+import java.util.UUID
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 
 /**
  * Defines the routes for the Review table.
@@ -68,11 +74,26 @@ fun Route.getReview() {
 fun Route.addReview() {
     post("/review") {
         try {
-            // Receiving a Review object instead of Equipment
             val review: Review = call.receive<Review>()
-            val newReview = dao.addNewReview(review)
-
-            // Responding with the ID of the new review if it's successfully created
+            val userSession: UserSession? = call.sessions.get()
+            val userInfo = getUserInfoFromSession(userSession!!)
+            val newReview =
+                dao.addNewReview(
+                    Review(
+                        professor = review.professor,
+                        course = review.course,
+                        userId = UUID.nameUUIDFromBytes(userInfo.id.toByteArray()),
+                        date = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
+                        difficulty = review.difficulty,
+                        quality = review.quality,
+                        comment = review.comment,
+                        fromRmp = review.fromRmp,
+                        forCredit = review.forCredit,
+                        attendance = review.attendance,
+                        textbook = review.textbook,
+                        grade = review.grade,
+                    ),
+                )
             newReview?.let { call.respondText("${it.id}", status = HttpStatusCode.Created) }
                 ?: call.respond(HttpStatusCode.InternalServerError)
         } catch (e: IllegalArgumentException) {

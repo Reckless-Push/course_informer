@@ -2,7 +2,7 @@
 
 package edu.umass
 
-import edu.umass.dao.DatabaseFactory
+import edu.umass.dao.DatabaseSingleton
 import edu.umass.plugins.configureHttp
 import edu.umass.plugins.configureRouting
 import edu.umass.plugins.configureSecurity
@@ -27,7 +27,7 @@ fun Application.module() {
     configureHttp()
 
     // Initialize the database connection and schema.
-    DatabaseFactory.init()
+    DatabaseSingleton.init()
 }
 
 /** The main entry point of the Ktor server application. */

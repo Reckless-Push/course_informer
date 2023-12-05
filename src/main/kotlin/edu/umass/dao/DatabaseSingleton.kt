@@ -12,7 +12,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import kotlinx.coroutines.Dispatchers
 
 /** Provides functionality for initializing and interacting with the database. */
-object DatabaseFactory {
+object DatabaseSingleton {
     /** Initializes the database connection and creates the schema. */
     fun init() {
         // Database connection parameters

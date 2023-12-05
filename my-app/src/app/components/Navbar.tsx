@@ -2,40 +2,58 @@
 
 import styles from "@/app/components/css/navbar.module.css";
 
-import { ComponentStates } from '@/types/ComponentStates'
+import { ComponentStates } from "@/types/ComponentStates";
 
 interface NavBarProps {
-    onToggleComponent: (component: keyof ComponentStates) => void
-    onHome: () => void
-    componentStates: {
-        courses: boolean
-        reviews: boolean
-        courseDashboard: boolean
-        login: boolean
-    }
+  onToggleComponent: (component: keyof ComponentStates) => void;
+  onHome: () => void;
+  componentStates: {
+    courses: boolean;
+    reviews: boolean;
+    user: boolean;
+    courseDashboard: boolean;
+    login: boolean;
+  };
 }
 
-function Navbar({
-    onToggleComponent,
-    onHome,
-    componentStates,
-}: NavBarProps) {
+function Navbar({ onToggleComponent, onHome, componentStates }: NavBarProps) {
+  return (
+    <nav className={styles.nav}>
+      <div>
+        <ul>
+          <li>
+            <a>
+              <button onClick={() => onToggleComponent("courses")}>
+                Course
+              </button>
+            </a>
+          </li>
+          <li>
+            <a>
+              <button onClick={() => onToggleComponent("reviews")}>
+                Review
+              </button>
+            </a>
+          </li>
+          <li>
+            <a>
+              <button onClick={() => onToggleComponent("user")}>User</button>
+            </a>
+          </li>
+          <li>
+            <a>
+              <button onClick={() => onToggleComponent("courseDashboard")}>
+                View All Courses
+              </button>
+            </a>
+          </li>
 
-    return (
-
-        <nav className={styles.nav}>
-            <div>
-                <ul>
-                    <li><a><button onClick={() => onToggleComponent('courses')}>Course</button></a></li>
-                    <li><a><button onClick={() => onToggleComponent('reviews')}>Review</button></a></li>
-                    <li><a><button onClick={() => onToggleComponent('courseDashboard')}>View All Courses</button></a></li>
-                    {/* <li><a>My Profile</a></li> */}
-                    {/* <li><a>Logout</a></li> */}
-                </ul>
-            </div>
-
-        </nav>
-    );
+          {/* <li><a>My Profile</a></li> */}
+          {/* <li><a>Logout</a></li> */}
+        </ul>
+      </div>
+    </nav>
+  );
 }
 
 export default Navbar;

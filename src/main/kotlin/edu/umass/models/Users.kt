@@ -5,7 +5,7 @@ import org.jetbrains.exposed.sql.Table
 /** Defines the schema for the "Users" table in the database. */
 object Users : Table() {
     // Unique identifier for the user, used as the primary key in the database.
-    val id = integer("id")
+    val uuid = uuid("id")
 
     // First name of the user, stored as a variable character string with a maximum length of 50.
     val firstName = varchar("first_name", MAX_CHAR_NAME)
@@ -23,5 +23,5 @@ object Users : Table() {
     val favoriteCourses = varchar("favorite_courses", MAX_CHAR).nullable()
 
     // Declares the primary key of the table to be the 'id' field.
-    override val primaryKey = PrimaryKey(id)
+    override val primaryKey = PrimaryKey(uuid)
 }

@@ -7,6 +7,7 @@
 
 package edu.umass.routes
 
+import edu.umass.dao.dao
 import edu.umass.models.UserInfo
 import edu.umass.models.UserSession
 import edu.umass.plugins.httpClient
@@ -18,14 +19,13 @@ import io.ktor.client.statement.bodyAsText
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.URLBuilder
-import io.ktor.server.application.call
 import io.ktor.server.auth.OAuthAccessTokenResponse
 import io.ktor.server.auth.authenticate
 import io.ktor.server.auth.authentication
 import io.ktor.server.request.uri
 import io.ktor.server.response.respondRedirect
 import io.ktor.server.response.respondText
-import io.ktor.server.routing.Routing
+import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import io.ktor.server.sessions.clear
 import io.ktor.server.sessions.get
@@ -37,19 +37,32 @@ import io.ktor.server.sessions.set
  *
  * @receiver The Routing on which to define the routes.
  */
-fun Routing.authRoutes() {
+fun Route.authRoutes() {
     authenticate("auth-oauth-google") {
         get("/login") {}
 
         get("/callback") {
             val principal: OAuthAccessTokenResponse.OAuth2? = call.authentication.principal()
-            call.sessions.set(UserSession(principal!!.state!!, principal.accessToken))
-            call.respondRedirect("/")
+            val userSession = UserSession(principal!!.state!!, principal.accessToken)
+            call.sessions.set(userSession)
+            val response: HttpResponse =
+                httpClient.get("https://www.googleapis.com/oauth2/v2/userinfo") {
+                    headers { append(HttpHeaders.Authorization, "Bearer ${userSession.token}") }
+                }
+            if (response.status == HttpStatusCode.OK) {
+                val userInfo: UserInfo = response.body<UserInfo>()
+                val user = createUserFromUserInfo(userInfo)
+                user?.let { dao.user(user.uuid!!) ?: run { dao.addNewUser(user) } }
+                call.respondRedirect("/")
+            } else {
+                val errorResponse: String = response.bodyAsText()
+                call.respondText("Error response from Google.user request: $errorResponse")
+            }
         }
     }
     get("/logout") {
         call.sessions.clear<UserSession>()
-        call.respondText("Logged out!")
+        call.respondRedirect("/")
     }
 }
 
@@ -58,7 +71,7 @@ fun Routing.authRoutes() {
  *
  * @receiver The Routing on which to configure the routes.
  */
-fun Routing.configureAuthRoutes() {
+fun Route.configureAuthRoutes() {
     authRoutes()
     get("/hello") {
         val userSession: UserSession? = call.sessions.get()
