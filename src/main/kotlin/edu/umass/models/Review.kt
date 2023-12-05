@@ -1,5 +1,6 @@
 package edu.umass.models
 
+import java.util.UUID
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
 
@@ -13,20 +14,26 @@ import kotlinx.serialization.Serializable
  * @property date The date the review was written.
  * @property difficulty The difficulty rating given by the user.
  * @property quality The quality rating given by the user.
- * @property tags A list of tags given by the user.
  * @property comment The comment written by the user.
  * @property fromRmp Whether the review was imported from RateMyProfessor.
+ * @property forCredit Whether the review was for credit.
+ * @property attendance Whether the review required attendance.
+ * @property textbook Whether the review required a textbook.
+ * @property grade The grade the user received in the course.
  */
 @Serializable
 data class Review(
     val id: Int? = null,
     val professor: Professor,
     val course: Course,
-    val userId: Int,
-    val date: LocalDateTime,
+    @Serializable(with = UuidSerializer::class) val userId: UUID?,
+    val date: LocalDateTime?,
     val difficulty: Int,
     val quality: Int,
-    val tags: List<String> = emptyList(),
     val comment: String,
     val fromRmp: Boolean,
+    val forCredit: Boolean,
+    val attendance: Boolean,
+    val textbook: Boolean,
+    @Serializable(with = LetterGradeSerializer::class) val grade: LetterGrade? = null,
 )

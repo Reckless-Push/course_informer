@@ -3,7 +3,6 @@
 .gradle
 .idea
 build
-documentation
 Dockerfile
 qodana.yaml
 README.md

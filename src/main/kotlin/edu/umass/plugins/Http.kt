@@ -31,12 +31,16 @@ fun Application.configureHttp() {
         // Permit specific HTTP methods from cross-origin requests.
         allowMethod(HttpMethod.Options)
         allowMethod(HttpMethod.Put)
+        allowMethod(HttpMethod.Post)
         allowMethod(HttpMethod.Delete)
         allowMethod(HttpMethod.Patch)
 
         // Allow specific headers from cross-origin requests.
         allowHeader(HttpHeaders.Authorization)
         allowHeader("MyCustomHeader")
+        allowNonSimpleContentTypes = true // Allow all content types
+        allowCredentials = true // Allow credentials
+        allowSameOrigin = true // Allow requests from the same origin
 
         // Allow requests from any host. Note: This should be configured with caution in a production
         // environment.

@@ -1,20 +1,20 @@
-val ktorVersion: String by project
-val kotlinVersion: String by project
-val logbackVersion: String by project
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
+val nettyVersion: String by project
+val ktorVersion: String by project
+val logbackVersion: String by project
 val exposedVersion: String by project
 val h2Version: String by project
-
-java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
-}
+val kotlinxDatetimeVersion: String by project
 
 plugins {
-    kotlin("jvm") version "1.9.20"
-    id("io.ktor.plugin") version "2.3.6"
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.20"
+    application
+    kotlin("jvm") version "2.0.0-Beta1"
+    kotlin("plugin.serialization").version("2.0.0-Beta1")
+    id("io.ktor.plugin") version "3.0.0-beta-1"
     id("org.jetbrains.dokka") version "1.9.10"
-    id("com.diffplug.spotless") version "6.22.0"
+    id("com.diffplug.spotless") version "6.23.2"
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 extensions.getByType<com.diffplug.gradle.spotless.SpotlessExtension>().apply {
@@ -34,11 +34,21 @@ tasks.dokkaHtml {
     outputDirectory.set(layout.buildDirectory.dir("../documentation/html"))
 }
 
+tasks.withType<ShadowJar> {
+    archiveBaseName.set("course-informer")
+    archiveVersion.set("0.0.1")
+    archiveClassifier.set("")
+}
+
+tasks.build {
+    dependsOn(tasks.named("shadowJar"))
+}
+
 group = "edu.umass"
 version = "0.0.1"
 
 application {
-    mainClass.set("edu.umass.ApplicationKt")
+    mainClass.set("io.ktor.server.netty.EngineMain")
 
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
@@ -46,29 +56,30 @@ application {
 
 repositories {
     mavenCentral()
+    maven { url = uri("https://maven.pkg.jetbrains.space/public/p/ktor/eap") }
+    maven { url = uri("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven/") }
 }
 
 dependencies {
-    implementation("io.ktor:ktor-server-core-jvm:2.3.6")
-    implementation("io.ktor:ktor-server-auth-jvm:2.3.6")
-    implementation("io.ktor:ktor-client-core-jvm:2.3.6")
-    implementation("io.ktor:ktor-client-apache-jvm:2.3.6")
-    implementation("io.ktor:ktor-server-sessions-jvm:2.3.6")
-    implementation("io.ktor:ktor-server-host-common-jvm:2.3.6")
-    implementation("io.ktor:ktor-server-status-pages-jvm:2.3.6")
-    implementation("io.ktor:ktor-server-cors-jvm:2.3.6")
-    implementation("io.ktor:ktor-server-hsts-jvm:2.3.6")
-    implementation("io.ktor:ktor-server-http-redirect-jvm:2.3.6")
-    implementation("io.ktor:ktor-server-content-negotiation-jvm:2.3.6")
-    implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:2.3.6")
-    implementation("io.ktor:ktor-network-tls-certificates:$ktorVersion")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+    implementation("io.ktor:ktor-server-cors:$ktorVersion")
+    implementation("io.ktor:ktor-server-auth:$ktorVersion")
+    implementation("io.ktor:ktor-server-status-pages:$ktorVersion")
+    implementation("io.ktor:ktor-server-hsts:$ktorVersion")
+    implementation("io.ktor:ktor-server-http-redirect:$ktorVersion")
+    implementation("io.ktor:ktor-server-content-negotiation:$ktorVersion")
+    implementation("io.ktor:ktor-server-netty:$ktorVersion")
+    implementation("io.ktor:ktor-client-core:$ktorVersion")
+    implementation("io.ktor:ktor-client-cio:$ktorVersion")
+    implementation("io.ktor:ktor-client-logging:$ktorVersion")
+    implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
     implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-java-time:$exposedVersion")
     implementation("com.h2database:h2:$h2Version")
-    implementation("io.ktor:ktor-server-netty-jvm:2.3.6")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
-    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.1")
-    testImplementation("io.ktor:ktor-server-tests-jvm:2.3.6")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:$kotlinxDatetimeVersion")
+    testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
+    testImplementation("org.jetbrains.kotlin:kotlin-test")
 }

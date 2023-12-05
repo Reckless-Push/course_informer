@@ -1,10 +1,73 @@
-export default function Home() {
-    return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
-            <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-                Get started by editing src/app/page.tsx
-            </div>
-            <div>CICS Course informer</div>
-        </main>
-    )
-}
+"use client";
+import React, { useState } from "react";
+import CoursePage from "@/app/course/course";
+import { ComponentStates } from "@/types/ComponentStates";
+import Navbar from "@/app/components/Navbar";
+import ResponseForm from "@/app/review/review";
+
+import useFetchData from "./hooks/useFetchData";
+import { CourseResponse } from "@/types/course";
+import ProfilePage from "@/app/user/user";
+type ComponentKey = "courses" | "reviews" | "user";
+
+const Home = () => {
+  const [componentStates, setComponentStates] = useState<ComponentStates>({
+    courses: false,
+    reviews: false,
+    user: false,
+  });
+
+  const onToggleComponent = (component: ComponentKey) => {
+    setComponentStates((prev) => ({ ...prev, [component]: !prev[component] }));
+  };
+
+  const onHome = () => {
+    setComponentStates({
+      courses: false,
+      reviews: false,
+      user: false,
+    });
+  };
+  const {
+    data: courseData,
+    loading: courseLoading,
+    error: courseError,
+  } = useFetchData<CourseResponse>("https://localhost:8443/course");
+
+  return (
+    <div>
+      <Navbar
+        onToggleComponent={onToggleComponent}
+        onHome={onHome}
+        componentStates={componentStates}
+      />
+
+      {/* <Navbar></Navbar> */}
+      {componentStates.courses && courseData && (
+        <CoursePage
+          onToggleComponent={onToggleComponent}
+          onHome={onHome}
+          componentStates={componentStates}
+          courseData={courseData.course_table[0]}
+        />
+      )}
+
+      {componentStates.reviews && (
+        <ResponseForm
+          onToggleComponent={onToggleComponent}
+          onHome={onHome}
+          componentStates={componentStates}
+        />
+      )}
+      {componentStates.user && (
+        <ProfilePage
+          onToggleComponent={onToggleComponent}
+          onHome={onHome}
+          componentStates={componentStates}
+        />
+      )}
+    </div>
+  );
+};
+
+export default Home;

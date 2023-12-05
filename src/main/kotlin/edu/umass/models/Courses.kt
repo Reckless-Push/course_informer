@@ -8,7 +8,7 @@ object Courses : Table() {
     val cicsId = integer("cics_id").uniqueIndex()
 
     // Name of the course, stored as a variable character string with a maximum length of 255.
-    val name = varchar("name", MAX_CHAR)
+    val name = varchar("course_name", MAX_CHAR)
 
     // Description of the course content, stored as a variable character string with a maximum length
     // of 255.
@@ -23,10 +23,6 @@ object Courses : Table() {
     // Comma-separated list of undergraduate course IDs that are prerequisites for this course,
     // nullable if there are none.
     val undergraduateRequirements = varchar("undergraduate_requirements", MAX_CHAR).nullable()
-
-    // Comma-separated list of graduate course IDs that are prerequisites for this course, nullable if
-    // there are none.
-    val graduateRequirements = varchar("graduate_requirements", MAX_CHAR).nullable()
 
     // Comma-separated list of semesters during which the course is offered, nullable if not
     // applicable.

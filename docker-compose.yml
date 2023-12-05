@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        KEY_ALIAS: ${KEY_ALIAS}
+        PRIVATE_KEY_PASSWORD: ${PRIVATE_KEY_PASSWORD}
+        KEYSTORE_PASSWORD: ${KEYSTORE_PASSWORD}
+        GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+        GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+    environment:
+      KEY_ALIAS: ${KEY_ALIAS}
+      PRIVATE_KEY_PASSWORD: ${PRIVATE_KEY_PASSWORD}
+      KEYSTORE_PASSWORD: ${KEYSTORE_PASSWORD}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "https://localhost:8553/health"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+      start_period: 5s
+    restart: on-failure

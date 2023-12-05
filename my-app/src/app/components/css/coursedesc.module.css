@@ -26,10 +26,15 @@
 
 .Term {
     float: left;
+        color: black;
+        width: 20rem;
+}
+
+.Term div{
+float: left;
     color: black;
     width: 20rem;
 }
-
 
 .PrevTerm {
     float: right;

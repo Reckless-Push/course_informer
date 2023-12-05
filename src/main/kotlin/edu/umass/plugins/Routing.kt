@@ -7,6 +7,8 @@
 
 package edu.umass.plugins
 
+import edu.umass.routes.configureAuthRoutes
+import edu.umass.routes.configureSessionRoutes
 import edu.umass.routes.courseRoutes
 import edu.umass.routes.frontend
 import edu.umass.routes.healthCheck
@@ -38,6 +40,8 @@ fun Application.configureRouting() {
     routing {
         frontend()
         healthCheck()
+        configureAuthRoutes()
+        configureSessionRoutes()
         reviewRoutes()
         professorRoutes()
         userRoutes()

@@ -1,8 +1,9 @@
 package edu.umass.dao
 
-import edu.umass.dao.DatabaseFactory.dbQuery
+import edu.umass.dao.DatabaseSingleton.dbQuery
 import edu.umass.models.Course
 import edu.umass.models.Courses
+import edu.umass.models.LetterGrade
 import edu.umass.models.Professor
 import edu.umass.models.Professors
 import edu.umass.models.Review
@@ -19,9 +20,13 @@ import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.statements.UpdateBuilder
 import org.jetbrains.exposed.sql.update
+import org.slf4j.LoggerFactory
+
+import java.util.UUID
 
 import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.Clock
+import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toJavaLocalDateTime
 import kotlinx.datetime.toKotlinLocalDateTime
@@ -31,8 +36,8 @@ const val DEFAULT_CICS_ID = 101
 const val DEFAULT_CREDITS = 4
 const val DEFAULT_COURSE_LEVEL = 100
 const val DEFAULT_YEAR = 2021
-const val DEFAULT_DIFFICULTY = 5
-const val DEFAULT_QUALITY = 5
+
+private val logger = LoggerFactory.getLogger("YourLoggerName")
 
 /** The singleton instance of the DaoFacade. */
 val dao: DaoFacade =
@@ -58,7 +63,7 @@ class DaoFacadeImpl : DaoFacade {
      */
     private suspend fun resultRowToUser(row: ResultRow) =
         User(
-            id = row[Users.id],
+            uuid = row[Users.uuid],
             firstName = row[Users.firstName],
             lastName = row[Users.lastName],
             email = row[Users.email],
@@ -84,12 +89,15 @@ class DaoFacadeImpl : DaoFacade {
             course = course(row[Reviews.courseId])
                 ?: throw IllegalArgumentException("Course not found"),
             userId = row[Reviews.userId],
-            date = row[Reviews.datetime].toKotlinLocalDateTime(),
+            date = row[Reviews.datetime]?.toKotlinLocalDateTime(),
             difficulty = row[Reviews.difficulty],
             quality = row[Reviews.quality],
-            tags = row[Reviews.tags]?.split(",") ?: emptyList(),
             comment = row[Reviews.comment],
             fromRmp = row[Reviews.fromRmp],
+            forCredit = row[Reviews.forCredit],
+            attendance = row[Reviews.attendance],
+            textbook = row[Reviews.textbook],
+            grade = row[Reviews.grade]?.let { LetterGrade.fromString(it) },
         )
 
     /**
@@ -106,9 +114,6 @@ class DaoFacadeImpl : DaoFacade {
             credits = row[Courses.credits],
             undergraduateRequirements =
                 row[Courses.undergraduateRequirements]?.split(",")?.mapNotNull { course(it.toInt()) }
-                    ?: emptyList(),
-            graduateRequirements =
-                row[Courses.graduateRequirements]?.split(",")?.mapNotNull { course(it.toInt()) }
                     ?: emptyList(),
             semestersOffered =
                 row[Courses.semestersOffered]?.split(",")?.mapNotNull { parseSemester(it) }
@@ -154,6 +159,7 @@ class DaoFacadeImpl : DaoFacade {
         it: UpdateBuilder<*>,
         user: User,
     ) {
+        it[Users.uuid] = user.uuid ?: throw IllegalArgumentException("User ID is null")
         it[Users.firstName] = user.firstName
         it[Users.lastName] = user.lastName
         it[Users.email] = user.email
@@ -183,10 +189,13 @@ class DaoFacadeImpl : DaoFacade {
         it[Reviews.userId] = review.userId
         it[Reviews.difficulty] = review.difficulty
         it[Reviews.quality] = review.quality
-        it[Reviews.tags] = review.tags.joinToString(",").takeIf { it.isNotEmpty() }
         it[Reviews.comment] = review.comment
         it[Reviews.fromRmp] = review.fromRmp
-        it[Reviews.datetime] = review.date.toJavaLocalDateTime()
+        it[Reviews.datetime] = review.date?.toJavaLocalDateTime()
+        it[Reviews.forCredit] = review.forCredit
+        it[Reviews.attendance] = review.attendance
+        it[Reviews.textbook] = review.textbook
+        it[Reviews.grade] = review.grade?.grade
     }
 
     /**
@@ -209,10 +218,6 @@ class DaoFacadeImpl : DaoFacade {
                     .takeIf {
                         it.isNotEmpty()
                     }
-        it[Courses.graduateRequirements] =
-                course.graduateRequirements.map(Course::cicsId)
-                    .joinToString(",")
-                    .takeIf { it.isNotEmpty() }
         it[Courses.semestersOffered] =
                 course.semestersOffered.joinToString(",").takeIf { it.isNotEmpty() }
         it[Courses.courseLevel] = course.courseLevel
@@ -248,11 +253,11 @@ class DaoFacadeImpl : DaoFacade {
     /**
      * Retrieves a user by their unique identifier.
      *
-     * @param id The unique identifier for a User.
+     * @param uuid The unique identifier for a User.
      * @return A User object or null if not found.
      */
-    override suspend fun user(id: Int): User? = dbQuery {
-        Users.select { Users.id eq id }.map { resultRowToUser(it) }.singleOrNull()
+    override suspend fun user(uuid: UUID): User? = dbQuery {
+        Users.select { Users.uuid eq uuid }.map { resultRowToUser(it) }.singleOrNull()
     }
 
     /**
@@ -262,21 +267,21 @@ class DaoFacadeImpl : DaoFacade {
      * @return The newly created User object or null if the operation fails.
      */
     override suspend fun addNewUser(user: User): User? =
-        user(dbQuery { Users.insert { setUserValues(it, user) } get Users.id })
+        user(dbQuery { Users.insert { setUserValues(it, user) } get Users.uuid })
 
     /**
      * Updates an existing user's information in the database.
      *
      * @param user The updated user to replace in the database.
-     * @param id The ID of the user to update.
+     * @param uuid The ID of the user to update.
      * @return True if the update was successful, False otherwise.
      */
     override suspend fun editUser(
         user: User,
-        id: Int,
+        uuid: UUID,
     ): Boolean {
         val updatedRows = dbQuery {
-            Users.update({ Users.id eq id }) {
+            Users.update({ Users.uuid eq uuid }) {
                 setUserValues(
                     it,
                     user,
@@ -290,11 +295,11 @@ class DaoFacadeImpl : DaoFacade {
     /**
      * Deletes a user from the database.
      *
-     * @param id The ID of the user to delete.
+     * @param uuid The ID of the user to delete.
      * @return True if the user was successfully deleted, False otherwise.
      */
-    override suspend fun deleteUser(id: Int): Boolean = dbQuery {
-        Users.deleteWhere { Users.id eq id } > 0
+    override suspend fun deleteUser(uuid: UUID): Boolean = dbQuery {
+        Users.deleteWhere { Users.uuid eq uuid } > 0
     }
 
     /**
@@ -476,9 +481,28 @@ class DaoFacadeImpl : DaoFacade {
  * @param daoFacade The DaoFacade instance to use for database operations.
  */
 private suspend fun initializeUsers(daoFacade: DaoFacade) {
-    if (daoFacade.allUsers().isEmpty()) {
-        val user = User(1, "John", "Doe", "johndoe@example.com")
-        daoFacade.addNewUser(user)
+    try {
+        if (daoFacade.allUsers().isEmpty()) {
+            val dummyUsers =
+                listOf(
+                    User(
+                        UUID.fromString("4472068d-c076-4ca0-b9de-085c0a4c7a14"),
+                        "Alice",
+                        "Smith",
+                        "alice@example.com",
+                    ),
+                    User(
+                        UUID.fromString("e1bc576c-a475-4850-8d71-745232904fdd"),
+                        "Bob",
+                        "Johnson",
+                        "bob@example.com",
+                    ),
+                )
+
+            dummyUsers.forEach { user -> daoFacade.addNewUser(user) }
+        }
+    } catch (e: Exception) {
+        logger.error("Error initializing users: ${e.message}", e)
     }
 }
 
@@ -488,20 +512,48 @@ private suspend fun initializeUsers(daoFacade: DaoFacade) {
  * @param daoFacade The DaoFacade instance to use for database operations.
  */
 private suspend fun initializeCourses(daoFacade: DaoFacade) {
-    if (daoFacade.allCourses().isEmpty()) {
-        val semester = Semester(SemesterSeason.SPRING, DEFAULT_YEAR)
-        val course =
-            Course(
-                DEFAULT_CICS_ID,
-                "Intro to Programming",
-                "An introductory course on programming",
-                DEFAULT_CREDITS,
-                DEFAULT_COURSE_LEVEL,
-                semestersOffered = listOf(semester.copy()),
-            )
-        daoFacade.addNewCourse(course)
+    try {
+        if (daoFacade.allCourses().isEmpty()) {
+            val dummyCourses = createDummyCourses()
+            dummyCourses.forEach { course -> daoFacade.addNewCourse(course) }
+        }
+    } catch (e: Exception) {
+        logger.error("Error initializing courses: ${e.message}", e)
     }
 }
+
+/**
+ * Creates a list of dummy courses.
+ *
+ * @return List of Course objects.
+ */
+private fun createDummyCourses(): List<Course> =
+    listOf(
+        Course(
+            DEFAULT_CICS_ID,
+            "Intro to Programming",
+            "An introductory course on programming",
+            DEFAULT_CREDITS,
+            DEFAULT_COURSE_LEVEL,
+            semestersOffered = listOf(Semester(SemesterSeason.SPRING, DEFAULT_YEAR)),
+        ),
+        Course(
+            DEFAULT_CICS_ID + 1,
+            "Data Structures",
+            "In-depth study of data structures",
+            DEFAULT_CREDITS,
+            DEFAULT_COURSE_LEVEL,
+            semestersOffered = listOf(Semester(SemesterSeason.FALL, DEFAULT_YEAR)),
+        ),
+        Course(
+            DEFAULT_CICS_ID + 2,
+            "Web Development",
+            "Fundamentals of building web applications",
+            DEFAULT_CREDITS,
+            DEFAULT_COURSE_LEVEL,
+            semestersOffered = listOf(Semester(SemesterSeason.SUMMER, DEFAULT_YEAR)),
+        ),
+    )
 
 /**
  * Initializes the database with default professor data if it is empty.
@@ -509,9 +561,21 @@ private suspend fun initializeCourses(daoFacade: DaoFacade) {
  * @param daoFacade The DaoFacade instance to use for database operations.
  */
 private suspend fun initializeProfessors(daoFacade: DaoFacade) {
-    if (daoFacade.allProfessors().isEmpty()) {
-        val professor = Professor(1, "Jane", "Smith")
-        daoFacade.addNewProfessor(professor)
+    try {
+        if (daoFacade.allProfessors().isEmpty()) {
+            val dummyProfessors =
+                listOf(
+                    Professor(null, "Jane", "Smith"),
+                    Professor(null, "John", "Doe"),
+                    Professor(null, "Emily", "Johnson"),
+                    Professor(null, "Michael", "Brown"),
+                    Professor(null, "Linda", "Davis"),
+                )
+
+            dummyProfessors.forEach { professor -> daoFacade.addNewProfessor(professor) }
+        }
+    } catch (e: Exception) {
+        logger.error("Error initializing professors: ${e.message}", e)
     }
 }
 
@@ -521,40 +585,116 @@ private suspend fun initializeProfessors(daoFacade: DaoFacade) {
  * @param daoFacade The DaoFacade instance to use for database operations.
  */
 private suspend fun initializeReviews(daoFacade: DaoFacade) {
-    if (daoFacade.allReviews().isEmpty()) {
-        val review = createDefaultReview()
-        daoFacade.addNewReview(review)
+    try {
+        if (daoFacade.allReviews().isEmpty()) {
+            val dummyReviews = createDummyReviews()
+            dummyReviews.forEach { review -> daoFacade.addNewReview(review) }
+        }
+    } catch (e: Exception) {
+        logger.error("Error initializing reviews: ${e.message}", e)
     }
 }
 
 /**
- * Creates a default review for testing purposes.
+ * Creates a default professor for testing purposes.
  *
+ * @return A Professor object.
+ */
+private fun createDefaultProfessor(): Professor = Professor(1, "Jane", "Smith")
+
+/**
+ * Creates a default user for testing purposes.
+ *
+ * @return A User object.
+ */
+private fun createDefaultUser(): User =
+    User(
+        UUID.fromString("4472068d-c076-4ca0-b9de-085c0a4c7a14"),
+        "Alice",
+        "Smith",
+        "alice@example.com",
+    )
+
+/**
+ * Creates a default course for testing purposes.
+ *
+ * @return A Course object.
+ */
+private fun createDefaultCourse(): Course =
+    Course(
+        DEFAULT_CICS_ID,
+        "Intro to Programming",
+        "An introductory course on programming",
+        DEFAULT_CREDITS,
+        DEFAULT_COURSE_LEVEL,
+        semestersOffered = listOf(Semester(SemesterSeason.SPRING, DEFAULT_YEAR)),
+    )
+
+/**
+ * Creates a first dummy review.
+ *
+ * @param userId The ID of the user who wrote the review.
+ * @param dateTime The date and time the review was written.
  * @return A Review object.
  */
-private fun createDefaultReview(): Review {
-    val professor = Professor(1, "Jane", "Smith")
-    val course =
-        Course(
-            DEFAULT_CICS_ID,
-            "Intro to Programming",
-            "An introductory course on programming",
-            DEFAULT_CREDITS,
-            DEFAULT_COURSE_LEVEL,
-            semestersOffered = listOf(Semester(SemesterSeason.SPRING, DEFAULT_YEAR).copy()),
-        )
-    val user = User(1, "John", "Doe", "johndoe@example.com")
-
-    return Review(
+private fun createFirstDummyReview(
+    userId: UUID,
+    dateTime: LocalDateTime,
+): Review =
+    Review(
         1,
-        professor.copy(),
-        course.copy(),
-        user.id ?: throw IllegalArgumentException("User ID is null"),
-        Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
-        DEFAULT_DIFFICULTY,
-        DEFAULT_QUALITY,
-        listOf("challenging", "rewarding"),
-        "Great course for beginners!",
-        false,
+        createDefaultProfessor(),
+        createDefaultCourse(),
+        userId,
+        dateTime,
+        3,
+        4,
+        "Great course for beginners!!",
+        fromRmp = false,
+        forCredit = false,
+        attendance = false,
+        textbook = false,
+        LetterGrade.GRADE_C,
+    )
+
+/**
+ * Creates a second dummy review.
+ *
+ * @param userId The ID of the user who wrote the review.
+ * @param dateTime The date and time the review was written.
+ * @return A Review object.
+ */
+private fun createSecondDummyReview(
+    userId: UUID,
+    dateTime: LocalDateTime,
+): Review =
+    Review(
+        2,
+        createDefaultProfessor(),
+        createDefaultCourse(),
+        userId,
+        dateTime,
+        4,
+        5,
+        "Excellent course with practical examples.",
+        fromRmp = false,
+        forCredit = false,
+        attendance = false,
+        textbook = false,
+        LetterGrade.GRADE_A,
+    )
+
+/**
+ * Creates a list of dummy reviews.
+ *
+ * @return List of Review objects.
+ */
+private fun createDummyReviews(): List<Review> {
+    val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+    val userId = createDefaultUser().uuid ?: throw IllegalArgumentException("User ID is null")
+
+    return listOf(
+        createFirstDummyReview(userId, now),
+        createSecondDummyReview(userId, now),
     )
 }

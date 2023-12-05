@@ -10,7 +10,6 @@ package edu.umass.routes
 import edu.umass.dao.dao
 import edu.umass.models.Course
 import io.ktor.http.HttpStatusCode
-import io.ktor.server.application.call
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
 import io.ktor.server.response.respondText
@@ -68,7 +67,6 @@ fun Route.getCourse() {
 fun Route.addCourse() {
     post("/course") {
         try {
-            // Receiving a Course object instead of Equipment
             val course: Course = call.receive<Course>()
             val newCourse = dao.addNewCourse(course)
             call.respondText("Course $newCourse.cicsId stored correctly", status = HttpStatusCode.Created)

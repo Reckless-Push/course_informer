@@ -9,14 +9,26 @@ package edu.umass.routes
 
 import edu.umass.dao.dao
 import edu.umass.models.User
+import edu.umass.models.UserInfo
+import edu.umass.models.UserSession
+import edu.umass.plugins.httpClient
+import io.ktor.client.call.body
+import io.ktor.client.request.get
+import io.ktor.client.request.headers
+import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
-import io.ktor.server.application.call
+import io.ktor.http.URLBuilder
 import io.ktor.server.request.receive
+import io.ktor.server.request.uri
 import io.ktor.server.response.respond
+import io.ktor.server.response.respondRedirect
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
+import io.ktor.server.sessions.get
+import io.ktor.server.sessions.sessions
+import java.util.UUID
 
 /**
  * Defines the routes for the User table.
@@ -46,16 +58,17 @@ fun Route.listUsers() {
  * @receiver The Route on which to define the route.
  */
 fun Route.getUser() {
-    get("/user/{id}") {
-        val id = call.parameters["id"]?.toIntOrNull()
-        id
+    get("/user/{uuid}") {
+        val uuid = UUID.fromString(call.parameters["uuid"])
+        uuid
             ?: run {
-                call.respond(HttpStatusCode.BadRequest, "Missing or malformed id")
+                call.respond(HttpStatusCode.BadRequest, "Missing or malformed uuid")
                 return@get
             }
 
-        val user = dao.user(id)
-        user?.let { call.respond(user) } ?: call.respond(HttpStatusCode.NotFound, "No user with id $id")
+        val user = dao.user(uuid)
+        user?.let { call.respond(user) }
+            ?: call.respond(HttpStatusCode.NotFound, "No user with id $uuid")
     }
 }
 
@@ -67,11 +80,27 @@ fun Route.getUser() {
 fun Route.addUser() {
     post("/user") {
         try {
-            // Receiving a User object instead of Equipment
-            val user: User = call.receive<User>()
-            val newUser = dao.addNewUser(user)
-            newUser?.let { call.respond(newUser) }
-                ?: call.respond(HttpStatusCode.BadRequest, "Missing or malformed id")
+            val userSession: UserSession? = call.sessions.get()
+            userSession?.let {
+                val userInfo = getUserInfoFromSession(userSession)
+                val user = createUserFromUserInfo(userInfo)
+                user
+                    ?: run {
+                        call.respond(HttpStatusCode.BadRequest, "Invalid email address")
+                        return@post
+                    }
+                val newUser = dao.addNewUser(user)
+                newUser?.let { call.respond(newUser) }
+                    ?: call.respond(HttpStatusCode.BadRequest, "Missing or malformed uuid")
+            }
+                ?: run {
+                    val redirectUrl =
+                        URLBuilder("https://localhost:8443/login").run {
+                            parameters.append("redirectUrl", call.request.uri)
+                            build()
+                        }
+                    call.respondRedirect(redirectUrl)
+                }
         } catch (e: Exception) {
             call.respondText(e.toString())
         }
@@ -84,17 +113,16 @@ fun Route.addUser() {
  * @receiver The Route on which to define the route.
  */
 fun Route.updateUser() {
-    post("/user/{id}") {
+    post("/user/{uuid}") {
         try {
-            // Receiving a User object instead of Equipment
             val user: User = call.receive<User>()
-            val id = call.parameters["id"]?.toIntOrNull()
-            id
+            val uuid = UUID.fromString(call.parameters["uuid"])
+            uuid
                 ?: run {
-                    call.respond(HttpStatusCode.BadRequest, "Missing or malformed id")
+                    call.respond(HttpStatusCode.BadRequest, "Missing or malformed uuid")
                     return@post
                 }
-            val updatedUser = dao.editUser(user, id)
+            val updatedUser = dao.editUser(user, uuid)
             updatedUser.let { call.respond(updatedUser) }
         } catch (e: Exception) {
             call.respondText(e.toString())
@@ -108,18 +136,49 @@ fun Route.updateUser() {
  * @receiver The Route on which to define the route.
  */
 fun Route.deleteUser() {
-    get("/user/delete/{id}") {
-        val id = call.parameters["id"]?.toIntOrNull()
-        id
+    get("/user/delete/{uuid}") {
+        val uuid = UUID.fromString(call.parameters["uuid"])
+        uuid
             ?: run {
                 call.respond(HttpStatusCode.BadRequest, "Missing or malformed id")
                 return@get
             }
-        val user = dao.deleteUser(id)
+        val user = dao.deleteUser(uuid)
         if (user) {
-            call.respondText("Deleted user $id", status = HttpStatusCode.Accepted)
+            call.respondText("Deleted user $uuid", status = HttpStatusCode.Accepted)
         } else {
-            call.respond(HttpStatusCode.NotFound, "No user with id $id")
+            call.respond(HttpStatusCode.NotFound, "No user with id $uuid")
         }
     }
 }
+
+/**
+ * Creates a user from the user info.
+ *
+ * @param userInfo The user info.
+ * @return The user.
+ */
+internal fun createUserFromUserInfo(userInfo: UserInfo): User? {
+    if (userInfo.hd != "umass.edu") {
+        return null
+    }
+    return User(
+        uuid = UUID.nameUUIDFromBytes(userInfo.id.toByteArray()),
+        firstName = userInfo.givenName,
+        lastName = userInfo.familyName,
+        email = userInfo.email,
+    )
+}
+
+/**
+ * Gets the user info from the session.
+ *
+ * @param userSession The user session.
+ * @return The user info.
+ */
+internal suspend fun getUserInfoFromSession(userSession: UserSession): UserInfo =
+    httpClient
+        .get("https://www.googleapis.com/oauth2/v2/userinfo") {
+            headers { append(HttpHeaders.Authorization, "Bearer ${userSession.token}") }
+        }
+        .body()

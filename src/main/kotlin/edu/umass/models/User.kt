@@ -1,11 +1,12 @@
 package edu.umass.models
 
+import java.util.UUID
 import kotlinx.serialization.Serializable
 
 /**
  * Represents a user with their details and associated information.
  *
- * @property id The unique identifier for the user.
+ * @property uuid The unique identifier for the user.
  * @property firstName The user's first name.
  * @property lastName The user's last name.
  * @property email The user's email address.
@@ -14,7 +15,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class User(
-    val id: Int? = null,
+    @Serializable(with = UuidSerializer::class) val uuid: UUID? = null,
     val firstName: String,
     val lastName: String,
     val email: String,

@@ -11,7 +11,10 @@ import kotlinx.serialization.Serializable
  * @property year The calendar year of the semester.
  */
 @Serializable
-data class Semester(val season: SemesterSeason, val year: Int) {
+data class Semester(
+    @Serializable(with = SemesterSeasonSerializer::class) val season: SemesterSeason,
+    val year: Int,
+) {
     init {
         val currentYear = Calendar.getInstance().get(Calendar.YEAR)
         require(year in OLDEST_YEAR..currentYear + 1) {
