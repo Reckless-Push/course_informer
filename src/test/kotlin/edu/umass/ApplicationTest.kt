@@ -89,7 +89,10 @@ class ApplicationTest {
             reviews = listOf(review1),
         )
 
-    @BeforeTest fun setup() = testApplication { DatabaseFactory.init() }
+    @BeforeTest
+    fun setup() {
+        DatabaseFactory.init()
+    }
 
     @Test
     fun testRoot() = testApplication {
