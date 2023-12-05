@@ -10,6 +10,7 @@ interface NavBarProps {
     componentStates: {
         courses: boolean
         reviews: boolean
+        user:boolean
     }
 }
 
@@ -26,6 +27,7 @@ function Navbar({
                 <ul>
                     <li><a><button onClick={() => onToggleComponent('courses')}>Course</button></a></li>
                     <li><a><button onClick={() => onToggleComponent('reviews')}>Review</button></a></li>
+                    <li><a><button onClick={() => onToggleComponent('user')}>User</button></a></li>
                     {/* <li><a>My Profile</a></li> */}
                     {/* <li><a>Logout</a></li> */}
                 </ul>

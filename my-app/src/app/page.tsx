@@ -7,12 +7,14 @@ import ResponseForm from '@/app/review/review'
 
 import useFetchData from './hooks/useFetchData'
 import { CourseResponse } from '@/types/course'
-type ComponentKey = 'courses' | 'reviews'
+import ProfilePage from './components/user/user'
+type ComponentKey = 'courses' | 'reviews' |'user'
 
 const Home = () => {
     const [componentStates, setComponentStates] = useState<ComponentStates>({
         courses: false,
         reviews: false,
+        user:false
     })
 
     const onToggleComponent = (component: ComponentKey) => {
@@ -23,6 +25,7 @@ const Home = () => {
         setComponentStates({
             courses: false,
             reviews: false,
+            user:false,
         })
     }
      const {
@@ -45,10 +48,14 @@ const Home = () => {
             <CoursePage onToggleComponent={onToggleComponent} onHome={onHome} componentStates={componentStates} courseData={courseData.course_table[0]}/>
             }
 
-            {/* {
+            {
             componentStates.reviews && 
             <ResponseForm onToggleComponent={onToggleComponent} onHome={onHome}componentStates={componentStates} />
-            } */}
+            }
+             {
+            componentStates.user && 
+            <ProfilePage onToggleComponent={onToggleComponent} onHome={onHome}componentStates={componentStates} />
+            }
         </div>
     )
 }

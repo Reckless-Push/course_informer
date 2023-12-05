@@ -13,6 +13,7 @@ interface ResponseFormProps {
 }
 
 function handleClick({onToggleComponent,onHome,componentStates}: ResponseFormProps) {
+    onHome();
     onToggleComponent('reviews');
 }
 
