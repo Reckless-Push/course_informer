@@ -49,6 +49,7 @@ function Review(data:Review) {
         </div >
 
     );
+
 }
 
 export default Review;
