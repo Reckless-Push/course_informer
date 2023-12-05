@@ -7,7 +7,7 @@ import ResponseForm from '@/app/review/review'
 
 import useFetchData from './hooks/useFetchData'
 import { CourseResponse } from '@/types/course'
-import ProfilePage from './components/user/user'
+import ProfilePage from '@/app/user/user'
 type ComponentKey = 'courses' | 'reviews' |'user'
 
 const Home = () => {
