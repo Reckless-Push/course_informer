@@ -14,4 +14,15 @@ data class Professor(
     val id: Int? = null,
     val firstName: String,
     val lastName: String,
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+        if (other !is Professor) {
+            return true
+        }
+
+        return id == other.id && firstName == other.firstName && lastName == other.lastName
+    }
+}

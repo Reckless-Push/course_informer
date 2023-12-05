@@ -66,7 +66,7 @@ class ApplicationTest {
     // Dummy Review objects
     val review1 =
         Review(
-            id = 10,
+            id = 1234,
             professor = professor1,
             course = undergradCourse1,
             userId = 10,
@@ -102,15 +102,15 @@ class ApplicationTest {
 
     @Test
     fun testAddProfessor() = testApplication {
-        withContext(Dispatchers.IO) {
-            val response: Professor? = dao.addNewProfessor(professor1)
+        withContext(Dispatchers.Default) {
+            val response: Professor? = dao.addNewProfessor(professor1
             assertTrue(professor1.equals(response))
         }
     }
 
     @Test
     fun testAddUser() = testApplication {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             val response: User? = dao.addNewUser(user1)
             assertTrue(user1.equals(response))
         }
@@ -118,7 +118,7 @@ class ApplicationTest {
 
     @Test
     fun testAddReview() = testApplication {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             val response: Review? = dao.addNewReview(review1)
             assertTrue(review1.equals(response))
         }
@@ -126,7 +126,7 @@ class ApplicationTest {
 
     @Test
     fun testAddCourse() = testApplication {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             val response: Course? = dao.addNewCourse(gradCourse)
             assertTrue(gradCourse.equals(response))
         }

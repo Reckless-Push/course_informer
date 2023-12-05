@@ -28,4 +28,23 @@ data class Course(
     val graduateRequirements: List<Course> = emptyList(),
     val semestersOffered: List<Semester> = emptyList(),
     val professors: List<Professor> = emptyList(),
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+        if (other !is Course) {
+            return false
+        }
+
+        return cicsId == other.cicsId &&
+                name == other.name &&
+                description == other.description &&
+                credits == other.credits &&
+                courseLevel == other.courseLevel &&
+                undergraduateRequirements == other.undergraduateRequirements &&
+                graduateRequirements == other.graduateRequirements &&
+                semestersOffered == other.semestersOffered &&
+                professors == other.professors
+    }
+}

@@ -20,4 +20,20 @@ data class User(
     val email: String,
     val favoriteCourses: List<Course> = emptyList(),
     val reviews: List<Review> = emptyList(),
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+        if (other !is User) {
+            return false
+        }
+
+        return id == other.id &&
+                firstName == other.firstName &&
+                lastName == other.lastName &&
+                email == other.email &&
+                favoriteCourses == other.favoriteCourses &&
+                reviews == other.reviews
+    }
+}

@@ -29,4 +29,24 @@ data class Review(
     val tags: List<String> = emptyList(),
     val comment: String,
     val fromRmp: Boolean,
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+        if (other !is Review) {
+            return true
+        }
+
+        return id == other.id &&
+                professor == other.professor &&
+                course == other.course &&
+                userId == other.userId &&
+                date == other.date &&
+                difficulty == other.difficulty &&
+                quality == other.quality &&
+                tags == other.tags &&
+                comment == other.comment &&
+                fromRmp == other.fromRmp
+    }
+}
