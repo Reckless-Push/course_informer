@@ -13,6 +13,7 @@ interface courseCatalogPage {
     reviews: boolean;
     courseDashboard: boolean;
     login: boolean;
+    user: boolean;
   };
 }
 

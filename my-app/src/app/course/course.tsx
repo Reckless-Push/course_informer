@@ -13,6 +13,9 @@ interface CoursePageProps {
   componentStates: {
     courses: boolean;
     reviews: boolean;
+    courseDashboard: boolean;
+    login: boolean;
+    user: boolean;
   };
   courseData: Course;
 }
