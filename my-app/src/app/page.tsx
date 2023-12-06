@@ -9,6 +9,7 @@ import CourseCatalogPage from "./courseCatalog/coursecatalog";
 import useFetchData from "./hooks/useFetchData";
 import { CourseResponse } from "@/types/course";
 import ProfilePage from "@/app/user/user";
+import { courseData } from "../courseData";
 type ComponentKey =
   | "courses"
   | "reviews"
@@ -62,11 +63,12 @@ const Home = () => {
         />
       )}
 
-      {componentStates.reviews && (
+      {componentStates.reviews && courseData && (
         <ResponseForm
           onToggleComponent={onToggleComponent}
           onHome={onHome}
           componentStates={componentStates}
+          courseData={courseData.course_table[0]}
         />
       )}
       {componentStates.user && (
