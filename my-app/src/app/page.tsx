@@ -4,17 +4,25 @@ import CoursePage from "@/app/course/course";
 import { ComponentStates } from "@/types/ComponentStates";
 import Navbar from "@/app/components/Navbar";
 import ResponseForm from "@/app/review/review";
+import CourseCatalogPage from "./courseCatalog/coursecatalog";
 
 import useFetchData from "./hooks/useFetchData";
 import { CourseResponse } from "@/types/course";
 import ProfilePage from "@/app/user/user";
-type ComponentKey = "courses" | "reviews" | "user";
+type ComponentKey =
+  | "courses"
+  | "reviews"
+  | "user"
+  | "courseDashboard"
+  | "login";
 
 const Home = () => {
   const [componentStates, setComponentStates] = useState<ComponentStates>({
     courses: false,
     reviews: false,
     user: false,
+    courseDashboard: true,
+    login: false,
   });
 
   const onToggleComponent = (component: ComponentKey) => {
@@ -26,6 +34,8 @@ const Home = () => {
       courses: false,
       reviews: false,
       user: false,
+      courseDashboard: false,
+      login: false,
     });
   };
   const {
@@ -61,6 +71,13 @@ const Home = () => {
       )}
       {componentStates.user && (
         <ProfilePage
+          onToggleComponent={onToggleComponent}
+          onHome={onHome}
+          componentStates={componentStates}
+        />
+      )}
+      {componentStates.courseDashboard && (
+        <CourseCatalogPage
           onToggleComponent={onToggleComponent}
           onHome={onHome}
           componentStates={componentStates}
