@@ -31,6 +31,7 @@ import kotlinx.datetime.toLocalDateTime
  */
 fun Route.reviewRoutes() {
     listReviews()
+    listUserReviews()
     getReview()
     addReview()
     updateReview()
@@ -44,6 +45,33 @@ fun Route.reviewRoutes() {
  */
 fun Route.listReviews() {
     get("/review") { call.respond(mapOf("review_table" to dao.allReviews())) }
+}
+
+/**
+ * Route to list all the current users reviews.
+ *
+ * @receiver The Route on which to define the route.
+ */
+fun Route.listUserReviews() {
+    get("/review/user") {
+        val userSession: UserSession? = call.sessions.get()
+        userSession
+            ?: run {
+                call.respond(HttpStatusCode.Unauthorized, "User not logged in")
+                return@get
+            }
+
+        val userInfo = getUserInfoFromSession(userSession)
+
+        call.respond(
+            mapOf(
+                "review_table" to
+                        dao.allReviews().filter {
+                            it.userId == UUID.nameUUIDFromBytes(userInfo.id.toByteArray())
+                        },
+            ),
+        )
+    }
 }
 
 /**
