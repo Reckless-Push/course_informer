@@ -83,7 +83,7 @@ fun Route.getCurrentUser() {
         val userSession: UserSession? = call.sessions.get()
         userSession?.let {
             val userInfo = getUserInfoFromSession(userSession)
-            val user = createUserFromUserInfo(userInfo)
+            val user = dao.user(createUserFromUserInfo(userInfo)?.uuid!!)
             user
                 ?: run {
                     call.respond(HttpStatusCode.BadRequest, "Invalid email address")

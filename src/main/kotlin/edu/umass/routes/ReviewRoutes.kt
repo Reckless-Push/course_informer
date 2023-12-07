@@ -9,8 +9,10 @@ package edu.umass.routes
 
 import edu.umass.dao.dao
 import edu.umass.models.Review
+import edu.umass.models.User
 import edu.umass.models.UserSession
 import io.ktor.http.HttpStatusCode
+import io.ktor.server.application.ApplicationCall
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
 import io.ktor.server.response.respondText
@@ -139,25 +141,10 @@ fun Route.addReview() {
         try {
             val review: Review = call.receive<Review>()
             val userSession: UserSession? = call.sessions.get()
-            val userInfo = getUserInfoFromSession(userSession!!)
-            val newReview =
-                dao.addNewReview(
-                    Review(
-                        professor = review.professor,
-                        course = review.course,
-                        userId = UUID.nameUUIDFromBytes(userInfo.id.toByteArray()),
-                        date = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
-                        difficulty = review.difficulty,
-                        quality = review.quality,
-                        comment = review.comment,
-                        fromRmp = review.fromRmp,
-                        forCredit = review.forCredit,
-                        attendance = review.attendance,
-                        textbook = review.textbook,
-                        grade = review.grade,
-                    ),
-                )
-            newReview?.let { call.respondText("${it.id}", status = HttpStatusCode.Created) }
+            val user =
+                dao.user(UUID.nameUUIDFromBytes(getUserInfoFromSession(userSession!!).id.toByteArray()))
+            val newReview = createAndPersistReview(review, user)
+            newReview?.let { call.updateAndRespond(user, newReview) }
                 ?: call.respond(HttpStatusCode.InternalServerError)
         } catch (e: IllegalArgumentException) {
             call.respond(HttpStatusCode.BadRequest, e.message ?: "Invalid input")
@@ -216,3 +203,47 @@ fun Route.deleteReview() {
         }
     }
 }
+
+private suspend fun ApplicationCall.updateAndRespond(
+    user: User?,
+    newReview: Review,
+) {
+    val updatedUser =
+        user?.copy(
+            reviews = user.reviews + newReview,
+        )
+            ?: return
+
+    dao.editUser(updatedUser, updatedUser.uuid!!)
+    respondText("${newReview.id}", status = HttpStatusCode.Created)
+}
+
+/**
+ * Creates and persists a review.
+ *
+ * @param review The review to create and persist.
+ * @param user The user to associate with the review.
+ * @return The created review.
+ */
+private suspend fun createAndPersistReview(
+    review: Review,
+    user: User?,
+): Review? =
+    user?.let { currentUser ->
+        dao.addNewReview(
+            Review(
+                professor = review.professor,
+                course = review.course,
+                userId = currentUser.uuid,
+                date = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
+                difficulty = review.difficulty,
+                quality = review.quality,
+                comment = review.comment,
+                fromRmp = review.fromRmp,
+                forCredit = review.forCredit,
+                attendance = review.attendance,
+                textbook = review.textbook,
+                grade = review.grade,
+            ),
+        )
+    }
