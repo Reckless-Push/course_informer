@@ -1,18 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Button,
-  Checkbox,
-  FormControlLabel,
-  MenuItem,
-  FormLabel,
-  Radio,
-  RadioGroup,
-  Select,
-  SelectChangeEvent,
-  TextField,
-  Typography,
-} from "@mui/material";
+import * as material from "@mui/material";
 import usePostData from "@/app/hooks/usePostData";
 import useFetchData from "@/app/hooks/useFetchData";
 import { Course, CourseResponse } from "@/types/course";
@@ -86,7 +73,7 @@ const ResponseForm = ({
     setReview({ ...review, [e.target.name]: e.target.value });
   };
 
-  const handleProfessorChange = (event: SelectChangeEvent) => {
+  const handleProfessorChange = (event: material.SelectChangeEvent) => {
     setSelectedProfessor(event.target.value as string);
   };
 
@@ -121,25 +108,28 @@ const ResponseForm = ({
           <div className={styles.CourseName}>
             COMPSCI {onUserInputChange.cicsId} {onUserInputChange.name}
           </div>
-          <Box
+          <material.Box
             component="form"
             className={styles.FormContainer}
             onSubmit={handleSubmit}
           >
             <div className={styles.SelectProfessor}>
               <label className={styles.Text}>Select Professor</label>
-              <Select
+              <material.Select
                 className={styles.prof}
                 value={selectedProfessor}
                 onChange={handleProfessorChange}
                 id="Professor"
               >
                 {professorsData?.professor_table.map((professor: Professor) => (
-                  <MenuItem key={professor.id} value={professor.firstName}>
+                  <material.MenuItem
+                    key={professor.id}
+                    value={professor.firstName}
+                  >
                     {professor.firstName} {professor.lastName}
-                  </MenuItem>
+                  </material.MenuItem>
                 ))}
-              </Select>
+              </material.Select>
             </div>
             <div className={styles.SelectProfessor}>
               <label className={styles.Text}>Rate your Professor</label>
@@ -178,7 +168,7 @@ const ResponseForm = ({
 
             <div className={styles.SelectProfessor}>
               <label className={styles.Text}>Select grade</label>
-              <Select
+              <material.Select
                 className={styles.grades}
                 value={review.grade}
                 onChange={(e) =>
@@ -187,15 +177,15 @@ const ResponseForm = ({
                 id="grade"
               >
                 {grade.map((value, index) => (
-                  <MenuItem key={index} value={value}>
+                  <material.MenuItem key={index} value={value}>
                     {value}
-                  </MenuItem>
+                  </material.MenuItem>
                 ))}
-              </Select>
+              </material.Select>
             </div>
             <div className={styles.addComments}>
               <label className={styles.Text}>Additional comments</label>
-              <TextField
+              <material.TextField
                 className={styles.addCommentstext}
                 name="comment"
                 type="text"
@@ -208,9 +198,9 @@ const ResponseForm = ({
               />
             </div>
             <div className={styles.SelectProfessor}>
-              <FormControlLabel
+              <material.FormControlLabel
                 control={
-                  <Checkbox
+                  <material.Checkbox
                     checked={review.forCredit}
                     onChange={(e) =>
                       setReview({ ...review, forCredit: e.target.checked })
@@ -221,9 +211,9 @@ const ResponseForm = ({
                 label="For Credit"
               />
 
-              <FormControlLabel
+              <material.FormControlLabel
                 control={
-                  <Checkbox
+                  <material.Checkbox
                     checked={review.attendance}
                     onChange={(e) =>
                       setReview({ ...review, attendance: e.target.checked })
@@ -234,9 +224,9 @@ const ResponseForm = ({
                 label="Attendance Required"
               />
 
-              <FormControlLabel
+              <material.FormControlLabel
                 control={
-                  <Checkbox
+                  <material.Checkbox
                     checked={review.textbook}
                     onChange={(e) =>
                       setReview({ ...review, textbook: e.target.checked })
@@ -249,29 +239,24 @@ const ResponseForm = ({
             </div>
 
             <div className={styles.RateThisCourse}>
-              <Button
+              <material.Button
                 type="submit"
                 variant="contained"
-                // onClick={() =>
-                //   handleClick({
-                //     onToggleComponent,
-                //     onHome,
-                //     componentStates,
-                //     courseData,
-                //   })
-                // }
+                // onCl
                 className={styles.RateThisCourseBtn}
               >
                 Rate this Course
-              </Button>
+              </material.Button>
             </div>
 
-            {loading && <Typography>Loading...</Typography>}
+            {loading && <material.Typography>Loading...</material.Typography>}
             {error && (
-              <Typography color="error">Error: {error.message}</Typography>
+              <material.Typography color="error">
+                Error: {error.message}
+              </material.Typography>
             )}
-            {data && <Typography>Success!</Typography>}
-          </Box>
+            {data && <material.Typography>Success!</material.Typography>}
+          </material.Box>
         </div>
       </div>
     </div>

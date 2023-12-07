@@ -9,7 +9,7 @@ import CourseCatalogPage from "./courseCatalog/coursecatalog";
 import useFetchData from "./hooks/useFetchData";
 import { Course, CourseResponse } from "@/types/course";
 import ProfilePage from "@/app/user/user";
-import { courseData } from "../courseData";
+
 type ComponentKey =
   | "courses"
   | "reviews"

@@ -1,9 +1,6 @@
 "use client";
 import styles from "@/app/components/css/courserating.module.css";
 import { ComponentStates } from "@/types/ComponentStates";
-import { Course } from "@/types/course";
-import { Review, ReviewResponse } from "@/types/review";
-import { stringify } from "querystring";
 
 interface RatingProps {
   onToggleComponent: (component: keyof ComponentStates) => void;
