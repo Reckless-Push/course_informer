@@ -48,7 +48,7 @@ const Home = () => {
   const [course, setcourse] = useState<Course>();
   const handleUserInputChange = (event: Course) => {
     setcourse(event);
-    componentStates.reviews = true;
+    componentStates().reviews = true;
     componentStates.courses = false;
     console.log("Component States:", componentStates);
   };

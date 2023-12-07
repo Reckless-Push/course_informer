@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, InputHTMLAttributes, useState } from "react";
+import React from "react";
 import CourseCard from "./CourseCard";
 import { courseData } from "../../courseData";
 import { ComponentStates } from "@/types/ComponentStates";

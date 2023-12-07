@@ -25,7 +25,6 @@ function ProfilePage({
   if (userError) return <div>Error:{userError?.message}</div>;
   return (
     <div className={styles.UserPage}>
-      {/* <Navbar></Navbar> */}
       <div className={styles.main}>
         {userData && (
           <div className={styles.UserName}>

@@ -242,7 +242,6 @@ const ResponseForm = ({
               <material.Button
                 type="submit"
                 variant="contained"
-                // onCl
                 className={styles.RateThisCourseBtn}
               >
                 Rate this Course
