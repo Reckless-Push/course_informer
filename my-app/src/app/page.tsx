@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CoursePage from "@/app/course/course";
 import { ComponentStates } from "@/types/ComponentStates";
 import Navbar from "@/app/components/Navbar";
@@ -7,7 +7,7 @@ import ResponseForm from "@/app/review/review";
 import CourseCatalogPage from "./courseCatalog/coursecatalog";
 
 import useFetchData from "./hooks/useFetchData";
-import { CourseResponse } from "@/types/course";
+import { Course, CourseResponse } from "@/types/course";
 import ProfilePage from "@/app/user/user";
 import { courseData } from "../courseData";
 type ComponentKey =
@@ -45,6 +45,25 @@ const Home = () => {
     error: courseError,
   } = useFetchData<CourseResponse>("https://localhost:8443/course");
 
+  const [course, setcourse] = useState<Course>();
+  const handleUserInputChange = (event: Course) => {
+    setcourse(event);
+    // Trigger the onToggleComponent function with the specified component
+    componentStates.reviews = true;
+    componentStates.courses = false;
+    console.log("Component States:", componentStates);
+
+    // setcourse(event.currentTarget.value);
+  };
+  // useEffect(() => {
+  //   if (componentStates) {
+  //     console.log(componentStates);
+  //   }
+  // }, [componentStates]);
+
+  useEffect(() => {
+    //Runs on every render
+  });
   return (
     <div>
       <Navbar
@@ -59,16 +78,18 @@ const Home = () => {
           onToggleComponent={onToggleComponent}
           onHome={onHome}
           componentStates={componentStates}
-          courseData={courseData.course_table[0]}
+          courseData={courseData.course_table[1]}
+          onUserInputChange={handleUserInputChange}
         />
       )}
 
-      {componentStates.reviews && courseData && (
+      {componentStates.reviews && course && (
+        // <div>{course.cicsId}</div>
         <ResponseForm
           onToggleComponent={onToggleComponent}
           onHome={onHome}
           componentStates={componentStates}
-          courseData={courseData.course_table[0]}
+          onUserInputChange={course}
         />
       )}
       {componentStates.user && (

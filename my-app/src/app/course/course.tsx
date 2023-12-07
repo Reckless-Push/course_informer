@@ -18,6 +18,7 @@ interface CoursePageProps {
     user: boolean;
   };
   courseData: Course;
+  onUserInputChange: any;
 }
 
 function CoursePage({
@@ -25,6 +26,7 @@ function CoursePage({
   onHome,
   componentStates,
   courseData,
+  onUserInputChange,
 }: CoursePageProps) {
   const {
     data: reviewData,
@@ -43,6 +45,16 @@ function CoursePage({
       difficultyscore.push(review.difficulty);
     }
   });
+
+  const handleClick = (component: keyof ComponentStates) => {
+    // Log the componentStates object to the console for debugging
+    console.log("Component States:", componentStates);
+    onToggleComponent("reviews");
+    onToggleComponent("courses");
+    onUserInputChange(courseData);
+    // Trigger the onToggleComponent function with the specified component
+  };
+
   return (
     <div className={styles.CoursePage}>
       {/* <Navbar></Navbar> */}
@@ -59,9 +71,17 @@ function CoursePage({
           cics_name={courseData.name}
         />
 
-        {reviewData?.review_table.map((review) => (
-          <Review key={review.comment} {...review} />
-        ))}
+        <div className={styles.RateThisCourse}>
+          <button
+            className={styles.RateThisCourseBtn}
+            onClick={() => handleClick("reviews")}
+          >
+            Add review
+          </button>
+          {reviewData?.review_table.map((review) => (
+            <Review key={review.comment} {...review} />
+          ))}
+        </div>
       </div>
     </div>
   );
