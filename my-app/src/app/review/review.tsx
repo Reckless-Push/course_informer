@@ -32,14 +32,14 @@ interface ResponseFormProps {
     login: boolean;
     user: boolean;
   };
-  courseData: Course;
+  onUserInputChange: Course;
 }
 
 function handleClick({
   onToggleComponent,
   onHome,
   componentStates,
-  courseData,
+  onUserInputChange,
 }: ResponseFormProps) {
   onHome();
   onToggleComponent("reviews");
@@ -49,7 +49,7 @@ const ResponseForm = ({
   onToggleComponent,
   onHome,
   componentStates,
-  courseData,
+  onUserInputChange,
 }: ResponseFormProps) => {
   const initialReviewState: Review = {
     id: 0,
@@ -68,8 +68,6 @@ const ResponseForm = ({
   };
 
   const [review, setReview] = useState<Review>(initialReviewState);
-  const [selectedGrade, setSelectedGrade] = useState<string>("");
-  const [selectedCourse, setSelectedCourse] = useState<string>("");
   const [selectedProfessor, setSelectedProfessor] = useState<string>("");
   const [isSubmitClicked, setIsSubmitClicked] = useState(false);
   const { data, loading, error } = usePostData<Review, Review>(
@@ -85,13 +83,7 @@ const ResponseForm = ({
   );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
     setReview({ ...review, [e.target.name]: e.target.value });
-  };
-
-  const handleGradeChange = (event: SelectChangeEvent) => {
-    console.log(event.target.value);
-    setSelectedGrade(event.target.value as string);
   };
 
   const handleProfessorChange = (event: SelectChangeEvent) => {
@@ -110,13 +102,12 @@ const ResponseForm = ({
       (prof) => prof.firstName === selectedProfessor
     );
 
-    const selectedCourseObject = courseData;
+    const selectedCourseObject = onUserInputChange;
 
     setReview({
       ...review,
       professor: selectedProfessorObject ? selectedProfessorObject : null,
       course: selectedCourseObject ? selectedCourseObject : null,
-      // grade: selectedGradeObject ? selectedCourseObject : null,
     });
     console.log(review); // Log the review object
     setIsSubmitClicked(true);
@@ -128,7 +119,7 @@ const ResponseForm = ({
       <div className={styles.main}>
         <div className={styles.content}>
           <div className={styles.CourseName}>
-            COMPSCI 520 Thry + Practice; Software Engin
+            COMPSCI {onUserInputChange.cicsId} {onUserInputChange.name}
           </div>
           <Box
             component="form"
@@ -149,18 +140,6 @@ const ResponseForm = ({
                   </MenuItem>
                 ))}
               </Select>
-
-              {/* <Select
-              className="mb-4 w-full bg-[#FFFFFF] text-[#000000] border border-[rgb(var(--neutral-dark-gray-rgb))] rounded"
-              value={selectedCourse}
-              onChange={handleCourseChange}
-            >
-              {coursesData?.course_table.map((course: Course) => (
-                <MenuItem key={course.cicsId} value={course.name}>
-                  {course.name}
-                </MenuItem>
-              ))}
-            </Select> */}
             </div>
             <div className={styles.SelectProfessor}>
               <label className={styles.Text}>Rate your Professor</label>
@@ -197,30 +176,8 @@ const ResponseForm = ({
               ></input>
             </div>
 
-            {/* <div className={styles.SelectProfessor}>
-                <label className={styles.Text}>Was attendance mandatory?</label>
-                <label className={styles.retake}>
-                  <input
-                    type="radio"
-                    id={styles.RetakeCourseRadio}
-                    value="Yes"
-                    name="attendance"
-                  ></input>
-                  <span className={styles.checkmark}></span>Yes
-                </label>
-                <label className={styles.retake}>
-                  <input
-                    type="radio"
-                    id={styles.RetakeCourseRadio}
-                    value="No"
-                    name="attendance"
-                  ></input>
-                  <span className={styles.checkmark}></span> No
-                </label>
-              </div> */}
             <div className={styles.SelectProfessor}>
               <label className={styles.Text}>Select grade</label>
-              {/* <input list="browsers" name="browser" /> */}
               <Select
                 className={styles.grades}
                 value={review.grade}
