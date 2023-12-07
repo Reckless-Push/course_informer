@@ -228,6 +228,7 @@ $dokka.location:edu.umass.routes//deleteReview/io.ktor.server.routing.Route#/Poi
 $dokka.location:edu.umass.routes//deleteUser/io.ktor.server.routing.Route#/PointingToDeclaration/course-informer/edu.umass.routes/delete-user.html
 $dokka.location:edu.umass.routes//frontend/io.ktor.server.routing.Route#/PointingToDeclaration/course-informer/edu.umass.routes/frontend.html
 $dokka.location:edu.umass.routes//getCourse/io.ktor.server.routing.Route#/PointingToDeclaration/course-informer/edu.umass.routes/get-course.html
+$dokka.location:edu.umass.routes//getCurrentUser/io.ktor.server.routing.Route#/PointingToDeclaration/course-informer/edu.umass.routes/get-current-user.html
 $dokka.location:edu.umass.routes//getProfessor/io.ktor.server.routing.Route#/PointingToDeclaration/course-informer/edu.umass.routes/get-professor.html
 $dokka.location:edu.umass.routes//getReview/io.ktor.server.routing.Route#/PointingToDeclaration/course-informer/edu.umass.routes/get-review.html
 $dokka.location:edu.umass.routes//getUser/io.ktor.server.routing.Route#/PointingToDeclaration/course-informer/edu.umass.routes/get-user.html

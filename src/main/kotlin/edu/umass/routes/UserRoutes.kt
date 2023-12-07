@@ -38,6 +38,7 @@ import java.util.UUID
 fun Route.userRoutes() {
     listUsers()
     getUser()
+    getCurrentUser()
     addUser()
     updateUser()
     deleteUser()
@@ -69,6 +70,27 @@ fun Route.getUser() {
         val user = dao.user(uuid)
         user?.let { call.respond(user) }
             ?: call.respond(HttpStatusCode.NotFound, "No user with id $uuid")
+    }
+}
+
+/**
+ * Route to get the current user.
+ *
+ * @receiver The Route on which to define the route.
+ */
+fun Route.getCurrentUser() {
+    get("/user/current") {
+        val userSession: UserSession? = call.sessions.get()
+        userSession?.let {
+            val userInfo = getUserInfoFromSession(userSession)
+            val user = createUserFromUserInfo(userInfo)
+            user
+                ?: run {
+                    call.respond(HttpStatusCode.BadRequest, "Invalid email address")
+                    return@get
+                }
+            user.let { call.respond(user) }
+        }
     }
 }
 
