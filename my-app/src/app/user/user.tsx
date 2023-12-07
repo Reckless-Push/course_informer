@@ -55,7 +55,7 @@ function ProfilePage({
         {reviewData &&
           reviewData.review_table.map((review) => (
             <Review key={review.id} {...review} />
-          ))}
+          
       </div>
     </div>
   );
