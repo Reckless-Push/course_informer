@@ -4,6 +4,7 @@ import edu.umass.models.Courses
 import edu.umass.models.Professors
 import edu.umass.models.Reviews
 import edu.umass.models.Users
+
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction

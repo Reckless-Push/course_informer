@@ -1,12 +1,13 @@
 # Common configuration
 - name: DIKTAT_COMMON
   configuration:
+    domainName: edu.umass
     testDirs: test
     # expected values:  disabledChapters: "Naming, Comments, General, Variables, Functions, Classes"
     # or: "1, 2, 3, 4, 5, 6"
     disabledChapters: ""
-    kotlinVersion: 1.9.20
-    srcDirectories: "src/main/kotlin"
+    kotlinVersion: 1.9.21
+    srcDirectories: main
 # Checks that functions/methods which return boolean have special prefix like "is/should/e.t.c"
 - name: FUNCTION_BOOLEAN_PREFIX
   enabled: true

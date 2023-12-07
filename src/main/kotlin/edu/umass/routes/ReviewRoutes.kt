@@ -32,6 +32,8 @@ import kotlinx.datetime.toLocalDateTime
 fun Route.reviewRoutes() {
     listReviews()
     listUserReviews()
+    listCourseReviews()
+    listProfessorReviews()
     getReview()
     addReview()
     updateReview()
@@ -65,12 +67,45 @@ fun Route.listUserReviews() {
 
         call.respond(
             mapOf(
-                "review_table" to
-                        dao.allReviews().filter {
-                            it.userId == UUID.nameUUIDFromBytes(userInfo.id.toByteArray())
-                        },
+                "review_table" to dao.allUserReviews(UUID.nameUUIDFromBytes(userInfo.id.toByteArray())),
             ),
         )
+    }
+}
+
+/**
+ * Route to list all reviews for a given course.
+ *
+ * @receiver The Route on which to define the route.
+ */
+fun Route.listCourseReviews() {
+    get("/review/course/{cicsId}") {
+        val cicsId = call.parameters["cicsId"]?.toIntOrNull()
+        cicsId
+            ?: run {
+                call.respond(HttpStatusCode.BadRequest, "Missing or malformed cicsId")
+                return@get
+            }
+
+        call.respond(mapOf("review_table" to dao.allCourseReviews(cicsId)))
+    }
+}
+
+/**
+ * Route to list all reviews for a given professor.
+ *
+ * @receiver The Route on which to define the route.
+ */
+fun Route.listProfessorReviews() {
+    get("/review/professor/{id}") {
+        val id = call.parameters["id"]?.toIntOrNull()
+        id
+            ?: run {
+                call.respond(HttpStatusCode.BadRequest, "Missing or malformed id")
+                return@get
+            }
+
+        call.respond(mapOf("review_table" to dao.allProfessorReviews(id)))
     }
 }
 
