@@ -1,0 +1,112 @@
+.Review {
+    margin: 3rem;
+    background-color: rgb(217, 217, 217, 0.5);
+    display: flex;
+}
+
+.RatingNumbers {
+    margin-left: 2rem;
+    flex: 15%;
+    font-size: large;
+    text-align: center;
+}
+
+.RatingNumbersBox {
+    padding: 1rem;
+    width: 7rem;
+    float: left;
+
+}
+
+.RatingHeader {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: auto;
+}
+
+.RatingNumber {
+    background: #D9D9D9;
+    width: 5rem;
+    height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: xx-large;
+    margin-bottom: 1rem;
+}
+
+.Options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 1rem;
+}
+
+.option {
+    display: flex;
+    padding-left: 2rem;
+    float: left;
+}
+
+.optionheader {
+    text-align: center;
+    font-size: large;
+    font-weight: 800;
+}
+
+.optiontext {
+    padding: 0.15rem;
+}
+
+.date {
+    padding-left: 8rem;
+    float: right;
+    text-align: right;
+}
+
+.main {
+    float: right;
+    width: 70rem;
+    padding-top: 1rem;
+
+}
+
+.content {
+    /* width: 50vw; */
+    padding: 2rem;
+}
+
+
+@media (max-width: 992px) {
+    .RatingNumbers {
+        margin-top: 4em;
+        display: inline;
+        padding-left: 5rem;
+        width: 20rem;
+    }
+
+    .date {
+        padding-left: 1rem;
+    }
+
+    .ForCredit {
+        padding: 0rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .RatingNumbers {
+        padding-left: 1.5rem;
+        width: 17rem;
+    }
+
+    .Options {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+    }
+
+
+}

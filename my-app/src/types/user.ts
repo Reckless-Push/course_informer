@@ -1,15 +1,15 @@
-import { Course } from '@/types/course'
-import { Review } from '@/types/review'
+import {Course} from "@/types/course";
+import {Review} from "@/types/review";
 
 export interface User {
-  id: string
-  firstName: string
-  lastName: string
-  email: string
-  favoriteCourses: Course[]
-  reviews: Review[]
+    id: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    favoriteCourses: Course[];
+    reviews: Review[];
 }
 
 export interface UserResponse {
-  user_table: User[]
+    user_table: User[];
 }

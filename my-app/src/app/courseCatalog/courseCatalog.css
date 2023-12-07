@@ -1,0 +1,22 @@
+/* courseCatalog.css */
+
+.container {
+    display: flex;
+    background-color: white;
+    justify-content: space-between;
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding-top: 4rem;
+    color: black;
+}
+
+.filters_column {
+  width: 30%; /* Adjust the width of the filters column */
+}
+
+.list_column {
+  width: 70%; /* Adjust the width of the list column */
+}
+
+  

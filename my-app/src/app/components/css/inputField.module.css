@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+
+.inputField {
+    padding: 8px;
+    border-radius: 5px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ccc;
+    background-color: white;
+    color: #555;
+    font-family: Arial, sans-serif;
+    font-size: medium;
+    width: 100%; /* Adjust the width as needed */
+    box-sizing: border-box;
+}

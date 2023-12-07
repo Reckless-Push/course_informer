@@ -1,0 +1,63 @@
+.content {
+    padding: 3rem;
+    color: black;
+}
+
+.content div {
+    padding: 0.5rem;
+}
+
+.CourseName {
+    padding: 1rem;
+    font-size: 2rem;
+}
+
+.Credits {
+    text-align: left;
+}
+
+.Termtotal {
+    display: flex;
+    margin: -0.5rem;
+
+    flex-wrap: wrap;
+}
+
+
+.Term {
+    float: left;
+        color: black;
+        width: 20rem;
+}
+
+.Term div{
+float: left;
+    color: black;
+    width: 20rem;
+}
+
+.PrevTerm {
+    float: right;
+    width: 20rem;
+    color: grey;
+}
+
+.Proftotal {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -0.5rem;
+}
+
+.Prof {
+    float: left;
+    display: flex;
+    color: black;
+    width: 20rem;
+}
+
+.PrevProf {
+    float: right;
+    display: flex;
+    width: 20rem;
+    color: grey;
+}
