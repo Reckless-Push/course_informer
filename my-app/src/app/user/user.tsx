@@ -8,6 +8,7 @@ import { Course } from "@/types/course";
 import { UserResponse } from "@/types/user";
 import useFetchData from "@/app/hooks/useFetchData";
 import { ReviewResponse } from "@/types/review";
+import { NavBarProps } from "../components/Navbar";
 
 interface ProfileProps {
   onToggleComponent: (component: keyof ComponentStates) => void;
@@ -25,7 +26,7 @@ function ProfilePage({
   onToggleComponent,
   onHome,
   componentStates,
-}: ProfileProps) {
+}: NavBarProps) {
   const {
     data: userData,
     loading: userLoading,

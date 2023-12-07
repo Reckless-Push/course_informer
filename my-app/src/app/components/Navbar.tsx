@@ -4,7 +4,7 @@ import styles from "@/app/components/css/navbar.module.css";
 
 import { ComponentStates } from "@/types/ComponentStates";
 
-interface NavBarProps {
+export interface NavBarProps {
   onToggleComponent: (component: keyof ComponentStates) => void;
   onHome: () => void;
   componentStates: {
@@ -19,7 +19,7 @@ interface NavBarProps {
 function Navbar({ onToggleComponent, onHome, componentStates }: NavBarProps) {
   const handleButtonClick = (component: keyof ComponentStates) => {
     // Log the componentStates object to the console for debugging
-    console.log('Component States:', componentStates);
+    console.log("Component States:", componentStates);
 
     // Trigger the onToggleComponent function with the specified component
     onToggleComponent(component);
