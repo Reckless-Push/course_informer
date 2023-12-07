@@ -48,18 +48,10 @@ const Home = () => {
   const [course, setcourse] = useState<Course>();
   const handleUserInputChange = (event: Course) => {
     setcourse(event);
-    // Trigger the onToggleComponent function with the specified component
     componentStates.reviews = true;
     componentStates.courses = false;
     console.log("Component States:", componentStates);
-
-    // setcourse(event.currentTarget.value);
   };
-  // useEffect(() => {
-  //   if (componentStates) {
-  //     console.log(componentStates);
-  //   }
-  // }, [componentStates]);
 
   useEffect(() => {
     //Runs on every render
@@ -78,13 +70,12 @@ const Home = () => {
           onToggleComponent={onToggleComponent}
           onHome={onHome}
           componentStates={componentStates}
-          courseData={courseData.course_table[1]}
+          courseData={courseData.course_table[0]}
           onUserInputChange={handleUserInputChange}
         />
       )}
 
       {componentStates.reviews && course && (
-        // <div>{course.cicsId}</div>
         <ResponseForm
           onToggleComponent={onToggleComponent}
           onHome={onHome}
