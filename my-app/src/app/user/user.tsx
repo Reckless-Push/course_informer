@@ -31,7 +31,7 @@ function ProfilePage({
     data: userData,
     loading: userLoading,
     error: userError,
-  } = useFetchData<UserResponse>("https://localhost:8443/user");
+  } = useFetchData<UserResponse>("https://localhost:8443//user/current");
   const {
     data: reviewData,
     loading: reviewLoading,
@@ -55,7 +55,7 @@ function ProfilePage({
         {reviewData &&
           reviewData.review_table.map((review) => (
             <Review key={review.id} {...review} />
-          
+          ))}
       </div>
     </div>
   );
