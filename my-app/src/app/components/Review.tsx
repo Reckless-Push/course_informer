@@ -3,6 +3,18 @@ import styles from "@/app/components/css/coursereview.module.css";
 import { Review } from "@/types/review";
 
 function Review(data: Review) {
+  let formatteddate = "";
+  if (data.date) {
+    const date = new Date(data.date);
+    formatteddate =
+      date.getUTCDate() +
+      " " +
+      date.toLocaleString("default", { month: "short" }) +
+      ", " +
+      date.getUTCFullYear();
+    console.log(formatteddate);
+  }
+
   return (
     <div>
       <div className={styles.Review}>
@@ -47,7 +59,7 @@ function Review(data: Review) {
                 <div className={styles.optionval}>No</div>
               )}
             </div>
-            <div className={styles.date}>{data.date}</div>
+            <div className={styles.date}>{formatteddate}</div>
           </div>
 
           <div className={styles.content}>{data.comment}</div>
