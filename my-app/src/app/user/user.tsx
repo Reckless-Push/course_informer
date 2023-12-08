@@ -3,13 +3,8 @@ import Review from "@/app/components/Review";
 import styles from "@/app/user/user.module.css";
 import useFetchData from "@/app/hooks/useFetchData";
 import { ReviewResponse } from "@/types/review";
-import { NavBarProps } from "../components/Navbar";
 import { User } from "@/types/user";
-function ProfilePage({
-  onToggleComponent,
-  onHome,
-  componentStates,
-}: NavBarProps) {
+function ProfilePage() {
   const {
     data: userData,
     loading: userLoading,

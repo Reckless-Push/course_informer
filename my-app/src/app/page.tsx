@@ -74,13 +74,7 @@ const Home = () => {
       )}
 
       {componentStates.reviews && course && <ResponseForm {...course} />}
-      {componentStates.user && (
-        <ProfilePage
-          onToggleComponent={onToggleComponent}
-          onHome={onHome}
-          componentStates={componentStates}
-        />
-      )}
+      {componentStates.user && <ProfilePage />}
       {componentStates.courseDashboard && (
         <CourseCatalogPage
           onToggleComponent={onToggleComponent}
