@@ -7,37 +7,8 @@ import { Professor, ProfessorResponse } from "@/types/professor";
 import { Review } from "@/types/review";
 
 import styles from "@/app/review/review.module.css";
-import { ComponentStates } from "@/types/ComponentStates";
 
-interface ResponseFormProps {
-  onToggleComponent: (component: keyof ComponentStates) => void;
-  onHome: () => void;
-  componentStates: {
-    courses: boolean;
-    reviews: boolean;
-    courseDashboard: boolean;
-    login: boolean;
-    user: boolean;
-  };
-  onUserInputChange: Course;
-}
-
-function handleClick({
-  onToggleComponent,
-  onHome,
-  componentStates,
-  onUserInputChange,
-}: ResponseFormProps) {
-  onHome();
-  onToggleComponent("reviews");
-}
-
-const ResponseForm = ({
-  onToggleComponent,
-  onHome,
-  componentStates,
-  onUserInputChange,
-}: ResponseFormProps) => {
+const ResponseForm = (course_data: Course) => {
   const initialReviewState: Review = {
     id: 0,
     professor: null,
@@ -89,12 +60,10 @@ const ResponseForm = ({
       (prof) => prof.firstName === selectedProfessor
     );
 
-    const selectedCourseObject = onUserInputChange;
-
     setReview({
       ...review,
       professor: selectedProfessorObject ? selectedProfessorObject : null,
-      course: selectedCourseObject ? selectedCourseObject : null,
+      course: course_data ? course_data : null,
     });
     console.log(review); // Log the review object
     setIsSubmitClicked(true);
@@ -106,7 +75,7 @@ const ResponseForm = ({
       <div className={styles.main}>
         <div className={styles.content}>
           <div className={styles.CourseName}>
-            COMPSCI {onUserInputChange.cicsId} {onUserInputChange.name}
+            COMPSCI {course_data.cicsId} {course_data.name}
           </div>
           <material.Box
             component="form"

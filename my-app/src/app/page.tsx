@@ -68,22 +68,12 @@ const Home = () => {
       {/* <Navbar></Navbar> */}
       {componentStates.courses && courseData && (
         <CoursePage
-          onToggleComponent={onToggleComponent}
-          onHome={onHome}
-          componentStates={componentStates}
-          courseData={courseData.course_table[0]}
+          course_data={courseData.course_table[0]}
           onUserInputChange={handleUserInputChange}
         />
       )}
 
-      {componentStates.reviews && course && (
-        <ResponseForm
-          onToggleComponent={onToggleComponent}
-          onHome={onHome}
-          componentStates={componentStates}
-          onUserInputChange={course}
-        />
-      )}
+      {componentStates.reviews && course && <ResponseForm {...course} />}
       {componentStates.user && (
         <ProfilePage
           onToggleComponent={onToggleComponent}
