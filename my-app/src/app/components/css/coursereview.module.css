@@ -56,8 +56,9 @@
     font-weight: 800;
 }
 
-.optiontext {
-    padding: 0.15rem;
+.optionval {
+    padding-left: 0.5rem;
+    padding-top: 0.1rem;
 }
 
 .date {

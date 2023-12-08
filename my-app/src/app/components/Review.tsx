@@ -21,22 +21,31 @@ function Review(data: Review) {
           <div className={styles.Options}>
             <div className={styles.option}>
               <div className={styles.optionheader}>For credit:</div>
-              {data.forCredit && <div className={styles.optionval}>Yes</div>}
-              {!data.forCredit && <div className={styles.optionval}>No</div>}
+              {data.forCredit ? (
+                <div className={styles.optionval}>Yes</div>
+              ) : (
+                <div className={styles.optionval}>No</div>
+              )}
             </div>
             <div className={styles.option}>
               <div className={styles.optionheader}>Attendance:</div>
-              {data.attendance && <div className={styles.optionval}>Yes</div>}
-              {!data.attendance && <div className={styles.optionval}>No</div>}
+              {data.attendance ? (
+                <div className={styles.optionval}>Yes</div>
+              ) : (
+                data.attendance && <div className={styles.optionval}>No</div>
+              )}
             </div>
             <div className={styles.option}>
               <div className={styles.optionheader}>Grade:</div>
-              <div className={styles.optiontext}>{data.grade}</div>
+              <div className={styles.optionval}>{data.grade}</div>
             </div>
             <div className={styles.option}>
               <div className={styles.optionheader}>Textbook:</div>
-              {data.textbook && <div className={styles.optionval}>Yes</div>}
-              {!data.textbook && <div className={styles.optionval}>No</div>}
+              {data.textbook ? (
+                <div className={styles.optionval}>Yes</div>
+              ) : (
+                <div className={styles.optionval}>No</div>
+              )}
             </div>
             <div className={styles.date}>{data.date}</div>
           </div>
