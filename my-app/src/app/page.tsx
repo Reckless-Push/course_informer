@@ -27,6 +27,7 @@ const Home = () => {
   });
 
   const onToggleComponent = (component: ComponentKey) => {
+    onHome();
     setComponentStates((prev) => ({ ...prev, [component]: !prev[component] }));
   };
 
@@ -48,14 +49,14 @@ const Home = () => {
   const [course, setcourse] = useState<Course>();
   const handleUserInputChange = (event: Course) => {
     setcourse(event);
-    componentStates.reviews = true;
-    componentStates.courses = false;
+    onToggleComponent("reviews");
     console.log("Component States:", componentStates);
   };
 
   useEffect(() => {
-    //Runs on every render
-  });
+    //Runs on the first render
+    //And any time any dependency value changes
+  }, [componentStates, setComponentStates]);
   return (
     <div>
       <Navbar

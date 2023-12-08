@@ -20,7 +20,6 @@ function handleClick({
   componentStates,
 }: RatingProps) {
   onToggleComponent("reviews");
-  onToggleComponent("courses");
 }
 
 function Rating({

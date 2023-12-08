@@ -49,8 +49,6 @@ function CoursePage({
   const handleClick = (component: keyof ComponentStates) => {
     // Log the componentStates object to the console for debugging
     console.log("Component States:", componentStates);
-    onToggleComponent("reviews");
-    onToggleComponent("courses");
     onUserInputChange(courseData);
     // Trigger the onToggleComponent function with the specified component
   };
