@@ -78,24 +78,6 @@ function Rating({
             <div className={styles.DifficultyNumber}>{difficultysum}</div>
           </div>
         </div>
-        <div className={styles.RateThisCourse}>
-          <button
-            className={styles.RateThisCourseBtn}
-            onClick={() =>
-              handleClick({
-                onToggleComponent,
-                onHome,
-                componentStates,
-                quality,
-                difficulty,
-                cics_id,
-                cics_name,
-              })
-            }
-          >
-            Add review
-          </button>
-        </div>
       </div>
     </div>
   );

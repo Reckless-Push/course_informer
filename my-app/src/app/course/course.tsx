@@ -78,10 +78,10 @@ function CoursePage({
           >
             Add review
           </button>
-          {reviewData?.review_table.map((review) => (
-            <Review key={review.comment} {...review} />
-          ))}
         </div>
+        {reviewData?.review_table.map((review) => (
+          <Review key={review.comment} {...review} />
+        ))}
       </div>
     </div>
   );
