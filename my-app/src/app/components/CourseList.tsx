@@ -32,10 +32,8 @@ function CourseList({
 
       return (
         <CourseCard
-          key={course.name}
-          csID={course.cicsId}
-          title={course.name}
-          semester={semesters} // Pass the array of semester strings as a prop
+          key={course.cicsId}
+          course={course}
           onToggleComponent={onToggleComponent}
           onHome={onHome}
           componentStates={componentStates}
