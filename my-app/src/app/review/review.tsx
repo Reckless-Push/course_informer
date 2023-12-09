@@ -5,7 +5,19 @@ import useFetchData from "@/app/hooks/useFetchData";
 import { Course, CourseResponse } from "@/types/course";
 import { Professor, ProfessorResponse } from "@/types/professor";
 import { Review } from "@/types/review";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { lime, purple } from "@mui/material/colors";
 
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#640000",
+    },
+    secondary: {
+      main: "#880e4f",
+    },
+  },
+});
 import styles from "@/app/review/review.module.css";
 
 const ResponseForm = (course_data: Course) => {
@@ -77,158 +89,162 @@ const ResponseForm = (course_data: Course) => {
           <div className={styles.CourseName}>
             COMPSCI {course_data.cicsId} {course_data.name}
           </div>
-          <material.Box
-            component="form"
-            className={styles.FormContainer}
-            onSubmit={handleSubmit}
-          >
-            <div className={styles.SelectProfessor}>
-              <label className={styles.Text}>Select Professor</label>
-              <material.Select
-                className={styles.prof}
-                value={selectedProfessor}
-                onChange={handleProfessorChange}
-                id="Professor"
-              >
-                {professorsData?.professor_table.map((professor: Professor) => (
-                  <material.MenuItem
-                    key={professor.id}
-                    value={professor.firstName}
-                  >
-                    {professor.firstName} {professor.lastName}
-                  </material.MenuItem>
-                ))}
-              </material.Select>
-            </div>
-            <div className={styles.SelectProfessor}>
-              <label className={styles.Text}>Rate your Professor</label>
-              <label style={{ paddingRight: "0.8rem" }}>1</label>
-              <input
-                type="range"
-                min="1"
-                max="5"
-                step="1"
-                defaultValue="4"
-                className={styles.slider}
-                id="quality"
-                onChange={handleChange}
-                required
-                name="quality"
-                value={review.quality}
-              ></input>
-              <label style={{ paddingLeft: "0.8rem" }}>5</label>
-            </div>
-            <div className={styles.SelectProfessor}>
-              <label className={styles.Text}>
-                How difficult was this Professor
-              </label>
-              <label style={{ paddingRight: "0.8rem" }}>1</label>
-              <input
-                type="range"
-                min="1"
-                max="5"
-                step="1"
-                defaultValue="4"
-                className={styles.slider}
-                id="difficulty"
-                onChange={handleChange}
-                required
-                name="difficulty"
-                value={review.difficulty}
-              ></input>
-              <label style={{ paddingLeft: "0.8rem" }}>5</label>
-            </div>
+          <ThemeProvider theme={theme}>
+            <material.Box
+              component="form"
+              className={styles.FormContainer}
+              onSubmit={handleSubmit}
+            >
+              <div className={styles.SelectProfessor}>
+                <label className={styles.Text}>Select Professor</label>
+                <material.Select
+                  className={styles.prof}
+                  value={selectedProfessor}
+                  onChange={handleProfessorChange}
+                  id="Professor"
+                >
+                  {professorsData?.professor_table.map(
+                    (professor: Professor) => (
+                      <material.MenuItem
+                        key={professor.id}
+                        value={professor.firstName}
+                      >
+                        {professor.firstName} {professor.lastName}
+                      </material.MenuItem>
+                    )
+                  )}
+                </material.Select>
+              </div>
+              <div className={styles.SelectProfessor}>
+                <label className={styles.Text}>Rate your Professor</label>
+                <label style={{ paddingRight: "0.8rem" }}>1</label>
+                <input
+                  type="range"
+                  min="1"
+                  max="5"
+                  step="1"
+                  defaultValue="4"
+                  className={styles.slider}
+                  id="quality"
+                  onChange={handleChange}
+                  required
+                  name="quality"
+                  value={review.quality}
+                ></input>
+                <label style={{ paddingLeft: "0.8rem" }}>5</label>
+              </div>
+              <div className={styles.SelectProfessor}>
+                <label className={styles.Text}>
+                  How difficult was this Professor
+                </label>
+                <label style={{ paddingRight: "0.8rem" }}>1</label>
+                <input
+                  type="range"
+                  min="1"
+                  max="5"
+                  step="1"
+                  defaultValue="4"
+                  className={styles.slider}
+                  id="difficulty"
+                  onChange={handleChange}
+                  required
+                  name="difficulty"
+                  value={review.difficulty}
+                ></input>
+                <label style={{ paddingLeft: "0.8rem" }}>5</label>
+              </div>
 
-            <div className={styles.SelectProfessor}>
-              <label className={styles.Text}>Select grade</label>
-              <material.Select
-                className={styles.grades}
-                value={review.grade}
-                onChange={(e) =>
-                  setReview({ ...review, grade: e.target.value })
-                }
-                id="grade"
-              >
-                {grade.map((value, index) => (
-                  <material.MenuItem key={index} value={value}>
-                    {value}
-                  </material.MenuItem>
-                ))}
-              </material.Select>
-            </div>
-            <div className={styles.addComments}>
-              <label className={styles.Text}>Additional comments</label>
-              <material.TextField
-                className={styles.addCommentstext}
-                name="comment"
-                type="text"
-                value={review.comment}
-                onChange={handleChange}
-                id="comment"
-                autoComplete="This course is great!"
-                required
-                fullWidth
-              />
-            </div>
-            <div className={styles.SelectProfessor}>
-              <material.FormControlLabel
-                control={
-                  <material.Checkbox
-                    checked={review.forCredit}
-                    onChange={(e) =>
-                      setReview({ ...review, forCredit: e.target.checked })
-                    }
-                    name="forCredit"
-                  />
-                }
-                label="For Credit"
-              />
+              <div className={styles.SelectProfessor}>
+                <label className={styles.Text}>Select grade</label>
+                <material.Select
+                  className={styles.grades}
+                  value={review.grade}
+                  onChange={(e) =>
+                    setReview({ ...review, grade: e.target.value })
+                  }
+                  id="grade"
+                >
+                  {grade.map((value, index) => (
+                    <material.MenuItem key={index} value={value}>
+                      {value}
+                    </material.MenuItem>
+                  ))}
+                </material.Select>
+              </div>
+              <div className={styles.addComments}>
+                <label className={styles.Text}>Additional comments</label>
+                <material.TextField
+                  className={styles.addCommentstext}
+                  name="comment"
+                  type="text"
+                  value={review.comment}
+                  onChange={handleChange}
+                  id="comment"
+                  autoComplete="This course is great!"
+                  required
+                  fullWidth
+                />
+              </div>
+              <div className={styles.SelectProfessor}>
+                <material.FormControlLabel
+                  control={
+                    <material.Checkbox
+                      checked={review.forCredit}
+                      onChange={(e) =>
+                        setReview({ ...review, forCredit: e.target.checked })
+                      }
+                      name="forCredit"
+                    />
+                  }
+                  label="For Credit"
+                />
 
-              <material.FormControlLabel
-                control={
-                  <material.Checkbox
-                    checked={review.attendance}
-                    onChange={(e) =>
-                      setReview({ ...review, attendance: e.target.checked })
-                    }
-                    name="attendance"
-                  />
-                }
-                label="Attendance Required"
-              />
+                <material.FormControlLabel
+                  control={
+                    <material.Checkbox
+                      checked={review.attendance}
+                      onChange={(e) =>
+                        setReview({ ...review, attendance: e.target.checked })
+                      }
+                      name="attendance"
+                    />
+                  }
+                  label="Attendance Required"
+                />
 
-              <material.FormControlLabel
-                control={
-                  <material.Checkbox
-                    checked={review.textbook}
-                    onChange={(e) =>
-                      setReview({ ...review, textbook: e.target.checked })
-                    }
-                    name="textbook"
-                  />
-                }
-                label="Textbook Required"
-              />
-            </div>
+                <material.FormControlLabel
+                  control={
+                    <material.Checkbox
+                      checked={review.textbook}
+                      onChange={(e) =>
+                        setReview({ ...review, textbook: e.target.checked })
+                      }
+                      name="textbook"
+                    />
+                  }
+                  label="Textbook Required"
+                />
+              </div>
 
-            <div className={styles.RateThisCourse}>
-              <material.Button
-                type="submit"
-                variant="contained"
-                className={styles.RateThisCourseBtn}
-              >
-                Rate this Course
-              </material.Button>
-            </div>
+              <div className={styles.RateThisCourse}>
+                <material.Button
+                  type="submit"
+                  variant="contained"
+                  className={styles.RateThisCourseBtn}
+                >
+                  Rate this Course
+                </material.Button>
+              </div>
 
-            {loading && <material.Typography>Loading...</material.Typography>}
-            {error && (
-              <material.Typography color="error">
-                Error: {error.message}
-              </material.Typography>
-            )}
-            {data && <material.Typography>Success!</material.Typography>}
-          </material.Box>
+              {loading && <material.Typography>Loading...</material.Typography>}
+              {error && (
+                <material.Typography color="error">
+                  Error: {error.message}
+                </material.Typography>
+              )}
+              {data && <material.Typography>Success!</material.Typography>}
+            </material.Box>
+          </ThemeProvider>
         </div>
       </div>
     </div>
