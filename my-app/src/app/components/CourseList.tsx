@@ -1,9 +1,10 @@
 import React from "react";
 import CourseCard from "./CourseCard";
-import { courseData } from "../../courseData";
 import { ComponentStates } from "@/types/ComponentStates";
+import { CourseResponse } from "@/types/course";
 
 interface CourseListProps {
+  courseData: CourseResponse | null
   onToggleComponent: (component: keyof ComponentStates) => void;
   onHome: () => void;
   componentStates: {
@@ -15,23 +16,32 @@ interface CourseListProps {
 }
 
 function CourseList({
+  courseData,
   onToggleComponent,
   onHome,
   componentStates,
 }: CourseListProps) {
   return (
     <div>
-      {courseData.map((course) => (
+      {courseData?.course_table.map((course) => {
+      // Transform semestersOffered array to an array of semester strings
+      const semesters: string[] = course.semestersOffered.map((semesterInfo) => {
+        const { season, year } = semesterInfo;
+        return `${season} ${year}`;
+      });
+
+      return (
         <CourseCard
-          key={course.title}
-          csID={course.csID}
-          title={course.title}
-          semester={course.semester}
+          key={course.name}
+          csID={course.cicsId}
+          title={course.name}
+          semester={semesters} // Pass the array of semester strings as a prop
           onToggleComponent={onToggleComponent}
           onHome={onHome}
           componentStates={componentStates}
         />
-      ))}
+      );
+    })}
     </div>
   );
 }

@@ -3,7 +3,7 @@ import styles from "./css/courseCard.module.css";
 import { ComponentStates } from "@/types/ComponentStates";
 
 interface CourseCardProps {
-  csID: string;
+  csID: number;
   title: string;
   semester: string[];
   onToggleComponent: (component: keyof ComponentStates) => void;
@@ -18,7 +18,7 @@ interface CourseCardProps {
 
 function handleClick(props: CourseCardProps) {
   //props.onToggleComponent('reviews');
-  props.onToggleComponent("courseDashboard");
+  props.onToggleComponent("courses");
   //props.onToggleComponent('login');
 }
 
