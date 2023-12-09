@@ -3,44 +3,24 @@ import styles from "@/app/components/css/courserating.module.css";
 import { ComponentStates } from "@/types/ComponentStates";
 
 interface RatingProps {
-  onToggleComponent: (component: keyof ComponentStates) => void;
-  onHome: () => void;
-  componentStates: {
-    courses: boolean;
-    reviews: boolean;
-  };
   quality: number[];
   difficulty: number[];
-  cics_id: number;
-  cics_name: string;
-}
-function handleClick({
-  onToggleComponent,
-  onHome,
-  componentStates,
-}: RatingProps) {
-  onToggleComponent("reviews");
-  onToggleComponent("courses");
 }
 
-function Rating({
-  onToggleComponent,
-  onHome,
-  componentStates,
-  quality,
-  difficulty,
-  cics_id,
-  cics_name,
-}: RatingProps) {
-  let qualitysum = quality.reduce((a, b) => a + b) / quality.length;
-  let difficultysum = difficulty.reduce((a, b) => a + b) / difficulty.length;
+function Rating({ quality, difficulty }: RatingProps) {
+  let qualitysum = (quality.reduce((a, b) => a + b) / quality.length).toFixed(
+    1
+  );
+  let difficultysum = (
+    difficulty.reduce((a, b) => a + b) / difficulty.length
+  ).toFixed(1);
   let qualitycount = Array(5).fill(0);
   quality.forEach((value) => {
     qualitycount[5 - value]++;
   });
   let perc = Array(5).fill("");
   qualitycount.forEach((value, index) => {
-    perc[index] = "`" + String((value * 100) / quality.length) + "%`";
+    perc[index] = String((value * 100) / quality.length) + "%";
   });
   return (
     <div className={styles.Rating}>
@@ -55,7 +35,6 @@ function Rating({
               <div className={styles.left}>{5 - index}star </div>
               <div className={styles.middle}>
                 <div className={styles.barcontainer}>
-                  {/* TODO   fix bar graphs width */}
                   <div style={{ width: perc[index] }}></div>
                 </div>
               </div>
@@ -77,24 +56,6 @@ function Rating({
             <div className={styles.DifficultyHeader}>Difficulty</div>
             <div className={styles.DifficultyNumber}>{difficultysum}</div>
           </div>
-        </div>
-        <div className={styles.RateThisCourse}>
-          <button
-            className={styles.RateThisCourseBtn}
-            onClick={() =>
-              handleClick({
-                onToggleComponent,
-                onHome,
-                componentStates,
-                quality,
-                difficulty,
-                cics_id,
-                cics_name,
-              })
-            }
-          >
-            Add review
-          </button>
         </div>
       </div>
     </div>

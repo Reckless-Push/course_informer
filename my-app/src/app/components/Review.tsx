@@ -3,6 +3,18 @@ import styles from "@/app/components/css/coursereview.module.css";
 import { Review } from "@/types/review";
 
 function Review(data: Review) {
+  let formatteddate = "";
+  if (data.date) {
+    const date = new Date(data.date);
+    formatteddate =
+      date.getUTCDate() +
+      " " +
+      date.toLocaleString("default", { month: "short" }) +
+      ", " +
+      date.getUTCFullYear();
+    console.log(formatteddate);
+  }
+
   return (
     <div>
       <div className={styles.Review}>
@@ -21,26 +33,40 @@ function Review(data: Review) {
           <div className={styles.Options}>
             <div className={styles.option}>
               <div className={styles.optionheader}>For credit:</div>
-              {data.forCredit && <div className={styles.optionval}>Yes</div>}
-              {!data.forCredit && <div className={styles.optionval}>No</div>}
+              {data.forCredit ? (
+                <div className={styles.optionval}>Yes</div>
+              ) : (
+                <div className={styles.optionval}>No</div>
+              )}
             </div>
             <div className={styles.option}>
               <div className={styles.optionheader}>Attendance:</div>
-              {data.attendance && <div className={styles.optionval}>Yes</div>}
-              {!data.attendance && <div className={styles.optionval}>No</div>}
+              {data.attendance ? (
+                <div className={styles.optionval}>Yes</div>
+              ) : (
+                data.attendance && <div className={styles.optionval}>No</div>
+              )}
             </div>
             <div className={styles.option}>
               <div className={styles.optionheader}>Grade:</div>
-              <div className={styles.optiontext}>{data.grade}</div>
+              <div className={styles.optionval}>{data.grade}</div>
             </div>
             <div className={styles.option}>
               <div className={styles.optionheader}>Textbook:</div>
-              {data.textbook && <div className={styles.optionval}>Yes</div>}
-              {!data.textbook && <div className={styles.optionval}>No</div>}
+              {data.textbook ? (
+                <div className={styles.optionval}>Yes</div>
+              ) : (
+                <div className={styles.optionval}>No</div>
+              )}
             </div>
-            <div className={styles.date}>{data.date}</div>
+            <div className={styles.date}>{formatteddate}</div>
           </div>
-
+          <div className={styles.prof}>
+            <div className={styles.profheader}>Professor: </div>
+            <div className={styles.profval}>
+              {data.professor?.firstName} {data.professor?.lastName}
+            </div>
+          </div>
           <div className={styles.content}>{data.comment}</div>
         </div>
       </div>

@@ -13,17 +13,13 @@ function CourseDesc(data: Course) {
         COMPSCI {data.cicsId} {data.name}
       </div>
       <div className={styles.Credits}>Credits: {data.credits}</div>
-      <div className={styles.Termtotal}>
-        <div className={styles.Term}>
-          Terms Offered:
-          {data.semestersOffered.map((x) => (
-            <div key={x.season}>
-              {" "}
-              {x.season}
-              {x.year},{" "}
-            </div>
-          ))}
-        </div>
+      <div className={styles.Terms}>
+        Terms Offered:
+        {data.semestersOffered.map((x) => (
+          <div key={x.season} className={styles.Term}>
+            {x.season} {x.year}
+          </div>
+        ))}
         {/* <div className={styles.PrevTerm}>Previous Terms offered: Fall 2023, ...</div> */}
       </div>
       <div className={styles.Proftotal}>

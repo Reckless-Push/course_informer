@@ -1,3 +1,26 @@
 .main {
     padding-top: 4rem;
 }
+.RateThisCourse {
+    margin:auto;
+    background-color: rgb(100, 0, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border-radius: 15px;
+    width: 20%;
+    /* border: 5px solid #73AD21; */
+}
+
+.RateThisCourseBtn {
+    font-size: medium;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    height: 2rem;
+    border-radius: 15px;
+}
+
+.RateThisCourse:hover {
+    background-color: rgb(100, 0, 0, 0.7);
+}

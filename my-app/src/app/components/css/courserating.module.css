@@ -63,31 +63,6 @@
 
 }
 
-.RateThisCourse {
-    background-color: rgb(100, 0, 0);
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    border-radius: 15px;
-    /* border: 5px solid #73AD21; */
-
-    /* "Ratethiscourse w-96 p-2.5 rounded-2xl justify-center items-center gap-2.5 inline-flex" */
-}
-
-.RateThisCourseBtn {
-    font-size: medium;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    height: 2rem;
-    border-radius: 15px;
-}
-
-.RateThisCourse:hover {
-    background-color: rgb(100, 0, 0, 0.7);
-    /* color: black; */
-}
 
 .RatingNumbers {
     display: inline;

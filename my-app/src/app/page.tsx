@@ -19,14 +19,15 @@ type ComponentKey =
 
 const Home = () => {
   const [componentStates, setComponentStates] = useState<ComponentStates>({
-    courses: false,
+    courses: true,
     reviews: false,
     user: false,
-    courseDashboard: true,
+    courseDashboard: false,
     login: false,
   });
 
   const onToggleComponent = (component: ComponentKey) => {
+    onHome();
     setComponentStates((prev) => ({ ...prev, [component]: !prev[component] }));
   };
 
@@ -48,14 +49,14 @@ const Home = () => {
   const [course, setcourse] = useState<Course>();
   const handleUserInputChange = (event: Course) => {
     setcourse(event);
-    componentStates.reviews = true;
-    componentStates.courses = false;
+    onToggleComponent("reviews");
     console.log("Component States:", componentStates);
   };
 
   useEffect(() => {
-    //Runs on every render
-  });
+    //Runs on the first render
+    //And any time any dependency value changes
+  }, [componentStates, setComponentStates]);
   return (
     <div>
       <Navbar
@@ -67,29 +68,13 @@ const Home = () => {
       {/* <Navbar></Navbar> */}
       {componentStates.courses && courseData && (
         <CoursePage
-          onToggleComponent={onToggleComponent}
-          onHome={onHome}
-          componentStates={componentStates}
-          courseData={courseData.course_table[0]}
+          course_data={courseData.course_table[0]}
           onUserInputChange={handleUserInputChange}
         />
       )}
 
-      {componentStates.reviews && course && (
-        <ResponseForm
-          onToggleComponent={onToggleComponent}
-          onHome={onHome}
-          componentStates={componentStates}
-          onUserInputChange={course}
-        />
-      )}
-      {componentStates.user && (
-        <ProfilePage
-          onToggleComponent={onToggleComponent}
-          onHome={onHome}
-          componentStates={componentStates}
-        />
-      )}
+      {componentStates.reviews && course && <ResponseForm {...course} />}
+      {componentStates.user && <ProfilePage />}
       {componentStates.courseDashboard && (
         <CourseCatalogPage
           onToggleComponent={onToggleComponent}

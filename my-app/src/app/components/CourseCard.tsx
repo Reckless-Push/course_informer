@@ -18,7 +18,6 @@ interface CourseCardProps {
 
 function handleClick(props: CourseCardProps) {
   //props.onToggleComponent('reviews');
-  props.onToggleComponent("courses");
   props.onToggleComponent("courseDashboard");
   //props.onToggleComponent('login');
 }

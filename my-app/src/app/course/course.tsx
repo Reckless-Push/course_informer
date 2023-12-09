@@ -8,26 +8,11 @@ import useFetchData from "../hooks/useFetchData";
 import { ReviewResponse } from "@/types/review";
 import { Course } from "@/types/course";
 interface CoursePageProps {
-  onToggleComponent: (component: keyof ComponentStates) => void;
-  onHome: () => void;
-  componentStates: {
-    courses: boolean;
-    reviews: boolean;
-    courseDashboard: boolean;
-    login: boolean;
-    user: boolean;
-  };
-  courseData: Course;
+  course_data: Course;
   onUserInputChange: any;
 }
 
-function CoursePage({
-  onToggleComponent,
-  onHome,
-  componentStates,
-  courseData,
-  onUserInputChange,
-}: CoursePageProps) {
+function CoursePage({ course_data, onUserInputChange }: CoursePageProps) {
   const {
     data: reviewData,
     loading: reviewLoading,
@@ -40,48 +25,35 @@ function CoursePage({
   const qualityscore = new Array();
   const difficultyscore = new Array();
   reviewData?.review_table.forEach((review) => {
-    if (review.course && review.course.cicsId == courseData.cicsId) {
+    if (review.course && review.course.cicsId == course_data.cicsId) {
       qualityscore.push(review.quality);
       difficultyscore.push(review.difficulty);
     }
   });
 
-  const handleClick = (component: keyof ComponentStates) => {
-    // Log the componentStates object to the console for debugging
-    console.log("Component States:", componentStates);
-    onToggleComponent("reviews");
-    onToggleComponent("courses");
-    onUserInputChange(courseData);
-    // Trigger the onToggleComponent function with the specified component
+  const handleClick = () => {
+    onUserInputChange(course_data);
   };
 
   return (
     <div className={styles.CoursePage}>
       {/* <Navbar></Navbar> */}
       <div className={styles.main}>
-        {courseData && <CourseDesc {...courseData}></CourseDesc>}
+        {course_data && <CourseDesc {...course_data}></CourseDesc>}
 
-        <Rating
-          onToggleComponent={onToggleComponent}
-          onHome={onHome}
-          componentStates={componentStates}
-          quality={qualityscore}
-          difficulty={difficultyscore}
-          cics_id={courseData.cicsId}
-          cics_name={courseData.name}
-        />
+        <Rating quality={qualityscore} difficulty={difficultyscore} />
 
         <div className={styles.RateThisCourse}>
           <button
             className={styles.RateThisCourseBtn}
-            onClick={() => handleClick("reviews")}
+            onClick={() => handleClick()}
           >
             Add review
           </button>
-          {reviewData?.review_table.map((review) => (
-            <Review key={review.comment} {...review} />
-          ))}
         </div>
+        {reviewData?.review_table.map((review) => (
+          <Review key={review.comment} {...review} />
+        ))}
       </div>
     </div>
   );
