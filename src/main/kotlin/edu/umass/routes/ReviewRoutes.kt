@@ -211,8 +211,7 @@ private suspend fun ApplicationCall.updateAndRespond(
     val updatedUser =
         user?.copy(
             reviews = user.reviews + newReview,
-        )
-            ?: return
+        ) ?: return
 
     dao.editUser(updatedUser, updatedUser.uuid!!)
     respondText("${newReview.id}", status = HttpStatusCode.Created)

@@ -58,4 +58,4 @@ COPY --from=ktor-build /build/keystore.jks ./
 EXPOSE 8080 8443
 CMD ["java", "-jar", "course-informer-all.jar"]
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:8080/health || exit 1
+  CMD curl -f -k https://localhost:8443/health || exit 1

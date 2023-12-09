@@ -9,6 +9,7 @@ package edu.umass.routes
 
 import edu.umass.dao.dao
 import edu.umass.models.Course
+import edu.umass.models.CourseFilter
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
@@ -25,6 +26,7 @@ import io.ktor.server.routing.post
 fun Route.courseRoutes() {
     listCourses()
     getCourse()
+    getFilteredCourses()
     addCourse()
     updateCourse()
     deleteCourse()
@@ -56,6 +58,18 @@ fun Route.getCourse() {
         val course = dao.course(id)
         course?.let { call.respond(course) }
             ?: call.respond(HttpStatusCode.NotFound, "No course with id $id")
+    }
+}
+
+/**
+ * Route to get a course by ID.
+ *
+ * @receiver The Route on which to define the route.
+ */
+fun Route.getFilteredCourses() {
+    post("/course/filter") {
+        val filter: CourseFilter = call.receive<CourseFilter>()
+        call.respond(mapOf("course_table" to dao.filteredCourses(filter)))
     }
 }
 

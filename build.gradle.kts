@@ -13,7 +13,7 @@ plugins {
     kotlin("plugin.serialization").version("2.0.0-Beta1")
     id("io.ktor.plugin") version "3.0.0-beta-1"
     id("org.jetbrains.dokka") version "1.9.10"
-    id("com.diffplug.spotless") version "6.23.2"
+    id("com.diffplug.spotless") version "6.23.3"
     id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
@@ -44,6 +44,11 @@ tasks.build {
     dependsOn(tasks.named("shadowJar"))
 }
 
+tasks.register<Copy>("copyFrontEnd") {
+    from(layout.buildDirectory.dir("../my-app/out"))
+    into(layout.buildDirectory.dir("../src/main/resources/static"))
+}
+
 group = "edu.umass"
 version = "0.0.1"
 
@@ -57,7 +62,6 @@ application {
 repositories {
     mavenCentral()
     maven { url = uri("https://maven.pkg.jetbrains.space/public/p/ktor/eap") }
-    maven { url = uri("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven/") }
 }
 
 dependencies {

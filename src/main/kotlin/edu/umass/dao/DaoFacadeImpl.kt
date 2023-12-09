@@ -2,6 +2,7 @@ package edu.umass.dao
 
 import edu.umass.dao.DatabaseSingleton.dbQuery
 import edu.umass.models.Course
+import edu.umass.models.CourseFilter
 import edu.umass.models.Courses
 import edu.umass.models.LetterGrade
 import edu.umass.models.Professor
@@ -15,6 +16,7 @@ import edu.umass.models.Users
 
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.andWhere
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
@@ -71,8 +73,8 @@ class DaoFacadeImpl : DaoFacade {
             favoriteCourses =
                 row[Users.favoriteCourses]?.split(",")?.mapNotNull { course(it.toInt()) }
                     ?: emptyList(),
-            reviews = row[Users.reviews]?.split(",")?.mapNotNull { review(it.toInt()) }
-                ?: emptyList(),
+            reviews =
+                row[Users.reviews]?.split(",")?.mapNotNull { review(it.toInt()) } ?: emptyList(),
         )
 
     /**
@@ -85,10 +87,11 @@ class DaoFacadeImpl : DaoFacade {
     private suspend fun resultRowToReview(row: ResultRow) =
         Review(
             id = row[Reviews.id],
-            professor = professor(row[Reviews.professorId])
-                ?: throw IllegalArgumentException("Professor not found"),
-            course = course(row[Reviews.courseId])
-                ?: throw IllegalArgumentException("Course not found"),
+            professor =
+                professor(row[Reviews.professorId])
+                    ?: throw IllegalArgumentException("Professor not found"),
+            course =
+                course(row[Reviews.courseId]) ?: throw IllegalArgumentException("Course not found"),
             userId = row[Reviews.userId],
             date = row[Reviews.datetime]?.toKotlinLocalDateTime(),
             difficulty = row[Reviews.difficulty],
@@ -120,8 +123,9 @@ class DaoFacadeImpl : DaoFacade {
                 row[Courses.semestersOffered]?.split(",")?.mapNotNull { parseSemester(it) }
                     ?: emptyList(),
             courseLevel = row[Courses.courseLevel],
-            professors = row[Courses.professors]?.split(",")?.mapNotNull { professor(it.toInt()) }
-                ?: emptyList(),
+            professors =
+                row[Courses.professors]?.split(",")?.mapNotNull { professor(it.toInt()) }
+                    ?: emptyList(),
         )
 
     /**
@@ -310,6 +314,23 @@ class DaoFacadeImpl : DaoFacade {
      */
     override suspend fun allCourses(): List<Course> = dbQuery {
         Courses.selectAll().map { resultRowToCourse(it) }
+    }
+
+    /**
+     * Retrieves a list of all courses that match the given filter.
+     *
+     * @param filter The filter to apply to the course list.
+     * @return A list of Course objects.
+     */
+    override suspend fun filteredCourses(filter: CourseFilter): List<Course> = dbQuery {
+        val query = Courses.selectAll()
+        filter.minCredits?.let { query.andWhere { Courses.credits greaterEq it } }
+        filter.maxCredits?.let { query.andWhere { Courses.credits lessEq it } }
+        filter.courseLevel?.let { query.andWhere { Courses.courseLevel eq it } }
+        filter.semestersOffered?.let {
+            query.andWhere { Courses.semestersOffered like "%${it.joinToString(",")}%" }
+        }
+        query.map { resultRowToCourse(it) }
     }
 
     /**
