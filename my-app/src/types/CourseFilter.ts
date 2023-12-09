@@ -1,6 +1,6 @@
 import { Semester } from '@/types/semester'
 
-export interface Course {
+export interface CourseFilter {
   minCredits: number
   maxCredits: number
   courseLevel: number
