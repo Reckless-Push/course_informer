@@ -102,6 +102,7 @@ const ResponseForm = (course_data: Course) => {
             </div>
             <div className={styles.SelectProfessor}>
               <label className={styles.Text}>Rate your Professor</label>
+              <label style={{ paddingRight: "0.8rem" }}>1</label>
               <input
                 type="range"
                 min="1"
@@ -115,11 +116,13 @@ const ResponseForm = (course_data: Course) => {
                 name="quality"
                 value={review.quality}
               ></input>
+              <label style={{ paddingLeft: "0.8rem" }}>5</label>
             </div>
             <div className={styles.SelectProfessor}>
               <label className={styles.Text}>
                 How difficult was this Professor
               </label>
+              <label style={{ paddingRight: "0.8rem" }}>1</label>
               <input
                 type="range"
                 min="1"
@@ -133,6 +136,7 @@ const ResponseForm = (course_data: Course) => {
                 name="difficulty"
                 value={review.difficulty}
               ></input>
+              <label style={{ paddingLeft: "0.8rem" }}>5</label>
             </div>
 
             <div className={styles.SelectProfessor}>

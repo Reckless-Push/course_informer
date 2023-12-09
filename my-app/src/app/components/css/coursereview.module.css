@@ -74,6 +74,19 @@
 
 }
 
+.prof{
+    padding: 2rem;
+        padding-bottom:0rem;
+        display: flex;
+        width: 100%;
+            /* float: left; */
+}
+.profheader{
+    font-weight: 800;
+}
+.profval{
+padding-left:0.5rem;
+}
 .content {
     /* width: 50vw; */
     padding: 2rem;

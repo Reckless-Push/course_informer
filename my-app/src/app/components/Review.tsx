@@ -61,7 +61,12 @@ function Review(data: Review) {
             </div>
             <div className={styles.date}>{formatteddate}</div>
           </div>
-
+          <div className={styles.prof}>
+            <div className={styles.profheader}>Professor: </div>
+            <div className={styles.profval}>
+              {data.professor?.firstName} {data.professor?.lastName}
+            </div>
+          </div>
           <div className={styles.content}>{data.comment}</div>
         </div>
       </div>

@@ -16,7 +16,7 @@ function Rating({ quality, difficulty }: RatingProps) {
   });
   let perc = Array(5).fill("");
   qualitycount.forEach((value, index) => {
-    perc[index] = "`" + String((value * 100) / quality.length) + "%`";
+    perc[index] = String((value * 100) / quality.length) + "%";
   });
   return (
     <div className={styles.Rating}>
@@ -31,7 +31,6 @@ function Rating({ quality, difficulty }: RatingProps) {
               <div className={styles.left}>{5 - index}star </div>
               <div className={styles.middle}>
                 <div className={styles.barcontainer}>
-                  {/* TODO   fix bar graphs width */}
                   <div style={{ width: perc[index] }}></div>
                 </div>
               </div>
