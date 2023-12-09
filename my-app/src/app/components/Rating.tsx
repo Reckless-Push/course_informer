@@ -8,8 +8,12 @@ interface RatingProps {
 }
 
 function Rating({ quality, difficulty }: RatingProps) {
-  let qualitysum = quality.reduce((a, b) => a + b) / quality.length;
-  let difficultysum = difficulty.reduce((a, b) => a + b) / difficulty.length;
+  let qualitysum = (quality.reduce((a, b) => a + b) / quality.length).toFixed(
+    1
+  );
+  let difficultysum = (
+    difficulty.reduce((a, b) => a + b) / difficulty.length
+  ).toFixed(1);
   let qualitycount = Array(5).fill(0);
   quality.forEach((value) => {
     qualitycount[5 - value]++;
