@@ -28,7 +28,7 @@ class Course:
 
     def __repr__(self):
         return {
-            "cics_id": self.cics_id,
+            "cicsId": self.cics_id,
             "department": self.department,
             "name": self.name,
             "description": self.description,

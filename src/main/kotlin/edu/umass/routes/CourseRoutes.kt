@@ -11,6 +11,7 @@ import edu.umass.dao.dao
 import edu.umass.models.Course
 import edu.umass.models.CourseFilter
 import edu.umass.models.CourseIngest
+import edu.umass.models.ExtractedCourse
 
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
@@ -28,6 +29,8 @@ import org.slf4j.LoggerFactory
 
 import java.io.File
 import java.util.UUID
+
+import kotlinx.serialization.json.Json
 
 private val logger = LoggerFactory.getLogger("Extractor")
 
@@ -67,8 +70,11 @@ fun Route.ingestCourses() {
         val filePath = "courses.pdf" // Define a file path to save the PDF
 
         if (downloadPdf(url, filePath)) {
-            val scriptOutput = runPythonScript(filePath)
-            call.respondText(scriptOutput)
+            val uuid = runPythonScript(filePath)
+            val jsonFilePath = "$uuid.json"
+            val jsonContent = File(jsonFilePath).readText()
+            val extractedCourses: List<ExtractedCourse> = Json.decodeFromString(jsonContent)
+            call.respond(mapOf("extracted_courses" to extractedCourses))
         } else {
             call.respond(HttpStatusCode.InternalServerError, "Failed to download or process the file")
         }
@@ -200,12 +206,12 @@ suspend fun downloadPdf(
 fun runPythonScript(filePath: String): String =
     try {
         val outputId = UUID.randomUUID().toString()
-        val process = ProcessBuilder("python", "extractor.py", filePath, outputId).start()
+        val process = ProcessBuilder("python", "extractor.py", filePath, "$outputId.json").start()
         val scriptOutput = process.inputStream.bufferedReader().use { it.readText() }
         val scriptError = process.errorStream.bufferedReader().use { it.readText() }
         logger.info("Script output: $scriptOutput")
         logger.error("Script error: $scriptError")
-        scriptOutput
+        outputId
     } catch (e: Exception) {
         "Error running script: ${e.message}"
     }
