@@ -12,6 +12,32 @@ import re
 import fitz  # PyMuPDF
 
 
+class Course:
+    """
+    This class represents a course.
+    """
+
+    def __init__(self, cics_id, department, name, description, course_credits, instructors, prerequisites):
+        self.cics_id = cics_id
+        self.department = department
+        self.name = name
+        self.description = description
+        self.credits = course_credits
+        self.instructors = instructors
+        self.prerequisites = prerequisites
+
+    def __repr__(self):
+        return {
+            "cics_id": self.cics_id,
+            "department": self.department,
+            "name": self.name,
+            "description": self.description,
+            "credits": self.credits,
+            "instructors": self.instructors,
+            "prerequisites": self.prerequisites,
+        }
+
+
 class PDFExtractor:
     """
     This class extracts text from a PDF file and processes it.
@@ -111,9 +137,11 @@ class CourseExtractor:
             last_match = matches[-1]
             cics_id = last_match[1]
             name = last_match[2]
+            department = last_match[0]
         else:
             cics_id = None
             name = None
+            department = None
 
         # Extract instructors
         instructors_pattern = r"\nINSTRUCTOR\(S\):\s(.*?)(?=(CICS|COMPSCI|INFO) H?\d{3})"
@@ -146,14 +174,9 @@ class CourseExtractor:
         description_match = re.search(description_pattern, course_text, re.DOTALL)
         description = description_match.group(0).strip() if description_match else ""
 
-        return {
-            "cicsId": cics_id,
-            "name": name,
-            "description": description,
-            "credits": course_credits,
-            "instructors": instructors,
-            "prerequisites": prerequisites,
-        }
+        return Course(
+            cics_id, department, name, description, course_credits, instructors, prerequisites
+        ).__repr__()
 
 
 def main():
