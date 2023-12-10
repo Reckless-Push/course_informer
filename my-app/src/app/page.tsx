@@ -5,6 +5,7 @@ import { ComponentStates } from "@/types/ComponentStates";
 import Navbar from "@/app/components/Navbar";
 import ResponseForm from "@/app/review/review";
 import CourseCatalogPage from "./courseCatalog/coursecatalog";
+import Login  from "./login/login";
 
 import useFetchData from "./hooks/useFetchData";
 import { Course, CourseResponse } from "@/types/course";
@@ -77,6 +78,13 @@ const Home = () => {
       {componentStates.user && <ProfilePage />}
       {componentStates.courseDashboard && (
         <CourseCatalogPage
+          onToggleComponent={onToggleComponent}
+          onHome={onHome}
+          componentStates={componentStates}
+        />
+      )}
+      {componentStates.login && (
+        <Login
           onToggleComponent={onToggleComponent}
           onHome={onHome}
           componentStates={componentStates}
