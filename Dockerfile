@@ -46,14 +46,20 @@ RUN ./gradlew build
 FROM amazonlinux:2023
 # Install JRE (Runtime Environment)
 RUN yum update -y && \
-    yum install java-21-amazon-corretto-headless -y && \
+    yum install -y java-21-amazon-corretto-headless && \
+    yum install -y python && \
+    yum install -y shadow-utils && \
     yum clean all
 # Switch to a non-root user to run the app
-USER nobody
+RUN useradd -m myuser
+USER myuser
+RUN python -m ensurepip --upgrade
+RUN python -m pip install --upgrade pymupdf
 WORKDIR /app
 # Copy the built JAR and keystore from the Ktor build stage
 COPY --from=ktor-build /build/build/libs/course-informer-all.jar ./
 COPY --from=ktor-build /build/keystore.jks ./
+COPY extractor/extractor.py ./
 
 EXPOSE 8080 8443
 CMD ["java", "-jar", "course-informer-all.jar"]
