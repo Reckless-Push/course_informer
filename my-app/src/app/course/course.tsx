@@ -20,6 +20,11 @@ function CoursePage({ course_data, onUserInputChange }: CoursePageProps) {
     error: reviewError,
   } = useFetchData<ReviewResponse>("https://localhost:8443/review");
 
+  if (Object.keys(course_data).length === 0 && course_data.constructor === Object) {
+    return <div>No course data available.</div>;
+  }
+  
+
   if (reviewLoading) return <div>Loading...</div>;
   if (reviewError) return <div>Error:{reviewError?.message}</div>;
 
@@ -42,7 +47,9 @@ function CoursePage({ course_data, onUserInputChange }: CoursePageProps) {
       <div className={styles.main}>
         {course_data && <CourseDesc {...course_data}></CourseDesc>}
 
-        <Rating quality={qualityscore} difficulty={difficultyscore} />
+        {qualityscore.length > 0 && difficultyscore.length > 0 && (
+          <Rating quality={qualityscore} difficulty={difficultyscore} />
+        )}
 
         <div className={styles.RateThisCourse}>
           <button

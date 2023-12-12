@@ -41,11 +41,11 @@ const Home = () => {
       login: false,
     });
   };
-  const {
-    data: courseData,
-    loading: courseLoading,
-    error: courseError,
-  } = useFetchData<CourseResponse>("https://localhost:8443/course");
+  // const {
+  //   data: courseData,
+  //   loading: courseLoading,
+  //   error: courseError,
+  // } = useFetchData<CourseResponse>("https://localhost:8443/course");
 
   const [course, setcourse] = useState<Course>({} as Course);
   const handleUserInputChange = (event: Course) => {
