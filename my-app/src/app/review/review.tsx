@@ -7,6 +7,7 @@ import { Professor, ProfessorResponse } from "@/types/professor";
 import { Review } from "@/types/review";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { lime, purple } from "@mui/material/colors";
+import styles from "@/app/review/review.module.css";
 
 const theme = createTheme({
   palette: {
@@ -14,11 +15,10 @@ const theme = createTheme({
       main: "#640000",
     },
     secondary: {
-      main: "#880e4f",
+      main: "#ffffff",
     },
   },
 });
-import styles from "@/app/review/review.module.css";
 
 const ResponseForm = (course_data: Course) => {
   const initialReviewState: Review = {
@@ -94,6 +94,7 @@ const ResponseForm = (course_data: Course) => {
               component="form"
               className={styles.FormContainer}
               onSubmit={handleSubmit}
+              background-color="secondary"
             >
               <div className={styles.SelectProfessor}>
                 <label className={styles.Text}>Select Professor</label>
