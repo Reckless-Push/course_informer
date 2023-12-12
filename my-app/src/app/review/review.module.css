@@ -13,8 +13,12 @@
 }
 
 .FormContainer {
-    padding-left: 20%;
-    padding-right: 20%;
+    /* padding-left: 20%;
+    padding-right: 20%; */
+    margin: auto;
+    background-color: white;
+    border-color: white;
+    width: 50%;
 
 }
 
@@ -25,6 +29,7 @@
     align-items: center;
     background-color: #d9d9d9;
     padding: 0.5rem;
+    width: 100%;
 
 }
 

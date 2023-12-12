@@ -13,25 +13,29 @@ interface CoursePageProps {
 }
 
 function CoursePage({ course_data, onUserInputChange }: CoursePageProps) {
-  console.log("Which course:", course_data)
+  console.log("Which course:", course_data);
   const {
     data: reviewData,
     loading: reviewLoading,
     error: reviewError,
   } = useFetchData<ReviewResponse>("https://localhost:8443/review");
 
-  if (Object.keys(course_data).length === 0 && course_data.constructor === Object) {
+  if (
+    Object.keys(course_data).length === 0 &&
+    course_data.constructor === Object
+  ) {
     return <div>No course data available.</div>;
   }
-  
 
   if (reviewLoading) return <div>Loading...</div>;
   if (reviewError) return <div>Error:{reviewError?.message}</div>;
 
   const qualityscore = new Array();
   const difficultyscore = new Array();
+  const reviews = new Array();
   reviewData?.review_table.forEach((review) => {
     if (review.course && review.course.cicsId == course_data.cicsId) {
+      reviews.push(review);
       qualityscore.push(review.quality);
       difficultyscore.push(review.difficulty);
     }
@@ -47,7 +51,7 @@ function CoursePage({ course_data, onUserInputChange }: CoursePageProps) {
       <div className={styles.main}>
         {course_data && <CourseDesc {...course_data}></CourseDesc>}
 
-        {qualityscore.length > 0 && difficultyscore.length > 0 && (
+        {reviews.length > 0 && (
           <Rating quality={qualityscore} difficulty={difficultyscore} />
         )}
 
@@ -59,9 +63,8 @@ function CoursePage({ course_data, onUserInputChange }: CoursePageProps) {
             Add review
           </button>
         </div>
-        {reviewData?.review_table.map((review) => (
-          <Review key={review.comment} {...review} />
-        ))}
+        {reviews.length > 0 &&
+          reviews.map((review) => <Review key={review.comment} {...review} />)}
       </div>
     </div>
   );
