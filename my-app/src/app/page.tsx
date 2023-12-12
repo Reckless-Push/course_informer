@@ -69,9 +69,9 @@ const Home = () => {
       />
 
       {/* <Navbar></Navbar> */}
-      {componentStates.courses && course && courseData && (
+      {componentStates.courses && course && (
         <CoursePage
-          course_data={courseData.course_table[1]}
+          course_data={course}
           onUserInputChange={handleUserInputChange}
         />
       )}
