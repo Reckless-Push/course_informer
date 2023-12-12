@@ -7,6 +7,7 @@ import useFetchData from "@/app/hooks/useFetchData";
 import { Course, CourseResponse } from "@/types/course";
 
 interface CourseCatalogPage {
+  onUserInputChange: any;
   onToggleComponent: (component: keyof ComponentStates) => void;
   onHome: () => void;
   componentStates: {
@@ -19,6 +20,7 @@ interface CourseCatalogPage {
 }
 
 function CourseCatalogPage({
+  onUserInputChange,
   onToggleComponent,
   onHome,
   componentStates,
@@ -46,6 +48,7 @@ function CourseCatalogPage({
       </div>
       <div className="list_column">
         <CourseList
+          onUserInputChange = {onUserInputChange}
           courseData={courseData}
           onToggleComponent={onToggleComponent}
           onHome={onHome}

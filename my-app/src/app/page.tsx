@@ -47,9 +47,11 @@ const Home = () => {
     error: courseError,
   } = useFetchData<CourseResponse>("https://localhost:8443/course");
 
-  const [course, setcourse] = useState<Course>();
+  const [course, setcourse] = useState<Course>({} as Course);
   const handleUserInputChange = (event: Course) => {
     setcourse(event);
+    console.log("Event:", event);
+    // console.log("Event2:", courseData.course_table[1])
     onToggleComponent("reviews");
     console.log("Component States:", componentStates);
   };
@@ -67,9 +69,9 @@ const Home = () => {
       />
 
       {/* <Navbar></Navbar> */}
-      {componentStates.courses && courseData && (
+      {componentStates.courses && course && courseData && (
         <CoursePage
-          course_data={courseData.course_table[0]}
+          course_data={courseData.course_table[1]}
           onUserInputChange={handleUserInputChange}
         />
       )}
@@ -78,6 +80,7 @@ const Home = () => {
       {componentStates.user && <ProfilePage />}
       {componentStates.courseDashboard && (
         <CourseCatalogPage
+          onUserInputChange={handleUserInputChange}
           onToggleComponent={onToggleComponent}
           onHome={onHome}
           componentStates={componentStates}

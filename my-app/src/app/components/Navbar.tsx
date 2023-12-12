@@ -43,7 +43,7 @@ function Navbar({ onToggleComponent, onHome, componentStates }: NavBarProps) {
 
   const handleLoginClick = () => {
     window.location.href = `https://localhost:8443/${isLoggedIn ? 'logout' : 'login'}`;
-    onToggleComponent("login");
+    onToggleComponent("courseDashboard");
   };
 
   return (

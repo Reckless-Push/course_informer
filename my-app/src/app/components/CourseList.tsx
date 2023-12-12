@@ -4,6 +4,7 @@ import { ComponentStates } from "@/types/ComponentStates";
 import { CourseResponse } from "@/types/course";
 
 interface CourseListProps {
+  onUserInputChange: any;
   courseData: CourseResponse | null
   onToggleComponent: (component: keyof ComponentStates) => void;
   onHome: () => void;
@@ -16,6 +17,7 @@ interface CourseListProps {
 }
 
 function CourseList({
+  onUserInputChange,
   courseData,
   onToggleComponent,
   onHome,
@@ -33,6 +35,7 @@ function CourseList({
       return (
         <CourseCard
           key={course.cicsId}
+          onUserInputChange = {onUserInputChange}
           course={course}
           onToggleComponent={onToggleComponent}
           onHome={onHome}

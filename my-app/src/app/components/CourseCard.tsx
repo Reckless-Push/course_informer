@@ -4,6 +4,7 @@ import { ComponentStates } from "@/types/ComponentStates";
 import { Course } from "@/types/course";
 
 interface CourseCardProps {
+  onUserInputChange: any
   course: Course
   onToggleComponent: (component: keyof ComponentStates) => void;
   onHome: () => void;
@@ -17,7 +18,9 @@ interface CourseCardProps {
 
 function handleClick(props: CourseCardProps) {
   //props.onToggleComponent('reviews');
+  props.onUserInputChange(props.course);
   props.onToggleComponent("courses");
+  console.log(props.course.cicsId)
   //props.onToggleComponent('login');
 }
 

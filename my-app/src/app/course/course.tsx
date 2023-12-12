@@ -13,6 +13,7 @@ interface CoursePageProps {
 }
 
 function CoursePage({ course_data, onUserInputChange }: CoursePageProps) {
+  console.log("Which course:", course_data)
   const {
     data: reviewData,
     loading: reviewLoading,
