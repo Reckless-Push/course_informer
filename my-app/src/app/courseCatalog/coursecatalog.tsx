@@ -1,10 +1,10 @@
 import React from "react";
-import "./courseCatalog.css";
 import CourseList from "../components/CourseList";
 import CourseFiltersList from "../components/CourseFiltersList";
 import { ComponentStates } from "@/types/ComponentStates";
 import useFetchData from "@/app/hooks/useFetchData";
 import { Course, CourseResponse } from "@/types/course";
+import styles from "@/app/courseCatalog/courseCatalog.module.css";
 
 interface CourseCatalogPage {
   onUserInputChange: any;
@@ -42,11 +42,11 @@ function CourseCatalogPage({
   }
 
   return (
-    <div className="container">
-      <div className="filters_column">
+    <div className={styles.container}>
+      <div className={styles.filters_column}>
         <CourseFiltersList />
       </div>
-      <div className="list_column">
+      <div className={styles.list_column}>
         <CourseList
           onUserInputChange = {onUserInputChange}
           courseData={courseData}

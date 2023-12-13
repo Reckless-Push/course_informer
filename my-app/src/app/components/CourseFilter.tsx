@@ -1,35 +1,24 @@
 import React from 'react'
 import styles from "./css/courseFilter.module.css";
 
-const CourseFilter = () => {
+
+interface CourseFilterProps {
+    filterTitle: string
+    options: { label: string}[];
+  }
+const CourseFilter: React.FC<CourseFilterProps> = (props) =>{
   return (
     <div >
-        <h1 className={styles.filterTitle}> Term Offered:</h1>
+        <h1 className={styles.filterTitle}> {props.filterTitle}</h1>
         <ul className={styles.listContainer}>
-            <li>
-                <label>
-                    <input type="checkbox" className={styles.filterOption} />
-                    Spring 2024
-                </label>
-            </li>
-            <li>
-                <label>
-                    <input type="checkbox" className={styles.filterOption} />
-                    Fall 2023
-                </label>
-            </li>
-            <li>
-                <label>
-                    <input type="checkbox" className={styles.filterOption}/>
-                    Spring 2023
-                </label>
-            </li>
-            <li>
-                <label>
-                    <input type="checkbox" className={styles.filterOption}/>
-                    Fall 2022
-                </label>
-            </li>
+        {props.options.map((option, index) => (
+          <li key={index}>
+            <label>
+              <input type="checkbox" className={styles.filterOption} />
+              {option.label}
+            </label>
+          </li>
+        ))}
         </ul>
 
     </div>

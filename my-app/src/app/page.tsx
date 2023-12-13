@@ -20,10 +20,10 @@ type ComponentKey =
 
 const Home = () => {
   const [componentStates, setComponentStates] = useState<ComponentStates>({
-    courses: true,
+    courses: false,
     reviews: false,
     user: false,
-    courseDashboard: false,
+    courseDashboard: true,
     login: false,
   });
 
