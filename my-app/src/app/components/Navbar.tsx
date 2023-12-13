@@ -64,23 +64,23 @@ function Navbar({ onToggleComponent, onHome, componentStates }: NavBarProps) {
               </button>
             </a>
           </li>
-          <li>
+          {/* <li>
             <a>
               <button onClick={() => handleButtonClick("courses")}>
                 Course
               </button>
             </a>
-          </li>
-          <li>
+          </li> */}
+          {/* <li>
             <a>
               <button onClick={() => handleButtonClick("reviews")}>
                 Review
               </button>
             </a>
-          </li>
+          </li> */}
           <li>
             <a>
-              <button onClick={() => handleButtonClick("user")}>User</button>
+              <button onClick={() => handleButtonClick("user")}>My Profile</button>
             </a>
           </li>
           <li>
