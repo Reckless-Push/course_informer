@@ -99,7 +99,7 @@ fun Route.updateProfessor() {
             val updatedProfessor = dao.editProfessor(professor, id)
             updatedProfessor.let {
                 if (updatedProfessor) {
-                    call.respondText("Professor edited correctly", status = HttpStatusCode.Accepted)
+                    updatedProfessor.let { call.respond(updatedProfessor) }
                 } else {
                     call.respond(HttpStatusCode.InternalServerError)
                 }

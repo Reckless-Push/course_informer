@@ -15,12 +15,15 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 import kotlinx.serialization.json.Json.Default.decodeFromString
 
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.encodeToString
+
 typealias ProfList = List<Professor>
 
 class ProfessorRoutesTest {
     val newProfessorJson = buildString {
         append("{")
-        append("\"id\": 5,")
+        append("\"id\": 8,")
         append("\"firstName\": \"Subhransu\",")
         append("\"lastName\": \"Maji\"")
         append("}")
@@ -55,25 +58,19 @@ class ProfessorRoutesTest {
     /** Test to verify the GET request for a specific professor by ID. */
     @Test
     fun testGetProfessorId() = testApplication {
-        val response = client.get("/professor/5") { url { protocol = URLProtocol.HTTPS } }
+        val response = client.get("/professor/1") { url { protocol = URLProtocol.HTTPS } }
         assertEquals(HttpStatusCode.OK, response.status)
 
         val professor: Professor = decodeFromString(response.bodyAsText())
-        assertTrue(professor.id == 5, "Id should be 5")
+        assertTrue(professor.id == 1, "Id should be 1")
     }
 
     /** Test to verify the POST request for updating a professor by ID. */
     @Test
     fun testPostProfessorId() = testApplication {
-        val editProfessorJson = buildString {
-            append("{")
-            append("\"id\": 5,")
-            append("\"firstName\": \"Max\",")
-            append("\"lastName\": \"Hamilton\"")
-            append("}")
-        }
+        val editProfessorJson = Json.encodeToString(Professor(1, "Subhransu", "Maji"))
         val responseEdit =
-            client.post("/professor/update/5") {
+            client.post("/professor/update/1") {
                 url { protocol = URLProtocol.HTTPS }
                 contentType(ContentType.Application.Json)
                 setBody(editProfessorJson)
@@ -87,7 +84,14 @@ class ProfessorRoutesTest {
     /** Test to verify the GET request for deleting a professor by ID. */
     @Test
     fun testGetProfessorDeleted() = testApplication {
-        val response = client.get("/professor/delete/3") { url { protocol = URLProtocol.HTTPS } }
+        val postResponse =
+            client.post("/professor") {
+                url { protocol = URLProtocol.HTTPS }
+                contentType(ContentType.Application.Json)
+                setBody(newProfessorJson)
+            }
+        assertEquals(HttpStatusCode.Created, postResponse.status)
+        val response = client.get("/professor/delete/8") { url { protocol = URLProtocol.HTTPS } }
         assertEquals(HttpStatusCode.Accepted, response.status)
     }
 }
