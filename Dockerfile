@@ -20,9 +20,15 @@ ARG PRIVATE_KEY_PASSWORD
 ARG KEYSTORE_PASSWORD
 ARG GOOGLE_CLIENT_ID
 ARG GOOGLE_CLIENT_SECRET
+ARG JDBC_H2_URL
+ARG JDBC_H2_DRIVER
+ARG JDBC_DATABASE_URL
+ARG JDBC_POSTGRES_DRIVER
 
 ENV GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
 ENV GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+ENV JDBC_URL=${JDBC_H2_URL}
+ENV JDBC_DRIVER=${JDBC_H2_DRIVER}
 
 WORKDIR /build
 COPY gradlew gradle.properties diktat-analysis.yml ./
@@ -40,7 +46,10 @@ RUN cp keystore.jks src/main/resources/keystore.jks && \
     mkdir -p src/main/resources/cert && \
     cp keystore.p12 src/main/resources/cert/keystore.p12
 COPY --from=react-build /app/out /build/src/main/resources/static
-RUN ./gradlew build
+RUN ./gradlew clean test
+ENV JDBC_URL=${JDBC_DATABASE_URL}
+ENV JDBC_DRIVER=${JDBC_POSTGRES_DRIVER}
+RUN ./gradlew clean build -x test
 
 # Stage 3: Create the final image to run the server
 FROM amazonlinux:2023

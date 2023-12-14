@@ -1,6 +1,25 @@
 version: '3.8'
 
 services:
+  db:
+    image: postgres:alpine3.19
+    container_name: db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./scripts:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    networks:
+      - default
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d course_informer" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: on-failure
   app:
     build:
       context: .
@@ -11,19 +30,40 @@ services:
         KEYSTORE_PASSWORD: ${KEYSTORE_PASSWORD}
         GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
         GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+        JDBC_DATABASE_URL: ${JDBC_DATABASE_URL}
+        JDBC_H2_URL: ${JDBC_H2_URL}
+        JDBC_H2_DRIVER: ${JDBC_H2_DRIVER}
+        JDBC_POSTGRES_DRIVER: ${JDBC_POSTGRES_DRIVER}
+        POSTGRES_USER: ${POSTGRES_USER}
+        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    depends_on:
+      db:
+        condition: service_healthy
     environment:
       KEY_ALIAS: ${KEY_ALIAS}
       PRIVATE_KEY_PASSWORD: ${PRIVATE_KEY_PASSWORD}
       KEYSTORE_PASSWORD: ${KEYSTORE_PASSWORD}
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      JDBC_DATABASE_URL: ${JDBC_DATABASE_URL}
+      JDBC_H2_URL: ${JDBC_H2_URL}
+      JDBC_H2_DRIVER: ${JDBC_H2_DRIVER}
+      JDBC_POSTGRES_DRIVER: ${JDBC_POSTGRES_DRIVER}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      JDBC_DRIVER: ${JDBC_POSTGRES_DRIVER}
+      JDBC_URL: ${JDBC_DATABASE_URL}
     ports:
       - "8080:8080"
       - "8443:8443"
     healthcheck:
-      test: ["CMD", "curl", "-f", "-k", "https://localhost:8443/health"]
+      test: [ "CMD", "curl", "-f", "-k", "https://localhost:8443/health" ]
       interval: 30s
       timeout: 30s
       retries: 3
       start_period: 5s
+    networks:
+      - default
     restart: on-failure
+volumes:
+  db-data:

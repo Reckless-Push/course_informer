@@ -67,7 +67,7 @@ fun Route.ingestCourses() {
     post("/course/ingest") {
         val request: CourseIngest = call.receive<CourseIngest>()
         val url = Url(request.url)
-        val filePath = "courses.pdf" // Define a file path to save the PDF
+        val filePath = "${UUID.randomUUID()}.txt"
 
         if (downloadPdf(url, filePath)) {
             val uuid = runPythonScript(filePath)
@@ -75,6 +75,16 @@ fun Route.ingestCourses() {
             val jsonContent = File(jsonFilePath).readText()
             val extractedCourses: List<ExtractedCourse> = Json.decodeFromString(jsonContent)
             call.respond(mapOf("extracted_courses" to extractedCourses))
+
+            // Delete the files after loading the extracted course list
+            val jsonFile = File(jsonFilePath)
+            if (jsonFile.exists()) {
+                jsonFile.delete()
+            }
+            val pdfFile = File(filePath)
+            if (pdfFile.exists()) {
+                pdfFile.delete()
+            }
         } else {
             call.respond(HttpStatusCode.InternalServerError, "Failed to download or process the file")
         }

@@ -42,3 +42,5 @@ out/
 
 /src/main/resources/keystore.jks
 /.env
+/my-app-testing/
+/my-app-testing/

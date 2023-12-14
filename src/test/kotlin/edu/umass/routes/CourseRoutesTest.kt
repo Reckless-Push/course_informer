@@ -13,7 +13,9 @@ import io.ktor.server.testing.testApplication
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
+import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.Json.Default.decodeFromString
+import kotlinx.serialization.json.encodeToJsonElement
 
 class CourseRoutesTest {
     /** Test to verify the GET request for courses. */
@@ -29,21 +31,15 @@ class CourseRoutesTest {
     /** Test to verify the POST request for creating a new course. */
     @Test
     fun testPostCourse() = testApplication {
-        val newCourseJson = buildString {
-            append("{")
-            append("\"cicsId\": 201,")
-            append("\"name\": \"Test Course\",")
-            append("\"description\": \"This is a test course\",")
-            append("\"credits\": 3,")
-            append("\"courseLevel\": 200")
-            append("}")
-        }
+        val courseJson =
+            Json.encodeToJsonElement(Course(201, "Test Course", "This is a test course", 3, 200))
+                .toString()
 
         val response =
             client.post("/course") {
                 url { protocol = URLProtocol.HTTPS }
                 contentType(ContentType.Application.Json)
-                setBody(newCourseJson)
+                setBody(courseJson)
             }
         assertEquals(HttpStatusCode.Created, response.status)
     }

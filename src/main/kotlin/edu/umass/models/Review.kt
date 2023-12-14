@@ -26,7 +26,7 @@ data class Review(
     val id: Int? = null,
     val professor: Professor,
     val course: Course,
-    @Serializable(with = UuidSerializer::class) val userId: UUID?,
+    @Serializable(with = UuidSerializer::class) val userId: UUID? = null,
     val date: LocalDateTime?,
     val difficulty: Int,
     val quality: Int,

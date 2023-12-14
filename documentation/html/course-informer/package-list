@@ -128,6 +128,9 @@ $dokka.location:edu.umass.models/LetterGradeSerializer/serialize/#kotlinx.serial
 $dokka.location:edu.umass.models/MySession///PointingToDeclaration/course-informer/edu.umass.models/-my-session/index.html
 $dokka.location:edu.umass.models/MySession/MySession/#kotlin.Int/PointingToDeclaration/course-informer/edu.umass.models/-my-session/-my-session.html
 $dokka.location:edu.umass.models/MySession/count/#/PointingToDeclaration/course-informer/edu.umass.models/-my-session/count.html
+$dokka.location:edu.umass.models/PdfExtractor///PointingToDeclaration/course-informer/edu.umass.models/-pdf-extractor/index.html
+$dokka.location:edu.umass.models/PdfExtractor/PdfExtractor/#kotlin.ByteArray/PointingToDeclaration/course-informer/edu.umass.models/-pdf-extractor/-pdf-extractor.html
+$dokka.location:edu.umass.models/PdfExtractor/extractText/#/PointingToDeclaration/course-informer/edu.umass.models/-pdf-extractor/extract-text.html
 $dokka.location:edu.umass.models/Professor///PointingToDeclaration/course-informer/edu.umass.models/-professor/index.html
 $dokka.location:edu.umass.models/Professor/Professor/#kotlin.Int?#kotlin.String#kotlin.String/PointingToDeclaration/course-informer/edu.umass.models/-professor/-professor.html
 $dokka.location:edu.umass.models/Professor/firstName/#/PointingToDeclaration/course-informer/edu.umass.models/-professor/first-name.html
