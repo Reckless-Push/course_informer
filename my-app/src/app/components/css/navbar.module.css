@@ -1,0 +1,39 @@
+.nav {
+    position: fixed;
+    z-index: 10;
+    background-color: rgb(100, 0, 0);
+    color: white;
+
+}
+
+.nav div {
+    height: 3rem;
+    width: 100vw;
+}
+
+.nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+}
+
+.nav li {
+    display: inline;
+    float: right;
+}
+
+.nav li:first-child {
+    float: left;
+}
+
+.nav li a:hover {
+    background-color: #8D89A6;
+}
+
+.nav li a {
+    display: block;
+    text-align: center;
+    padding: 1.5rem 1.5rem;
+    text-decoration: none;
+}

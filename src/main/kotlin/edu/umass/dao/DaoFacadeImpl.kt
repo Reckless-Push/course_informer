@@ -12,6 +12,7 @@ import edu.umass.models.Semester
 import edu.umass.models.SemesterSeason
 import edu.umass.models.User
 import edu.umass.models.Users
+
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.deleteWhere
@@ -421,6 +422,36 @@ class DaoFacadeImpl : DaoFacade {
      */
     override suspend fun allReviews(): List<Review> = dbQuery {
         Reviews.selectAll().map { resultRowToReview(it) }
+    }
+
+    /**
+     * Retrieves a list of all reviews for a given user.
+     *
+     * @param uuid The ID of the user.
+     * @return A list of Review objects.
+     */
+    override suspend fun allUserReviews(uuid: UUID): List<Review> = dbQuery {
+        Reviews.select { Reviews.userId eq uuid }.map { resultRowToReview(it) }
+    }
+
+    /**
+     * Retrieves a list of all reviews for a given course.
+     *
+     * @param cicsId The CICS ID of the course.
+     * @return A list of Review objects.
+     */
+    override suspend fun allCourseReviews(cicsId: Int): List<Review> = dbQuery {
+        Reviews.select { Reviews.courseId eq cicsId }.map { resultRowToReview(it) }
+    }
+
+    /**
+     * Retrieves a list of all reviews for a given professor.
+     *
+     * @param id The ID of the professor.
+     * @return A list of Review objects.
+     */
+    override suspend fun allProfessorReviews(id: Int): List<Review> = dbQuery {
+        Reviews.select { Reviews.professorId eq id }.map { resultRowToReview(it) }
     }
 
     /**
