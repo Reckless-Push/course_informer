@@ -1,6 +1,10 @@
 package edu.umass.routes
 
+import edu.umass.models.Course
+import edu.umass.models.LetterGrade
+import edu.umass.models.Professor
 import edu.umass.models.Review
+import edu.umass.models.User
 import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
@@ -10,67 +14,64 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.http.URLProtocol
 import io.ktor.http.contentType
 import io.ktor.server.testing.testApplication
+import java.util.UUID
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.Json.Default.decodeFromString
 
 class ReviewRoutesTest {
     // Dummy objects
-    val newReviewJson = buildString {
-        append("{")
-        append("\"id\": 5,")
-
-        append("\"Professor\": {")
-        append("\"id\": 5,")
-        append("\"firstName\": \"Subhransu\",")
-        append("\"lastName\": \"Maji\"")
-        append("},")
-
-        append("\"Course\": {")
-        append("\"cicsId\": 201,")
-        append("\"name\": \"Test Course\",")
-        append("\"description\": \"This is a test course\",")
-        append("\"credits\": 3,")
-        append("\"courseLevel\": 200")
-        append("},")
-
-        append("\"difficulty\": 5,")
-        append("\"quality\": 4,")
-        append("\"comment\": \"Teacher cares about her students\",")
-        append("\"fromRmp\": false,")
-        append("\"forCredit\": true,")
-        append("\"attendance\": true,")
-        append("\"textbook\": false,")
-        append("}")
-    }
-    val editReviewJson = buildString {
-        append("{")
-        append("\"id\": 5,")
-
-        append("\"Professor\": {")
-        append("\"id\": 5,")
-        append("\"firstName\": \"Subhransu\",")
-        append("\"lastName\": \"Maji\"")
-        append("},")
-
-        append("\"Course\": {")
-        append("\"cicsId\": 301,")
-        append("\"name\": \"Edited Test Course\",")
-        append("\"description\": \"This is a test course\",")
-        append("\"credits\": 3,")
-        append("\"courseLevel\": 200")
-        append("},")
-
-        append("\"difficulty\": 5,")
-        append("\"quality\": 4,")
-        append("\"comment\": \"Teacher cares about her students\",")
-        append("\"fromRmp\": false,")
-        append("\"forCredit\": true,")
-        append("\"attendance\": true,")
-        append("\"textbook\": false,")
-        append("}")
-    }
+    val prof = Professor(9, "Subhransu", "Maji")
+    val course = Course(501, "Test Course", "This is a test course", 3, 100)
+    val uuid = UUID.fromString("4472068d-c076-4ca0-b9de-085c0a4c7a14")
+    val user =
+        User(
+            uuid,
+            "Alice",
+            "Smith",
+            "alice@example.com",
+        )
+    val datetime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+    val newReview =
+        Review(
+            11,
+            prof,
+            course,
+            uuid,
+            datetime,
+            5,
+            4,
+            "Comment",
+            false,
+            true,
+            true,
+            false,
+            LetterGrade.GRADE_A,
+        )
+    val editReview =
+        Review(
+            2,
+            prof,
+            course,
+            uuid,
+            datetime,
+            5,
+            4,
+            "Other comment",
+            false,
+            true,
+            true,
+            false,
+            LetterGrade.GRADE_A,
+        )
+    val newReviewJson = Json.encodeToString(newReview)
+    val editReviewJson = Json.encodeToString(editReview)
 
     /** Test to verify the GET request for reviews. */
     @Test
@@ -97,11 +98,11 @@ class ReviewRoutesTest {
     /** Test to verify the GET request for a specific review by ID. */
     @Test
     fun testGetReviewId() = testApplication {
-        val response = client.get("/review/2") { url { protocol = URLProtocol.HTTPS } }
+        val response = client.get("/review/1") { url { protocol = URLProtocol.HTTPS } }
         assertEquals(HttpStatusCode.OK, response.status)
 
         val review: Review = decodeFromString(response.bodyAsText())
-        assertTrue(review.id == 2, "Id should be 2, was ${review.id}")
+        assertTrue(review.id == 1, "Id should be 1, was ${review.id}")
     }
 
     /** Test to verify the POST request for updating a review by ID. */
