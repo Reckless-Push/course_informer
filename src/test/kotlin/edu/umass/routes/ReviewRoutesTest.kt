@@ -31,6 +31,22 @@ class ReviewRoutesTest {
         Course(101, "Intro to Programming", "An introductory course on programming", 4, 100)
     private val uuid = UUID.fromString("4472068d-c076-4ca0-b9de-085c0a4c7a14")
     private val datetime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+    private val newReview =
+        Review(
+            11,
+            prof,
+            course,
+            uuid,
+            datetime,
+            5,
+            4,
+            "Comment",
+            fromRmp = false,
+            forCredit = true,
+            attendance = true,
+            textbook = false,
+            LetterGrade.GRADE_A,
+        )
     private val editReview =
         Review(
             2,
@@ -47,6 +63,7 @@ class ReviewRoutesTest {
             textbook = false,
             LetterGrade.GRADE_A,
         )
+    private val newReviewJson = Json.encodeToString(newReview)
     private val editReviewJson = Json.encodeToString(editReview)
 
     /** Test to verify the GET request for reviews. */
@@ -57,6 +74,18 @@ class ReviewRoutesTest {
 
         val reviews: Map<String, List<Review>> = decodeFromString(response.bodyAsText())
         assertTrue(reviews["review_table"]?.isNotEmpty() ?: false, "Reviews list should not be empty")
+    }
+
+    /** Test to verify the POST request for creating a new review. */
+    @Test
+    fun testPostReview() = testApplication {
+        val response =
+            client.post("/review") {
+                url { protocol = URLProtocol.HTTPS }
+                contentType(ContentType.Application.Json)
+                setBody(newReviewJson)
+            }
+        assertEquals(HttpStatusCode.Created, response.status)
     }
 
     /** Test to verify the GET request for a specific review by ID. */
