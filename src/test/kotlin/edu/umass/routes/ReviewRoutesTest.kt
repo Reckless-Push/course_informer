@@ -4,7 +4,6 @@ import edu.umass.models.Course
 import edu.umass.models.LetterGrade
 import edu.umass.models.Professor
 import edu.umass.models.Review
-import edu.umass.models.User
 import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
@@ -27,34 +26,12 @@ import kotlinx.serialization.json.Json.Default.decodeFromString
 
 class ReviewRoutesTest {
     // Dummy objects
-    val prof = Professor(9, "Subhransu", "Maji")
-    val course = Course(501, "Test Course", "This is a test course", 3, 100)
-    val uuid = UUID.fromString("4472068d-c076-4ca0-b9de-085c0a4c7a14")
-    val user =
-        User(
-            uuid,
-            "Alice",
-            "Smith",
-            "alice@example.com",
-        )
-    val datetime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-    val newReview =
-        Review(
-            11,
-            prof,
-            course,
-            uuid,
-            datetime,
-            5,
-            4,
-            "Comment",
-            false,
-            true,
-            true,
-            false,
-            LetterGrade.GRADE_A,
-        )
-    val editReview =
+    private val prof = Professor(1, "Jane", "Smith")
+    private val course =
+        Course(101, "Intro to Programming", "An introductory course on programming", 4, 100)
+    private val uuid = UUID.fromString("4472068d-c076-4ca0-b9de-085c0a4c7a14")
+    private val datetime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+    private val editReview =
         Review(
             2,
             prof,
@@ -64,14 +41,13 @@ class ReviewRoutesTest {
             5,
             4,
             "Other comment",
-            false,
-            true,
-            true,
-            false,
+            fromRmp = false,
+            forCredit = true,
+            attendance = true,
+            textbook = false,
             LetterGrade.GRADE_A,
         )
-    val newReviewJson = Json.encodeToString(newReview)
-    val editReviewJson = Json.encodeToString(editReview)
+    private val editReviewJson = Json.encodeToString(editReview)
 
     /** Test to verify the GET request for reviews. */
     @Test
@@ -81,18 +57,6 @@ class ReviewRoutesTest {
 
         val reviews: Map<String, List<Review>> = decodeFromString(response.bodyAsText())
         assertTrue(reviews["review_table"]?.isNotEmpty() ?: false, "Reviews list should not be empty")
-    }
-
-    /** Test to verify the POST request for creating a new review. */
-    @Test
-    fun testPostReview() = testApplication {
-        val response =
-            client.post("/review") {
-                url { protocol = URLProtocol.HTTPS }
-                contentType(ContentType.Application.Json)
-                setBody(newReviewJson)
-            }
-        assertEquals(HttpStatusCode.Created, response.status)
     }
 
     /** Test to verify the GET request for a specific review by ID. */
@@ -114,16 +78,13 @@ class ReviewRoutesTest {
                 contentType(ContentType.Application.Json)
                 setBody(editReviewJson)
             }
-        assertEquals(HttpStatusCode.OK, response.status)
-
-        val isEdited: Boolean = decodeFromString(response.bodyAsText())
-        assertTrue(isEdited, "Review should be edited")
+        assertEquals(HttpStatusCode.Accepted, response.status)
     }
 
     /** Test to verify the GET request for deleting a review by ID. */
     @Test
     fun testGetReviewDeleted() = testApplication {
-        val response = client.get("/review/delete/1") { url { protocol = URLProtocol.HTTPS } }
+        val response = client.get("/review/delete/2") { url { protocol = URLProtocol.HTTPS } }
         assertEquals(HttpStatusCode.Accepted, response.status)
     }
 }

@@ -20,7 +20,7 @@ import kotlinx.serialization.json.Json.Default.decodeFromString
 typealias ProfList = List<Professor>
 
 class ProfessorRoutesTest {
-    val newProfessorJson = buildString {
+    private val newProfessorJson = buildString {
         append("{")
         append("\"id\": 8,")
         append("\"firstName\": \"Subhransu\",")
@@ -90,7 +90,9 @@ class ProfessorRoutesTest {
                 setBody(newProfessorJson)
             }
         assertEquals(HttpStatusCode.Created, postResponse.status)
-        val response = client.get("/professor/delete/8") { url { protocol = URLProtocol.HTTPS } }
+        val professorId = postResponse.bodyAsText().toInt()
+        val response =
+            client.get("/professor/delete/$professorId") { url { protocol = URLProtocol.HTTPS } }
         assertEquals(HttpStatusCode.Accepted, response.status)
     }
 }

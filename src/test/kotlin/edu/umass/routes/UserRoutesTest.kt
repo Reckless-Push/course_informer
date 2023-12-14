@@ -20,23 +20,15 @@ import kotlinx.serialization.json.Json.Default.decodeFromString
 
 class UserRoutesTest {
     // Dummy objects
-    val uuid = UUID.fromString("4472068d-c076-4ca0-b9de-085c0a4c7a14")
-    val existingUser =
-        User(
-            uuid,
-            "Alice",
-            "Smith",
-            "alice@example.com",
-        )
-    val editUser =
+    private val uuid = UUID.fromString("4472068d-c076-4ca0-b9de-085c0a4c7a14")!!
+    private val editUser =
         User(
             uuid,
             "Alica",
             "Jones",
             "alica@example.com",
         )
-    val existingUserJson = Json.encodeToString(existingUser)
-    val editUserJson = Json.encodeToString(editUser)
+    private val editUserJson = Json.encodeToString(editUser)
 
     /** Test to verify the GET request for users. */
     @Test
@@ -74,7 +66,7 @@ class UserRoutesTest {
     @Test
     fun testGetUserDeleted() = testApplication {
         val response =
-            client.get("/user/delete/4472068d-c076-4ca0-b9de-085c0a4c7a14") {
+            client.get("/user/delete/e1bc576c-a475-4850-8d71-745232904fdd") {
                 url { protocol = URLProtocol.HTTPS }
             }
         assertEquals(HttpStatusCode.Accepted, response.status)
