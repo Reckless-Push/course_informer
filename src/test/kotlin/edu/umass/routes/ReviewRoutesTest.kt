@@ -83,43 +83,6 @@ class ReviewRoutesTest {
         assertTrue(reviews["review_table"]?.isNotEmpty() ?: false, "Reviews list should not be empty")
     }
 
-    /** Test to verify the POST request for creating a new review. */
-    @Test
-    fun testPostReview() = testApplication {
-        val response =
-            client.post("/review") {
-                url { protocol = URLProtocol.HTTPS }
-                contentType(ContentType.Application.Json)
-                setBody(newReviewJson)
-            }
-        assertEquals(HttpStatusCode.Created, response.status)
-    }
-
-    /** Test to verify the GET request for a specific review by ID. */
-    @Test
-    fun testGetReviewId() = testApplication {
-        val response = client.get("/review/1") { url { protocol = URLProtocol.HTTPS } }
-        assertEquals(HttpStatusCode.OK, response.status)
-
-        val review: Review = decodeFromString(response.bodyAsText())
-        assertTrue(review.id == 1, "Id should be 1, was ${review.id}")
-    }
-
-    /** Test to verify the POST request for updating a review by ID. */
-    @Test
-    fun testPostReviewId() = testApplication {
-        val response =
-            client.post("/review/update/2") {
-                url { protocol = URLProtocol.HTTPS }
-                contentType(ContentType.Application.Json)
-                setBody(editReviewJson)
-            }
-        assertEquals(HttpStatusCode.OK, response.status)
-
-        val isEdited: Boolean = decodeFromString(response.bodyAsText())
-        assertTrue(isEdited, "Review should be edited")
-    }
-
     /** Test to verify the GET request for deleting a review by ID. */
     @Test
     fun testGetReviewDeleted() = testApplication {

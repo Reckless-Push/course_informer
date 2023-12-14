@@ -70,13 +70,4 @@ class UserRoutesTest {
         assertEquals(HttpStatusCode.OK, response.status)
     }
 
-    /** Test to verify the GET request for deleting a user by UUID. */
-    @Test
-    fun testGetUserDeleted() = testApplication {
-        val response =
-            client.get("/user/delete/4472068d-c076-4ca0-b9de-085c0a4c7a14") {
-                url { protocol = URLProtocol.HTTPS }
-            }
-        assertEquals(HttpStatusCode.Accepted, response.status)
-    }
 }

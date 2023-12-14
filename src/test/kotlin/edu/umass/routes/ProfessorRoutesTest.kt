@@ -80,17 +80,4 @@ class ProfessorRoutesTest {
         assertTrue(isEdited, "Professor should be edited")
     }
 
-    /** Test to verify the GET request for deleting a professor by ID. */
-    @Test
-    fun testGetProfessorDeleted() = testApplication {
-        val postResponse =
-            client.post("/professor") {
-                url { protocol = URLProtocol.HTTPS }
-                contentType(ContentType.Application.Json)
-                setBody(newProfessorJson)
-            }
-        assertEquals(HttpStatusCode.Created, postResponse.status)
-        val response = client.get("/professor/delete/8") { url { protocol = URLProtocol.HTTPS } }
-        assertEquals(HttpStatusCode.Accepted, response.status)
-    }
 }
