@@ -1,6 +1,6 @@
 import styles from "@/app/components/css/navbar.module.css";
-import React, { useEffect, useState } from 'react'
-import HomeIcon from '@mui/icons-material/Home';
+import React, { useEffect, useState } from "react";
+import HomeIcon from "@mui/icons-material/Home";
 import { ComponentStates } from "@/types/ComponentStates";
 
 export interface NavBarProps {
@@ -25,15 +25,15 @@ function Navbar({ onToggleComponent, onHome, componentStates }: NavBarProps) {
     // Trigger the onToggleComponent function with the specified component
     onToggleComponent(component);
   };
-  
+
   useEffect(() => {
     const checkLoginStatus = () => {
-      fetch('https://localhost:8443/hello')
+      fetch("https://cicscourseinformer.live:8443/hello")
         .then((response) => {
           setIsLoggedIn(response.ok);
         })
         .catch((error) => {
-          console.error('Error checking login status', error);
+          console.error("Error checking login status", error);
           setIsLoggedIn(false);
         });
     };
@@ -42,7 +42,9 @@ function Navbar({ onToggleComponent, onHome, componentStates }: NavBarProps) {
   }, []);
 
   const handleLoginClick = () => {
-    window.location.href = `https://localhost:8443/${isLoggedIn ? 'logout' : 'login'}`;
+    window.location.href = `https://cicscourseinformer.live:8443/${
+      isLoggedIn ? "logout" : "login"
+    }`;
     onToggleComponent("courseDashboard");
   };
 
@@ -60,7 +62,7 @@ function Navbar({ onToggleComponent, onHome, componentStates }: NavBarProps) {
           <li>
             <a>
               <button onClick={handleLoginClick}>
-                {isLoggedIn ? 'Logout' : 'Login'}
+                {isLoggedIn ? "Logout" : "Login"}
               </button>
             </a>
           </li>
@@ -80,7 +82,9 @@ function Navbar({ onToggleComponent, onHome, componentStates }: NavBarProps) {
           </li> */}
           <li>
             <a>
-              <button onClick={() => handleButtonClick("user")}>My Profile</button>
+              <button onClick={() => handleButtonClick("user")}>
+                My Profile
+              </button>
             </a>
           </li>
           <li>

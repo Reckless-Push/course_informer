@@ -28,8 +28,10 @@ function CourseCatalogPage({
   const {
     data: courseData,
     loading: courseLoading,
-    error: courseError
-  } = useFetchData<CourseResponse>('https://localhost:8443/course');
+    error: courseError,
+  } = useFetchData<CourseResponse>(
+    "https://cicscourseinformer.live:8443/course"
+  );
 
   // Loading state
   if (courseLoading) {
@@ -48,7 +50,7 @@ function CourseCatalogPage({
       </div>
       <div className={styles.list_column}>
         <CourseList
-          onUserInputChange = {onUserInputChange}
+          onUserInputChange={onUserInputChange}
           courseData={courseData}
           onToggleComponent={onToggleComponent}
           onHome={onHome}

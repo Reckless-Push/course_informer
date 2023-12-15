@@ -18,7 +18,9 @@ function CoursePage({ course_data, onUserInputChange }: CoursePageProps) {
     data: reviewData,
     loading: reviewLoading,
     error: reviewError,
-  } = useFetchData<ReviewResponse>("https://localhost:8443/review");
+  } = useFetchData<ReviewResponse>(
+    "https://cicscourseinformer.live:8443/review"
+  );
 
   if (
     Object.keys(course_data).length === 0 &&

@@ -41,15 +41,15 @@ const ResponseForm = (course_data: Course) => {
   const [selectedProfessor, setSelectedProfessor] = useState<string>("");
   const [isSubmitClicked, setIsSubmitClicked] = useState(false);
   const { data, loading, error } = usePostData<Review, Review>(
-    "https://localhost:8443/review",
+    "https://cicscourseinformer.live:8443/review",
     review,
     isSubmitClicked
   );
   const { data: coursesData } = useFetchData<CourseResponse>(
-    "https://localhost:8443/course"
+    "https://cicscourseinformer.live:8443/course"
   );
   const { data: professorsData } = useFetchData<ProfessorResponse>(
-    "https://localhost:8443/professor"
+    "https://cicscourseinformer.live:8443/professor"
   );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

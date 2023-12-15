@@ -9,12 +9,14 @@ function ProfilePage() {
     data: userData,
     loading: userLoading,
     error: userError,
-  } = useFetchData<User>("https://localhost:8443/user/current");
+  } = useFetchData<User>("https://cicscourseinformer.live:8443/user/current");
   const {
     data: reviewData,
     loading: reviewLoading,
     error: reviewError,
-  } = useFetchData<ReviewResponse>("https://localhost:8443/review/user");
+  } = useFetchData<ReviewResponse>(
+    "https://cicscourseinformer.live:8443/review/user"
+  );
 
   if (userLoading) return <div>Loading...</div>;
   if (userError) return <div>Error:{userError?.message}</div>;
