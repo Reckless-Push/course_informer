@@ -117,7 +117,7 @@ fun Route.addUser() {
             }
                 ?: run {
                     val redirectUrl =
-                        URLBuilder("https://localhost:8443/login").run {
+                        URLBuilder("https://cicscourseinformer.live:8443/login").run {
                             parameters.append("redirectUrl", call.request.uri)
                             build()
                         }

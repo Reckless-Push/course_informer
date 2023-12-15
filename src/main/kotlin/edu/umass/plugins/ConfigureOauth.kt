@@ -50,7 +50,7 @@ fun Application.configureOauth() {
     // HttpClient instantiation
     install(Authentication) {
         oauth("auth-oauth-google") {
-            urlProvider = { "https://localhost:8443/callback" }
+            urlProvider = { "https://cicscourseinformer.live:8443/callback" }
             providerLookup = { oauthSettings }
             client = httpClient
         }
