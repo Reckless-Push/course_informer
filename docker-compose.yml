@@ -12,14 +12,17 @@ services:
       - ./scripts:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
-    networks:
-      - default
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d course_informer" ]
       interval: 10s
       timeout: 5s
       retries: 5
     restart: on-failure
+    labels:
+      - "service=db"
+    networks:
+      - db-network
+
   app:
     build:
       context: .
@@ -53,6 +56,9 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       JDBC_DRIVER: ${JDBC_POSTGRES_DRIVER}
       JDBC_URL: ${JDBC_DATABASE_URL}
+    networks:
+      - app-network
+      - db-network
     ports:
       - "8080:8080"
       - "8443:8443"
@@ -62,8 +68,15 @@ services:
       timeout: 30s
       retries: 3
       start_period: 5s
-    networks:
-      - default
     restart: on-failure
+    labels:
+      - "service=app"
+
 volumes:
   db-data:
+
+networks:
+  app-network:
+    driver: bridge
+  db-network:
+    driver: bridge

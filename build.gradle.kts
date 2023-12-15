@@ -6,7 +6,6 @@ val logbackVersion: String by project
 val exposedVersion: String by project
 val h2Version: String by project
 val kotlinxDatetimeVersion: String by project
-val pdfBoxVersion: String by project
 val postgresVersion: String by project
 
 plugins {
@@ -86,7 +85,6 @@ dependencies {
     implementation("com.h2database:h2:$h2Version")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:$kotlinxDatetimeVersion")
-    implementation("org.apache.pdfbox:pdfbox:$pdfBoxVersion")
     implementation("org.postgresql:postgresql:$postgresVersion")
     testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
     testImplementation("org.jetbrains.kotlin:kotlin-test")

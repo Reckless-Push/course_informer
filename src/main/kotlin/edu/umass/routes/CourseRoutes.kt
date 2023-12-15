@@ -216,7 +216,7 @@ suspend fun downloadPdf(
 fun runPythonScript(filePath: String): String =
     try {
         val outputId = UUID.randomUUID().toString()
-        val process = ProcessBuilder("python", "extractor.py", filePath, "$outputId.json").start()
+        val process = ProcessBuilder("python3", "extractor.py", filePath, "$outputId.json").start()
         val scriptOutput = process.inputStream.bufferedReader().use { it.readText() }
         val scriptError = process.errorStream.bufferedReader().use { it.readText() }
         logger.info("Script output: $scriptOutput")
