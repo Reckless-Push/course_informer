@@ -1,0 +1,15 @@
+#!/bin/bash
+
+docker build \
+    --build-arg KEY_ALIAS=${KEY_ALIAS} \
+    --build-arg PRIVATE_KEY_PASSWORD=${PRIVATE_KEY_PASSWORD} \
+    --build-arg KEYSTORE_PASSWORD=${KEYSTORE_PASSWORD} \
+    --build-arg GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID} \
+    --build-arg GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET} \
+    --build-arg JDBC_DATABASE_URL=${JDBC_DATABASE_URL} \
+    --build-arg JDBC_H2_URL=${JDBC_H2_URL} \
+    --build-arg JDBC_H2_DRIVER=${JDBC_H2_DRIVER} \
+    --build-arg JDBC_POSTGRES_DRIVER=${JDBC_POSTGRES_DRIVER} \
+    --build-arg POSTGRES_USER=${POSTGRES_USER} \
+    --build-arg POSTGRES_PASSWORD=${POSTGRES_PASSWORD} \
+    -f $DOCKERFILE_PATH -t $IMAGE_NAME .
