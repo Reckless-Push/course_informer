@@ -142,7 +142,10 @@ fun Route.addReview() {
             val review: Review = call.receive<Review>()
             val userSession: UserSession? = call.sessions.get()
             val user =
-                dao.user(UUID.nameUUIDFromBytes(getUserInfoFromSession(userSession!!).id.toByteArray()))
+                dao.user(
+                    review.userId
+                        ?: UUID.nameUUIDFromBytes(getUserInfoFromSession(userSession!!).id.toByteArray()),
+                )
             val newReview = createAndPersistReview(review, user)
             newReview?.let { call.updateAndRespond(user, newReview) }
                 ?: call.respond(HttpStatusCode.InternalServerError)
@@ -211,8 +214,7 @@ private suspend fun ApplicationCall.updateAndRespond(
     val updatedUser =
         user?.copy(
             reviews = user.reviews + newReview,
-        )
-            ?: return
+        ) ?: return
 
     dao.editUser(updatedUser, updatedUser.uuid!!)
     respondText("${newReview.id}", status = HttpStatusCode.Created)

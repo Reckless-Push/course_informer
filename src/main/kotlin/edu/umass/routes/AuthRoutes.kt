@@ -18,11 +18,10 @@ import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
-import io.ktor.http.URLBuilder
 import io.ktor.server.auth.OAuthAccessTokenResponse
 import io.ktor.server.auth.authenticate
 import io.ktor.server.auth.authentication
-import io.ktor.server.request.uri
+import io.ktor.server.response.respond
 import io.ktor.server.response.respondRedirect
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.Route
@@ -85,16 +84,8 @@ fun Route.configureAuthRoutes() {
                 call.respondText("This is your userInfo: $userInfo!")
             } else {
                 val errorResponse: String = response.bodyAsText()
-                call.respondText("Error response: $errorResponse")
+                call.respond(HttpStatusCode.Unauthorized, "Error response: $errorResponse")
             }
         }
-            ?: run {
-                val redirectUrl =
-                    URLBuilder("https://localhost:8443/login").run {
-                        parameters.append("redirectUrl", call.request.uri)
-                        build()
-                    }
-                call.respondRedirect(redirectUrl)
-            }
     }
 }

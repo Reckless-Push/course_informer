@@ -1,6 +1,7 @@
 package edu.umass.dao
 
 import edu.umass.models.Course
+import edu.umass.models.CourseFilter
 import edu.umass.models.Professor
 import edu.umass.models.Review
 import edu.umass.models.User
@@ -60,6 +61,14 @@ interface DaoFacade {
      * @return A list of Course objects.
      */
     suspend fun allCourses(): List<Course>
+
+    /**
+     * Retrieves a list of all courses that match the given filter.
+     *
+     * @param filter The filter to apply to the course list.
+     * @return A list of Course objects.
+     */
+    suspend fun filteredCourses(filter: CourseFilter): List<Course>
 
     /**
      * Retrieves a course by its unique identifier.
