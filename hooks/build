@@ -1,7 +1,5 @@
 #!/bin/bash
 
-curl -L -o keystore.jks ${KEYSTORE_URL}
-
 docker build \
     --build-arg KEY_ALIAS=${KEY_ALIAS} \
     --build-arg PRIVATE_KEY_PASSWORD=${PRIVATE_KEY_PASSWORD} \
@@ -14,4 +12,7 @@ docker build \
     --build-arg JDBC_POSTGRES_DRIVER=${JDBC_POSTGRES_DRIVER} \
     --build-arg POSTGRES_USER=${POSTGRES_USER} \
     --build-arg POSTGRES_PASSWORD=${POSTGRES_PASSWORD} \
+    --build-arg BASE_URL=${BASE_URL} \
+    --build-arg NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL} \
+    --build-arg JKS_REMOTE_PATH=${JKS_REMOTE_PATH} \
     -f $DOCKERFILE_PATH -t $IMAGE_NAME .

@@ -41,6 +41,7 @@ services:
         POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
         BASE_URL: ${BASE_URL}
         NEXT_PUBLIC_BASE_URL: ${NEXT_PUBLIC_BASE_URL}
+        JKS_REMOTE_PATH: ${JKS_REMOTE_PATH}
     depends_on:
       db:
         condition: service_healthy
@@ -60,6 +61,7 @@ services:
       JDBC_URL: ${JDBC_DATABASE_URL}
       BASE_URL: ${BASE_URL}
       NEXT_PUBLIC_BASE_URL: ${NEXT_PUBLIC_BASE_URL}
+      JKS_REMOTE_PATH: ${JKS_REMOTE_PATH}
     networks:
       - app-network
       - db-network
