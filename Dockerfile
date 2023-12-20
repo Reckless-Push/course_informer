@@ -52,7 +52,7 @@ COPY --from=gradle-cache /root/.gradle /root/.gradle
 COPY src src
 COPY documentation ./src/main/resources/documentation
 # Keystore generation
-RUN curl -L -o keystore.jks ${KEYSTORE_URL}
+RUN curl -L -o keystore.jks "${KEYSTORE_URL}"
 COPY --from=react-build /app/out /build/src/main/resources/static
 RUN ./gradlew clean test
 ENV JDBC_URL=${JDBC_DATABASE_URL}
