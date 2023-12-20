@@ -23,5 +23,4 @@ fun Route.frontend() {
         filesPath = "static" // Folder containing the static files
     }
     staticResources("/html", "html", "index.html")
-    staticResources("/cert", "cert") { default("cert/keystore.p12") }
 }

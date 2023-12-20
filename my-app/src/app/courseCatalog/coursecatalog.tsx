@@ -1,9 +1,9 @@
 import React from "react";
 import CourseList from "../components/CourseList";
 import CourseFiltersList from "../components/CourseFiltersList";
-import { ComponentStates } from "@/types/ComponentStates";
+import {ComponentStates} from "@/types/ComponentStates";
 import useFetchData from "@/app/hooks/useFetchData";
-import { Course, CourseResponse } from "@/types/course";
+import {CourseResponse} from "@/types/course";
 import styles from "@/app/courseCatalog/courseCatalog.module.css";
 
 interface CourseCatalogPage {
@@ -29,7 +29,7 @@ function CourseCatalogPage({
     data: courseData,
     loading: courseLoading,
     error: courseError
-  } = useFetchData<CourseResponse>('https://localhost:8443/course');
+  } = useFetchData<CourseResponse>(process.env.NEXT_PUBLIC_BASE_URL + '/course');
 
   // Loading state
   if (courseLoading) {

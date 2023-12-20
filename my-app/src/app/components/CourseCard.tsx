@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, InputHTMLAttributes, useState } from "react";
+import React from "react";
 import styles from "./css/courseCard.module.css";
 import { ComponentStates } from "@/types/ComponentStates";
 import { Course } from "@/types/course";

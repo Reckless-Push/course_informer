@@ -117,7 +117,7 @@ fun Route.addUser() {
             }
                 ?: run {
                     val redirectUrl =
-                        URLBuilder("https://localhost:8443/login").run {
+                        URLBuilder("${System.getenv("BASE_URL")}/login").run {
                             parameters.append("redirectUrl", call.request.uri)
                             build()
                         }

@@ -6,9 +6,7 @@ import Navbar from "@/app/components/Navbar";
 import ResponseForm from "@/app/review/review";
 import CourseCatalogPage from "./courseCatalog/coursecatalog";
 import Login  from "./login/login";
-
-import useFetchData from "./hooks/useFetchData";
-import { Course, CourseResponse } from "@/types/course";
+import { Course } from "@/types/course";
 import ProfilePage from "@/app/user/user";
 
 type ComponentKey =

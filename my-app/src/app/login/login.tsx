@@ -45,6 +45,6 @@ function LoginPage({onToggleComponent,
       </form>
     </div>
   );
-};
+}
 
 export default LoginPage;

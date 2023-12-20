@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./css/googleSignInButton.module.css";
 import { ComponentStates } from "@/types/ComponentStates";
+import Image from 'next/image'
 
 interface GoogleSignInProps {
   onToggleComponent: (component: keyof ComponentStates) => void;
@@ -26,7 +27,7 @@ function GoogleSignInButton({
   return (
     <div id="google-signin-button" className={styles['google-button']} onClick={handleClick}>
       <div className={styles['google-icon-wrapper']}>
-        <img
+        <Image
           className={styles['google-icon']}
           src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
           alt="Google logo"
@@ -35,6 +36,6 @@ function GoogleSignInButton({
       <span className={styles['button-text']}>Sign in with your Google Account</span>
     </div>
   );
-};
+}
 
 export default GoogleSignInButton;

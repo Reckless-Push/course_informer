@@ -42,6 +42,8 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       JDBC_DRIVER: ${JDBC_POSTGRES_DRIVER}
       JDBC_URL: ${JDBC_DATABASE_URL}
+      BASE_URL: ${BASE_URL}
+      NEXT_PUBLIC_BASE_URL: ${NEXT_PUBLIC_BASE_URL}
     networks:
       - app-network
       - db-network

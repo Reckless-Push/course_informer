@@ -1,5 +1,7 @@
 #!/bin/bash
 
+curl -L -o keystore.jks ${KEYSTORE_URL}
+
 docker build \
     --build-arg KEY_ALIAS=${KEY_ALIAS} \
     --build-arg PRIVATE_KEY_PASSWORD=${PRIVATE_KEY_PASSWORD} \

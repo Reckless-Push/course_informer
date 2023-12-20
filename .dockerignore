@@ -7,4 +7,3 @@ Dockerfile
 qodana.yaml
 README.md
 src/main/resources/static
-src/main/resources/keystore.jks

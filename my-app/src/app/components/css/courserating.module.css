@@ -118,7 +118,7 @@
 
 
 .RatingNumbers {
-    padding-left: 0rem;
+    padding-left: 0;
 }
 
 /* w-48 text-center text-white text-xl font-normal font-['Libre Franklin']" */
@@ -135,8 +135,7 @@
 
 @media (max-width: 640px) {
     .row {
-        padding: 0rem;
-        padding-top: 0.75rem;
+        padding: 0.75rem 0 0;
         /* pa */
         width: 24rem;
     }

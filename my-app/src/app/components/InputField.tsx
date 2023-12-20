@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, InputHTMLAttributes, useState} from 'react'
+import React, {ChangeEvent, FC, InputHTMLAttributes} from 'react'
 import styles from "./css/inputField.module.css";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {

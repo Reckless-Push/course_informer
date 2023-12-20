@@ -1,6 +1,5 @@
 "use client";
 import styles from "@/app/components/css/courserating.module.css";
-import { ComponentStates } from "@/types/ComponentStates";
 
 interface RatingProps {
   quality: number[];

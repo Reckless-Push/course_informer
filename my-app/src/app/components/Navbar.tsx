@@ -1,7 +1,7 @@
 import styles from "@/app/components/css/navbar.module.css";
-import React, { useEffect, useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import HomeIcon from '@mui/icons-material/Home';
-import { ComponentStates } from "@/types/ComponentStates";
+import {ComponentStates} from "@/types/ComponentStates";
 
 export interface NavBarProps {
   onToggleComponent: (component: keyof ComponentStates) => void;
@@ -28,7 +28,7 @@ function Navbar({ onToggleComponent, onHome, componentStates }: NavBarProps) {
   
   useEffect(() => {
     const checkLoginStatus = () => {
-      fetch('https://localhost:8443/hello')
+        fetch(process.env.NEXT_PUBLIC_BASE_URL + '/hello')
         .then((response) => {
           setIsLoggedIn(response.ok);
         })
@@ -42,7 +42,9 @@ function Navbar({ onToggleComponent, onHome, componentStates }: NavBarProps) {
   }, []);
 
   const handleLoginClick = () => {
-    window.location.href = `https://localhost:8443/${isLoggedIn ? 'logout' : 'login'}`;
+      window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}/${
+          isLoggedIn ? "logout" : "login"
+      }`;
     onToggleComponent("courseDashboard");
   };
 
