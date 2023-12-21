@@ -35,7 +35,6 @@ ARG BASE_URL
 ARG KEYSTORE_URL
 ARG IS_PROD
 
-
 # Set ENV for runtime variables
 ENV GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
 ENV GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
@@ -54,7 +53,7 @@ COPY --from=gradle-cache /root/.gradle /root/.gradle
 COPY src src
 COPY documentation ./src/main/resources/documentation
 # Keystore generation
-RUN if [ "$IS_PROD" = "true" ] ;  \
+RUN if [ "${IS_PROD}" = "true" ] ;  \
     then curl -L -o keystore.jks "${KEYSTORE_URL}";  \
     else keytool -keystore keystore.jks -alias ${KEY_ALIAS} -genkeypair -keyalg RSA -keysize 4096 -validity 3 \
     -dname 'CN=localhost, OU=ktor, O=ktor, L=Unspecified, ST=Unspecified, C=US' -storepass ${KEYSTORE_PASSWORD} \

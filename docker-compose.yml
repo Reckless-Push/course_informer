@@ -42,6 +42,7 @@ services:
         BASE_URL: ${BASE_URL}
         NEXT_PUBLIC_BASE_URL: ${NEXT_PUBLIC_BASE_URL}
         KEYSTORE_URL: ${KEYSTORE_URL}
+        IS_PROD: ${IS_PROD}
     depends_on:
       db:
         condition: service_healthy
@@ -62,6 +63,7 @@ services:
       BASE_URL: ${BASE_URL}
       NEXT_PUBLIC_BASE_URL: ${NEXT_PUBLIC_BASE_URL}
       KEYSTORE_URL: ${KEYSTORE_URL}
+      IS_PROD: ${IS_PROD}
     networks:
       - app-network
       - db-network
