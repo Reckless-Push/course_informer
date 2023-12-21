@@ -155,7 +155,6 @@ $dokka.location:edu.umass.models/Review/textbook/#/PointingToDeclaration/course
 $dokka.location:edu.umass.models/Review/userId/#/PointingToDeclaration/course-informer/edu.umass.models/-review/user-id.html
 $dokka.location:edu.umass.models/Reviews///PointingToDeclaration/course-informer/edu.umass.models/-reviews/index.html
 $dokka.location:edu.umass.models/Reviews/attendance/#/PointingToDeclaration/course-informer/edu.umass.models/-reviews/attendance.html
-$dokka.location:edu.umass.models/Reviews/comment/#/PointingToDeclaration/course-informer/edu.umass.models/-reviews/comment.html
 $dokka.location:edu.umass.models/Reviews/courseId/#/PointingToDeclaration/course-informer/edu.umass.models/-reviews/course-id.html
 $dokka.location:edu.umass.models/Reviews/datetime/#/PointingToDeclaration/course-informer/edu.umass.models/-reviews/datetime.html
 $dokka.location:edu.umass.models/Reviews/difficulty/#/PointingToDeclaration/course-informer/edu.umass.models/-reviews/difficulty.html
@@ -167,6 +166,7 @@ $dokka.location:edu.umass.models/Reviews/primaryKey/#/PointingToDeclaration/cou
 $dokka.location:edu.umass.models/Reviews/professorId/#/PointingToDeclaration/course-informer/edu.umass.models/-reviews/professor-id.html
 $dokka.location:edu.umass.models/Reviews/quality/#/PointingToDeclaration/course-informer/edu.umass.models/-reviews/quality.html
 $dokka.location:edu.umass.models/Reviews/textbook/#/PointingToDeclaration/course-informer/edu.umass.models/-reviews/textbook.html
+$dokka.location:edu.umass.models/Reviews/userComment/#/PointingToDeclaration/course-informer/edu.umass.models/-reviews/user-comment.html
 $dokka.location:edu.umass.models/Reviews/userId/#/PointingToDeclaration/course-informer/edu.umass.models/-reviews/user-id.html
 $dokka.location:edu.umass.models/Semester///PointingToDeclaration/course-informer/edu.umass.models/-semester/index.html
 $dokka.location:edu.umass.models/Semester/Semester/#edu.umass.models.SemesterSeason#kotlin.Int/PointingToDeclaration/course-informer/edu.umass.models/-semester/-semester.html
