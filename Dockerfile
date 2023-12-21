@@ -81,7 +81,7 @@ COPY --from=ktor-build /build/build/libs/course-informer-all.jar ./
 COPY --from=ktor-build /build/src/main/resources/keystore.jks ./
 COPY extractor/extractor.py ./
 
-EXPOSE 8080 8443
+EXPOSE 8080 8443 80 443
 CMD ["java", "-jar", "course-informer-all.jar"]
 
 # Healthcheck

@@ -67,7 +67,7 @@ fun Route.ingestCourses() {
     post("/course/ingest") {
         val request: CourseIngest = call.receive<CourseIngest>()
         val url = Url(request.url)
-        val filePath = "${UUID.randomUUID()}.txt"
+        val filePath = "${UUID.randomUUID()}.pdf"
 
         if (downloadPdf(url, filePath)) {
             val uuid = runPythonScript(filePath)
