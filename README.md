@@ -28,7 +28,8 @@
 
 # Course Informer
 
-Course Informer is a server application that provides an API for retrieving information about courses at the University of Massachusetts Amherst.
+Course Informer is a server application that provides an API for retrieving information about courses at 
+the University of Massachusetts Amherst.
 
 ## Prerequisites
 
@@ -36,7 +37,8 @@ Before you start, ensure you have the following installed:
 - **Docker**: Version 24.0.7 or later recommended.
 - **Docker Compose**: Version 2.23.0 or later recommended. Docker Compose is included with Docker Desktop.
 - **Git**: For cloning the repository. You can also download the repository as a ZIP file.
-- **Operating System**: A Linux-based operating system is preferred. Windows users should use [WSL](https://learn.microsoft.com/en-us/windows/wsl/install).
+- **Operating System**: A Linux-based operating system is preferred. Windows users should use 
+[WSL](https://learn.microsoft.com/en-us/windows/wsl/install).
 - **Web Browser**: For accessing the Index and API documentation.
 
 ## Development Build Instructions
@@ -46,7 +48,8 @@ Before you start, ensure you have the following installed:
 - Verify the installation: `docker --version`  and `docker compose version`.
 
 ### Dev Step 2: Install Git
-- Follow the instructions in [Git's official documentation](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
+- Follow the instructions in 
+[Git's official documentation](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
 - Verify the installation: `git --version`.
 
 ### Dev Step 3: Clone the Repository
@@ -71,8 +74,10 @@ Before you start, ensure you have the following installed:
   - `BASE_URL`: URL of the server
   - `NEXT_PUBLIC_BASE_URL`: URL for the server passed to NEXT build
   - `IS_PROD`: Flag for production environment, should be 'false' for local builds
-- More about environment variables: [Docker's documentation](https://docs.docker.com/compose/environment-variables/env-file/).
-- If you do not have a Google OAuth client ID and secret, you can create one by following the instructions in [Google's documentation](https://developers.google.com/identity/protocols/oauth2).
+- More about environment variables: 
+[Docker's documentation](https://docs.docker.com/compose/environment-variables/env-file/).
+- If you do not have a Google OAuth client ID and secret, you can create one 
+by following the instructions in [Google's documentation](https://developers.google.com/identity/protocols/oauth2).
 
 ### Dev Step 5: Build and run the Server
 - Build using Docker Compose
@@ -115,7 +120,9 @@ Before you start, ensure you have the following installed:
 
 ### Prod Step 5: Install JDK
 - To generate the keystore you must have keytool installed on your local machine.
-- You can follow the [Oracle JDK installation instructions](https://docs.oracle.com/en/java/javase/18/install/overview-jdk-installation.html) for your platform.
+- You can follow the
+[Oracle JDK installation instructions](https://docs.oracle.com/en/java/javase/18/install/overview-jdk-installation.html)
+ for your platform.
 
 ### Prod Step 6: Setup a domain
 - Purchase a domain name, a free .live domain can be purchased through the 
@@ -145,11 +152,11 @@ Before you start, ensure you have the following installed:
 The certificate authority will provide you with a certificate.
 - Import the root certificate into the keystore using the following command:
   ```
-  keytool -import -trustcacerts -alias root -file <root_CA_certificate>.crt -keystore <keystore name>.jks
+  keytool -import -trustcacerts -alias root -file <root_certificate>.crt -keystore <keystore name>.jks
   ```
 - Import the intermediate certificates
   ```
-  keytool -import -trustcacerts -alias intermediate -file <intermediate_CA_certificate>.crt -keystore <keystore name>.jks
+  keytool -import -trustcacerts -alias intermediate -file <intermediate_certificate>.crt -keystore <keystore name>.jks
   ```
 - Import the signed certificate
   ```
@@ -166,10 +173,12 @@ The certificate authority will provide you with a certificate.
 Here are the [instructions for Google Drive](https://gist.github.com/tanaikech/f0f2d122e05bf5f971611258c22c110f)
 
 ### Prod Step 9: Connect to the server
-- Connect to your server via SSH. You can learn the basics in the [Digital Ocean SSH Essentials guide](https://www.digitalocean.com/community/tutorials/ssh-essentials-working-with-ssh-servers-clients-and-keys)
+- Connect to your server via SSH. You can learn the basics in the 
+[Digital Ocean SSH Essentials guide](https://www.digitalocean.com/community/tutorials/ssh-essentials-working-with-ssh-servers-clients-and-keys)
 
 ### Prod Step 10: Install Git
-- If not already installed, follow the instructions in [Git's official documentation](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
+- If not already installed, follow the instructions in 
+[Git's official documentation](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
 - Verify the installation: `git --version`.
 
 ### Prod Step 11: Clone the Repository
@@ -196,12 +205,15 @@ Here are the [instructions for Google Drive](https://gist.github.com/tanaikech/f
   - `NEXT_PUBLIC_BASE_URL`: URL for the server passed to NEXT build
   - `KEYSTORE_URL`: Remote URL for the keystore file, must be signed by an authority
   - `IS_PROD`: Flag for production environment, should be 'false' for local builds
-- More about environment variables: [Docker's documentation](https://docs.docker.com/compose/environment-variables/env-file/).
-- If you do not have a Google OAuth client ID and secret, you can create one by following the instructions in [Google's documentation](https://developers.google.com/identity/protocols/oauth2).
+- More about environment variables: 
+[Docker's documentation](https://docs.docker.com/compose/environment-variables/env-file/).
+- If you do not have a Google OAuth client ID and secret, you can create one by following the instructions in 
+[Google's documentation](https://developers.google.com/identity/protocols/oauth2).
 
 ### Prod Step 13: Install Docker
 - If you're deploying in a headless Ubuntu 22.04 environment the
-  [Digital Ocean Docker instructions](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-22-04) are good place to start.
+  [Digital Ocean Docker instructions](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-22-04)
+ are good place to start.
 - Verify the installation: `docker --version` and `docker compose version`.
 
 ### Prod Step 14: Build and run the Server
@@ -214,15 +226,19 @@ Here are the [instructions for Google Drive](https://gist.github.com/tanaikech/f
 
 ## Usage
 
-For API usage instructions, refer to the [documentation](documentation) directory. Alternatively, you can access the documentation by accessing `https://localhost:8443/html/index.html` after starting the server.
+For API usage instructions, refer to the [documentation](documentation) directory. Alternatively, you can access 
+the documentation by accessing `https://localhost:8443/html/index.html` after starting the server.
 
 
 ## Troubleshooting
 
 - Run `docker ps` to see if the container is running. If it is not, run `docker logs <container id>` to see the logs.
-- If the logs indicate that the server failed to start, ensure that the keystore was generated correctly and that the passwords are correct.
-- If the logs indicate that the server started successfully, ensure that the ports are correct and that the server is accessible.
+- If the logs indicate that the server failed to start, ensure that the keystore was generated correctly and that 
+the passwords are correct.
+- If the logs indicate that the server started successfully, ensure that the ports are correct and that the
+ server is accessible.
 
 ## Getting Help
 
-If you encounter issues or require further assistance, please submit a query in the [issue tracker](https://github.com/Reckless-Push/course_informer/issues).
+If you encounter issues or require further assistance, please submit a query in the 
+[issue tracker](https://github.com/Reckless-Push/course_informer/issues).
