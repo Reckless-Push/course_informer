@@ -66,8 +66,8 @@ services:
       - app-network
       - db-network
     ports:
-      - "8080:8080"
-      - "8443:8443"
+      - "8080:80"
+      - "8443:443"
     healthcheck:
       test: [ "CMD", "curl", "-f", "-k", "https://localhost:8443/health" ]
       interval: 30s
