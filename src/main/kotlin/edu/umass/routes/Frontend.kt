@@ -22,5 +22,5 @@ fun Route.frontend() {
         defaultPage = "index.html" // Default file to serve
         filesPath = "static" // Folder containing the static files
     }
-    staticResources("/html", "html", "index.html")
+    staticResources("/html", "documentation/html", "index.html")
 }
