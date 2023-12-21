@@ -27,7 +27,7 @@ object Reviews : Table() {
     val quality = integer("quality")
 
     // Comment written by the user.
-    val comment = varchar("comment", MAX_CHAR)
+    val userComment = varchar("comment", MAX_CHAR)
 
     // Whether the review was imported from RateMyProfessor.
     val fromRmp = bool("from_rmp")

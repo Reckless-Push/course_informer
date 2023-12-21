@@ -67,6 +67,8 @@ RUN ./gradlew clean build -x test
 
 # Stage 4: Create the final image to run the server
 FROM amazonlinux:2023
+ARG BASE_URL
+ENV BASE_URL=${BASE_URL}
 # Install JRE and other dependencies
 RUN yum update -y && \
     yum install -y java-21-amazon-corretto-headless python311 shadow-utils && \
@@ -92,4 +94,4 @@ CMD ["java", "-jar", "course-informer-all.jar"]
 
 # Healthcheck
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-  CMD curl -f -k https://localhost:8443/health || exit 1
+  CMD curl -f -k https://localhost/health || exit 1
