@@ -4,8 +4,8 @@ import Rating from "@/app/components/Rating";
 import Review from "@/app/components/Review";
 import styles from "@/app/course/course.module.css";
 import useFetchData from "../hooks/useFetchData";
-import {ReviewResponse} from "@/types/review";
-import {Course} from "@/types/course";
+import { ReviewResponse } from "@/types/review";
+import { Course } from "@/types/course";
 
 interface CoursePageProps {
   course_data: Course;
@@ -19,7 +19,7 @@ function CoursePage({ course_data, onUserInputChange }: CoursePageProps) {
     loading: reviewLoading,
     error: reviewError,
   } = useFetchData<ReviewResponse>(
-      process.env.NEXT_PUBLIC_BASE_URL + "/review"
+    process.env.NEXT_PUBLIC_BASE_URL + "/review"
   );
 
   if (
@@ -32,14 +32,14 @@ function CoursePage({ course_data, onUserInputChange }: CoursePageProps) {
   if (reviewLoading) return <div>Loading...</div>;
   if (reviewError) return <div>Error:{reviewError?.message}</div>;
 
-  const qualityscore: number[] = [];
-  const difficultyscore: number[] = [];
+  const qualityScore: number[] = [];
+  const difficultyScore: number[] = [];
   const reviews: Review[] = [];
   reviewData?.review_table.forEach((review) => {
     if (review.course && review.course.cicsId == course_data.cicsId) {
       reviews.push(review);
-      qualityscore.push(review.quality);
-      difficultyscore.push(review.difficulty);
+      qualityScore.push(review.quality);
+      difficultyScore.push(review.difficulty);
     }
   });
 
@@ -54,7 +54,7 @@ function CoursePage({ course_data, onUserInputChange }: CoursePageProps) {
         {course_data && <CourseDesc {...course_data}></CourseDesc>}
 
         {reviews.length > 0 && (
-          <Rating quality={qualityscore} difficulty={difficultyscore} />
+          <Rating quality={qualityScore} difficulty={difficultyScore} />
         )}
 
         <div className={styles.RateThisCourse}>
@@ -71,4 +71,5 @@ function CoursePage({ course_data, onUserInputChange }: CoursePageProps) {
     </div>
   );
 }
+
 export default CoursePage;

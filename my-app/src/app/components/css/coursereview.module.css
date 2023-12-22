@@ -43,19 +43,33 @@
     padding-top: 1rem;
 }
 
+.Quality {
+    color: #333;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 1em;
+}
+
+.Difficulty {
+    color: #333;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 1em;
+}
+
 .option {
     display: flex;
     padding-left: 2rem;
     float: left;
 }
 
-.optionheader {
+.optionHeader {
     text-align: center;
     font-size: large;
     font-weight: 800;
 }
 
-.optionval {
+.optionVal {
     padding-left: 0.5rem;
     padding-top: 0.1rem;
 }
@@ -73,18 +87,21 @@
 
 }
 
-.prof{
+.prof {
     padding: 2rem 2rem 0;
     display: flex;
-        width: 100%;
-            /* float: left; */
+    width: 100%;
+    /* float: left; */
 }
-.profheader{
+
+.profHeader {
     font-weight: 800;
 }
-.profval{
-padding-left:0.5rem;
+
+.profVal {
+    padding-left: 0.5rem;
 }
+
 .content {
     /* width: 50vw; */
     padding: 2rem;

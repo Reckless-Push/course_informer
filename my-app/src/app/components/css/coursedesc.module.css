@@ -19,17 +19,31 @@
 .Terms {
     display: flex;
 }
-.Term{
+
+.Term {
     margin: -0.5rem -0.5rem -0.5rem 0.5rem;
 }
-.Term~.Term::before {
+
+.Term ~ .Term::before {
     content: ', ';
 }
 
+.PreReqs {
+    color: #333;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 1em;
+}
+
+.Desc {
+    color: #333;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 1em;
+}
 
 
-
-.Proftotal {
+.ProfTotal {
     display: flex;
     flex-wrap: wrap;
     margin: -0.5rem;

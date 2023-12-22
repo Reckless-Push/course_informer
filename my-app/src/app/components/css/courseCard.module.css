@@ -1,41 +1,41 @@
 .card {
-  display: flex;
-  background-color: #f2f2f2;
-  border-radius: 10px;
-  padding: 20px;
-  margin: 10px;
+    display: flex;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
 }
 
 .course_title {
-  font-size: large;
+    font-size: large;
 }
 
 .left_content {
-  flex: 1;
+    flex: 1;
 }
 
 .right_content {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .star {
-  font-size: 24px;
-  margin-right: 30px;
-  color: #555;
+    font-size: 24px;
+    margin-right: 30px;
+    color: #555;
 }
 
 .next_button {
-  padding: 10px;
-  border: none;
-  border-radius: 50%;
-  background-color: rgb(100, 0, 0);
-  color: white;
-  cursor: pointer;
-  font-size: 16px;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    padding: 10px;
+    border: none;
+    border-radius: 50%;
+    background-color: rgb(100, 0, 0);
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

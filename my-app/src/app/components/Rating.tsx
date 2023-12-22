@@ -7,19 +7,19 @@ interface RatingProps {
 }
 
 function Rating({ quality, difficulty }: RatingProps) {
-  let qualitysum = (quality.reduce((a, b) => a + b) / quality.length).toFixed(
+  let qualitySum = (quality.reduce((a, b) => a + b) / quality.length).toFixed(
     1
   );
-  let difficultysum = (
+  let difficultySum = (
     difficulty.reduce((a, b) => a + b) / difficulty.length
   ).toFixed(1);
-  let qualitycount = Array(5).fill(0);
+  let qualityCount = Array(5).fill(0);
   quality.forEach((value) => {
-    qualitycount[5 - value]++;
+    qualityCount[5 - value]++;
   });
-  let perc = Array(5).fill("");
-  qualitycount.forEach((value, index) => {
-    perc[index] = String((value * 100) / quality.length) + "%";
+  let percent = Array(5).fill("");
+  qualityCount.forEach((value, index) => {
+    percent[index] = String((value * 100) / quality.length) + "%";
   });
   return (
     <div className={styles.Rating}>
@@ -29,12 +29,12 @@ function Rating({ quality, difficulty }: RatingProps) {
           <br />
         </div>
         <div className={styles.row}>
-          {qualitycount.map((value, index) => (
+          {qualityCount.map((value, index) => (
             <div key={value}>
-              <div className={styles.left}>{5 - index}star </div>
+              <div className={styles.left}>{5 - index}star</div>
               <div className={styles.middle}>
                 <div className={styles.barcontainer}>
-                  <div style={{ width: perc[index] }}></div>
+                  <div style={{ width: percent[index] }}></div>
                 </div>
               </div>
               <div className={styles.right}>
@@ -49,11 +49,11 @@ function Rating({ quality, difficulty }: RatingProps) {
         <div className={styles.RatingNumbersBox}>
           <div className={styles.Quality}>
             <div className={styles.QualityHeader}>Quality</div>
-            <div className={styles.QualityNumber}>{qualitysum}</div>
+            <div className={styles.QualityNumber}>{qualitySum}</div>
           </div>
           <div className={styles.Difficulty}>
             <div className={styles.DifficultyHeader}>Difficulty</div>
-            <div className={styles.DifficultyNumber}>{difficultysum}</div>
+            <div className={styles.DifficultyNumber}>{difficultySum}</div>
           </div>
         </div>
       </div>

@@ -2,8 +2,8 @@
 import Review from "@/app/components/Review";
 import styles from "@/app/user/user.module.css";
 import useFetchData from "@/app/hooks/useFetchData";
-import {ReviewResponse} from "@/types/review";
-import {User} from "@/types/user";
+import { ReviewResponse } from "@/types/review";
+import { User } from "@/types/user";
 
 function ProfilePage() {
   const {
@@ -15,10 +15,15 @@ function ProfilePage() {
     data: reviewData,
     loading: reviewLoading,
     error: reviewError,
-  } = useFetchData<ReviewResponse>(process.env.NEXT_PUBLIC_BASE_URL + "/review/user");
+  } = useFetchData<ReviewResponse>(
+    process.env.NEXT_PUBLIC_BASE_URL + "/review/user"
+  );
 
-  if (userLoading) return <div>Loading...</div>;
+  if (userLoading) return <div>Loading User...</div>;
   if (userError) return <div>Error:{userError?.message}</div>;
+  if (reviewLoading) return <div>Loading Reviews...</div>;
+  if (reviewError) return <div>Error:{reviewError?.message}</div>;
+
   return (
     <div className={styles.UserPage}>
       <div className={styles.main}>
@@ -36,4 +41,5 @@ function ProfilePage() {
     </div>
   );
 }
+
 export default ProfilePage;

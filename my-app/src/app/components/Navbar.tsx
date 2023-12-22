@@ -1,7 +1,8 @@
 import styles from "@/app/components/css/navbar.module.css";
-import React, {useEffect, useState} from 'react'
-import HomeIcon from '@mui/icons-material/Home';
-import {ComponentStates} from "@/types/ComponentStates";
+import React, { useEffect, useState } from "react";
+import HomeIcon from "@mui/icons-material/Home";
+import { ComponentStates } from "@/types/ComponentStates";
+import axios from "axios";
 
 export interface NavBarProps {
   onToggleComponent: (component: keyof ComponentStates) => void;
@@ -25,15 +26,16 @@ function Navbar({ onToggleComponent, onHome, componentStates }: NavBarProps) {
     // Trigger the onToggleComponent function with the specified component
     onToggleComponent(component);
   };
-  
+
   useEffect(() => {
     const checkLoginStatus = () => {
-        fetch(process.env.NEXT_PUBLIC_BASE_URL + '/hello')
+      axios
+        .get(process.env.NEXT_PUBLIC_BASE_URL + "/isLoggedIn")
         .then((response) => {
-          setIsLoggedIn(response.ok);
+          setIsLoggedIn(response.data);
         })
         .catch((error) => {
-          console.error('Error checking login status', error);
+          console.error("Error checking login status", error);
           setIsLoggedIn(false);
         });
     };
@@ -42,9 +44,9 @@ function Navbar({ onToggleComponent, onHome, componentStates }: NavBarProps) {
   }, []);
 
   const handleLoginClick = () => {
-      window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}/${
-          isLoggedIn ? "logout" : "login"
-      }`;
+    window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}/${
+      isLoggedIn ? "logout" : "login"
+    }`;
     onToggleComponent("courseDashboard");
   };
 
@@ -62,27 +64,15 @@ function Navbar({ onToggleComponent, onHome, componentStates }: NavBarProps) {
           <li>
             <a>
               <button onClick={handleLoginClick}>
-                {isLoggedIn ? 'Logout' : 'Login'}
+                {isLoggedIn ? "Logout" : "Login"}
               </button>
             </a>
           </li>
-          {/* <li>
-            <a>
-              <button onClick={() => handleButtonClick("courses")}>
-                Course
-              </button>
-            </a>
-          </li> */}
-          {/* <li>
-            <a>
-              <button onClick={() => handleButtonClick("reviews")}>
-                Review
-              </button>
-            </a>
-          </li> */}
           <li>
             <a>
-              <button onClick={() => handleButtonClick("user")}>My Profile</button>
+              <button onClick={() => handleButtonClick("user")}>
+                My Profile
+              </button>
             </a>
           </li>
           <li>
@@ -92,9 +82,6 @@ function Navbar({ onToggleComponent, onHome, componentStates }: NavBarProps) {
               </button>
             </a>
           </li>
-
-          {/* <li><a>My Profile</a></li> */}
-          {/* <li><a>Logout</a></li> */}
         </ul>
       </div>
     </nav>

@@ -32,14 +32,14 @@
 }
 
 /* The bar container */
-.barcontainer {
+.barContainer {
     /* width: 22rem; */
     background-color: #D9D9D9;
     text-align: center;
     color: white;
 }
 
-.barcontainer div {
+.barContainer div {
     background-color: rgb(100, 0, 0);
     height: 1rem;
 }

@@ -5,7 +5,7 @@ import { CourseResponse } from "@/types/course";
 
 interface CourseListProps {
   onUserInputChange: any;
-  courseData: CourseResponse | null
+  courseData: CourseResponse | null;
   onToggleComponent: (component: keyof ComponentStates) => void;
   onHome: () => void;
   componentStates: {
@@ -26,23 +26,23 @@ function CourseList({
   return (
     <div>
       {courseData?.course_table.map((course) => {
-      // Transform semestersOffered array to an array of semester strings
-      const semesters: string[] = course.semestersOffered.map((semesterInfo) => {
-        const { season, year } = semesterInfo;
-        return `${season} ${year}`;
-      });
+        // Transform semestersOffered array to an array of semester strings
+        course.semestersOffered.map((semesterInfo) => {
+          const { season, year } = semesterInfo;
+          return `${season} ${year}`;
+        });
 
-      return (
-        <CourseCard
-          key={course.cicsId}
-          onUserInputChange = {onUserInputChange}
-          course={course}
-          onToggleComponent={onToggleComponent}
-          onHome={onHome}
-          componentStates={componentStates}
-        />
-      );
-    })}
+        return (
+          <CourseCard
+            key={course.cicsId}
+            onUserInputChange={onUserInputChange}
+            course={course}
+            onToggleComponent={onToggleComponent}
+            onHome={onHome}
+            componentStates={componentStates}
+          />
+        );
+      })}
     </div>
   );
 }

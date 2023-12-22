@@ -4,8 +4,8 @@ import { ComponentStates } from "@/types/ComponentStates";
 import { Course } from "@/types/course";
 
 interface CourseCardProps {
-  onUserInputChange: any
-  course: Course
+  onUserInputChange: any;
+  course: Course;
   onToggleComponent: (component: keyof ComponentStates) => void;
   onHome: () => void;
   componentStates: {
@@ -20,23 +20,23 @@ function handleClick(props: CourseCardProps) {
   //props.onToggleComponent('reviews');
   props.onUserInputChange(props.course);
   props.onToggleComponent("courses");
-  console.log(props.course.cicsId)
+  console.log(props.course.cicsId);
   //props.onToggleComponent('login');
 }
 
 const CourseCard: React.FC<CourseCardProps> = (props) => {
   const formattedSemesters = props.course.semestersOffered
-    ? props.course.semestersOffered.map(semester => `${semester.season} ${semester.year}`).join(', ')
-    : 'Not available';return (
+    ? props.course.semestersOffered
+        .map((semester) => `${semester.season} ${semester.year}`)
+        .join(", ")
+    : "Not available";
+  return (
     <div className={styles.card}>
       <div className={styles.left_content}>
         <h2 className={styles.course_title}>
           {props.course.cicsId}: {props.course.name}
         </h2>
-        <p>
-          Semesters offered:{" "}
-          {formattedSemesters}
-        </p>
+        <p>Semesters offered: {formattedSemesters}</p>
       </div>
       <div className={styles.right_content}>
         <span className={styles.star}>&#9733;</span>

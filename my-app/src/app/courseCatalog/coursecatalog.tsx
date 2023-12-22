@@ -1,9 +1,9 @@
 import React from "react";
 import CourseList from "../components/CourseList";
 import CourseFiltersList from "../components/CourseFiltersList";
-import {ComponentStates} from "@/types/ComponentStates";
+import { ComponentStates } from "@/types/ComponentStates";
 import useFetchData from "@/app/hooks/useFetchData";
-import {CourseResponse} from "@/types/course";
+import { CourseResponse } from "@/types/course";
 import styles from "@/app/courseCatalog/courseCatalog.module.css";
 
 interface CourseCatalogPage {
@@ -28,8 +28,10 @@ function CourseCatalogPage({
   const {
     data: courseData,
     loading: courseLoading,
-    error: courseError
-  } = useFetchData<CourseResponse>(process.env.NEXT_PUBLIC_BASE_URL + '/course');
+    error: courseError,
+  } = useFetchData<CourseResponse>(
+    process.env.NEXT_PUBLIC_BASE_URL + "/course"
+  );
 
   // Loading state
   if (courseLoading) {
@@ -48,7 +50,7 @@ function CourseCatalogPage({
       </div>
       <div className={styles.list_column}>
         <CourseList
-          onUserInputChange = {onUserInputChange}
+          onUserInputChange={onUserInputChange}
           courseData={courseData}
           onToggleComponent={onToggleComponent}
           onHome={onHome}

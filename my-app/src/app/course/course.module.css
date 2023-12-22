@@ -1,8 +1,9 @@
 .main {
     padding-top: 4rem;
 }
+
 .RateThisCourse {
-    margin:auto;
+    margin: auto;
     background-color: rgb(100, 0, 0);
     display: flex;
     justify-content: center;

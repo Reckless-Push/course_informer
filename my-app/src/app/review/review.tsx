@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import * as material from "@mui/material";
 import usePostData from "@/app/hooks/usePostData";
 import useFetchData from "@/app/hooks/useFetchData";
-import {Course, CourseResponse} from "@/types/course";
-import {Professor, ProfessorResponse} from "@/types/professor";
-import {Review} from "@/types/review";
-import {createTheme, ThemeProvider} from "@mui/material/styles";
+import { Course } from "@/types/course";
+import { Professor, ProfessorResponse } from "@/types/professor";
+import { Review } from "@/types/review";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import styles from "@/app/review/review.module.css";
 
 const theme = createTheme({
@@ -40,15 +40,13 @@ const ResponseForm = (course_data: Course) => {
   const [selectedProfessor, setSelectedProfessor] = useState<string>("");
   const [isSubmitClicked, setIsSubmitClicked] = useState(false);
   const { data, loading, error } = usePostData<Review, Review>(
-      process.env.NEXT_PUBLIC_BASE_URL + "/review",
+    process.env.NEXT_PUBLIC_BASE_URL + "/review",
     review,
     isSubmitClicked
   );
-  const { data: coursesData } = useFetchData<CourseResponse>(
-      process.env.NEXT_PUBLIC_BASE_URL + "/course"
-  );
+
   const { data: professorsData } = useFetchData<ProfessorResponse>(
-      process.env.NEXT_PUBLIC_BASE_URL + "/professor"
+    process.env.NEXT_PUBLIC_BASE_URL + "/professor"
   );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
