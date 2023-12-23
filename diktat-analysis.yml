@@ -6,13 +6,13 @@
     # expected values:  disabledChapters: "Naming, Comments, General, Variables, Functions, Classes"
     # or: "1, 2, 3, 4, 5, 6"
     disabledChapters: ""
-    kotlinVersion: 1.9.21
+    kotlinVersion: 2.0.0-Beta2
     srcDirectories: main
 # Checks that functions/methods which return boolean have special prefix like "is/should/e.t.c"
 - name: FUNCTION_BOOLEAN_PREFIX
   enabled: true
   configuration:
-    allowedPrefixes: "edit, delete, download" # A list of functions that return boolean and are allowed to use. Input is in a form "foo, bar".
+    allowedPrefixes: "edit, delete, download" # A list of functions that return boolean and are allowed to use.
 # Checks trailing comma
 - name: TRAILING_COMMA
   enabled: true
@@ -34,5 +34,6 @@
     # DESTRUCTURING_DECLARATION_ENTRY
     destructuringDeclaration: false
 # Checks that value on integer or float constant is not too big
+# Disabled because dokka fails to generate documentation for such constants
 - name: LONG_NUMERICAL_VALUES_SEPARATED
   enabled: false
