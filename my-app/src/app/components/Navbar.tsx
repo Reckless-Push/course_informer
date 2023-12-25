@@ -55,32 +55,24 @@ function Navbar({ onToggleComponent, onHome, componentStates }: NavBarProps) {
       <div>
         <ul>
           <li>
-            <a>
-              <button onClick={onHome}>
-                <HomeIcon />
-              </button>
-            </a>
+            <button onClick={onHome}>
+              <HomeIcon />
+            </button>
           </li>
           <li>
-            <a>
-              <button onClick={handleLoginClick}>
-                {isLoggedIn ? "Logout" : "Login"}
-              </button>
-            </a>
+            <button onClick={handleLoginClick}>
+              {isLoggedIn ? "Logout" : "Login"}
+            </button>
           </li>
           <li>
-            <a>
-              <button onClick={() => handleButtonClick("user")}>
-                My Profile
-              </button>
-            </a>
+            <button onClick={() => handleButtonClick("user")}>
+              My Profile
+            </button>
           </li>
           <li>
-            <a>
-              <button onClick={() => handleButtonClick("courseDashboard")}>
-                View All Courses
-              </button>
-            </a>
+            <button onClick={() => handleButtonClick("courseDashboard")}>
+              View All Courses
+            </button>
           </li>
         </ul>
       </div>

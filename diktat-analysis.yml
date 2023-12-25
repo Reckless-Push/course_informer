@@ -6,7 +6,7 @@
     # expected values:  disabledChapters: "Naming, Comments, General, Variables, Functions, Classes"
     # or: "1, 2, 3, 4, 5, 6"
     disabledChapters: ""
-    kotlinVersion: 2.0.0-Beta2
+    kotlinVersion: 1.9.22
     srcDirectories: main
 # Checks that functions/methods which return boolean have special prefix like "is/should/e.t.c"
 - name: FUNCTION_BOOLEAN_PREFIX

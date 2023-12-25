@@ -33,7 +33,7 @@ function Rating({ quality, difficulty }: RatingProps) {
             <div key={value}>
               <div className={styles.left}>{5 - index}star</div>
               <div className={styles.middle}>
-                <div className={styles.barcontainer}>
+                <div className={styles.barContainer}>
                   <div style={{ width: percent[index] }}></div>
                 </div>
               </div>

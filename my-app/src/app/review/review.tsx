@@ -100,6 +100,7 @@ const ResponseForm = (course_data: Course) => {
                   value={selectedProfessor}
                   onChange={handleProfessorChange}
                   id="Professor"
+                  name="Professor"
                 >
                   {professorsData?.professor_table.map(
                     (professor: Professor) => (
@@ -157,13 +158,18 @@ const ResponseForm = (course_data: Course) => {
                 <material.Select
                   className={styles.grades}
                   value={review.grade}
+                  id="grade"
+                  name="grade"
                   onChange={(e) =>
                     setReview({ ...review, grade: e.target.value })
                   }
-                  id="grade"
                 >
                   {grade.map((value, index) => (
-                    <material.MenuItem key={index} value={value}>
+                    <material.MenuItem
+                      key={index}
+                      value={value}
+                      id={`grade-${index}`}
+                    >
                       {value}
                     </material.MenuItem>
                   ))}

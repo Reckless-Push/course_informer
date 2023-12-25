@@ -60,10 +60,10 @@ RUN if [ "${IS_PROD}" = "true" ] ;  \
     -keypass ${PRIVATE_KEY_PASSWORD}; fi
 RUN cp keystore.jks src/main/resources/keystore.jks
 COPY --from=react-build /app/out /build/src/main/resources/static
-RUN ./gradlew clean test
+RUN ./gradlew test
 ENV JDBC_URL=${JDBC_DATABASE_URL}
 ENV JDBC_DRIVER=${JDBC_POSTGRES_DRIVER}
-RUN ./gradlew clean build -x test
+RUN ./gradlew build -x test
 
 # Stage 4: Create the final image to run the server
 FROM amazonlinux:2023

@@ -7,8 +7,20 @@
     /* height: 100vh; */
     width: 100%;
     margin: auto;
-    padding-top: 4rem;
+    padding-top: 5rem;
     color: black;
+}
+
+@media (max-width: 473px) { /* Adjust the max-width as needed */
+    .container {
+        padding-top: 9rem; /* Increase padding-top to accommodate the navbar */
+    }
+}
+
+@media (max-width: 296px) { /* Adjust the max-width as needed */
+    .container {
+        padding-top: 14rem; /* Increase padding-top to accommodate the navbar */
+    }
 }
 
 .filters_column {

@@ -3,7 +3,7 @@
     border-radius: 15px;
     padding: 10px;
     margin-bottom: 20px;
-    width: 70%;
+    width: 100%;
 }
 
 .filterTitle {
@@ -15,6 +15,14 @@
     /* margin: 5px */
     margin-right: 5px; /* Adjust the spacing between checkbox and text */
     vertical-align: middle;
+}
+
+.labelContainer {
+    display: flex;
+    align-items: center;
+    overflow-wrap: break-word;
+    word-break: break-all;
+    hyphens: auto;
 }
 
 /* .listContainer{
