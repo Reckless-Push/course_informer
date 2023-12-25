@@ -94,13 +94,18 @@ const ResponseForm = (course_data: Course) => {
               background-color="secondary"
             >
               <div className={styles.SelectProfessor}>
-                <label className={styles.Text}>Select Professor</label>
+                <label htmlFor="professor-select" className={styles.Text}>
+                  Select Professor
+                </label>
                 <material.Select
                   className={styles.prof}
                   value={selectedProfessor}
                   onChange={handleProfessorChange}
-                  id="Professor"
-                  name="Professor"
+                  label="Select Professor"
+                  name="professor"
+                  inputProps={{
+                    id: "professor-select",
+                  }}
                 >
                   {professorsData?.professor_table.map(
                     (professor: Professor) => (
@@ -115,8 +120,10 @@ const ResponseForm = (course_data: Course) => {
                 </material.Select>
               </div>
               <div className={styles.SelectProfessor}>
-                <label className={styles.Text}>Rate your Professor</label>
-                <label style={{ paddingRight: "0.8rem" }}>1</label>
+                <label htmlFor="quality" className={styles.Text}>
+                  Rate your Professor
+                </label>
+                <text style={{ paddingRight: "0.8rem" }}>1</text>
                 <input
                   type="range"
                   min="1"
@@ -130,13 +137,13 @@ const ResponseForm = (course_data: Course) => {
                   name="quality"
                   value={review.quality}
                 ></input>
-                <label style={{ paddingLeft: "0.8rem" }}>5</label>
+                <text style={{ paddingLeft: "0.8rem" }}>5</text>
               </div>
               <div className={styles.SelectProfessor}>
-                <label className={styles.Text}>
+                <label htmlFor="difficulty" className={styles.Text}>
                   How difficult was this Professor
                 </label>
-                <label style={{ paddingRight: "0.8rem" }}>1</label>
+                <text style={{ paddingRight: "0.8rem" }}>1</text>
                 <input
                   type="range"
                   min="1"
@@ -150,33 +157,36 @@ const ResponseForm = (course_data: Course) => {
                   name="difficulty"
                   value={review.difficulty}
                 ></input>
-                <label style={{ paddingLeft: "0.8rem" }}>5</label>
+                <text style={{ paddingLeft: "0.8rem" }}>5</text>
               </div>
-
               <div className={styles.SelectProfessor}>
-                <label className={styles.Text}>Select grade</label>
+                <label htmlFor="grade-select" className={styles.Text}>
+                  Select grade
+                </label>
+
                 <material.Select
                   className={styles.grades}
                   value={review.grade}
-                  id="grade"
-                  name="grade"
                   onChange={(e) =>
                     setReview({ ...review, grade: e.target.value })
                   }
+                  label="Select Grade"
+                  name="grade"
+                  inputProps={{
+                    id: "grade-select",
+                  }}
                 >
                   {grade.map((value, index) => (
-                    <material.MenuItem
-                      key={index}
-                      value={value}
-                      id={`grade-${index}`}
-                    >
+                    <material.MenuItem key={index} value={value}>
                       {value}
                     </material.MenuItem>
                   ))}
                 </material.Select>
               </div>
               <div className={styles.addComments}>
-                <label className={styles.Text}>Additional comments</label>
+                <label htmlFor="comment" className={styles.Text}>
+                  Additional comments
+                </label>
                 <material.TextField
                   className={styles.addCommentstext}
                   name="comment"
