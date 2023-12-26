@@ -1,7 +1,8 @@
 import styles from "@/app/components/css/navbar.module.css";
-import React, { useEffect, useState } from 'react'
-import HomeIcon from '@mui/icons-material/Home';
+import React, { useEffect, useState } from "react";
+import HomeIcon from "@mui/icons-material/Home";
 import { ComponentStates } from "@/types/ComponentStates";
+import axios from "axios";
 
 export interface NavBarProps {
   onToggleComponent: (component: keyof ComponentStates) => void;
@@ -25,15 +26,16 @@ function Navbar({ onToggleComponent, onHome, componentStates }: NavBarProps) {
     // Trigger the onToggleComponent function with the specified component
     onToggleComponent(component);
   };
-  
+
   useEffect(() => {
     const checkLoginStatus = () => {
-      fetch('https://localhost:8443/hello')
+      axios
+        .get(process.env.NEXT_PUBLIC_BASE_URL + "/isLoggedIn")
         .then((response) => {
-          setIsLoggedIn(response.ok);
+          setIsLoggedIn(response.data);
         })
         .catch((error) => {
-          console.error('Error checking login status', error);
+          console.error("Error checking login status", error);
           setIsLoggedIn(false);
         });
     };
@@ -42,7 +44,9 @@ function Navbar({ onToggleComponent, onHome, componentStates }: NavBarProps) {
   }, []);
 
   const handleLoginClick = () => {
-    window.location.href = `https://localhost:8443/${isLoggedIn ? 'logout' : 'login'}`;
+    window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}/${
+      isLoggedIn ? "logout" : "login"
+    }`;
     onToggleComponent("courseDashboard");
   };
 
@@ -51,48 +55,25 @@ function Navbar({ onToggleComponent, onHome, componentStates }: NavBarProps) {
       <div>
         <ul>
           <li>
-            <a>
-              <button onClick={onHome}>
-                <HomeIcon />
-              </button>
-            </a>
+            <button onClick={onHome}>
+              <HomeIcon />
+            </button>
           </li>
           <li>
-            <a>
-              <button onClick={handleLoginClick}>
-                {isLoggedIn ? 'Logout' : 'Login'}
-              </button>
-            </a>
-          </li>
-          {/* <li>
-            <a>
-              <button onClick={() => handleButtonClick("courses")}>
-                Course
-              </button>
-            </a>
-          </li> */}
-          {/* <li>
-            <a>
-              <button onClick={() => handleButtonClick("reviews")}>
-                Review
-              </button>
-            </a>
-          </li> */}
-          <li>
-            <a>
-              <button onClick={() => handleButtonClick("user")}>My Profile</button>
-            </a>
+            <button onClick={handleLoginClick}>
+              {isLoggedIn ? "Logout" : "Login"}
+            </button>
           </li>
           <li>
-            <a>
-              <button onClick={() => handleButtonClick("courseDashboard")}>
-                View All Courses
-              </button>
-            </a>
+            <button onClick={() => handleButtonClick("user")}>
+              My Profile
+            </button>
           </li>
-
-          {/* <li><a>My Profile</a></li> */}
-          {/* <li><a>Logout</a></li> */}
+          <li>
+            <button onClick={() => handleButtonClick("courseDashboard")}>
+              View All Courses
+            </button>
+          </li>
         </ul>
       </div>
     </nav>

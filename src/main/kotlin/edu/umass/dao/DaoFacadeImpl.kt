@@ -96,7 +96,7 @@ class DaoFacadeImpl : DaoFacade {
             date = row[Reviews.datetime]?.toKotlinLocalDateTime(),
             difficulty = row[Reviews.difficulty],
             quality = row[Reviews.quality],
-            comment = row[Reviews.comment],
+            comment = row[Reviews.userComment],
             fromRmp = row[Reviews.fromRmp],
             forCredit = row[Reviews.forCredit],
             attendance = row[Reviews.attendance],
@@ -194,7 +194,7 @@ class DaoFacadeImpl : DaoFacade {
         it[Reviews.userId] = review.userId
         it[Reviews.difficulty] = review.difficulty
         it[Reviews.quality] = review.quality
-        it[Reviews.comment] = review.comment
+        it[Reviews.userComment] = review.comment
         it[Reviews.fromRmp] = review.fromRmp
         it[Reviews.datetime] = review.date?.toJavaLocalDateTime()
         it[Reviews.forCredit] = review.forCredit

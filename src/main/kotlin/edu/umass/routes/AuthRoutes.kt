@@ -66,12 +66,35 @@ fun Route.authRoutes() {
 }
 
 /**
+ * Route to check if a user is logged in.
+ *
+ * @receiver The Route on which to define the route.
+ */
+fun Route.isLoggedIn() {
+    get("/isLoggedIn") {
+        val userSession: UserSession? = call.sessions.get()
+        userSession?.let {
+            val response: HttpResponse =
+                httpClient.get("https://www.googleapis.com/oauth2/v2/userinfo") {
+                    headers { append(HttpHeaders.Authorization, "Bearer ${userSession.token}") }
+                }
+            if (response.status == HttpStatusCode.OK) {
+                call.respond(true)
+            } else {
+                call.respond(false)
+            }
+        }
+    }
+}
+
+/**
  * Configures the routes for authentication.
  *
  * @receiver The Routing on which to configure the routes.
  */
 fun Route.configureAuthRoutes() {
     authRoutes()
+    isLoggedIn()
     get("/hello") {
         val userSession: UserSession? = call.sessions.get()
         userSession?.let {

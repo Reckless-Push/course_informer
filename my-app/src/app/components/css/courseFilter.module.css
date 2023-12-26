@@ -3,8 +3,8 @@
     border-radius: 15px;
     padding: 10px;
     margin-bottom: 20px;
-    width: 70%;
-  }
+    width: 100%;
+}
 
 .filterTitle {
     font-size: large;
@@ -14,20 +14,28 @@
 .filterOption {
     /* margin: 5px */
     margin-right: 5px; /* Adjust the spacing between checkbox and text */
-    vertical-align: middle; 
+    vertical-align: middle;
 }
-  
-  /* .listContainer{
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  } */
-  
-  /* li {
-    margin-bottom: 8px;
-  }
-  
-  input[type='checkbox'] {
-    margin-right: 5px;
-  } */
+
+.labelContainer {
+    display: flex;
+    align-items: center;
+    overflow-wrap: break-word;
+    word-break: break-all;
+    hyphens: auto;
+}
+
+/* .listContainer{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+} */
+
+/* li {
+  margin-bottom: 8px;
+}
+
+input[type='checkbox'] {
+  margin-right: 5px;
+} */
   

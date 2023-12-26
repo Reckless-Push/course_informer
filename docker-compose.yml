@@ -39,6 +39,10 @@ services:
         JDBC_POSTGRES_DRIVER: ${JDBC_POSTGRES_DRIVER}
         POSTGRES_USER: ${POSTGRES_USER}
         POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+        BASE_URL: ${BASE_URL}
+        NEXT_PUBLIC_BASE_URL: ${NEXT_PUBLIC_BASE_URL}
+        KEYSTORE_URL: ${KEYSTORE_URL}
+        IS_PROD: ${IS_PROD}
     depends_on:
       db:
         condition: service_healthy
@@ -56,14 +60,18 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       JDBC_DRIVER: ${JDBC_POSTGRES_DRIVER}
       JDBC_URL: ${JDBC_DATABASE_URL}
+      BASE_URL: ${BASE_URL}
+      NEXT_PUBLIC_BASE_URL: ${NEXT_PUBLIC_BASE_URL}
+      KEYSTORE_URL: ${KEYSTORE_URL}
+      IS_PROD: ${IS_PROD}
     networks:
       - app-network
       - db-network
     ports:
-      - "8080:8080"
-      - "8443:8443"
+      - "8080:80"
+      - "8443:443"
     healthcheck:
-      test: [ "CMD", "curl", "-f", "-k", "https://localhost:8443/health" ]
+      test: [ "CMD", "curl", "-f", "-k", "https://localhost/health" ]
       interval: 30s
       timeout: 30s
       retries: 3

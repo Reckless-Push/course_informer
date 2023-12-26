@@ -1,10 +1,16 @@
-import type { Config } from 'tailwindcss'
+import type {Config} from 'tailwindcss'
 
 const config: Config = {
     content: [
+        './src/**/*.tsx',
+        './src/**/*.ts',
+        './src/**/*.js',
+        './src/**/*.jsx',
+        './src/**/*.css',
         './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
         './src/components/**/*.{js,ts,jsx,tsx,mdx}',
         './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+        './src/types/**/*.{js,ts,jsx,tsx,mdx}',
         './pages/**/*.{html,js}',
         './components/**/*.{html,js}',
     ],

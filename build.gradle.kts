@@ -10,8 +10,8 @@ val postgresVersion: String by project
 
 plugins {
     application
-    kotlin("jvm") version "2.0.0-Beta1"
-    kotlin("plugin.serialization").version("2.0.0-Beta1")
+    kotlin("jvm") version "2.0.0-Beta2"
+    kotlin("plugin.serialization").version("2.0.0-Beta2")
     id("io.ktor.plugin") version "3.0.0-beta-1"
     id("org.jetbrains.dokka") version "1.9.10"
     id("com.diffplug.spotless") version "6.23.3"

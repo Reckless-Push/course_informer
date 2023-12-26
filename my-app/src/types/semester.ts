@@ -1,4 +1,4 @@
 export interface Semester {
-    season: string;
-    year: number;
+  season: string;
+  year: number;
 }

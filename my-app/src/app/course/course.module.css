@@ -1,8 +1,21 @@
 .main {
     padding-top: 4rem;
 }
+
+@media (max-width: 473px) { /* Adjust the max-width as needed */
+    .main {
+        padding-top: 9rem; /* Increase padding-top to accommodate the navbar */
+    }
+}
+
+@media (max-width: 296px) { /* Adjust the max-width as needed */
+    .main {
+        padding-top: 14rem; /* Increase padding-top to accommodate the navbar */
+    }
+}
+
 .RateThisCourse {
-    margin:auto;
+    margin: auto;
     background-color: rgb(100, 0, 0);
     display: flex;
     justify-content: center;
@@ -17,8 +30,10 @@
     font-size: medium;
     padding-left: 2rem;
     padding-right: 2rem;
-    height: 2rem;
+    height: auto;
     border-radius: 15px;
+    white-space: normal;
+    word-wrap: break-word;
 }
 
 .RateThisCourse:hover {

@@ -3,7 +3,6 @@
     z-index: 10;
     background-color: rgb(100, 0, 0);
     color: white;
-
 }
 
 .nav div {
@@ -15,11 +14,10 @@
     list-style-type: none;
     margin: 0;
     padding: 0;
-
 }
 
 .nav li {
-    display: inline;
+    display: inline-block;
     float: right;
 }
 
@@ -27,13 +25,19 @@
     float: left;
 }
 
-.nav li a:hover {
-    background-color: #8D89A6;
-}
-
-.nav li a {
+.nav button {
+    background: none; /* Remove default button background */
+    border: none; /* Remove default button border */
+    color: white; /* Text color */
     display: block;
     text-align: center;
-    padding: 1.5rem 1.5rem;
+    padding: 1.5rem 1.5rem; /* Adjust padding as needed */
     text-decoration: none;
+    width: 100%; /* Full width of the parent li */
+    height: 100%; /* Full height of the parent li */
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+.nav button:hover {
+    background-color: #8D89A6; /* Hover background color */
 }

@@ -22,7 +22,7 @@ function CourseDesc(data: Course) {
         ))}
         {/* <div className={styles.PrevTerm}>Previous Terms offered: Fall 2023, ...</div> */}
       </div>
-      <div className={styles.Proftotal}>
+      <div className={styles.ProfTotal}>
         <div className={styles.Prof}>
           INSTRUCTOR(S):
           {data.professors.map((x) => (
@@ -33,7 +33,7 @@ function CourseDesc(data: Course) {
         </div>
         {/* <div className={styles.PrevProf}>Previous Instructors: Heather Conboy ...</div> */}
       </div>
-      <div className={styles.Prereqs}>
+      <div className={styles.PreReqs}>
         Undergraduate Prerequisites:
         {data.undergraduateRequirement &&
           data.undergraduateRequirement.map((x) => (
