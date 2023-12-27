@@ -12,6 +12,9 @@ import edu.umass.models.Course
 import edu.umass.models.CourseFilter
 import edu.umass.models.CourseIngest
 import edu.umass.models.ExtractedCourse
+import edu.umass.models.ExtractedMap
+import edu.umass.models.Professor
+import edu.umass.models.Semester
 
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
@@ -31,6 +34,8 @@ import java.io.File
 import java.util.UUID
 
 import kotlinx.serialization.json.Json
+
+private const val ONE_HUNDRED = 100
 
 private val logger = LoggerFactory.getLogger("Extractor")
 
@@ -73,8 +78,9 @@ fun Route.ingestCourses() {
             val uuid = runPythonScript(filePath)
             val jsonFilePath = "$uuid.json"
             val jsonContent = File(jsonFilePath).readText()
-            val extractedCourses: List<ExtractedCourse> = Json.decodeFromString(jsonContent)
-            call.respond(mapOf("extracted_courses" to extractedCourses))
+            val extractedMap: ExtractedMap = Json.decodeFromString<ExtractedMap>(jsonContent)
+            extractedMap.courses.forEach { newCourse(it, extractedMap.semesterPdf) }
+            call.respond(mapOf("extracted_courses" to extractedMap.courses))
 
             // Delete the files after loading the extracted course list
             val jsonFile = File(jsonFilePath)
@@ -186,6 +192,14 @@ fun Route.deleteCourse() {
 }
 
 /**
+ * Calculates the course level from the CICS ID.
+ *
+ * @return The course level.
+ */
+private fun String.calculateCourseLevel(): Int =
+    this.firstOrNull { it.isDigit() }?.digitToInt()?.times(ONE_HUNDRED) ?: 0
+
+/**
  * Downloads a PDF from a URL and saves it to a file.
  *
  * @param url The URL of the PDF to download.
@@ -225,3 +239,85 @@ fun runPythonScript(filePath: String): String =
     } catch (e: Exception) {
         "Error running script: ${e.message}"
     }
+
+/**
+ * Adds a course to the database.
+ *
+ * @param extractedCourse The course to add.
+ * @param semester The semester the course was offered in.
+ * @return True if the course was added successfully, False otherwise.
+ */
+private suspend fun newCourse(
+    extractedCourse: ExtractedCourse,
+    semester: Semester,
+) {
+    val instructors = mapProfessors(extractedCourse.instructors)
+
+    val newInstructors = instructors.map { instructor -> updateProfessorIfNeeded(instructor) }
+
+    val oldCourse = dao.courseLookup(extractedCourse.cicsId)
+    logger.info("Finding old course: $oldCourse")
+    val newCourse =
+        Course(
+            cicsId = extractedCourse.cicsId,
+            courseLevel = extractedCourse.cicsId.calculateCourseLevel(),
+            department = extractedCourse.department,
+            name = extractedCourse.name,
+            description = extractedCourse.description,
+            credits = extractedCourse.credits,
+            instructors = newInstructors,
+            prerequisites = extractedCourse.prerequisites,
+            semestersOffered = determineSemestersOffered(oldCourse, semester),
+        )
+
+    logger.info("Adding new course: $newCourse")
+    if (oldCourse.isEmpty()) {
+        dao.addNewCourse(newCourse)
+    } else {
+        dao.editCourse(newCourse, oldCourse[0].id!!)
+    }
+}
+
+/**
+ * Updates a professor in the database if they don't already exist.
+ *
+ * @param instructor The professor to update.
+ */
+private suspend fun updateProfessorIfNeeded(instructor: Professor): Professor {
+    val existingProfessor = dao.professorLookup(instructor)
+    if (existingProfessor.isEmpty()) {
+        return dao.addNewProfessor(instructor)!!
+    } else {
+        logger.info("Professor already exists: ${instructor.firstName} ${instructor.lastName}")
+        return existingProfessor[0]
+    }
+}
+
+/**
+ * Determines the semesters offered for a course.
+ *
+ * @param oldCourse The course to check.
+ * @param semester The semester the course was offered in.
+ * @return A list of semesters the course is offered in.
+ */
+private fun determineSemestersOffered(
+    oldCourse: List<Course>,
+    semester: Semester,
+): List<Semester> =
+    if (oldCourse.isEmpty()) listOf(semester) else oldCourse[0].semestersOffered + semester
+
+/**
+ * Maps a list of professor strings to a list of Professor objects.
+ *
+ * @param profStrings The list of professor strings to map.
+ * @return A list of Professor objects.
+ */
+private fun mapProfessors(profStrings: List<String>): List<Professor> =
+    profStrings
+        .filter { it.isNotBlank() }
+        .map { it.split(" ") }
+        .filter { it.size == 2 }
+        .map {
+            logger.info("Mapping professor string to object: ${it.joinToString(" ")}")
+            Professor(firstName = it[0], lastName = it[1])
+        }

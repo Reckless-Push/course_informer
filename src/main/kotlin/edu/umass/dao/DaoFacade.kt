@@ -79,6 +79,14 @@ interface DaoFacade {
     suspend fun course(id: Int): Course?
 
     /**
+     * Find Courses by CICS ID.
+     *
+     * @param cicsId The course id to search for.
+     * @return A list of Course objects.
+     */
+    suspend fun courseLookup(cicsId: String): List<Course>
+
+    /**
      * Adds a new course to the data store.
      *
      * @param course The course to add.
@@ -90,12 +98,12 @@ interface DaoFacade {
      * Edits an existing course's information.
      *
      * @param course The updated course to replace in the database.
-     * @param cicsId The ID of the course to update.
+     * @param id The ID of the course to update.
      * @return True if the update was successful, False otherwise.
      */
     suspend fun editCourse(
         course: Course,
-        cicsId: Int,
+        id: Int,
     ): Boolean
 
     /**
@@ -120,6 +128,14 @@ interface DaoFacade {
      * @return A Professor object or null if not found.
      */
     suspend fun professor(id: Int): Professor?
+
+    /**
+     * Find Professors by name match.
+     *
+     * @param professor The professor to search for.
+     * @return A list of Professor objects.
+     */
+    suspend fun professorLookup(professor: Professor): List<Professor>
 
     /**
      * Adds a new professor to the data store.

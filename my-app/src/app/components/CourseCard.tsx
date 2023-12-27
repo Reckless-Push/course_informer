@@ -34,7 +34,7 @@ const CourseCard: React.FC<CourseCardProps> = (props) => {
     <div className={styles.card}>
       <div className={styles.left_content}>
         <h2 className={styles.course_title}>
-          {props.course.cicsId}: {props.course.name}
+          {props.course.department} {props.course.cicsId}: {props.course.name}
         </h2>
         <p>Semesters offered: {formattedSemesters}</p>
       </div>

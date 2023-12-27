@@ -16,6 +16,7 @@ import edu.umass.models.Users
 
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.andWhere
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
@@ -35,10 +36,11 @@ import kotlinx.datetime.toJavaLocalDateTime
 import kotlinx.datetime.toKotlinLocalDateTime
 import kotlinx.datetime.toLocalDateTime
 
-const val DEFAULT_CICS_ID = 101
-const val DEFAULT_CREDITS = 4
+const val DEFAULT_CICS_ID = "109"
+const val DEFAULT_DEPARTMENT = "CICS"
+const val DEFAULT_CREDITS = 1
 const val DEFAULT_COURSE_LEVEL = 100
-const val DEFAULT_YEAR = 2021
+const val DEFAULT_YEAR = 2024
 
 private val logger = LoggerFactory.getLogger("YourLoggerName")
 
@@ -112,19 +114,19 @@ class DaoFacadeImpl : DaoFacade {
      */
     private suspend fun resultRowToCourse(row: ResultRow) =
         Course(
+            id = row[Courses.id],
             cicsId = row[Courses.cicsId],
+            department = row[Courses.department],
             name = row[Courses.name],
             description = row[Courses.description],
             credits = row[Courses.credits],
-            undergraduateRequirements =
-                row[Courses.undergraduateRequirements]?.split(",")?.mapNotNull { course(it.toInt()) }
-                    ?: emptyList(),
+            prerequisites = row[Courses.prerequisites],
             semestersOffered =
                 row[Courses.semestersOffered]?.split(",")?.mapNotNull { parseSemester(it) }
                     ?: emptyList(),
             courseLevel = row[Courses.courseLevel],
-            professors =
-                row[Courses.professors]?.split(",")?.mapNotNull { professor(it.toInt()) }
+            instructors =
+                row[Courses.instructors]?.split(",")?.mapNotNull { professor(it.toInt()) }
                     ?: emptyList(),
         )
 
@@ -189,8 +191,7 @@ class DaoFacadeImpl : DaoFacade {
     ) {
         it[Reviews.professorId] =
                 review.professor.id ?: throw IllegalArgumentException("Professor ID is null")
-        it[Reviews.courseId] =
-                review.course.cicsId ?: throw IllegalArgumentException("Course ID is null")
+        it[Reviews.courseId] = review.course.id ?: throw IllegalArgumentException("Course ID is null")
         it[Reviews.userId] = review.userId
         it[Reviews.difficulty] = review.difficulty
         it[Reviews.quality] = review.quality
@@ -213,21 +214,17 @@ class DaoFacadeImpl : DaoFacade {
         it: UpdateBuilder<*>,
         course: Course,
     ) {
-        it[Courses.cicsId] = course.cicsId ?: throw IllegalArgumentException("CICS ID is null")
+        it[Courses.cicsId] = course.cicsId
         it[Courses.name] = course.name
         it[Courses.description] = course.description
+        it[Courses.department] = course.department
         it[Courses.credits] = course.credits
-        it[Courses.undergraduateRequirements] =
-                course.undergraduateRequirements.map(Course::cicsId)
-                    .joinToString(",")
-                    .takeIf {
-                        it.isNotEmpty()
-                    }
+        it[Courses.prerequisites] = course.prerequisites
         it[Courses.semestersOffered] =
                 course.semestersOffered.joinToString(",").takeIf { it.isNotEmpty() }
         it[Courses.courseLevel] = course.courseLevel
-        it[Courses.professors] =
-                course.professors.map(Professor::id)
+        it[Courses.instructors] =
+                course.instructors.map(Professor::id)
                     .joinToString(",")
                     .takeIf { it.isNotEmpty() }
     }
@@ -340,7 +337,17 @@ class DaoFacadeImpl : DaoFacade {
      * @return A Course object or null if the course is not found.
      */
     override suspend fun course(id: Int): Course? = dbQuery {
-        Courses.select { Courses.cicsId eq id }.map { resultRowToCourse(it) }.singleOrNull()
+        Courses.select { Courses.id eq id }.map { resultRowToCourse(it) }.singleOrNull()
+    }
+
+    /**
+     * Find Courses by CICS ID.
+     *
+     * @param cicsId The course id to search for.
+     * @return A list of Course objects.
+     */
+    override suspend fun courseLookup(cicsId: String): List<Course> = dbQuery {
+        Courses.select { Courses.cicsId eq cicsId }.map { resultRowToCourse(it) }
     }
 
     /**
@@ -350,21 +357,21 @@ class DaoFacadeImpl : DaoFacade {
      * @return The newly created Course object or null if the operation fails.
      */
     override suspend fun addNewCourse(course: Course): Course? =
-        course(dbQuery { Courses.insert { setCourseValues(it, course) } get Courses.cicsId })
+        course(dbQuery { Courses.insert { setCourseValues(it, course) } get Courses.id })
 
     /**
      * Updates an existing course's information in the database.
      *
      * @param course The updated course to replace in the database.
-     * @param cicsId The CICS ID of the course to update.
+     * @param id The course ID of the course to update.
      * @return True if the update was successful, False otherwise.
      */
     override suspend fun editCourse(
         course: Course,
-        cicsId: Int,
+        id: Int,
     ): Boolean =
         dbQuery {
-            Courses.update({ Courses.cicsId eq cicsId }) {
+            Courses.update({ Courses.id eq id }) {
                 setCourseValues(
                     it,
                     course,
@@ -379,7 +386,7 @@ class DaoFacadeImpl : DaoFacade {
      * @return True if the course was successfully deleted, False otherwise.
      */
     override suspend fun deleteCourse(id: Int): Boolean = dbQuery {
-        Courses.deleteWhere { cicsId eq id } > 0
+        Courses.deleteWhere { Courses.id eq id } > 0
     }
 
     /**
@@ -399,6 +406,21 @@ class DaoFacadeImpl : DaoFacade {
      */
     override suspend fun professor(id: Int): Professor? = dbQuery {
         Professors.select { Professors.id eq id }.map { resultRowToProfessor(it) }.singleOrNull()
+    }
+
+    /**
+     * Find Professors by name match.
+     *
+     * @param professor The professor to search for.
+     * @return A list of Professor objects.
+     */
+    override suspend fun professorLookup(professor: Professor): List<Professor> = dbQuery {
+        Professors.select {
+            Professors.firstName eq
+                    professor.firstName and
+                    (Professors.lastName eq professor.lastName)
+        }
+            .map { resultRowToProfessor(it) }
     }
 
     /**
@@ -582,28 +604,18 @@ private suspend fun initializeCourses(daoFacade: DaoFacade) {
 private fun createDummyCourses(): List<Course> =
     listOf(
         Course(
-            DEFAULT_CICS_ID,
-            "Intro to Programming",
-            "An introductory course on programming",
-            DEFAULT_CREDITS,
-            DEFAULT_COURSE_LEVEL,
+            cicsId = DEFAULT_CICS_ID,
+            department = DEFAULT_DEPARTMENT,
+            courseLevel = DEFAULT_COURSE_LEVEL,
+            name = "Intro to Data Analysis in R",
+            description =
+                "An introduction to data analysis in the open-source R language, with an emphasis on " +
+                        "practical data work. Topics will include data wrangling, summary statistics, modeling, and " +
+                        "visualization. Will also cover fundamental programming concepts including data types, " +
+                        "functions, flow of control, and good programming practices. Intended for a broad range of " +
+                        "students outside of computer science. Some familiarity with statistics is expected.",
+            credits = DEFAULT_CREDITS,
             semestersOffered = listOf(Semester(SemesterSeason.SPRING, DEFAULT_YEAR)),
-        ),
-        Course(
-            DEFAULT_CICS_ID + 1,
-            "Data Structures",
-            "In-depth study of data structures",
-            DEFAULT_CREDITS,
-            DEFAULT_COURSE_LEVEL,
-            semestersOffered = listOf(Semester(SemesterSeason.FALL, DEFAULT_YEAR)),
-        ),
-        Course(
-            DEFAULT_CICS_ID + 2,
-            "Web Development",
-            "Fundamentals of building web applications",
-            DEFAULT_CREDITS,
-            DEFAULT_COURSE_LEVEL,
-            semestersOffered = listOf(Semester(SemesterSeason.SUMMER, DEFAULT_YEAR)),
         ),
     )
 
@@ -617,11 +629,11 @@ private suspend fun initializeProfessors(daoFacade: DaoFacade) {
         if (daoFacade.allProfessors().isEmpty()) {
             val dummyProfessors =
                 listOf(
-                    Professor(null, "Jane", "Smith"),
-                    Professor(null, "John", "Doe"),
-                    Professor(null, "Emily", "Johnson"),
-                    Professor(null, "Michael", "Brown"),
-                    Professor(null, "Linda", "Davis"),
+                    Professor(null, "Jasper", "McChesney"),
+                    Professor(null, "Meng-Chieh", "Chiu"),
+                    Professor(null, "Ghazaleh", "Parvini"),
+                    Professor(null, "Cole", "Reilly"),
+                    Professor(null, "Francine", "Berman"),
                 )
 
             dummyProfessors.forEach { professor -> daoFacade.addNewProfessor(professor) }
@@ -652,7 +664,7 @@ private suspend fun initializeReviews(daoFacade: DaoFacade) {
  *
  * @return A Professor object.
  */
-private fun createDefaultProfessor(): Professor = Professor(1, "Jane", "Smith")
+private fun createDefaultProfessor(): Professor = Professor(1, "Jasper", "McChesney")
 
 /**
  * Creates a default user for testing purposes.
@@ -674,11 +686,19 @@ private fun createDefaultUser(): User =
  */
 private fun createDefaultCourse(): Course =
     Course(
-        DEFAULT_CICS_ID,
-        "Intro to Programming",
-        "An introductory course on programming",
-        DEFAULT_CREDITS,
-        DEFAULT_COURSE_LEVEL,
+        id = 1,
+        cicsId = DEFAULT_CICS_ID,
+        department = DEFAULT_DEPARTMENT,
+        courseLevel = DEFAULT_COURSE_LEVEL,
+        name = "Intro to Data Analysis in R",
+        description =
+            "An introduction to data analysis in the open-source R language, " +
+                    "with an emphasis on practical data work. Topics will include data wrangling, summary " +
+                    "statistics, modeling, and visualization. Will also cover fundamental programming concepts " +
+                    "including data types, functions, flow of control, and good programming practices. Intended for " +
+                    "a broad range of students outside of computer science. Some familiarity with statistics is " +
+                    "expected.",
+        credits = DEFAULT_CREDITS,
         semestersOffered = listOf(Semester(SemesterSeason.SPRING, DEFAULT_YEAR)),
     )
 

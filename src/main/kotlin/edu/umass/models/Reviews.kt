@@ -12,7 +12,7 @@ object Reviews : Table() {
     val professorId = reference("professor_id", Professors.id)
 
     // Foreign key to the 'cicsId' field of the 'Courses' table.
-    val courseId = reference("course_id", Courses.cicsId)
+    val courseId = reference("course_id", Courses.id)
 
     // Foreign key to the 'id' field of the 'Users' table.
     val userId = reference("user_id", Users.uuid).nullable()

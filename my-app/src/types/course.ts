@@ -2,15 +2,16 @@ import { Professor } from "@/types/professor";
 import { Semester } from "@/types/semester";
 
 export interface Course {
-  cicsId: number;
+  id: number;
+  cicsId: string;
+  courseLevel: number;
+  department: string;
   name: string;
   description: string;
   credits: number;
-  courseLevel: number;
-  undergraduateRequirement: Course[];
-  graduateRequirement: Course[];
+  instructors: Professor[];
+  prerequisites: string;
   semestersOffered: Semester[];
-  professors: Professor[];
 }
 
 export interface CourseResponse {

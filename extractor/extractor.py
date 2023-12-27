@@ -38,6 +38,29 @@ class Course:
         }
 
 
+class Semester:
+    """
+    This class represents a semester.
+    :param semester: The semester
+    :param year: The year
+    :return: None
+    """
+
+    def __init__(self, semester, year):
+        self.season = semester
+        self.year = year
+
+    def to_dict(self):
+        """
+        This function converts the semester to a dictionary.
+        :return: The semester as a dictionary
+        """
+        return {
+            'season': self.season,
+            'year': self.year
+        }
+
+
 class PDFExtractor:
     """
     This class extracts text from a PDF file and processes it.
@@ -48,6 +71,7 @@ class PDFExtractor:
     def __init__(self, file_path):
         self.file_path = file_path
         self.extracted_text = ""
+        self.semester = None
 
     def extract_text(self):
         """
@@ -65,13 +89,15 @@ class PDFExtractor:
         This function processes the extracted text.
         :return: The processed text
         """
-        header_pattern = r"^Course Descriptions\n\d{4} (Spring|Summer|Winter|Fall)\n.*?UMassAmherst\n"
+        header_pattern = r"^Course Descriptions\n(\d{4}) (Spring|Summer|Winter|Fall)\n.*?UMassAmherst\n"
         single_page_data_pattern = (
             r"page \d{1,2}( ---)?\n---\n\d{4} (Spring|Summer|Winter|Fall)( ---)?\n\d{1,2}/\d{1,2}/\d{4}\n"
         )
         double_page_data_pattern = (
             r"page \d{1,2}( ---)?\n\d{4} (Spring|Summer|Winter|Fall)( ---)?\n\d{1,2}/\d{1,2}/\d{4}\n"
         )
+        header_match = re.search(header_pattern, self.extracted_text, flags=re.DOTALL)
+        self.semester = Semester(header_match.group(2), header_match.group(1))
         text_without_header = re.sub(header_pattern, "", self.extracted_text, flags=re.DOTALL)
         processed_text = re.sub(single_page_data_pattern, "", text_without_header)
         processed_text = re.sub(double_page_data_pattern, "", processed_text)
@@ -119,7 +145,7 @@ class CourseExtractor:
             + second_pass[0].split("\n")[-3]
             + "\n"
             + second_pass[0].split("\n")[-2],
-        )
+            )
         return third_pass
 
     @staticmethod
@@ -199,6 +225,7 @@ def main():
     course_extractor = CourseExtractor(processed_text)
     cleaned_courses = course_extractor.extract_course_blocks()
     extracted_courses_final = [course_extractor.extract_course_details(course) for course in cleaned_courses]
+    extracted_courses_final = {"semesterPdf": pdf_extractor.semester.to_dict(), "courses": extracted_courses_final}
 
     with open(json_file_path, "w") as json_file:
         json.dump(extracted_courses_final, json_file)
