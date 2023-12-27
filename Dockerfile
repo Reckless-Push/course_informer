@@ -66,7 +66,7 @@ RUN if [ "${IS_PROD}" = "true" ] ;  \
     -keypass ${PRIVATE_KEY_PASSWORD}; fi
 RUN cp keystore.jks src/main/resources/keystore.jks
 COPY --from=react-build /app/out /build/src/main/resources/static
-# RUN ./gradlew test
+RUN ./gradlew test
 ENV JDBC_URL=${JDBC_DATABASE_URL}
 ENV JDBC_DRIVER=${JDBC_POSTGRES_DRIVER}
 RUN ./gradlew build -x test
