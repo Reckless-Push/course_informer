@@ -43,6 +43,9 @@ services:
         NEXT_PUBLIC_BASE_URL: ${NEXT_PUBLIC_BASE_URL}
         KEYSTORE_URL: ${KEYSTORE_URL}
         IS_PROD: ${IS_PROD}
+        PORT: ${PORT}
+        SSL_PORT: ${SSL_PORT}
+        ENVIRONMENT: ${ENVIRONMENT}
     depends_on:
       db:
         condition: service_healthy
@@ -64,12 +67,15 @@ services:
       NEXT_PUBLIC_BASE_URL: ${NEXT_PUBLIC_BASE_URL}
       KEYSTORE_URL: ${KEYSTORE_URL}
       IS_PROD: ${IS_PROD}
+      PORT: ${PORT}
+      SSL_PORT: ${SSL_PORT}
+      ENVIRONMENT: ${ENVIRONMENT}
     networks:
       - app-network
       - db-network
     ports:
-      - "8080:80"
-      - "8443:443"
+      - "8080:8080"
+      - "8443:8443"
     healthcheck:
       test: [ "CMD", "curl", "-f", "-k", "https://localhost/health" ]
       interval: 30s

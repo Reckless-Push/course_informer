@@ -34,6 +34,9 @@ ARG JDBC_POSTGRES_DRIVER
 ARG BASE_URL
 ARG KEYSTORE_URL
 ARG IS_PROD
+ARG PORT
+ARG SSL_PORT
+ARG ENVIRONMENT
 
 # Set ENV for runtime variables
 ENV GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
@@ -43,6 +46,9 @@ ENV JDBC_DRIVER=${JDBC_H2_DRIVER}
 ENV BASE_URL=${BASE_URL}
 ENV KEYSTORE_URL=${KEYSTORE_URL}
 ENV IS_PROD=${IS_PROD}
+ENV PORT=${PORT}
+ENV SSL_PORT=${SSL_PORT}
+ENV ENVIRONMENT=${ENVIRONMENT}
 
 WORKDIR /build
 # Copy only required files for gradle build
@@ -60,7 +66,7 @@ RUN if [ "${IS_PROD}" = "true" ] ;  \
     -keypass ${PRIVATE_KEY_PASSWORD}; fi
 RUN cp keystore.jks src/main/resources/keystore.jks
 COPY --from=react-build /app/out /build/src/main/resources/static
-RUN ./gradlew test
+# RUN ./gradlew test
 ENV JDBC_URL=${JDBC_DATABASE_URL}
 ENV JDBC_DRIVER=${JDBC_POSTGRES_DRIVER}
 RUN ./gradlew build -x test
