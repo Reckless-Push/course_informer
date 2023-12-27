@@ -28,7 +28,15 @@ class ReviewRoutesTest {
     // Dummy objects
     private val prof = Professor(1, "Jane", "Smith")
     private val course =
-        Course(101, "Intro to Programming", "An introductory course on programming", 4, 100)
+        Course(
+            id = 1,
+            cicsId = "101",
+            name = "Intro to Programming",
+            description = "An introductory course on programming",
+            credits = 4,
+            courseLevel = 100,
+            department = "CICS",
+        )
     private val uuid = UUID.fromString("4472068d-c076-4ca0-b9de-085c0a4c7a14")
     private val datetime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
     private val newReview =

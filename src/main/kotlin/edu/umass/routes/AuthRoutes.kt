@@ -30,13 +30,25 @@ import io.ktor.server.sessions.clear
 import io.ktor.server.sessions.get
 import io.ktor.server.sessions.sessions
 import io.ktor.server.sessions.set
+import java.util.UUID
 
 /**
  * Defines the routes for authorization.
  *
  * @receiver The Routing on which to define the routes.
  */
-fun Route.authRoutes() {
+fun Route.configureAuthRoutes() {
+    googleAuthRoutes()
+    isLoggedIn()
+    userInfo()
+}
+
+/**
+ * Route for Google OAuth2 authentication.
+ *
+ * @receiver The Route on which to define the route.
+ */
+fun Route.googleAuthRoutes() {
     authenticate("auth-oauth-google") {
         get("/login") {}
 
@@ -79,7 +91,9 @@ fun Route.isLoggedIn() {
                     headers { append(HttpHeaders.Authorization, "Bearer ${userSession.token}") }
                 }
             if (response.status == HttpStatusCode.OK) {
-                call.respond(true)
+                val userInfo: UserInfo = response.body<UserInfo>()
+                dao.user(UUID.nameUUIDFromBytes(userInfo.id.toByteArray()))?.let { call.respond(true) }
+                    ?: call.respond(false)
             } else {
                 call.respond(false)
             }
@@ -92,9 +106,7 @@ fun Route.isLoggedIn() {
  *
  * @receiver The Routing on which to configure the routes.
  */
-fun Route.configureAuthRoutes() {
-    authRoutes()
-    isLoggedIn()
+fun Route.userInfo() {
     get("/hello") {
         val userSession: UserSession? = call.sessions.get()
         userSession?.let {

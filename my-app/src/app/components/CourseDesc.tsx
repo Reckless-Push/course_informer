@@ -10,7 +10,7 @@ function CourseDesc(data: Course) {
       {/* <button >Like</button>
                 <button >Back</button> */}
       <div className={styles.CourseName}>
-        COMPSCI {data.cicsId} {data.name}
+        {data.department} {data.cicsId} {data.name}
       </div>
       <div className={styles.Credits}>Credits: {data.credits}</div>
       <div className={styles.Terms}>
@@ -25,7 +25,7 @@ function CourseDesc(data: Course) {
       <div className={styles.ProfTotal}>
         <div className={styles.Prof}>
           INSTRUCTOR(S):
-          {data.professors.map((x) => (
+          {data.instructors.map((x) => (
             <div key={x.id}>
               {x.firstName} {x.lastName},{" "}
             </div>
@@ -35,10 +35,7 @@ function CourseDesc(data: Course) {
       </div>
       <div className={styles.PreReqs}>
         Undergraduate Prerequisites:
-        {data.undergraduateRequirement &&
-          data.undergraduateRequirement.map((x) => (
-            <div key={x.cicsId}>COMPSCI{x.cicsId}, </div>
-          ))}
+        {data.prerequisites}
       </div>
       <div className={styles.Desc}>
         Description:

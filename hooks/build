@@ -16,4 +16,7 @@ docker build \
     --build-arg NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL} \
     --build-arg KEYSTORE_URL=${KEYSTORE_URL} \
     --build-arg IS_PROD=${IS_PROD} \
+    --build-arg PORT=${PORT} \
+    --build-arg SSL_PORT=${SSL_PORT} \
+    --build-arg ENVIRONMENT=${ENVIRONMENT} \
     -f $DOCKERFILE_PATH -t $IMAGE_NAME .

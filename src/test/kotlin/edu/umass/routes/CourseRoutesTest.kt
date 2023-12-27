@@ -32,7 +32,17 @@ class CourseRoutesTest {
     @Test
     fun testPostCourse() = testApplication {
         val courseJson =
-            Json.encodeToJsonElement(Course(201, "Test Course", "This is a test course", 3, 200))
+            Json.encodeToJsonElement(
+                Course(
+                    id = 2,
+                    cicsId = "201",
+                    courseLevel = 200,
+                    department = "CICS",
+                    name = "Test Course",
+                    description = "This is a test course",
+                    credits = 3,
+                ),
+            )
                 .toString()
 
         val response =
@@ -47,11 +57,11 @@ class CourseRoutesTest {
     /** Test to verify the GET request for a specific course by ID. */
     @Test
     fun testGetCourseId() = testApplication {
-        val response = client.get("/course/101") { url { protocol = URLProtocol.HTTPS } }
+        val response = client.get("/course/1") { url { protocol = URLProtocol.HTTPS } }
         assertEquals(HttpStatusCode.OK, response.status)
 
         val course: Course = decodeFromString(response.bodyAsText())
-        assertTrue(course.cicsId == 101, "Course id should be 101")
+        assertTrue(course.cicsId == "101", "Course id should be 101")
     }
 
     /** Test to verify the POST request for updating a course by ID. */
@@ -59,7 +69,9 @@ class CourseRoutesTest {
     fun testPostCourseId() = testApplication {
         val editCourseJson = buildString {
             append("{")
-            append("\"cicsId\": 101,")
+            append("\"id\": 2,")
+            append("\"cicsId\": \"101\",")
+            append("\"department\": \"CICS\",")
             append("\"name\": \"Renamed Test Course\",")
             append("\"description\": \"Renamed test course description\",")
             append("\"credits\": 3,")
@@ -68,7 +80,7 @@ class CourseRoutesTest {
         }
 
         val response =
-            client.post("/course/101") {
+            client.post("/course/1") {
                 url { protocol = URLProtocol.HTTPS }
                 contentType(ContentType.Application.Json)
                 setBody(editCourseJson)
@@ -82,7 +94,7 @@ class CourseRoutesTest {
     /** Test to verify the GET request for deleting a course by ID. */
     @Test
     fun testGetCourseDeleteId() = testApplication {
-        val response = client.get("/course/delete/201") { url { protocol = URLProtocol.HTTPS } }
+        val response = client.get("/course/delete/2") { url { protocol = URLProtocol.HTTPS } }
         assertEquals(HttpStatusCode.Accepted, response.status)
     }
 }

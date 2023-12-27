@@ -74,6 +74,9 @@ Before you start, ensure you have the following installed:
   - `BASE_URL`: URL of the server
   - `NEXT_PUBLIC_BASE_URL`: URL for the server passed to NEXT build
   - `IS_PROD`: Flag for production environment, should be 'false' for local builds
+  - `PORT`: Port for the server to listen on
+  - `SSL_PORT`: Port for the server to listen on for SSL connections
+  - `ENVIRONMENT`: Environment for the server to run in, should be 'dev' for local builds
 - More about environment variables: 
 [Docker's documentation](https://docs.docker.com/compose/environment-variables/env-file/).
 - If you do not have a Google OAuth client ID and secret, you can create one 
@@ -205,6 +208,9 @@ Here are the [instructions for Google Drive](https://gist.github.com/tanaikech/f
   - `NEXT_PUBLIC_BASE_URL`: URL for the server passed to NEXT build
   - `KEYSTORE_URL`: Remote URL for the keystore file, must be signed by an authority
   - `IS_PROD`: Flag for production environment, should be 'false' for local builds
+  - `PORT`: Port for the server to listen on
+  - `SSL_PORT`: Port for the server to listen on for SSL connections
+  - `ENVIRONMENT`: Environment for the server to run in, should be 'digitalocean' for reverse poxy users
 - More about environment variables: 
 [Docker's documentation](https://docs.docker.com/compose/environment-variables/env-file/).
 - If you do not have a Google OAuth client ID and secret, you can create one by following the instructions in 
