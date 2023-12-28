@@ -1,12 +1,17 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 val nettyVersion: String by project
+val kotlinVersion: String by project
 val ktorVersion: String by project
 val logbackVersion: String by project
 val exposedVersion: String by project
 val h2Version: String by project
 val kotlinxDatetimeVersion: String by project
 val postgresVersion: String by project
+val junitVersion: String by project
+val slf4jApiVersion: String by project
+val kotlinxSerializationVersion: String by project
+val kotlinxCoroutinesVersion: String by project
 
 plugins {
     application
@@ -16,6 +21,7 @@ plugins {
     id("org.jetbrains.dokka") version "1.9.10"
     id("com.diffplug.spotless") version "6.23.3"
     id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("com.autonomousapps.dependency-analysis") version "1.28.0"
 }
 
 extensions.getByType<com.diffplug.gradle.spotless.SpotlessExtension>().apply {
@@ -79,13 +85,24 @@ dependencies {
     implementation("io.ktor:ktor-client-logging:$ktorVersion")
     implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
     implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
-    implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
-    implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+    runtimeOnly("org.jetbrains.exposed:exposed-dao:$exposedVersion")
+    runtimeOnly("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-java-time:$exposedVersion")
-    implementation("com.h2database:h2:$h2Version")
-    implementation("ch.qos.logback:logback-classic:$logbackVersion")
+    runtimeOnly("com.h2database:h2:$h2Version")
+    runtimeOnly("ch.qos.logback:logback-classic:$logbackVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:$kotlinxDatetimeVersion")
-    implementation("org.postgresql:postgresql:$postgresVersion")
+    runtimeOnly("org.postgresql:postgresql:$postgresVersion")
+    implementation("io.ktor:ktor-http:$ktorVersion")
+    implementation("io.ktor:ktor-serialization:$ktorVersion")
+    implementation("io.ktor:ktor-server-core:$ktorVersion")
+    implementation("io.ktor:ktor-server-sessions:$ktorVersion")
+    implementation("io.ktor:ktor-utils:$ktorVersion")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinxCoroutinesVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$kotlinxSerializationVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinxSerializationVersion")
+    implementation("org.slf4j:slf4j-api:$slf4jApiVersion")
     testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
+    testImplementation("junit:junit:$junitVersion")
     testImplementation("org.jetbrains.kotlin:kotlin-test")
 }
