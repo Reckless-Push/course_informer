@@ -79,21 +79,30 @@ ENV BASE_URL=${BASE_URL}
 RUN yum update -y && \
     yum install -y java-21-amazon-corretto-headless python311 shadow-utils && \
     yum clean all
-# Download pip
-RUN curl -O https://bootstrap.pypa.io/get-pip.py
 
 # Switch to a non-root user to run the app
 RUN useradd -m myuser
+
+# Create a directory for file output and set permissions
+WORKDIR /app
+RUN mkdir -p /app/data && \
+    chown myuser:myuser /app/data && \
+    chmod 755 /app/data
+
+# Download pip
+RUN curl -O https://bootstrap.pypa.io/get-pip.py
+
 USER myuser
+
 # Install pip and fitz
 RUN python3 get-pip.py && \
     python3 -m pip install --upgrade pymupdf
-WORKDIR /app
 
 # Copy the built JAR and keystore from the Ktor build stage
 COPY --from=ktor-build /build/build/libs/course-informer-all.jar ./
 COPY --from=ktor-build /build/src/main/resources/keystore.jks ./
 COPY extractor/extractor.py ./
+
 
 EXPOSE 8080 8443 80 443
 CMD ["java", "-jar", "course-informer-all.jar"]
