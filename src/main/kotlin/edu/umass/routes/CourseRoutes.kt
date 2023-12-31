@@ -75,11 +75,11 @@ fun Route.ingestCourses() {
     post("/course/ingest") {
         val request: CourseIngest = call.receive<CourseIngest>()
         val url = Url(request.url)
-        val filePath = "${UUID.randomUUID()}.pdf"
+        val filePath = "data/${UUID.randomUUID()}.pdf"
 
         if (downloadPdf(url, filePath)) {
             val uuid = runPythonScript(filePath)
-            val jsonFilePath = "$uuid.json"
+            val jsonFilePath = "data/$uuid.json"
             val jsonContent = File(jsonFilePath).readText()
             val extractedMap: ExtractedMap = Json.decodeFromString<ExtractedMap>(jsonContent)
             extractedMap.courses.forEach { newCourse(it, extractedMap.semesterPdf) }
@@ -260,7 +260,8 @@ suspend fun downloadPdf(
 fun runPythonScript(filePath: String): String =
     try {
         val outputId = UUID.randomUUID().toString()
-        val process = ProcessBuilder("python3", "extractor.py", filePath, "$outputId.json").start()
+        val process =
+            ProcessBuilder("python3", "extractor.py", filePath, "data/$outputId.json").start()
         val scriptOutput = process.inputStream.bufferedReader().use { it.readText() }
         val scriptError = process.errorStream.bufferedReader().use { it.readText() }
         logger.info("Script output: $scriptOutput")
