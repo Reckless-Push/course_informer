@@ -15,6 +15,7 @@ import kotlinx.serialization.Serializable
  * @property instructors A list of instructors who teach or have taught the course.
  * @property prerequisites A list of courses required as prerequisites, if any.
  * @property semestersOffered A list of semesters during which the course is typically offered.
+ * @property undergrad
  */
 @Serializable
 data class Course(
@@ -24,6 +25,7 @@ data class Course(
     val department: String,
     val name: String,
     val description: String,
+    val undergrad: Boolean,
     val credits: Int,
     val instructors: List<Professor> = emptyList(),
     val prerequisites: String? = null,

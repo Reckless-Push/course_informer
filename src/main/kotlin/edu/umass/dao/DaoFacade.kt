@@ -4,6 +4,7 @@ import edu.umass.models.Course
 import edu.umass.models.CourseFilter
 import edu.umass.models.Professor
 import edu.umass.models.Review
+import edu.umass.models.Semester
 import edu.umass.models.User
 import java.util.UUID
 
@@ -54,6 +55,20 @@ interface DaoFacade {
      * @return True if the deletion was successful, False otherwise.
      */
     suspend fun deleteUser(uuid: UUID): Boolean
+
+    /**
+     * Retrieves a list of all unique semesters from the courses.
+     *
+     * @return A list of Semester objects.
+     */
+    suspend fun allSemesters(): List<Semester>
+
+    /**
+     * Retrieves a list of all unique credit values from the courses.
+     *
+     * @return A list of Ints representing credit values.
+     */
+    suspend fun allCredits(): List<Int>
 
     /**
      * Retrieves a list of all courses.
@@ -136,6 +151,14 @@ interface DaoFacade {
      * @return A list of Professor objects.
      */
     suspend fun professorLookup(professor: Professor): List<Professor>
+
+    /**
+     * Retrieves a list of professors by course id.
+     *
+     * @param id The unique identifier for a Course.
+     * @return A list of Professor object.
+     */
+    suspend fun professorByCourse(id: Int): List<Professor>
 
     /**
      * Adds a new professor to the data store.

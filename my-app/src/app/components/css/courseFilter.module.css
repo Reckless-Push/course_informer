@@ -25,6 +25,13 @@
     hyphens: auto;
 }
 
+.sticky {
+    position: sticky;
+    top: 0;
+}
+
+
+
 /* .listContainer{
   list-style: none;
   padding: 0;

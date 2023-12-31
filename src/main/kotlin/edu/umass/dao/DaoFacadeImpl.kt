@@ -16,8 +16,10 @@ import edu.umass.models.Users
 
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.like
 import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.andWhere
+import org.jetbrains.exposed.sql.compoundOr
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
@@ -119,6 +121,7 @@ class DaoFacadeImpl : DaoFacade {
             department = row[Courses.department],
             name = row[Courses.name],
             description = row[Courses.description],
+            undergrad = row[Courses.undergrad],
             credits = row[Courses.credits],
             prerequisites = row[Courses.prerequisites],
             semestersOffered =
@@ -217,6 +220,7 @@ class DaoFacadeImpl : DaoFacade {
         it[Courses.cicsId] = course.cicsId
         it[Courses.name] = course.name
         it[Courses.description] = course.description
+        it[Courses.undergrad] = course.undergrad
         it[Courses.department] = course.department
         it[Courses.credits] = course.credits
         it[Courses.prerequisites] = course.prerequisites
@@ -305,6 +309,30 @@ class DaoFacadeImpl : DaoFacade {
     }
 
     /**
+     * Retrieves a list of all unique semesters from the courses.
+     *
+     * @return A list of Semester objects.
+     */
+    override suspend fun allSemesters(): List<Semester> = dbQuery {
+        Courses.slice(Courses.semestersOffered)
+            .selectAll()
+            .mapNotNull { row -> row[Courses.semestersOffered]?.let { parseSemester(it) } }
+            .distinct()
+    }
+
+    /**
+     * Retrieves a list of all unique credit values from the courses.
+     *
+     * @return A list of Ints representing credit values.
+     */
+    override suspend fun allCredits(): List<Int> = dbQuery {
+        Courses.slice(Courses.credits)
+            .selectAll()
+            .mapNotNull { row -> row[Courses.credits] }
+            .distinct()
+    }
+
+    /**
      * Retrieves a list of all courses in the database.
      *
      * @return A list of Course objects.
@@ -321,11 +349,20 @@ class DaoFacadeImpl : DaoFacade {
      */
     override suspend fun filteredCourses(filter: CourseFilter): List<Course> = dbQuery {
         val query = Courses.selectAll()
-        filter.minCredits?.let { query.andWhere { Courses.credits greaterEq it } }
-        filter.maxCredits?.let { query.andWhere { Courses.credits lessEq it } }
-        filter.courseLevel?.let { query.andWhere { Courses.courseLevel eq it } }
-        filter.semestersOffered?.let {
-            query.andWhere { Courses.semestersOffered like "%${it.joinToString(",")}%" }
+        if (filter.undergrad != filter.grad) {
+            query.andWhere { Courses.undergrad eq filter.undergrad }
+        }
+        if (filter.credits.isNotEmpty()) {
+            query.andWhere { Courses.credits inList filter.credits }
+        }
+        // Handling semestersOffered
+        if (filter.semestersOffered.isNotEmpty()) {
+            // Build a list of conditions for each semester-year pair
+            val semesterConditions =
+                filter.semestersOffered.map { semester -> Courses.semestersOffered like "%$semester%" }
+
+            // Combine conditions using OR logic
+            query.andWhere { semesterConditions.compoundOr() }
         }
         query.map { resultRowToCourse(it) }
     }
@@ -421,6 +458,16 @@ class DaoFacadeImpl : DaoFacade {
                     (Professors.lastName eq professor.lastName)
         }
             .map { resultRowToProfessor(it) }
+    }
+
+    /**
+     * Retrieves a list of professors by their unique ID.
+     *
+     * @param id The unique ID of the professor.
+     * @return A list of Professor objects.
+     */
+    override suspend fun professorByCourse(id: Int): List<Professor> = dbQuery {
+        Courses.select { Courses.id eq id }.map { resultRowToCourse(it) }.flatMap { it.instructors }
     }
 
     /**
@@ -614,6 +661,7 @@ private fun createDummyCourses(): List<Course> =
                         "visualization. Will also cover fundamental programming concepts including data types, " +
                         "functions, flow of control, and good programming practices. Intended for a broad range of " +
                         "students outside of computer science. Some familiarity with statistics is expected.",
+            undergrad = true,
             credits = DEFAULT_CREDITS,
             semestersOffered = listOf(Semester(SemesterSeason.SPRING, DEFAULT_YEAR)),
         ),
@@ -698,6 +746,7 @@ private fun createDefaultCourse(): Course =
                     "including data types, functions, flow of control, and good programming practices. Intended for " +
                     "a broad range of students outside of computer science. Some familiarity with statistics is " +
                     "expected.",
+        undergrad = true,
         credits = DEFAULT_CREDITS,
         semestersOffered = listOf(Semester(SemesterSeason.SPRING, DEFAULT_YEAR)),
     )

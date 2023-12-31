@@ -17,3 +17,11 @@ export interface Course {
 export interface CourseResponse {
   course_table: Course[];
 }
+
+export interface SelectedFilters {
+  [key: string]: boolean;
+}
+
+export interface CreditResponse {
+  credit_table: number[];
+}

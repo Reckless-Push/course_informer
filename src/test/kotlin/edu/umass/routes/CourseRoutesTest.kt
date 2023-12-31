@@ -40,6 +40,7 @@ class CourseRoutesTest {
                     department = "CICS",
                     name = "Test Course",
                     description = "This is a test course",
+                    undergrad = true,
                     credits = 3,
                 ),
             )
@@ -74,6 +75,7 @@ class CourseRoutesTest {
             append("\"department\": \"CICS\",")
             append("\"name\": \"Renamed Test Course\",")
             append("\"description\": \"Renamed test course description\",")
+            append("\"undergrad\": true,")
             append("\"credits\": 3,")
             append("\"courseLevel\": 100")
             append("}")
