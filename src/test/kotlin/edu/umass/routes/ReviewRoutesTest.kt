@@ -33,6 +33,7 @@ class ReviewRoutesTest {
             cicsId = "101",
             name = "Intro to Programming",
             description = "An introductory course on programming",
+            undergrad = true,
             credits = 4,
             courseLevel = 100,
             department = "CICS",

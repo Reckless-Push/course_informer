@@ -23,6 +23,9 @@ object Courses : Table() {
     // of 255.
     val description = text("description")
 
+    // Boolean indicating whether the course is an undergraduate course.
+    val undergrad = bool("undergrad")
+
     // Number of credits that the course is worth.
     val credits = integer("credits")
 

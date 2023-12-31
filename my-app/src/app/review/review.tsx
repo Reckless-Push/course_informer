@@ -23,7 +23,7 @@ const ResponseForm = (course_data: Course) => {
   const initialReviewState: Review = {
     id: 0,
     professor: null,
-    course: null,
+    course: course_data,
     userId: null,
     date: null,
     difficulty: 5,
@@ -33,7 +33,7 @@ const ResponseForm = (course_data: Course) => {
     forCredit: false,
     attendance: false,
     textbook: false,
-    grade: "A",
+    grade: "",
   };
 
   const [review, setReview] = useState<Review>(initialReviewState);
@@ -46,7 +46,7 @@ const ResponseForm = (course_data: Course) => {
   );
 
   const { data: professorsData } = useFetchData<ProfessorResponse>(
-    process.env.NEXT_PUBLIC_BASE_URL + "/professor"
+    process.env.NEXT_PUBLIC_BASE_URL + "/professor/course/" + review.course?.id
   );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

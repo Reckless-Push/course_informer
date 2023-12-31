@@ -1,41 +1,47 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./css/courseFilter.module.css";
 
 interface CourseFilterProps {
   filterTitle: string;
   options: { label: string }[];
+  selectedFilters: { [key: string]: boolean };
+  setSelectedFilters: (
+    updateFunction: (prevState: { [key: string]: boolean }) => {
+      [key: string]: boolean;
+    }
+  ) => void;
 }
 
-const CourseFilter: React.FC<CourseFilterProps> = (props) => {
-  const [selectedOptions, setSelectedOptions] = useState<{
-    [key: string]: boolean;
-  }>({});
-
+const CourseFilter: React.FC<CourseFilterProps> = ({
+  filterTitle,
+  options,
+  selectedFilters,
+  setSelectedFilters,
+}) => {
   const handleCheckboxChange = (event: {
     target: { id: any; checked: any };
   }) => {
-    setSelectedOptions({
-      ...selectedOptions,
-      [event.target.id]: event.target.checked,
-    });
+    const { id, checked } = event.target;
+    setSelectedFilters((prevState) => ({
+      ...prevState,
+      [id]: checked,
+    }));
   };
 
   return (
     <div>
-      <h1 className={styles.filterTitle}> {props.filterTitle}</h1>
+      <h1 className={styles.filterTitle}> {filterTitle}</h1>
       <ul className={styles.listContainer}>
-        {props.options.map((option, index) => (
-          <li key={index}>
+        {options.map((option) => (
+          <li key={option.label}>
             <label className={styles.labelContainer} lang="en">
               <input
                 type="checkbox"
                 className={styles.filterOption}
-                id={`${props.filterTitle}-${index}`}
+                id={`${filterTitle}-${option.label}`}
                 onChange={handleCheckboxChange}
                 checked={
-                  selectedOptions[`${props.filterTitle}-${index}`]
-                    ? selectedOptions[`${props.filterTitle}-${index}`]
-                    : false
+                  selectedFilters[`${filterTitle}-${option.label}`] || false
                 }
               />
               {option.label}

@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import CourseList from "../components/CourseList";
 import CourseFiltersList from "../components/CourseFiltersList";
 import { ComponentStates } from "@/types/ComponentStates";
-import useFetchData from "@/app/hooks/useFetchData";
-import { CourseResponse } from "@/types/course";
+import { SelectedFilters } from "@/types/course";
 import styles from "@/app/courseCatalog/courseCatalog.module.css";
 
 interface CourseCatalogPage {
@@ -25,33 +24,20 @@ function CourseCatalogPage({
   onHome,
   componentStates,
 }: CourseCatalogPage) {
-  const {
-    data: courseData,
-    loading: courseLoading,
-    error: courseError,
-  } = useFetchData<CourseResponse>(
-    process.env.NEXT_PUBLIC_BASE_URL + "/course"
-  );
-
-  // Loading state
-  if (courseLoading) {
-    return <div>Loading...</div>;
-  }
-
-  // Error state
-  if (courseError) {
-    return <div>Error: {courseError.message}</div>;
-  }
+  const [selectedFilters, setSelectedFilters] = useState<SelectedFilters>({});
 
   return (
     <div className={styles.container}>
       <div className={styles.filters_column}>
-        <CourseFiltersList />
+        <CourseFiltersList
+          selectedFilters={selectedFilters}
+          setSelectedFilters={setSelectedFilters}
+        />
       </div>
       <div className={styles.list_column}>
         <CourseList
+          selectedFilters={selectedFilters}
           onUserInputChange={onUserInputChange}
-          courseData={courseData}
           onToggleComponent={onToggleComponent}
           onHome={onHome}
           componentStates={componentStates}

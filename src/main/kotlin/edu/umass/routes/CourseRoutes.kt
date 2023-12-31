@@ -36,6 +36,7 @@ import java.util.UUID
 import kotlinx.serialization.json.Json
 
 private const val ONE_HUNDRED = 100
+private const val GRAD_CUTOFF = 500
 
 private val logger = LoggerFactory.getLogger("Extractor")
 
@@ -48,6 +49,8 @@ fun Route.courseRoutes() {
     listCourses()
     ingestCourses()
     getCourse()
+    getSemesters()
+    getCredits()
     getFilteredCourses()
     addCourse()
     updateCourse()
@@ -118,14 +121,41 @@ fun Route.getCourse() {
 }
 
 /**
- * Route to get a course by ID.
+ * Get Semesters from the database.
+ *
+ * @receiver The Route on which to define the route.
+ */
+fun Route.getSemesters() {
+    get("/course/semester") { call.respond(mapOf("semester_table" to dao.allSemesters())) }
+}
+
+/**
+ * Get credits from the database.
+ *
+ * @receiver The Route on which to define the route.
+ */
+fun Route.getCredits() {
+    get("/course/credit") { call.respond(mapOf("credit_table" to dao.allCredits())) }
+}
+
+/**
+ * Route to filter courses in the database.
  *
  * @receiver The Route on which to define the route.
  */
 fun Route.getFilteredCourses() {
     post("/course/filter") {
-        val filter: CourseFilter = call.receive<CourseFilter>()
-        call.respond(mapOf("course_table" to dao.filteredCourses(filter)))
+        logger.info("Received a request to filter courses")
+        try {
+            val filter: CourseFilter = call.receive<CourseFilter>()
+            logger.info("Filter received: $filter")
+            val filteredCourses = dao.filteredCourses(filter)
+            logger.info("Filtered courses: $filteredCourses")
+            call.respond(mapOf("course_table" to filteredCourses))
+            logger.info("Response sent successfully")
+        } catch (e: Exception) {
+            logger.error("Error while filtering courses: ${e.message}")
+        }
     }
 }
 
@@ -264,6 +294,7 @@ private suspend fun newCourse(
             department = extractedCourse.department,
             name = extractedCourse.name,
             description = extractedCourse.description,
+            undergrad = extractedCourse.cicsId.calculateCourseLevel() < GRAD_CUTOFF,
             credits = extractedCourse.credits,
             instructors = newInstructors,
             prerequisites = extractedCourse.prerequisites,
@@ -303,8 +334,18 @@ private suspend fun updateProfessorIfNeeded(instructor: Professor): Professor {
 private fun determineSemestersOffered(
     oldCourse: List<Course>,
     semester: Semester,
-): List<Semester> =
-    if (oldCourse.isEmpty()) listOf(semester) else oldCourse[0].semestersOffered + semester
+): List<Semester> {
+    if (oldCourse.isEmpty()) {
+        return listOf(semester)
+    }
+
+    val semestersOffered = oldCourse[0].semestersOffered
+    return if (semestersOffered.any { it == semester }) {
+        semestersOffered
+    } else {
+        semestersOffered + semester
+    }
+}
 
 /**
  * Maps a list of professor strings to a list of Professor objects.

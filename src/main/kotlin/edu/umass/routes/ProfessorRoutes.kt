@@ -25,6 +25,7 @@ import io.ktor.server.routing.post
 fun Route.professorRoutes() {
     listProfessors()
     getProfessor()
+    getProfessorByCourse()
     addProfessor()
     updateProfessor()
     deleteProfessor()
@@ -56,6 +57,25 @@ fun Route.getProfessor() {
         val professor = dao.professor(id)
         professor?.let { call.respond(professor) }
             ?: call.respond(HttpStatusCode.NotFound, "No professor with id $id")
+    }
+}
+
+/**
+ * Route to get a professor by course id.
+ *
+ * @receiver The Route on which to define the route.
+ */
+fun Route.getProfessorByCourse() {
+    get("/professor/course/{id}") {
+        val id = call.parameters["id"]?.toIntOrNull()
+        id
+            ?: run {
+                call.respond(HttpStatusCode.BadRequest, "Missing or malformed id")
+                return@get
+            }
+
+        val professors = dao.professorByCourse(id)
+        professors.let { call.respond(mapOf("professor_table" to it)) }
     }
 }
 
