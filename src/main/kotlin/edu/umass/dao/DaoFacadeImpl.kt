@@ -174,7 +174,7 @@ class DaoFacadeImpl : DaoFacade {
         it[Users.lastName] = user.lastName
         it[Users.email] = user.email
         it[Users.favoriteCourses] =
-                user.favoriteCourses.map(Course::cicsId)
+                user.favoriteCourses.map(Course::id)
                     .joinToString(",")
                     .takeIf { it.isNotEmpty() }
         it[Users.reviews] = user.reviews.map(Review::id)

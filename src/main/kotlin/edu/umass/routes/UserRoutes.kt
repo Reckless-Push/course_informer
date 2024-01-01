@@ -8,6 +8,7 @@
 package edu.umass.routes
 
 import edu.umass.dao.dao
+import edu.umass.models.Course
 import edu.umass.models.User
 import edu.umass.models.UserInfo
 import edu.umass.models.UserSession
@@ -42,6 +43,7 @@ fun Route.userRoutes() {
     addUser()
     updateUser()
     deleteUser()
+    addFavoriteCourse()
 }
 
 /**
@@ -170,6 +172,38 @@ fun Route.deleteUser() {
             call.respondText("Deleted user $uuid", status = HttpStatusCode.Accepted)
         } else {
             call.respond(HttpStatusCode.NotFound, "No user with id $uuid")
+        }
+    }
+}
+
+/**
+ * Route to add a favorite course.
+ *
+ * @receiver The Route on which to define the route.
+ */
+fun Route.addFavoriteCourse() {
+    post("/user/current/star") {
+        val userSession: UserSession? = call.sessions.get()
+        userSession?.let {
+            val userInfo = getUserInfoFromSession(userSession)
+            val user = dao.user(createUserFromUserInfo(userInfo)?.uuid!!)
+            user
+                ?: run {
+                    call.respond(HttpStatusCode.BadRequest, "Invalid email address")
+                    return@post
+                }
+            val course: Course = call.receive<Course>()
+            if (user.favoriteCourses.any { it.id == course.id }) {
+                call.respond(HttpStatusCode.BadRequest, "Course already in favorites")
+            } else {
+                val updatedUser = user.copy(favoriteCourses = user.favoriteCourses + course)
+                val isUpdated = dao.editUser(updatedUser, updatedUser.uuid!!)
+                if (isUpdated) {
+                    call.respond(HttpStatusCode.OK, "${updatedUser.favoriteCourses}")
+                } else {
+                    call.respond(HttpStatusCode.BadRequest, "Failed to add favorite course")
+                }
+            }
         }
     }
 }

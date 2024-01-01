@@ -7,6 +7,9 @@ import { Professor, ProfessorResponse } from "@/types/professor";
 import { Review } from "@/types/review";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import styles from "@/app/review/review.module.css";
+import styles_button from "@/app/course/course.module.css";
+
+import { ComponentStates } from "@/types/ComponentStates";
 
 const theme = createTheme({
   palette: {
@@ -19,11 +22,17 @@ const theme = createTheme({
   },
 });
 
-const ResponseForm = (course_data: Course) => {
+function ResponseForm({
+  course_data,
+  onToggleComponent,
+}: {
+  course_data: Course;
+  onToggleComponent: (component: keyof ComponentStates) => void;
+}) {
   const initialReviewState: Review = {
     id: 0,
     professor: null,
-    course: course_data,
+    course: null,
     userId: null,
     date: null,
     difficulty: 5,
@@ -46,7 +55,7 @@ const ResponseForm = (course_data: Course) => {
   );
 
   const { data: professorsData } = useFetchData<ProfessorResponse>(
-    process.env.NEXT_PUBLIC_BASE_URL + "/professor/course/" + review.course?.id
+    process.env.NEXT_PUBLIC_BASE_URL + "/professor/course/" + course_data.id
   );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,6 +64,11 @@ const ResponseForm = (course_data: Course) => {
 
   const handleProfessorChange = (event: material.SelectChangeEvent) => {
     setSelectedProfessor(event.target.value as string);
+  };
+
+  const handleBackClick = () => {
+    onToggleComponent("reviews");
+    onToggleComponent("courses");
   };
 
   useEffect(() => {
@@ -76,11 +90,17 @@ const ResponseForm = (course_data: Course) => {
     });
     console.log(review); // Log the review object
     setIsSubmitClicked(true);
+
+    onToggleComponent("reviews");
+    onToggleComponent("courses");
   };
   const grade = ["A", "A-", "B", "B-", "C+", "C", "C-", "D+", "D", "F"];
   return (
     <div>
       {/* <Navbar></Navbar> */}
+      <button className={styles_button.backButton} onClick={handleBackClick}>
+        Back
+      </button>
       <div className={styles.main}>
         <div className={styles.content}>
           <div className={styles.CourseName}>
@@ -263,5 +283,6 @@ const ResponseForm = (course_data: Course) => {
       </div>
     </div>
   );
-};
+}
+
 export default ResponseForm;

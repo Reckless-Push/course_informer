@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./css/courseCard.module.css";
 import { ComponentStates } from "@/types/ComponentStates";
 import { Course } from "@/types/course";
+import axios from "axios";
 
 interface CourseCardProps {
   onUserInputChange: any;
@@ -24,6 +25,17 @@ function handleClick(props: CourseCardProps) {
   //props.onToggleComponent('login');
 }
 
+function handleStarClick(props: CourseCardProps) {
+  axios
+    .post<String>(
+      process.env.NEXT_PUBLIC_BASE_URL + "/user/current/star",
+      props.course
+    )
+    .then(console.log)
+    .catch(console.error);
+  console.log("Star clicked");
+}
+
 const CourseCard: React.FC<CourseCardProps> = (props) => {
   const formattedSemesters = props.course.semestersOffered
     ? props.course.semestersOffered
@@ -39,7 +51,9 @@ const CourseCard: React.FC<CourseCardProps> = (props) => {
         <p>Semesters offered: {formattedSemesters}</p>
       </div>
       <div className={styles.right_content}>
-        <span className={styles.star}>&#9733;</span>
+        <button className={styles.star} onClick={() => handleStarClick(props)}>
+          &#9733;
+        </button>
         <button
           className={styles.next_button}
           onClick={() => handleClick(props)}

@@ -1,4 +1,3 @@
-"use client";
 import CourseDesc from "@/app/components/CourseDesc";
 import Rating from "@/app/components/Rating";
 import Review from "@/app/components/Review";
@@ -6,13 +5,20 @@ import styles from "@/app/course/course.module.css";
 import useFetchData from "../hooks/useFetchData";
 import { ReviewResponse } from "@/types/review";
 import { Course } from "@/types/course";
+import { ComponentStates } from "@/types/ComponentStates";
 
 interface CoursePageProps {
   course_data: Course;
   onUserInputChange: any;
 }
 
-function CoursePage({ course_data, onUserInputChange }: CoursePageProps) {
+function CoursePage({
+  course_data,
+  onUserInputChange,
+  onToggleComponent,
+}: CoursePageProps & {
+  onToggleComponent: (component: keyof ComponentStates) => void;
+}) {
   console.log("Which course:", course_data);
   const {
     data: reviewData,
@@ -47,9 +53,16 @@ function CoursePage({ course_data, onUserInputChange }: CoursePageProps) {
     onUserInputChange(course_data);
   };
 
+  const handleBackClick = () => {
+    onToggleComponent("courses");
+    onToggleComponent("courseDashboard");
+  };
+
   return (
     <div className={styles.CoursePage}>
-      {/* <Navbar></Navbar> */}
+      <button className={styles.backButton} onClick={handleBackClick}>
+        Back
+      </button>
       <div className={styles.main}>
         {course_data && <CourseDesc {...course_data}></CourseDesc>}
 
