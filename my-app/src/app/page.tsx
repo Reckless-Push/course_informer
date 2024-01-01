@@ -70,10 +70,16 @@ const Home = () => {
         <CoursePage
           course_data={course}
           onUserInputChange={handleUserInputChange}
+          onToggleComponent={onToggleComponent}
         />
       )}
 
-      {componentStates.reviews && course && <ResponseForm {...course} />}
+      {componentStates.reviews && course && (
+        <ResponseForm
+          course_data={course}
+          onToggleComponent={onToggleComponent}
+        />
+      )}
       {componentStates.user && <ProfilePage />}
       {componentStates.courseDashboard && (
         <CourseCatalogPage
