@@ -44,6 +44,8 @@ fun Route.userRoutes() {
     updateUser()
     deleteUser()
     addFavoriteCourse()
+    removeFavoriteCourse()
+    getFavoriteCourses()
 }
 
 /**
@@ -185,8 +187,7 @@ fun Route.addFavoriteCourse() {
     post("/user/current/star") {
         val userSession: UserSession? = call.sessions.get()
         userSession?.let {
-            val userInfo = getUserInfoFromSession(userSession)
-            val user = dao.user(createUserFromUserInfo(userInfo)?.uuid!!)
+            val user = getUserFromSession(userSession)
             user
                 ?: run {
                     call.respond(HttpStatusCode.BadRequest, "Invalid email address")
@@ -206,6 +207,70 @@ fun Route.addFavoriteCourse() {
             }
         }
     }
+}
+
+/**
+ * Route to remove favorite course from current user
+ *
+ * @receiver The Route on which to define the route.
+ */
+fun Route.removeFavoriteCourse() {
+    post("/user/current/removeStar") {
+        val userSession: UserSession? = call.sessions.get()
+        userSession?.let {
+            val user = getUserFromSession(userSession)
+            user
+                ?: run {
+                    call.respond(HttpStatusCode.BadRequest, "Invalid email address")
+                    return@post
+                }
+            val courseId: Int = call.receive<String>().toInt()
+            if (user.favoriteCourses.any { it.id == courseId }) {
+                val updatedUser =
+                    user.copy(favoriteCourses = user.favoriteCourses.filter { it.id != courseId })
+                val isUpdated = dao.editUser(updatedUser, updatedUser.uuid!!)
+                if (isUpdated) {
+                    call.respond(HttpStatusCode.OK, "${updatedUser.favoriteCourses}")
+                } else {
+                    call.respond(HttpStatusCode.BadRequest, "Failed to remove favorite course")
+                }
+            } else {
+                call.respond(HttpStatusCode.BadRequest, "Course not in favorites")
+            }
+        }
+    }
+}
+
+/**
+ * Route to get the current users favorite courses
+ *
+ * @receiver The Route on which to define the route.
+ */
+fun Route.getFavoriteCourses() {
+    get("/user/current/favorites") {
+        val userSession: UserSession? = call.sessions.get()
+        userSession?.let {
+            val user = getUserFromSession(userSession)
+            user
+                ?: run {
+                    call.respond(HttpStatusCode.BadRequest, "Invalid email address")
+                    return@get
+                }
+            val favoriteCourseIds = user.favoriteCourses.map { it.id }
+            call.respond(HttpStatusCode.OK, favoriteCourseIds)
+        }
+    }
+}
+
+/**
+ * Gets the user from the session.
+ *
+ * @param userSession The user session.
+ * @return The user.
+ */
+suspend fun getUserFromSession(userSession: UserSession?): User? {
+    val userInfo = userSession?.let { getUserInfoFromSession(it) }
+    return dao.user(userInfo?.let { createUserFromUserInfo(it)?.uuid }!!)
 }
 
 /**

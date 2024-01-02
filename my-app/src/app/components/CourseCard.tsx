@@ -5,6 +5,8 @@ import { Course } from "@/types/course";
 import axios from "axios";
 
 interface CourseCardProps {
+  fetchFavoriteCourses: () => void;
+  favoriteCourses: number[];
   onUserInputChange: any;
   course: Course;
   onToggleComponent: (component: keyof ComponentStates) => void;
@@ -25,13 +27,31 @@ function handleClick(props: CourseCardProps) {
   //props.onToggleComponent('login');
 }
 
+function handleRemoveStarClick(props: CourseCardProps) {
+  axios
+    .post<String>(
+      process.env.NEXT_PUBLIC_BASE_URL + "/user/current/removeStar",
+      props.course.id
+    )
+    .then((res) => {
+      props.fetchFavoriteCourses();
+      console.log(res);
+    })
+    .catch(console.error);
+
+  console.log("Remove stat clicked");
+}
+
 function handleStarClick(props: CourseCardProps) {
   axios
     .post<String>(
       process.env.NEXT_PUBLIC_BASE_URL + "/user/current/star",
       props.course
     )
-    .then(console.log)
+    .then((res) => {
+      props.fetchFavoriteCourses();
+      console.log(res);
+    })
     .catch(console.error);
   console.log("Star clicked");
 }
@@ -42,6 +62,13 @@ const CourseCard: React.FC<CourseCardProps> = (props) => {
         .map((semester) => `${semester.season} ${semester.year}`)
         .join(", ")
     : "Not available";
+
+  const isFavorite = props.favoriteCourses.includes(props.course.id);
+  const starColor = isFavorite ? "yellow" : "white";
+  const handleStarClickFunc = isFavorite
+    ? handleRemoveStarClick
+    : handleStarClick;
+
   return (
     <div className={styles.card}>
       <div className={styles.left_content}>
@@ -51,7 +78,11 @@ const CourseCard: React.FC<CourseCardProps> = (props) => {
         <p>Semesters offered: {formattedSemesters}</p>
       </div>
       <div className={styles.right_content}>
-        <button className={styles.star} onClick={() => handleStarClick(props)}>
+        <button
+          className={styles.star}
+          onClick={() => handleStarClickFunc(props)}
+          style={{ color: starColor }}
+        >
           &#9733;
         </button>
         <button

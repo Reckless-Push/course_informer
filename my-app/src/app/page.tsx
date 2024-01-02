@@ -80,7 +80,14 @@ const Home = () => {
           onToggleComponent={onToggleComponent}
         />
       )}
-      {componentStates.user && <ProfilePage />}
+      {componentStates.user && (
+        <ProfilePage
+          onUserInputChange={handleUserInputChange}
+          onToggleComponent={onToggleComponent}
+          onHome={onHome}
+          componentStates={componentStates}
+        />
+      )}
       {componentStates.courseDashboard && (
         <CourseCatalogPage
           onUserInputChange={handleUserInputChange}

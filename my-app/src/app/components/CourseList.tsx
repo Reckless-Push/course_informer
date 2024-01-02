@@ -4,6 +4,7 @@ import { ComponentStates } from "@/types/ComponentStates";
 import usePostData from "@/app/hooks/usePostData";
 import { CourseResponse, SelectedFilters } from "@/types/course";
 import { CourseFilterData } from "@/types/CourseFilterData";
+import axios from "axios";
 
 interface CourseListProps {
   selectedFilters: SelectedFilters;
@@ -68,6 +69,19 @@ function CourseList({
     isSubmitClicked
   );
 
+  const [favoriteCourses, setFavoriteCourses] = useState<number[]>([]);
+  // Function to fetch favorite courses
+  const fetchFavoriteCourses = () => {
+    axios
+      .get(process.env.NEXT_PUBLIC_BASE_URL + "/user/current/favorites")
+      .then((response) => setFavoriteCourses(response.data))
+      .catch((error) => console.error(error));
+  };
+
+  useEffect(() => {
+    fetchFavoriteCourses();
+  }, []);
+
   useEffect(() => {
     if (isSubmitClicked) {
       setIsSubmitClicked(false);
@@ -99,6 +113,8 @@ function CourseList({
 
         return (
           <CourseCard
+            fetchFavoriteCourses={fetchFavoriteCourses}
+            favoriteCourses={favoriteCourses}
             key={course.cicsId}
             onUserInputChange={onUserInputChange}
             course={course}
