@@ -15,6 +15,7 @@ $dokka.location:edu.umass.dao/DaoFacade/addNewUser/#edu.umass.models.User/Pointi
 $dokka.location:edu.umass.dao/DaoFacade/allCourseReviews/#kotlin.Int/PointingToDeclaration/course-informer/edu.umass.dao/-dao-facade/all-course-reviews.html
 $dokka.location:edu.umass.dao/DaoFacade/allCourses/#/PointingToDeclaration/course-informer/edu.umass.dao/-dao-facade/all-courses.html
 $dokka.location:edu.umass.dao/DaoFacade/allCredits/#/PointingToDeclaration/course-informer/edu.umass.dao/-dao-facade/all-credits.html
+$dokka.location:edu.umass.dao/DaoFacade/allProfessorCourseReviews/#kotlin.Int#kotlin.Int/PointingToDeclaration/course-informer/edu.umass.dao/-dao-facade/all-professor-course-reviews.html
 $dokka.location:edu.umass.dao/DaoFacade/allProfessorReviews/#kotlin.Int/PointingToDeclaration/course-informer/edu.umass.dao/-dao-facade/all-professor-reviews.html
 $dokka.location:edu.umass.dao/DaoFacade/allProfessors/#/PointingToDeclaration/course-informer/edu.umass.dao/-dao-facade/all-professors.html
 $dokka.location:edu.umass.dao/DaoFacade/allReviews/#/PointingToDeclaration/course-informer/edu.umass.dao/-dao-facade/all-reviews.html
@@ -46,6 +47,7 @@ $dokka.location:edu.umass.dao/DaoFacadeImpl/addNewUser/#edu.umass.models.User/Po
 $dokka.location:edu.umass.dao/DaoFacadeImpl/allCourseReviews/#kotlin.Int/PointingToDeclaration/course-informer/edu.umass.dao/-dao-facade-impl/all-course-reviews.html
 $dokka.location:edu.umass.dao/DaoFacadeImpl/allCourses/#/PointingToDeclaration/course-informer/edu.umass.dao/-dao-facade-impl/all-courses.html
 $dokka.location:edu.umass.dao/DaoFacadeImpl/allCredits/#/PointingToDeclaration/course-informer/edu.umass.dao/-dao-facade-impl/all-credits.html
+$dokka.location:edu.umass.dao/DaoFacadeImpl/allProfessorCourseReviews/#kotlin.Int#kotlin.Int/PointingToDeclaration/course-informer/edu.umass.dao/-dao-facade-impl/all-professor-course-reviews.html
 $dokka.location:edu.umass.dao/DaoFacadeImpl/allProfessorReviews/#kotlin.Int/PointingToDeclaration/course-informer/edu.umass.dao/-dao-facade-impl/all-professor-reviews.html
 $dokka.location:edu.umass.dao/DaoFacadeImpl/allProfessors/#/PointingToDeclaration/course-informer/edu.umass.dao/-dao-facade-impl/all-professors.html
 $dokka.location:edu.umass.dao/DaoFacadeImpl/allReviews/#/PointingToDeclaration/course-informer/edu.umass.dao/-dao-facade-impl/all-reviews.html
@@ -285,6 +287,7 @@ $dokka.location:edu.umass.routes//ingestCourses/io.ktor.server.routing.Route#/Po
 $dokka.location:edu.umass.routes//isLoggedIn/io.ktor.server.routing.Route#/PointingToDeclaration/course-informer/edu.umass.routes/is-logged-in.html
 $dokka.location:edu.umass.routes//listCourseReviews/io.ktor.server.routing.Route#/PointingToDeclaration/course-informer/edu.umass.routes/list-course-reviews.html
 $dokka.location:edu.umass.routes//listCourses/io.ktor.server.routing.Route#/PointingToDeclaration/course-informer/edu.umass.routes/list-courses.html
+$dokka.location:edu.umass.routes//listProfessorCourseReviews/io.ktor.server.routing.Route#/PointingToDeclaration/course-informer/edu.umass.routes/list-professor-course-reviews.html
 $dokka.location:edu.umass.routes//listProfessorReviews/io.ktor.server.routing.Route#/PointingToDeclaration/course-informer/edu.umass.routes/list-professor-reviews.html
 $dokka.location:edu.umass.routes//listProfessors/io.ktor.server.routing.Route#/PointingToDeclaration/course-informer/edu.umass.routes/list-professors.html
 $dokka.location:edu.umass.routes//listReviews/io.ktor.server.routing.Route#/PointingToDeclaration/course-informer/edu.umass.routes/list-reviews.html

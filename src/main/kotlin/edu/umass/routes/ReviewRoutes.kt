@@ -36,6 +36,7 @@ fun Route.reviewRoutes() {
     listUserReviews()
     listCourseReviews()
     listProfessorReviews()
+    listProfessorCourseReviews()
     getReview()
     addReview()
     updateReview()
@@ -108,6 +109,34 @@ fun Route.listProfessorReviews() {
             }
 
         call.respond(mapOf("review_table" to dao.allProfessorReviews(id)))
+    }
+}
+
+/**
+ * Route to list all reviews for a given professor and course.
+ *
+ * @receiver The Route on which to define the route.
+ */
+fun Route.listProfessorCourseReviews() {
+    get("/review/professor/{profId}/{courseId}") {
+        val profId = call.parameters["profId"]?.toIntOrNull()
+        val courseId = call.parameters["courseId"]?.toIntOrNull()
+        profId
+            ?: run {
+                call.respond(HttpStatusCode.BadRequest, "Missing or malformed profId")
+                return@get
+            }
+        courseId
+            ?: run {
+                call.respond(HttpStatusCode.BadRequest, "Missing or malformed courseId")
+                return@get
+            }
+
+        call.respond(
+            mapOf(
+                "review_table" to dao.allProfessorCourseReviews(profId, courseId),
+            ),
+        )
     }
 }
 

@@ -220,6 +220,18 @@ interface DaoFacade {
     suspend fun allProfessorReviews(id: Int): List<Review>
 
     /**
+     * Retrieves a list of all reviews for a given professor and course.
+     *
+     * @param profId The unique identifier for a Professor.
+     * @param courseId The unique identifier for a Course.
+     * @return A list of Review objects.
+     */
+    suspend fun allProfessorCourseReviews(
+        profId: Int,
+        courseId: Int,
+    ): List<Review>
+
+    /**
      * Retrieves a review by its unique identifier.
      *
      * @param id The unique identifier for a Review.

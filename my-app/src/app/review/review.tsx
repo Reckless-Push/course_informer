@@ -48,6 +48,7 @@ function ResponseForm({
   const [review, setReview] = useState<Review>(initialReviewState);
   const [selectedProfessor, setSelectedProfessor] = useState<string>("");
   const [isSubmitClicked, setIsSubmitClicked] = useState(false);
+
   const { data, loading, error } = usePostData<Review, Review>(
     process.env.NEXT_PUBLIC_BASE_URL + "/review",
     review,
@@ -83,17 +84,22 @@ function ResponseForm({
       (prof) => prof.firstName === selectedProfessor
     );
 
-    setReview({
+    const updatedReview = {
       ...review,
       professor: selectedProfessorObject ? selectedProfessorObject : null,
       course: course_data ? course_data : null,
-    });
-    console.log(review); // Log the review object
-    setIsSubmitClicked(true);
+    };
 
-    onToggleComponent("reviews");
-    onToggleComponent("courses");
+    // Set the review state
+    setReview(updatedReview);
+
+    // Use a callback with setState to ensure setIsSubmitClicked is called after the state is updated
+    setReview((prevReview) => {
+      setIsSubmitClicked(true);
+      return { ...prevReview, ...updatedReview };
+    });
   };
+
   const grade = ["A", "A-", "B", "B-", "C+", "C", "C-", "D+", "D", "F"];
   return (
     <div>

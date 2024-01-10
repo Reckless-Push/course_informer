@@ -4,9 +4,10 @@ import styles from "@/app/components/css/courserating.module.css";
 interface RatingProps {
   quality: number[];
   difficulty: number[];
+  id: string;
 }
 
-function Rating({ quality, difficulty }: RatingProps) {
+function Rating({ quality, difficulty, id }: RatingProps) {
   let qualitySum = (quality.reduce((a, b) => a + b) / quality.length).toFixed(
     1
   );
@@ -22,7 +23,7 @@ function Rating({ quality, difficulty }: RatingProps) {
     percent[index] = String((value * 100) / quality.length) + "%";
   });
   return (
-    <div className={styles.Rating}>
+    <div key={id} className={styles.Rating}>
       <div className={styles.RatingDistributionContainer}>
         <div className={styles.RatingDistributionHeader}>
           Rating Distribution
@@ -30,7 +31,7 @@ function Rating({ quality, difficulty }: RatingProps) {
         </div>
         <div className={styles.row}>
           {qualityCount.map((value, index) => (
-            <div key={value}>
+            <div key={`${id}-${index}`}>
               <div className={styles.left}>{5 - index}star</div>
               <div className={styles.middle}>
                 <div className={styles.barContainer}>
