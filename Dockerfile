@@ -5,6 +5,7 @@ ENV NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL}
 WORKDIR /app
 # Cache dependencies by copying package files first
 COPY my-app/package.json my-app/package-lock.json ./
+RUN npm install -g npm
 RUN npm install
 COPY my-app/. ./
 RUN npm run build

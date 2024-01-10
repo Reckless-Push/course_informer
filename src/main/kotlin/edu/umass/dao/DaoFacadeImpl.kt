@@ -545,6 +545,21 @@ class DaoFacadeImpl : DaoFacade {
     }
 
     /**
+     * Retrieves a list of all reviews for a given professor and course.
+     *
+     * @param profId The ID of the professor.
+     * @param courseId The CICS ID of the course.
+     * @return A list of Review objects.
+     */
+    override suspend fun allProfessorCourseReviews(
+        profId: Int,
+        courseId: Int,
+    ): List<Review> = dbQuery {
+        Reviews.select { (Reviews.professorId eq profId) and (Reviews.courseId eq courseId) }
+            .map { resultRowToReview(it) }
+    }
+
+    /**
      * Retrieves a review by its unique identifier.
      *
      * @param id The unique identifier for a Review.
